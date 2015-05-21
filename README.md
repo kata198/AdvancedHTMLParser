@@ -152,12 +152,12 @@ The following example shows scraping a webpage to extract data tht meet certain 
 
 **Output**
 
-Items less than $4.00:
------------------------
+    Items less than $4.00:
+    -----------------------
 
-Sponges - $1.96
-Turtles - $3.55
-Pudding Cups - $1.60
+    Sponges - $1.96
+    Turtles - $3.55
+    Pudding Cups - $1.60
 
 
 Contact Me / Support
