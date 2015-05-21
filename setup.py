@@ -42,30 +42,52 @@ each AdvancedTag also supports the same getElementsBy\* functions as the parser.
 some of these include:
 
     appendText              -  Append text to this element
+
     appendChild             -  Append a child to this element
+
     removeChild             -  Removes a child
+
     getChildren             - Returns the children as a list
+
     getStartTag             - Start Tag, with attributes
+
     getEndTag               - End Tag
+
     getPeersByName          - Gets "peers" (elements with same parent, at same level in tree) with a given name
+
     getPeersByAttr          - Gets peers by an arbitrary attribute/value combination
+
     getPeersWithAttrValues  - Gets peers by an arbitrary attribute/values combination. 
+
     getPeersByClassName   - Gets peers that contain a given class name
+
     getElement\*            - Same as above, but act on the children of this element.
+
     {get,set,has}Attribute  - get/set/test for an attribute
+
     {add,remove}Class       - Add/remove a class from the list of classes
+
     getUid                  - Get a unique ID for this tag (internal)
+
     __str__                 - str(tag) will show start tag with attributes, inner text, and end tag
+
     __getitem__             - Can be indexed like tag[2] to access second child.
+
 
 And some properties:
 
     children/childNodes     - The children as a list
+
     innerHTML               - The innerHTML including the html of all children
+
     outerHTML               - innerHTML wrapped in this tag
+
     classNames/classList    - a list of the classes
+
     parentNode/parentElement - The parent tag
+
     tagName                - The tag name
+
 
 
 Notes
@@ -108,7 +130,7 @@ I am available by email to provide support, answer questions, or otherwise  prov
 if __name__ == '__main__':
 
     setup(name='AdvancedHTMLParser',
-            version='3.1.1',
+            version='3.1.2',
             packages=['AdvancedHTMLParser'],
             author='Tim Savannah',
             author_email='kata198@gmail.com',
