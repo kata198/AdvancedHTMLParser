@@ -113,6 +113,7 @@ if __name__ == '__main__':
             author='Tim Savannah',
             author_email='kata198@gmail.com',
             maintainer='Tim Savannah',
+            url='https://github.com/kata198/AdvancedHTMLParser',
             maintainer_email='kata198@gmail.com',
             description='A Powerful HTML Parser/Scraper/Validator that constructs a modifiable, searchable DOM tree, and includes many standard JS DOM functions (getElementsBy*, appendChild, etc) and additional methods',
             long_description=long_description,
