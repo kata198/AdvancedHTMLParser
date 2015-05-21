@@ -54,3 +54,12 @@ for item in items:
 
         print ( "%s - $%.2f" %(name, priceValue) )
 
+
+# OUTPUT:
+# Items less than $4.00: 
+# -----------------------
+# 
+# Sponges - $1.96
+# Turtles - $3.55
+# Pudding Cups - $1.60
+
