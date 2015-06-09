@@ -21,12 +21,19 @@ The AdvancedHTMLParser can read in a file (or string) of HTML, and will create a
 The parser then exposes many "standard" functions as you'd find on the web for accessing the data:
 
     getElementsByTagName   - Returns a list of all elements matching a tag name
+
     getElementsByName      - Returns a list of all elements with a given name attribute
+
     getElementById         - Returns a single AdvancedTag (or None) if found an element matching the provided ID
+
     getElementsByClassName - Returns a list of all elements containing a class name
+
     getElementsByAttr       - Returns a list of all elements matching a paticular attribute/value pair.
+
     getElementsWithAttrValues - Returns a list of all elements with a specific attribute name containing one of a list of values
+
     getHTML                 - Returns string of HTML representing this DOM
+
 
 The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
 
