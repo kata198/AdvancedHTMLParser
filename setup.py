@@ -127,6 +127,11 @@ Example Usage
 
 See `This Example <https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/example.py>`_ for an example of parsing store data using this class.
 
+Changes
+-------
+See: https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/ChangeLog
+
+
 Contact Me / Support
 --------------------
 
@@ -137,7 +142,7 @@ I am available by email to provide support, answer questions, or otherwise  prov
 if __name__ == '__main__':
 
     setup(name='AdvancedHTMLParser',
-            version='3.1.2',
+            version='4.0.0',
             packages=['AdvancedHTMLParser'],
             author='Tim Savannah',
             author_email='kata198@gmail.com',

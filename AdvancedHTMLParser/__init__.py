@@ -3,11 +3,15 @@
 #
 # In general below, all "tag names" (body, div, etc) should be lowercase. The parser will lowercase internally. All attribute names (like `id` in id="123") provided to search functions should be lowercase. Values are not lowercase. This is because doing tons of searches, lowercasing every search can quickly build up. Lowercase it once in your code, not every time you call a function.
 
+import sys
+
 # Python 2/3 compatibility:
 try:
     from HTMLParser import HTMLParser
+    pyver = 2
 except ImportError:
     from html.parser import HTMLParser
+    pyver = 3
 
 try:
     file
@@ -18,6 +22,12 @@ import uuid
 # End Compat
 
 from collections import defaultdict
+
+
+
+__version__ = '4.0.0'
+
+IMPLICIT_SELF_CLOSING_TAGS = ('meta', 'link')
 
 
 def uniqueTags(tagList):
@@ -159,12 +169,13 @@ class AdvancedTag(object):
 
         Use the getters and setters instead of attributes directly, or you may lose accounting.
     '''
-    def __init__(self, tagName, attrList=None):
+    def __init__(self, tagName, attrList=None, isSelfClosing=False):
         '''
             __init__ - Construct
 
                 @param tagName - String of tag name. This will be lowercased!
                 @param attrList - A list of tuples (key, value)
+                @param isSelfClosing - True if self-closing tag ( <tagName attrs /> ) will be set to False if text or children are added.
         '''
                 
         self.tagName = tagName.lower()
@@ -176,6 +187,9 @@ class AdvancedTag(object):
 
         self.text = ''
         self.blocks = ['']
+
+        self.isSelfClosing = isSelfClosing
+
         if 'class' in self.attributes:
             self.className = self.attributes['class']
             self.classNames = [x for x in self.attributes['class'].split(' ') if x]
@@ -193,6 +207,7 @@ class AdvancedTag(object):
             appendText - append some inner text
         '''
         self.text += text
+        self.isSelfClosing = False # inner text means it can't self close anymo
         self.blocks.append(text)
 
     def removeText(self, text):
@@ -220,6 +235,7 @@ class AdvancedTag(object):
         '''
     
         child.parentNode = self
+        self.isSelfClosing = False
         self.children.append(child)
         self.blocks.append(child)
         return child
@@ -301,14 +317,27 @@ class AdvancedTag(object):
         '''
         attributeString = []
         for name, val in self.attributes.items():
-            attributeString.append('%s="%s"' %(name, val.replace('"', '\\"')))
-        attributeString = ' '.join(attributeString)
-        return "<%s %s>" %(self.tagName, attributeString)
+            if val:
+                val = val.replace('"', '\\"')
+                attributeString.append('%s="%s"' %(name, val) )
+
+        if attributeString:
+            attributeString = ' ' + ' '.join(attributeString)
+        else:
+            attributeString = ''
+
+        if self.isSelfClosing is False:
+            return "<%s%s >" %(self.tagName, attributeString)
+        else:
+            return "<%s%s />" %(self.tagName, attributeString)
     
     def getEndTag(self):
         '''
             getEndTag - returns the end tag
         '''
+        if self.isSelfClosing is True:
+            return ''
+
         return "</%s>" %(self.tagName)
 
     @property
@@ -316,6 +345,8 @@ class AdvancedTag(object):
         '''
             innerHTML - Returns a string of the inner contents of this tag, including children.
         '''
+        if self.isSelfClosing is True:
+            return ''
         ret = []
         for block in self.blocks:
             if isinstance(block, AdvancedTag):
@@ -482,7 +513,7 @@ class AdvancedTag(object):
 
 class AdvancedHTMLParser(HTMLParser):
 
-    def __init__(self, filename=None, indexIDs=True, indexNames=True, indexClassNames=False, indexTagNames=False, onlyCheckIndexOnIndexedFields=True):
+    def __init__(self, filename=None, indexIDs=True, indexNames=True, indexClassNames=False, indexTagNames=False, onlyCheckIndexOnIndexedFields=True, encoding='utf-8'):
         '''
             __init__ - Creates an Advanced HTML parser object, with specific indexing settings.
               For the various index* fields, if True an index will be created for the respective attribute. If an index is found, the index is used during search
@@ -503,13 +534,21 @@ class AdvancedHTMLParser(HTMLParser):
                                                         only they are returned.  This is useful if you are concurrently modifying and scanning the tree. 
                                                         Note the `reindex` method on this class which will rebuild the index.
                                                         If this is False, the tag name index may be present but will not be used.
+
+                @param encoding <str> - Specifies the document encoding. Default utf-8
                                             
         '''
               
                 
         HTMLParser.__init__(self)
+
+        self.encoding = encoding
+
+
+
         self.inTag = []
         self.root = None
+        self.doctype = None
 
         self.indexFunctions = []
         self.otherAttributeIndexFunctions = {}
@@ -594,8 +633,13 @@ class AdvancedHTMLParser(HTMLParser):
 
     ######## Parsing #########
 
-    def handle_starttag(self, tagName, attributeList):
-        newTag = AdvancedTag(tagName, attributeList)
+    def handle_starttag(self, tagName, attributeList, isSelfClosing=False):
+        tagName = tagName.lower()
+
+        if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
+            isSelfClosing = True
+
+        newTag = AdvancedTag(tagName, attributeList, isSelfClosing)
         if self.root is None:
             self.root = newTag
         elif len(self.inTag) > 0:
@@ -603,15 +647,45 @@ class AdvancedHTMLParser(HTMLParser):
         else:
             raise MultipleRootNodeException()
         self._indexTag(newTag)
-        self.inTag.append(newTag)
 
+        if isSelfClosing is False:
+            self.inTag.append(newTag)
+
+    def handle_startendtag(self, tagName, attributeList):
+        return self.handle_starttag(tagName, attributeList, True)
 
     def handle_endtag(self, tagName):
-        self.inTag = self.inTag[:-1]
+        try:
+            # Handle closing tags which should have been closed but weren't
+            while self.inTag[-1].tagName != tagName:
+                self.inTag.pop()
+
+            self.inTag.pop()
+        except:
+            pass
 
     def handle_data(self, data):
         if data and len(self.inTag) > 0:
             self.inTag[-1].appendText(data)
+
+    def handle_entityref(self, entity):
+        if len(self.inTag) > 0:
+            self.inTag[-1].appendText('&%s;' %(entity,))
+
+    def handle_charref(self, charRef):
+        if len(self.inTag) > 0:
+            self.inTag[-1].appendText('&#%s;' %(charRef,))
+
+    def handle_comment(self, comment):
+        if len(self.inTag) > 0:
+            self.inTag[-1].appendText('<!-- %s -->' %(comment,))
+
+    def handle_decl(self, decl):
+        self.doctype = decl
+
+    def unknown_decl(self, decl):
+        if not self.doctype:
+            self.doctype = decl
 
 ###########################################
 #####        Public                 #######
@@ -868,9 +942,15 @@ class AdvancedHTMLParser(HTMLParser):
         root = self.getRoot()
         if root is None:
             raise ValueError('Did not parse anything. Use parseFile or parseStr')
+
+        if self.doctype:
+            doctypeStr = '<!%s>\n' %(self.doctype)
+        else:
+            doctypeStr = ''
+
         if root.tagName == 'XXXblank': # If we had to add a temp tag, don't include it here.
-            return ''.join([x.outerHTML() for x in root.children]) 
-        return self.outerHTML
+            return doctypeStr + ''.join([x.outerHTML() for x in root.children]) 
+        return doctypeStr + root.outerHTML
 
     def _reset(self):
         '''
@@ -879,9 +959,15 @@ class AdvancedHTMLParser(HTMLParser):
         HTMLParser.reset(self)
         self._resetIndexInternal()
         self.root = None
+        self.doctype = None
         self.inTag = []
 
     def feed(self, contents):
+        if self.encoding != sys.getdefaultencoding():
+            if pyver == 2:
+                contents = contents.decode(self.encoding)
+            else:
+                contents = contents.encode().decode('utf-8')
         try:
             HTMLParser.feed(self, contents)
         except MultipleRootNodeException:

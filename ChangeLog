@@ -1,0 +1,8 @@
+* 4.0.0 June 9 2015
+ - Fix handling of entities, character refs and comments
+ - Add support for including doctype
+ - Fix issues with getHTML
+ - Implicitly close "meta" and "link" tags if they are not self-closed.
+ - Better-support self-closing tags overall
+ - Handle people who do not close child tags before closing parent
+ - Unicode support

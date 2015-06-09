@@ -159,6 +159,9 @@ The following example shows scraping a webpage to extract data tht meet certain 
     Turtles - $3.55
     Pudding Cups - $1.60
 
+Changes
+-------
+See: https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/ChangeLog
 
 Contact Me / Support
 --------------------
