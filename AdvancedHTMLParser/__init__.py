@@ -25,9 +25,9 @@ from collections import defaultdict
 
 
 
-__version__ = '4.0.0'
+__version__ = '4.0.1'
 
-IMPLICIT_SELF_CLOSING_TAGS = ('meta', 'link')
+IMPLICIT_SELF_CLOSING_TAGS = set(['meta', 'link', 'input', 'img', 'hr', 'br'])
 
 
 def uniqueTags(tagList):

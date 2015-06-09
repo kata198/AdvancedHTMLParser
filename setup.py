@@ -142,7 +142,7 @@ I am available by email to provide support, answer questions, or otherwise  prov
 if __name__ == '__main__':
 
     setup(name='AdvancedHTMLParser',
-            version='4.0.0',
+            version='4.0.1',
             packages=['AdvancedHTMLParser'],
             author='Tim Savannah',
             author_email='kata198@gmail.com',

@@ -1,3 +1,6 @@
+* 4.0.1 June 9 2015
+ - Also add input, img, hr, br to self-closing tags and make a set
+
 * 4.0.0 June 9 2015
  - Fix handling of entities, character refs and comments
  - Add support for including doctype
