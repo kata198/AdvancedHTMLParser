@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+from AdvancedHTMLParser import AdvancedHTMLFormatter
+
+
+def printUsage():
+    sys.stderr.write('''Usage: %s [/path/to/in.html] (optional: [/path/to/output.html])
+  Formats HTML on input and writes to output file, or stdout if output file is omitted.
+''' %(os.path.basename(sys.argv[0])))
+
+indent = '  '
+inFilename  = None
+outFilename = None
+
+args = sys.argv[1:]
+for arg in sys.argv[1:]:
+    if arg.startswith('--indent='):
+        indent = arg[len('--indent='):]
+        if indent.isdigit():
+            indent = ' ' * indent
+        elif len(indent.replace(' ', '').replace('\t', '').replace('\r', '').replace('\n', '')) > 0:
+            sys.stderr.write('Supported values for indent are: # of spaces, or a string of tabs, spaces, newlines which represent one level of indentation.\n')
+            sys.exit(1)
+        args.remove(arg)
+    elif arg == '--help':
+        printUsage()
+        sys.exit(1)
+    elif inFilename is None:
+        inFilename = arg
+    elif outFilename is None:
+        outFilename = arg
+    else:
+        sys.stderr.write('Too many arguments\n\n')
+        printUsage()
+        sys.exit(1)
+
+if not inFilename:
+    sys.stderr.write('No input filename provided\n')
+    printUsage()
+    sys.exit(1)
+
+if not os.path.isfile(inFilename):
+    sys.stderr.write('Input file "%s" does not exist.\n' %(inFilename,))
+    sys.exit(1)
+
+if outFilename:
+    try:
+        outFile = open(outFilename, 'w')
+    except IOError:
+        sys.stderr.write('Cannot open output file %s\n' %(outFilename,))
+    
+
+formatter = AdvancedHTMLFormatter(indent=indent)
+formatter.parseFile(inFilename)
+
+if outFilename:
+    outFile.write(formatter.getHTML())
+else:
+    sys.stdout.write(formatter.getHTML())

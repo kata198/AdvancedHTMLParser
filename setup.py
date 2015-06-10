@@ -6,7 +6,7 @@ long_description = """
 AdvancedHTMLParser
 ==================
 
-AdvancedHTMLParser is an Advanced HTML Parser and writer written in python, and compatible and tested in Python 2.7 and Python 3.4.
+AdvancedHTMLParser is an Advanced HTML Parser, writer, and formatter written in python, and compatible and tested in Python 2.7 and Python 3.4.
 
 There are many potential applications, not limited to:
  * Webpage Scraping / Data Extraction
@@ -15,6 +15,7 @@ There are many potential applications, not limited to:
  * Debugging
  * HTML Document generation
  * Web Crawling
+ * Formatting HTML documents or web pages
 
 The AdvancedHTMLParser can read in a file (or string) of HTML, and will create a modifiable DOM tree from it. It can also be constructed manually from AdvancedHTMLParser.AdvancedTag objects.
 
@@ -33,6 +34,8 @@ The parser then exposes many "standard" functions as you'd find on the web for a
     getElementsWithAttrValues - Returns a list of all elements with a specific attribute name containing one of a list of values
 
     getHTML                 - Returns string of HTML representing this DOM
+
+    getFormattedHTML        - Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to two spaces)
 
 
 The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
@@ -96,12 +99,33 @@ And some properties:
     tagName                - The tag name
 
 
+AdvancedHTMLFormatter and formatHTML
+------------------------------------
+
+The AdvancedHTMLFormatter formats HTML into a pretty layout. It can handle elements like pre, core, script, style, etc to keep their contents preserved, but does not understand CSS rules.
+
+The methods are:
+
+   parseStr               - Parse a string of contents
+   parseFile              - Parse a filename or file object
+
+   getHTML                - Get the formatted html
+
+
+A script, formatHTML comes with this package and will perform formatting on an input file, and output to a file or stdout:
+
+    Usage: formatHTML [/path/to/in.html] (optional: [/path/to/output.html])
+
+      Formats HTML on input and writes to output file, or stdout if output file is omitted.
+
+
 
 Notes
 -----
 
 * Each tag has a generated unique ID which is assigned at create time. The search functions use these to prevent duplicates in search results. There is a global function in the module, AdvancedHTMLParser.uniqueTags, which will filter a list of tags and remove any duplicates. TagCollections will only allow one instance of a tag (no duplicates)
 * In general, for tag names and attribute names, you should use lowercase values. During parsing, the parser will lowercase attribute names (like NAME="Abc" becomes name="Abc"). During searching, however, for performance reasons, it is assumed you are passing in already-lowercased strings. If you can't trust the input to be lowercase, then it is your responsibility to call .lower() before calling .getElementsBy\*
+* If you are using this to construct HTML and not search, I recommend either setting the index params to False in the constructor, or calling  AdvancedHTMLParser.disableIndexing()
 * There are additional functions and usages not documented here, check the file for more information.
 
 Performance and Indexing
@@ -142,8 +166,9 @@ I am available by email to provide support, answer questions, or otherwise  prov
 if __name__ == '__main__':
 
     setup(name='AdvancedHTMLParser',
-            version='4.0.1',
+            version='5.0.0',
             packages=['AdvancedHTMLParser'],
+            scripts=['formatHTML'],
             author='Tim Savannah',
             author_email='kata198@gmail.com',
             maintainer='Tim Savannah',
