@@ -25,7 +25,7 @@ from collections import defaultdict
 
 
 
-__version__ = '5.0.0'
+__version__ = '5.0.1'
 
 IMPLICIT_SELF_CLOSING_TAGS = set(['meta', 'link', 'input', 'img', 'hr', 'br'])
 
@@ -182,6 +182,9 @@ class AdvancedTag(object):
         '''
                 
         self.tagName = tagName.lower()
+
+        if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
+            isSelfClosing = True
 
         self.attributes = {}
         if attrList is not None:

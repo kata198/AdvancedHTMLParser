@@ -1,7 +1,8 @@
-* 5.0.0 June 10 2015
+* 5.0.1 June 10 2015
  - Add AdvancedHTMLFormatter class and formatHTML Script
  - Add getFormattedHTML to AdvancedHTMLParser
  - Fix (invalid for html, but okay for subsections) multiple root node support
+ - Auto-set isSelfClosing on an AdvancedTag when they are created ad-hoc.
 
 * 4.0.1 June 9 2015
  - Also add input, img, hr, br to self-closing tags and make a set

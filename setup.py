@@ -166,7 +166,7 @@ I am available by email to provide support, answer questions, or otherwise  prov
 if __name__ == '__main__':
 
     setup(name='AdvancedHTMLParser',
-            version='5.0.0',
+            version='5.0.1',
             packages=['AdvancedHTMLParser'],
             scripts=['formatHTML'],
             author='Tim Savannah',
