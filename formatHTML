@@ -58,5 +58,7 @@ formatter.parseFile(inFilename)
 
 if outFilename:
     outFile.write(formatter.getHTML())
+    outFile.write('\n')
 else:
     sys.stdout.write(formatter.getHTML())
+    sys.stdout.write('\n')

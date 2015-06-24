@@ -1,6 +1,6 @@
 import AdvancedHTMLParser
 
-parser = AdvancedHTMLParser.AdvancedHTMLParser()
+parser = AdvancedHTMLParser.IndexedAdvancedHTMLParser()
 
 parser.parseStr('''
 <html>
@@ -50,6 +50,7 @@ parser2 = AdvancedHTMLParser.AdvancedHTMLParser()
 parser2.parseStr('<div name="items"> <span name="itemName">Coop</span><span name="price">1.44</span></div>')
 
 items[0].parentNode.appendChild(parser2.getRoot())
+parser.reindex()
 items = parser.getElementsByName('items')
 
 for item in items:

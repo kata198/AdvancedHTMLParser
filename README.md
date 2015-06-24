@@ -2,7 +2,7 @@
 AdvancedHTMLParser
 ==================
 
-AdvancedHTMLParser is an Advanced HTML Parser, writer, and formatter written in python, and compatible and tested in Python 2.7 and Python 3.4.
+AdvancedHTMLParser is an Advanced HTML Parser (with optional indexing), writer, and formatter, and html->xhtml formtter written in python, and compatible and tested in Python 2.7 and Python 3.4.
 
 There are many potential applications, not limited to:
  * Webpage Scraping / Data Extraction
@@ -18,12 +18,21 @@ The AdvancedHTMLParser can read in a file (or string) of HTML, and will create a
 The parser then exposes many "standard" functions as you'd find on the web for accessing the data:
 
     getElementsByTagName   - Returns a list of all elements matching a tag name
+
     getElementsByName      - Returns a list of all elements with a given name attribute
+
     getElementById         - Returns a single AdvancedTag (or None) if found an element matching the provided ID
+
     getElementsByClassName - Returns a list of all elements containing a class name
+
     getElementsByAttr       - Returns a list of all elements matching a paticular attribute/value pair.
+
     getElementsWithAttrValues - Returns a list of all elements with a specific attribute name containing one of a list of values
+
     getHTML                 - Returns string of HTML representing this DOM
+
+    getFormattedHTML        - Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to two spaces)
+
 
 The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
 
@@ -39,30 +48,57 @@ each AdvancedTag also supports the same getElementsBy\* functions as the parser.
 some of these include:
 
     appendText              -  Append text to this element
+
     appendChild             -  Append a child to this element
+
     removeChild             -  Removes a child
+
     getChildren             - Returns the children as a list
+
     getStartTag             - Start Tag, with attributes
+
     getEndTag               - End Tag
+
     getPeersByName          - Gets "peers" (elements with same parent, at same level in tree) with a given name
+
     getPeersByAttr          - Gets peers by an arbitrary attribute/value combination
+
     getPeersWithAttrValues  - Gets peers by an arbitrary attribute/values combination. 
+
     getPeersByClassName   - Gets peers that contain a given class name
+
     getElement\*            - Same as above, but act on the children of this element.
+
     {get,set,has}Attribute  - get/set/test for an attribute
+
     {add,remove}Class       - Add/remove a class from the list of classes
+
     getUid                  - Get a unique ID for this tag (internal)
+
     __str__                 - str(tag) will show start tag with attributes, inner text, and end tag
+
     __getitem__             - Can be indexed like tag[2] to access second child.
+
 
 And some properties:
 
     children/childNodes     - The children as a list
+
     innerHTML               - The innerHTML including the html of all children
+
     outerHTML               - innerHTML wrapped in this tag
+
     classNames/classList    - a list of the classes
+
     parentNode/parentElement - The parent tag
+
     tagName                - The tag name
+
+
+IndexedAdvancedHTMLParser
+-------------------------
+
+IndexedAdvancedHTMLParser provides the ability to use indexing for faster search. If you are just parsing and not modifying, this is your best bet. If you are modifying the DOM tree, make sure you call IndexedAdvancedHTMLParser.reindex() before relying on them. Each of the get* functions above takes an additional "useIndex" function, which can also be set to False to skip index. See constructor for more information, and "Performance and Indexing" section below.
 
 AdvancedHTMLFormatter and formatHTML
 ------------------------------------
@@ -83,6 +119,8 @@ A script, formatHTML comes with this package and will perform formatting on an i
 
       Formats HTML on input and writes to output file, or stdout if output file is omitted.
 
+
+
 Notes
 -----
 
@@ -96,92 +134,23 @@ Performance and Indexing
 
 Performance is very good using this class. The performance can be further enhanced via several indexing tunables:
 
-Firstly, in the constructor of AdvancedHTMLParser and in the reindex method is a boolean to be set which determines if each field is indexed (e.x. indexIDs will make getElementByID use an index).
+Firstly, in the constructor of IndexedAdvancedHTMLParser and in the reindex method is a boolean to be set which determines if each field is indexed (e.x. indexIDs will make getElementByID use an index).
 
-If an index is used, parsing time slightly goes up, but searches become O(1) instead of O(n) [n=num elements].
+If an index is used, parsing time slightly goes up, but searches become O(1) (from root node, slightly less efficent from other nodes) instead of O(n) [n=num elements].
 
-By default, IDs and Names are indexed. Class names, tag names, and others are not indexed.
+By default, IDs, Names, Tag Names, Class Names are indexed.
 
-You can add an index for any arbitrary field (used in getElementByAttr) via AdvancedHTMLParser.addIndexForAttribute('src'), for example, to index the 'src' attribute. This index can be removed via removeIndexForAttribute.
-
-The indexing behaviour can further be controlled via a property available in constructor and a setter, onlyCheckIndexOnIndexedFields. This is True by default, and should always be True for a read-only tree. You can also keep it True reliably, so long as you call reindex() after modifications. Set this to False if you are doing lots of reads and write concurrently.
-
-When True, only the index (for fields with enabled index) will be used. If not in the index, not returned.
-When False, if at least one element is found in the index, it will be returned. If nothing is present in the index, it will fallback to a full tree search.
+You can add an index for any arbitrary field (used in getElementByAttr) via IndexedAdvancedHTMLParser.addIndexOnAttribute('src'), for example, to index the 'src' attribute. This index can be removed via removeIndexOnAttribute.
 
 Example Usage
 -------------
 
-The following example shows scraping a webpage to extract data tht meet certain criteria:
-
-    import AdvancedHTMLParser
-    
-    parser = AdvancedHTMLParser.AdvancedHTMLParser()
-    
-    parser.parseStr('''
-    <html>
-     <head>
-      <title>HEllo</title>
-     </head>
-     <body>
-       <div id="container1" class="abc">
-         <div name="items">
-          <span name="price">1.96</span>
-         <span name="itemName">Sponges</span>
-       </div>
-       <div name="items">
-         <span name="price">3.55</span>
-         <span name="itemName">Turtles</span>
-       </div>
-       <div name="items">
-         <span name="price" class="something" >6.55</span>
-         <img src="/images/cheddar.png" style="width: 64px; height: 64px;" />
-         <span name="itemName">Cheese</span>
-       </div>
-     </div>
-     <div id="images">
-       <img src="/abc.gif" name="image" />
-       <img src="/abc2.gif" name="image" />
-      </div>
-      <div id="saleSection" style="background-color: blue">
-        <div name="items">
-          <span name="itemName">Pudding Cups</span>
-          <span name="price">1.60</span>
-        </div>
-        <hr />
-        <div name="items" class="limited-supplies" >
-          <span name="itemName">Gold Brick</span>
-          <span name="price">214.55</span>
-          <b style="margin-left: 10px">LIMITED QUANTITIES: <span id="item_5123523_remain">130</span></b>
-        </div>
-      </body>
-    </html>
-     ''')
-    
-    print ( "Items less than $4.00: ")
-    print ( "----------------------\n-")
-    items = parser.getElementsByName('items')
-    for item in items:
-        priceEm = item.getElementsByName('price')[0]
-    
-        priceValue = round(float(priceEm.innerHTML.strip()), 2)
-        if priceValue < 4.00:
-            name = priceEm.getPeersByName('itemName')[0].innerHTML.strip()
-    
-            print ( "%s - $%.2f" %(name, priceValue) )
-
-**Output**
-
-    Items less than $4.00:
-    -----------------------
-
-    Sponges - $1.96
-    Turtles - $3.55
-    Pudding Cups - $1.60
+See `This Example <https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/example.py>`_ for an example of parsing store data using this class.
 
 Changes
 -------
 See: https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/ChangeLog
+
 
 Contact Me / Support
 --------------------

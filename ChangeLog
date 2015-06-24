@@ -1,3 +1,15 @@
+* 6.0.0 June 23 2015
+- Split Indexing out into new IndexedAdvancedHTMLParser class to greatly
+simplify the base class.
+- Get rid of the onlyIndex* on the default constructor of
+IndexedAdvancedHTMLParser, make all fields indexed by default, and add
+useIndex to every get* method which can be set to False to ignore the index
+- Add an indexed_example
+- Modify example to include addition of element
+- Split source into several files
+- Simplify a few sections
+- Ensure formatHTML ends with a newline
+
 * 5.0.1 June 10 2015
  - Add AdvancedHTMLFormatter class and formatHTML Script
  - Add getFormattedHTML to AdvancedHTMLParser

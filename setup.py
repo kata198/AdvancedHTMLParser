@@ -6,7 +6,7 @@ long_description = """
 AdvancedHTMLParser
 ==================
 
-AdvancedHTMLParser is an Advanced HTML Parser, writer, and formatter written in python, and compatible and tested in Python 2.7 and Python 3.4.
+AdvancedHTMLParser is an Advanced HTML Parser (with optional indexing), writer, and formatter, and html->xhtml formtter written in python, and compatible and tested in Python 2.7 and Python 3.4.
 
 There are many potential applications, not limited to:
  * Webpage Scraping / Data Extraction
@@ -99,6 +99,11 @@ And some properties:
     tagName                - The tag name
 
 
+IndexedAdvancedHTMLParser
+-------------------------
+
+IndexedAdvancedHTMLParser provides the ability to use indexing for faster search. If you are just parsing and not modifying, this is your best bet. If you are modifying the DOM tree, make sure you call IndexedAdvancedHTMLParser.reindex() before relying on them. Each of the get* functions above takes an additional "useIndex" function, which can also be set to False to skip index. See constructor for more information, and "Performance and Indexing" section below.
+
 AdvancedHTMLFormatter and formatHTML
 ------------------------------------
 
@@ -133,18 +138,13 @@ Performance and Indexing
 
 Performance is very good using this class. The performance can be further enhanced via several indexing tunables:
 
-Firstly, in the constructor of AdvancedHTMLParser and in the reindex method is a boolean to be set which determines if each field is indexed (e.x. indexIDs will make getElementByID use an index).
+Firstly, in the constructor of IndexedAdvancedHTMLParser and in the reindex method is a boolean to be set which determines if each field is indexed (e.x. indexIDs will make getElementByID use an index).
 
-If an index is used, parsing time slightly goes up, but searches become O(1) instead of O(n) [n=num elements].
+If an index is used, parsing time slightly goes up, but searches become O(1) (from root node, slightly less efficent from other nodes) instead of O(n) [n=num elements].
 
-By default, IDs and Names are indexed. Class names, tag names, and others are not indexed.
+By default, IDs, Names, Tag Names, Class Names are indexed.
 
-You can add an index for any arbitrary field (used in getElementByAttr) via AdvancedHTMLParser.addIndexForAttribute('src'), for example, to index the 'src' attribute. This index can be removed via removeIndexForAttribute.
-
-The indexing behaviour can further be controlled via a property available in constructor and a setter, onlyCheckIndexOnIndexedFields. This is True by default, and should always be True for a read-only tree. You can also keep it True reliably, so long as you call reindex() after modifications. Set this to False if you are doing lots of reads and write concurrently.
-
-When True, only the index (for fields with enabled index) will be used. If not in the index, not returned.
-When False, if at least one element is found in the index, it will be returned. If nothing is present in the index, it will fallback to a full tree search.
+You can add an index for any arbitrary field (used in getElementByAttr) via IndexedAdvancedHTMLParser.addIndexOnAttribute('src'), for example, to index the 'src' attribute. This index can be removed via removeIndexOnAttribute.
 
 Example Usage
 -------------
@@ -166,7 +166,7 @@ I am available by email to provide support, answer questions, or otherwise  prov
 if __name__ == '__main__':
 
     setup(name='AdvancedHTMLParser',
-            version='5.0.1',
+            version='6.0.0',
             packages=['AdvancedHTMLParser'],
             scripts=['formatHTML'],
             author='Tim Savannah',
@@ -195,7 +195,6 @@ if __name__ == '__main__':
     )
 
 
-#vim: set ts=4 sw=4 expandtab
 
 exampleProgram = """
 import AdvancedHTMLParser
@@ -245,6 +244,13 @@ parser.parseStr('''
 print ( "Items less than $4.00: ")
 print ( "-----------------------\n")
 items = parser.getElementsByName('items')
+
+parser2 = AdvancedHTMLParser.AdvancedHTMLParser()
+parser2.parseStr('<div name="items"> <span name="itemName">Coop</span><span name="price">1.44</span></div>')
+
+items[0].parentNode.appendChild(parser2.getRoot())
+items = parser.getElementsByName('items')
+
 for item in items:
     priceEm = item.getElementsByName('price')[0]
 
@@ -262,4 +268,7 @@ for item in items:
 # Sponges - $1.96
 # Turtles - $3.55
 # Pudding Cups - $1.60
+
 """
+
+#vim: set ts=4 sw=4 expandtab
