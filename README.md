@@ -155,7 +155,7 @@ You can add an index for any arbitrary field (used in getElementByAttr) via Inde
 Example Usage
 -------------
 
-See https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/example.py> for an example of parsing store data using this class.
+See https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/example.py for an example of parsing store data using this class.
 
 Changes
 -------
