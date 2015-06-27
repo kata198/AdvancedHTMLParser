@@ -1,3 +1,6 @@
+# Copyright (c) 2015 Tim Savannah under LGPLv3. 
+# See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+#  AdvancedTag and TagCollection which represent tags and their data.
 
 import uuid
 
@@ -21,9 +24,15 @@ def uniqueTags(tagList):
 class TagCollection(list):
     '''
         A collection of AdvancedTags. You may use this like a normal list, or you can use the various getElements* functions within to operate on the results.
+        Generally, this is the return of get* functions.
     '''
 
     def __init__(self, values=None):
+        '''
+            Create this object.
+
+            @param values - Initial values, or None for empty
+        '''
         list.__init__(self)
         self.uids = set()
         if values is not None:
@@ -53,15 +62,40 @@ class TagCollection(list):
     def _hasTag(self, tag):
         return tag.uid in self.uids
 
-    def append(self, newVal):
-        list.append(self, newVal)
-        self.uids.add(newVal.uid)
+    def append(self, tag):
+        '''
+            append - Append an item to this tag collection
+
+            @param tag - an AdvancedTag
+        '''
+        list.append(self, tag)
+        self.uids.add(tag.uid)
 
     def remove(self, toRemove):
+        '''
+            remove - Remove an item from this tag collection
+
+            @param toRemove - an AdvancedTag
+        '''
         list.remove(self, toRemove)
         self.uids.remove(toRemove.uid)
 
+    def all(self):
+        '''
+            all - A plain list of these elements
+
+            @return - List of these elements
+        '''
+        return list(self)
+
     def getElementsByTagName(self, tagName):
+        '''
+            getElementsByTagName - Gets elements within this collection having a specific tag name
+
+            @param tagName - String of tag name
+
+            @return - TagCollection of unique elements within this collection with given tag name
+        '''
         ret = TagCollection()
         if len(self) == 0:
             return ret
@@ -75,10 +109,14 @@ class TagCollection(list):
         return ret
 
             
-    def all(self):
-        return list(self)
-
     def getElementsByName(self, name):
+        '''
+            getElementsByName - Get elements within this collection having a specific name
+
+            @param name - String of "name" attribute
+
+            @return - TagCollection of unique elements within this collection with given "name"
+        '''
         ret = TagCollection()
         if len(self) == 0:
             return ret
@@ -89,6 +127,13 @@ class TagCollection(list):
         return ret
 
     def getElementsByClassName(self, className):
+        '''
+            getElementsByClassName - Get elements within this collection containing a specific class name
+
+            @param className - A single class name
+
+            @return - TagCollection of unique elements within this collection tagged with a specific class name
+        '''
         ret = TagCollection()
         if len(self) == 0:
             return ret
@@ -99,6 +144,13 @@ class TagCollection(list):
         return ret
 
     def getElementById(self, _id):
+        '''
+            getElementById - Gets an element within this collection by id
+
+            @param _id - string of "id" attribute
+
+            @return - a single tag matching the id, or None if none found
+        '''
         for tag in self:
             if tag.getId() == _id:
                 return tag
@@ -109,6 +161,14 @@ class TagCollection(list):
         return None
 
     def getElementsByAttr(self, attr, value):
+        '''
+            getElementsByAttr - Get elements with a given attribute/value pair
+
+            @param attr - Attribute name (lowercase)
+            @param value - Matching value
+
+            @return - TagCollection of all elements matching name/value
+        '''
         ret = TagCollection()
         if len(self) == 0:
             return ret
@@ -121,6 +181,14 @@ class TagCollection(list):
         return ret
 
     def getElementsWithAttrValues(self, attr, values):
+        '''
+            getElementsWithAttrValues - Get elements with an attribute name matching one of several values
+
+            @param attr - Attribute name (lowerase)
+            @param values - List of matching values
+
+            @return - TagCollection of all elements matching criteria
+        '''
         ret = TagCollection()
         if len(self) == 0:
             return ret
@@ -244,23 +312,38 @@ class AdvancedTag(object):
         return TagCollection(self.children)
 
     def getPeers(self):
+        '''
+            getPeers - Get elements who share a parent with this element
+
+            @return - TagCollection of elements
+        '''
         if not self.parentNode:
             return None
-        return [peer for peer in self.parentNode.children if peer is not self]
+        return TagCollection([peer for peer in self.parentNode.children if peer is not self])
 
     @property
     def peers(self):
+        '''
+            peers - Get elements with same parent as this item
+
+            @return - TagCollection of elements
+        '''
         return self.getPeers()
 
     @property
     def childNodes(self):
         '''
             childNodes - returns child nodes
+
+            @return - TagCollection of child nodes
         '''
         return TagCollection(self.children)
 
     @property
     def parentElement(self):
+        '''
+            parentElement - get the parent element
+        '''
         return self.parentNode
 
     @property
@@ -292,6 +375,8 @@ class AdvancedTag(object):
     def getStartTag(self):
         '''
             getStartTag - Returns the start tag
+
+            @return - String of start tag with attributes
         '''
         attributeString = []
         for name, val in self.attributes.items():
@@ -312,6 +397,8 @@ class AdvancedTag(object):
     def getEndTag(self):
         '''
             getEndTag - returns the end tag
+
+            @return - String of end tag
         '''
         if self.isSelfClosing is True:
             return ''
@@ -326,6 +413,8 @@ class AdvancedTag(object):
     def innerHTML(self):
         '''
             innerHTML - Returns a string of the inner contents of this tag, including children.
+
+            @return - String of inner contents 
         '''
         if self.isSelfClosing is True:
             return ''
@@ -342,11 +431,16 @@ class AdvancedTag(object):
     def outerHTML(self):
         '''
             outerHTML - Returns start tag, innerHTML, and end tag
+
+            @return - String of start tag, innerHTML, and end tag
         '''
         return self.getStartTag() + self.innerHTML + self.getEndTag()
 
     @property
     def value(self):
+        '''
+            value - The "value" attribute of this element
+        '''
         return self.getAttribute('value', '')
 
     def getAttribute(self, attrName):
@@ -376,6 +470,11 @@ class AdvancedTag(object):
         return bool(attrName in self.attributes)
 
     def hasClass(self, className):
+        '''
+            hasClass - Test if this tag has a paticular class name
+
+            @param className - A class to search
+        '''
         return bool(className in self.classNames)
      
     def addClass(self, className):
@@ -411,6 +510,13 @@ class AdvancedTag(object):
         return self.children[key]
 
     def getElementById(self, _id):
+        '''
+            getElementById - Search children of this tag for a tag containing an id
+
+            @param _id - String of id
+
+            @return - AdvancedTag or None
+        '''
         for child in self.children:
             if child.getAttribute('id') == _id:
                 return child
@@ -420,6 +526,14 @@ class AdvancedTag(object):
         return None
 
     def getElementsByAttr(self, attrName, attrValue):
+        '''
+            getElementsByAttr - Search children of this tag for tags with an attribute name/value pair
+
+            @param attrName - Attribute name (lowercase)
+            @param attrValue - Attribute value
+
+            @return - TagCollection of matching elements
+        '''
         elements = TagCollection()
         for child in self.children:
             if child.getAttribute(attrName) == attrValue:
@@ -428,9 +542,23 @@ class AdvancedTag(object):
         return elements
 
     def getElementsByName(self, name):
+        '''
+            getElementsByName - Search children of this tag for tags with a given name
+
+            @param name - name to search
+
+            @return - TagCollection of matching elements
+        '''
         return self.getElementsByAttr('name', name)
 
     def getElementsByClassName(self, className):
+        '''
+            getElementsByClassName - Search children of this tag for tags containing a given class name
+
+            @param className - Class name
+
+            @return - TagCollection of matching elements
+        '''
         elements = TagCollection()
         for child in self.children:
             if child.hasClass(className) is True:
@@ -438,13 +566,21 @@ class AdvancedTag(object):
             elements += child.getElementsByClassName(className)
         return elements
 
-    def getElementsWithAttrValues(self, attr, values):
+    def getElementsWithAttrValues(self, attrName, attrValues):
+        '''
+            getElementsWithAttrValues - Search children of this tag for tags with an attribute name and one of several values
+
+            @param attrName - Attribute name (lowercase)
+            @param attrValues - Attribute values
+
+            @return - TagCollection of matching elements
+        '''
         elements = TagCollection()
 
         for child in self.children:
-            if child.getAttribute(attr) in values:
+            if child.getAttribute(attrName) in attrValues:
                 elements.append(child)
-            elements += child.getElementsWithAttrValues(attr, values)
+            elements += child.getElementsWithAttrValues(attrName, attrValues)
         return elements
 
     def getPeersByAttr(self, attrName, attrValue):
@@ -454,39 +590,53 @@ class AdvancedTag(object):
             @param attrName - Name of attribute
             @param attrValue - Value that must match
 
-            @return - None if no parent element (error condition), otherwise a list of peers that matched.
+            @return - None if no parent element (error condition), otherwise a TagCollection of peers that matched.
         '''
         peers = self.peers
         if peers is None:
             return None
-        return [peer for peer in peers if peer.getAttribute(attrName) == attrValue]
+        return TagCollection([peer for peer in peers if peer.getAttribute(attrName) == attrValue])
 
     def getPeersWithAttrValues(self, attrName, attrValues):
         '''
-            getPeersByAttr - Gets peers (elements on same level) whose attribute given by #attrName 
+            getPeersWithAttrValues - Gets peers (elements on same level) whose attribute given by #attrName 
                 are in the list of possible vaues #attrValues
 
             @param attrName - Name of attribute
             @param attrValues - List of possible values which will match
 
-            @return - None if no parent element (error condition), otherwise a list of peers that matched.
+            @return - None if no parent element (error condition), otherwise a TagCollection of peers that matched.
         '''
         peers = self.peers
         if peers is None:
             return None
-        return [peer for peer in peers if peer.getAttribute(attrName) in attrValues]
+        return TagCollection([peer for peer in peers if peer.getAttribute(attrName) in attrValues])
 
     def getPeersByName(self, name):
+        '''
+            getPeersByName - Gets peers (elements on same level) with a given name
+
+            @param name - Name to match
+
+            @return - None if no parent element (error condition), otherwise a TagCollection of peers that matched.
+        '''
         peers = self.peers
         if peers is None:
             return None
-        return [peer for peer in peers if peer.name == name]
+        return TagCollection([peer for peer in peers if peer.name == name])
 
     def getPeersByClassName(self, className):
+        '''
+            getPeersByClassName - Gets peers (elements on same level) with a given class name
+
+            @param className - classname must contain this name
+
+            @return - None if no parent element (error condition), otherwise a TagCollection of peers that matched.
+        '''
         peers = self.peers
         if peers is None:
             return None
-        return [peer for peer in peers if peer.hasClass(className)]
+        return TagCollection([peer for peer in peers if peer.hasClass(className)])
                 
 
 

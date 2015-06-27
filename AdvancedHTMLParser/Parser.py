@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # Copyright (c) 2015 Tim Savannah under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #
+#   Parser implementation
+
 # In general below, all "tag names" (body, div, etc) should be lowercase. The parser will lowercase internally. All attribute names (like `id` in id="123") provided to search functions should be lowercase. Values are not lowercase. This is because doing tons of searches, lowercasing every search can quickly build up. Lowercase it once in your code, not every time you call a function.
 
 import sys
@@ -25,6 +27,9 @@ from .exceptions import MultipleRootNodeException
 from .Tags import AdvancedTag, TagCollection
 
 class AdvancedHTMLParser(HTMLParser):
+    '''
+        AdvancedHTMLParser - This class parses and allows searching of  documents
+    '''
 
     def __init__(self, filename=None, encoding='utf-8'):
         '''
@@ -71,6 +76,9 @@ class AdvancedHTMLParser(HTMLParser):
     ######## Parsing #########
 
     def handle_starttag(self, tagName, attributeList, isSelfClosing=False):
+        '''
+            Internal for parsing
+        '''
         tagName = tagName.lower()
 
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
@@ -90,9 +98,15 @@ class AdvancedHTMLParser(HTMLParser):
         return newTag
 
     def handle_startendtag(self, tagName, attributeList):
+        '''
+            Internal for parsing
+        '''
         return self.handle_starttag(tagName, attributeList, True)
 
     def handle_endtag(self, tagName):
+        '''
+            Internal for parsing
+        '''
         try:
             # Handle closing tags which should have been closed but weren't
             while self.inTag[-1].tagName != tagName:
@@ -103,25 +117,43 @@ class AdvancedHTMLParser(HTMLParser):
             pass
 
     def handle_data(self, data):
+        '''
+            Internal for parsing
+        '''
         if data and len(self.inTag) > 0:
             self.inTag[-1].appendText(data)
 
     def handle_entityref(self, entity):
+        '''
+            Internal for parsing
+        '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('&%s;' %(entity,))
 
     def handle_charref(self, charRef):
+        '''
+            Internal for parsing
+        '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('&#%s;' %(charRef,))
 
     def handle_comment(self, comment):
+        '''
+            Internal for parsing
+        '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('<!-- %s -->' %(comment,))
 
     def handle_decl(self, decl):
+        '''
+            Internal for parsing
+        '''
         self.doctype = decl
 
     def unknown_decl(self, decl):
+        '''
+            Internal for parsing
+        '''
         if not self.doctype:
             self.doctype = decl
 
@@ -255,6 +287,13 @@ class AdvancedHTMLParser(HTMLParser):
 
 
     def getFormattedHTML(self, indent='  '):
+        '''
+            getFormattedHTML - Get formatted and xhtml of this document
+
+            @param indent - space/tab/newline of each level of indent, or integer for how many spaces per level
+        
+            @return - Formatted html as string
+        '''
         from .Formatter import AdvancedHTMLFormatter
         html = self.getHTML()
         formatter = AdvancedHTMLFormatter(indent, None) # Do not double-encode
@@ -273,6 +312,11 @@ class AdvancedHTMLParser(HTMLParser):
         self.inTag = []
 
     def feed(self, contents):
+        '''
+            feed - Feed contents. Use  parseStr or parseFile instead.
+
+            @param contents - Contents
+        '''
         if self.encoding and self.encoding != sys.getdefaultencoding():
             if pyver == 2:
                 contents = contents.decode(self.encoding)
@@ -309,6 +353,10 @@ class AdvancedHTMLParser(HTMLParser):
         self.feed(html)
 
 class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
+    '''
+        An AdvancedHTMLParser that indexes for much much faster searching. If you are doing searching/validation, this is your bet.
+          If you are writing/modifying, you may use this, but be sure to call reindex() after changes.
+    '''
 
     def __init__(self, filename=None, encoding='utf-8', indexIDs=True, indexNames=True, indexClassNames=True, indexTagNames=True):
         '''
@@ -402,6 +450,9 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     ######## Parsing #########
 
     def handle_starttag(self, tagName, attributeList, isSelfClosing=False):
+        '''
+            internal for parsing
+        '''
         newTag = AdvancedHTMLParser.handle_starttag(self, tagName, attributeList, isSelfClosing)
         self._indexTag(newTag)
 
@@ -410,6 +461,8 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     def setRoot(self, root):
         '''
             Sets the root node, and reprocesses the indexes
+
+            @param root - AdvancedTag for root
         '''
         AdvancedHTMLParser.setRoot(self, root)
         self.reindex()

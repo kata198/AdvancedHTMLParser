@@ -17,6 +17,15 @@ There are many potential applications, not limited to:
  * Web Crawling
  * Formatting HTML documents or web pages
 
+
+Full API
+--------
+
+Can be found  `Here <http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html>`_ .
+
+Short Doc
+---------
+
 The AdvancedHTMLParser can read in a file (or string) of HTML, and will create a modifiable DOM tree from it. It can also be constructed manually from AdvancedHTMLParser.AdvancedTag objects.
 
 The parser then exposes many "standard" functions as you'd find on the web for accessing the data:

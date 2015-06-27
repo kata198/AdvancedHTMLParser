@@ -1,3 +1,6 @@
+# Copyright (c) 2015 Tim Savannah under LGPLv3. 
+# See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+#   HTML formatting (HTML->XHTML conversion as well)
 
 import sys
 
@@ -27,6 +30,12 @@ class AdvancedHTMLFormatter(HTMLParser):
     '''
 
     def __init__(self, indent='  ', encoding='utf-8'):
+        '''
+            Create a formatter.
+
+            @param indent - Either a space/tab/newline that represents one level of indent, or an integer to use that number of spaces
+            @param encoding - Use this encoding for the document.
+        '''
         HTMLParser.__init__(self)
 
         self.parsedData = []
@@ -46,6 +55,11 @@ class AdvancedHTMLFormatter(HTMLParser):
 
 
     def feed(self, contents):
+        '''
+            feed - Load contents
+
+            @param contents - HTML contents
+        '''
         if self.encoding and self.encoding != sys.getdefaultencoding():
             if pyver == 2:
                 contents = contents.decode(self.encoding)
@@ -61,7 +75,7 @@ class AdvancedHTMLFormatter(HTMLParser):
 
     def getHTML(self):
         '''
-            getHTML - Get the full HTML as contained within this tree
+            getHTML - Get the full HTML as contained within this tree, converted to  valid XHTML
                 @returns - String
         '''
         root = self.getRoot()
@@ -81,13 +95,15 @@ class AdvancedHTMLFormatter(HTMLParser):
     def getRoot(self):
         '''
             getRoot - returns the root Tag 
-                @return Tag
+                @return - AdvancedTag at root. If you provided multiple root nodes, this will be a "holder" with tagName of 'xxxblank'
         '''
         return self.root
 
     def setRoot(self, root):
         '''
-            Sets the root node, and reprocesses the indexes
+            setRoot - Sets the root node, and reprocesses the indexes
+
+            @param root - AdvancedTag to be new root
         '''
         self.root = root
 
@@ -108,6 +124,9 @@ class AdvancedHTMLFormatter(HTMLParser):
         return '\n' + (self.indent * self.currentIndentLevel)
 
     def handle_starttag(self, tagName, attributeList, isSelfClosing=False):
+        '''
+            handle_starttag - Internal for parsing
+        '''
         tagName = tagName.lower()
 
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
@@ -134,9 +153,15 @@ class AdvancedHTMLFormatter(HTMLParser):
 
 
     def handle_startendtag(self, tagName, attributeList):
+        '''
+            handle_startendtag - Internal for parsing
+        '''
         return self.handle_starttag(tagName, attributeList, True)
 
     def handle_endtag(self, tagName):
+        '''
+            handle_endtag - Internal for parsing
+        '''
         try:
             # Handle closing tags which should have been closed but weren't
             while self.inTag[-1].tagName != tagName:
@@ -155,6 +180,9 @@ class AdvancedHTMLFormatter(HTMLParser):
             pass
 
     def handle_data(self, data):
+        '''
+            handle_data - Internal for parsing
+        '''
         if data and len(self.inTag) > 0:
             if self.inTag[-1].tagName not in PRESERVE_CONTENTS_TAGS:
                 data = data.replace('\t', ' ').strip('\r\n')
@@ -165,21 +193,36 @@ class AdvancedHTMLFormatter(HTMLParser):
             self.inTag[-1].appendText(data)
 
     def handle_entityref(self, entity):
+        '''
+            Internal for parsing
+        '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('&%s;' %(entity,))
 
     def handle_charref(self, charRef):
+        '''
+            Internal for parsing
+        '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('&#%s;' %(charRef,))
 
     def handle_comment(self, comment):
+        '''
+            Internal for parsing
+        '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('<!-- %s -->' %(comment,))
 
     def handle_decl(self, decl):
+        '''
+            Internal for parsing
+        '''
         self.doctype = decl
 
     def unknown_decl(self, decl):
+        '''
+            Internal for parsing
+        '''
         if not self.doctype:
             self.doctype = decl
 
