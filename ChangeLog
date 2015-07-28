@@ -3,6 +3,10 @@
 request). Add `getRootNodes` function to return a list of root nodes, and
 abstracted a little magic of the previous handling of multiple root nodes.
 They always worked before, but easier to work WITH now.
+- Add "removeAttribute" function to remove an attribute
+- Implement "setStyle" "setStyles" and "getStyle" - for working with the
+"style" string. I will probably turn this into a real object extending str
+before the release, but I'm tired now and going to bed.
 
 * 6.0.1 June 27 2015
 - Add more docstrings and add pydoc documentation

@@ -2,6 +2,8 @@
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #  AdvancedTag and TagCollection which represent tags and their data.
 
+from collections import OrderedDict
+
 import uuid
 
 from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS
@@ -471,7 +473,21 @@ class AdvancedTag(object):
                 
                 @return <bool> - True or False if attribute exists by that name
         '''
+        attrName = attrName.lower()
         return bool(attrName in self.attributes)
+
+    def removeAttribute(self, attrName):
+        '''
+            removeAttribute - Removes an attribute, by name.
+            
+            @param attrName <str> - The attribute name
+
+        '''
+        attrName = attrName.lower()
+        try:
+            del self.attributes[attrName]
+        except KeyError:
+            pass
 
     def hasClass(self, className):
         '''
@@ -502,7 +518,89 @@ class AdvancedTag(object):
             return className
 
         return None
-   
+
+    def getStyleDict(self):
+        '''
+            getStyleDict - Gets a dictionary of style attribute/value pairs.
+
+            @return - OrderedDict of "style" attribute.
+        '''
+        styleStr = (self.getAttribute('style') or '').strip()
+        styles = styleStr.split(';') # Won't work for strings containing semicolon..
+        styleDict = OrderedDict()
+        for item in styles:
+            try:
+                splitIdx = item.index(':')
+                name = item[:splitIdx].strip().lower()
+                value = item[splitIdx+1:].strip()
+                styleDict[name] = value
+            except:
+                continue
+
+        return styleDict
+
+
+    # TODO: Should probably implement the StyleString as its own class, that extends string.
+    def getStyle(self, styleName):
+        '''
+            getStyle - Gets the value of a style paramater, part of the "style" attribute
+
+            @param styleName - The name of the style
+
+            @return - String of the value of the style. '' is no value.
+        '''
+        return self.getStyleDict().get(styleName.lower()) or ''
+        
+
+    def setStyle(self, styleName, styleValue):
+        '''
+            setStyle - Sets a style param. Example: "display", "block"
+
+                If you need to set many styles on an element, use setStyles instead. 
+                It takes a dictionary of attribute, value pairs and applies it all in one go (faster)
+
+                To remove a style, set its value to empty string.
+                When all styles are removed, the "style" attribute will be nullified.
+
+            @param styleName - The name of the style element
+            @param styleValue - The value of which to assign the style element
+
+            @return - String of current value of "style" after change is made.
+        '''
+        return self.setStyles( {styleName : styleValue} )
+
+    def setStyles(self, styleUpdatesDict):
+        '''
+            setStyles - Sets one or more style params. 
+                This all happens in one shot, so it is much much faster than calling setStyle for every value.
+
+                To remove a style, set its value to empty string.
+                When all styles are removed, the "style" attribute will be nullified.
+
+            @param styleUpdatesDict - Dictionary of attribute : value styles.
+
+            @return - String of current value of "style" after change is made.
+        '''
+        styleDict = self.getStyleDict()
+
+        for newName, newValue in styleUpdatesDict.items():
+            if newValue:
+                # If replacing, just set/override it
+                styleDict[newName] = newValue
+            elif newName in styleDict:
+                # Delete if present and empty value passed
+                del styleDict[newName]
+
+        if styleDict:
+            # If anything left, build a str
+            styleStr = '; '.join([name + ': ' + value for name, value in styleDict.items()])
+            self.setAttribute('style', styleStr)
+            return styleStr
+        else:
+            # Last item removed, so remove attribute.
+            self.removeAttribute('style')
+            return ''
+
 
     def __str__(self):
         '''
