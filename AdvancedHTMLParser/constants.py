@@ -11,3 +11,7 @@ PREFORMATTED_TAGS = set(['pre', 'code'])
 # These tags will not have content modified, except for first-and-last line indentation
 PRESERVE_CONTENTS_TAGS = set(['script', 'pre', 'code', 'style'])
 
+# Tag name for a "transparent" root node. Used if there are multiple nodes at root level as an internal placeholder.
+#  I.E. an inomplete page, or an ajax request. @see Parser.AdvancedHTMLParser.getRootNodes
+INVISIBLE_ROOT_TAG = 'xxxblank'
+

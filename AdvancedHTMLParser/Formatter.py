@@ -18,7 +18,7 @@ except NameError:
     from io import TextIOWrapper as file
 
 
-from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, PRESERVE_CONTENTS_TAGS
+from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, PRESERVE_CONTENTS_TAGS, INVISIBLE_ROOT_TAG
 from .exceptions import MultipleRootNodeException
 from .Tags import AdvancedTag
 
@@ -69,7 +69,7 @@ class AdvancedHTMLFormatter(HTMLParser):
             HTMLParser.feed(self, contents)
         except MultipleRootNodeException:
             self.reset()
-            HTMLParser.feed(self, '<xxxblank>' + contents + '</xxxblank>')
+            HTMLParser.feed(self, '<%s>%</%s>' %(INVISIBLE_ROOT_TAG, contents, INVISIBLE_ROOT_TAG))
 
 
 
@@ -87,17 +87,31 @@ class AdvancedHTMLFormatter(HTMLParser):
         else:
             doctypeStr = ''
 
-        if root.tagName == 'xxxblank': # If we had to add a temp tag, don't include it here.
-            return doctypeStr + ''.join([x.outerHTML for x in root.children]) 
-        return doctypeStr + root.outerHTML
-
+        return doctypeStr + ''.join([elem.outerHTML for elem in self.getRootNodes()])
 
     def getRoot(self):
         '''
             getRoot - returns the root Tag 
-                @return - AdvancedTag at root. If you provided multiple root nodes, this will be a "holder" with tagName of 'xxxblank'
+                @return - AdvancedTag at root. If you provided multiple root nodes, this will be a "holder" with tagName value as constants.INVISIBLE_ROOT_TAG
         '''
         return self.root
+
+    def getRootNodes(self):
+        '''
+            getRootNodes - Gets all objects at the "root" (first level; no parent). Use this if you may have multiple roots (not children of <html>)
+                Use this method to get objects, for example, in an AJAX request where <html> may not be your root.
+
+                Note: If there are multiple root nodes (i.e. no <html> at the top), getRoot will return a special tag. This function automatically
+                  handles that, and returns all root nodes.
+
+                @return list<AdvancedTag> - A list of AdvancedTags which are at the root level of the tree.
+        '''
+        root = self.root
+        if not root:
+            return []
+        if root.tagName == INVISIBLE_ROOT_TAG:
+            return list(root.children)
+        return [root]
 
     def setRoot(self, root):
         '''
@@ -148,7 +162,7 @@ class AdvancedHTMLFormatter(HTMLParser):
 
         if isSelfClosing is False:
             self.inTag.append(newTag)
-            if tagName != 'xxxblank':
+            if tagName != INVISIBLE_ROOT_TAG:
                 self.currentIndentLevel += 1
 
 
@@ -172,7 +186,7 @@ class AdvancedHTMLFormatter(HTMLParser):
                 self.currentIndentLevel -= 1
 
             self.inTag.pop()
-            if tagName != 'xxxblank':
+            if tagName != INVISIBLE_ROOT_TAG:
                 self.currentIndentLevel -= 1
             if tagName in PREFORMATTED_TAGS:
                 self.inPreformatted -= 1

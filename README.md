@@ -41,6 +41,8 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 
     getHTML                 - Returns string of HTML representing this DOM
 
+    getRootNodes            - Get a list of nodes at root level (0)
+
     getFormattedHTML        - Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to two spaces)
 
 

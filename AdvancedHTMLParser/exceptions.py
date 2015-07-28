@@ -15,7 +15,8 @@ class MultipleRootNodeException(Exception):
               <i>Ssdf</i>
             </two>
 
-        This is legal, a fake root node "xxxblank" will be set at head, and all methods will ignore it.
+        This is legal, a fake root node with tag name of constants.INVISIBLE_TAG_NAME will be set at head, and all methods will handle it correctly.
+        If you need to get the root nodes, and there's the possibility of more than one, consider getRootObjects instead of getRoot.
     '''
     pass
 

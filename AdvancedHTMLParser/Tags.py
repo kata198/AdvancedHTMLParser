@@ -278,6 +278,8 @@ class AdvancedTag(object):
     def appendChild(self, child):
         '''
             appendChild - Append a child to this element.
+
+            @param child <AdvancedTag> - Append a child element to this element
         '''
     
         child.parentNode = self
@@ -307,7 +309,9 @@ class AdvancedTag(object):
             
     def getChildren(self):
         '''
-            getChildren - returns child nodes
+            getChildren - returns child nodes as a searchable TagCollection.
+
+                @return - TagCollection of the immediate children to this tag.
         '''
         return TagCollection(self.children)
 
@@ -333,7 +337,7 @@ class AdvancedTag(object):
     @property
     def childNodes(self):
         '''
-            childNodes - returns child nodes
+            childNodes - returns immediate child nodes as a TagCollection
 
             @return - TagCollection of child nodes
         '''

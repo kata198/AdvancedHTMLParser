@@ -22,7 +22,7 @@ except NameError:
 
 from collections import defaultdict
 
-from .constants import IMPLICIT_SELF_CLOSING_TAGS
+from .constants import IMPLICIT_SELF_CLOSING_TAGS, INVISIBLE_ROOT_TAG
 from .exceptions import MultipleRootNodeException
 from .Tags import AdvancedTag, TagCollection
 
@@ -168,12 +168,28 @@ class AdvancedHTMLParser(HTMLParser):
         '''
         return self.root
 
+    def getRootNodes(self):
+        '''
+            getRootNodes - Gets all objects at the "root" (first level; no parent). Use this if you may have multiple roots (not children of <html>)
+                Use this method to get objects, for example, in an AJAX request where <html> may not be your root.
+
+                Note: If there are multiple root nodes (i.e. no <html> at the top), getRoot will return a special tag. This function automatically
+                  handles that, and returns all root nodes.
+
+                @return list<AdvancedTag> - A list of AdvancedTags which are at the root level of the tree.
+        '''
+        root = self.root
+        if not root:
+            return []
+        if root.tagName == INVISIBLE_ROOT_TAG:
+            return list(root.children)
+        return [root]
+
     def setRoot(self, root):
         '''
             Sets the root node, and reprocesses the indexes
         '''
         self.root = root
-
 
     def getElementsByTagName(self, tagName, root='root'):
         '''
@@ -281,9 +297,7 @@ class AdvancedHTMLParser(HTMLParser):
         else:
             doctypeStr = ''
 
-        if root.tagName == 'xxxblank': # If we had to add a temp tag, don't include it here.
-            return doctypeStr + ''.join([x.outerHTML for x in root.children]) 
-        return doctypeStr + root.outerHTML
+        return doctypeStr + ''.join([elem.outerHTML for elem in self.getRootNodes()])
 
 
     def getFormattedHTML(self, indent='  '):
@@ -326,7 +340,7 @@ class AdvancedHTMLParser(HTMLParser):
             HTMLParser.feed(self, contents)
         except MultipleRootNodeException:
             self.reset()
-            HTMLParser.feed(self, '<xxxblank>' + contents + '</xxxblank>')
+            HTMLParser.feed(self, '<%s>%s</%s>' %(INVISIBLE_ROOT_TAG, contents, INVISIBLE_ROOT_TAG))
 
     def parseFile(self, filename):
         '''

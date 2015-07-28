@@ -1,3 +1,9 @@
+* 6.1.0 prerelease July 27 2015
+- More intuitive usage  with multiple root-level nodes (like parsing an AJAX
+request). Add `getRootNodes` function to return a list of root nodes, and
+abstracted a little magic of the previous handling of multiple root nodes.
+They always worked before, but easier to work WITH now.
+
 * 6.0.1 June 27 2015
 - Add more docstrings and add pydoc documentation
 
