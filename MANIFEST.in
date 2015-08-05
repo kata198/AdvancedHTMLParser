@@ -1,6 +1,6 @@
-recursive-include doc
-recursive-include tests
-recursive-include AdvancedHTMLParser
+recursive-include doc *
+recursive-include tests *
+recursive-include AdvancedHTMLParser *
 include Changelog
 include example.py
 include indexed_example.py
