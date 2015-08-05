@@ -1,0 +1,8 @@
+recursive-include doc
+recursive-include tests
+recursive-include AdvancedHTMLParser
+include Changelog
+include example.py
+include indexed_example.py
+include README.md
+include LICENSE
