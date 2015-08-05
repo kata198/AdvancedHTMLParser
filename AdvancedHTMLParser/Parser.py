@@ -201,6 +201,10 @@ class AdvancedHTMLParser(HTMLParser):
         (root, isFromRoot) = self._handleRootArg(root)
 
         elements = []
+
+        if isFromRoot is True and root.tagName == tagName:
+            elements.append(root)
+
         for child in root.children:
             if child.tagName == tagName:
                 elements.append(child)
@@ -217,6 +221,10 @@ class AdvancedHTMLParser(HTMLParser):
         (root, isFromRoot) = self._handleRootArg(root)
 
         elements = []
+
+        if isFromRoot is True and root.name == name:
+            elements.append(root)
+
         for child in root.children:
             if child.attributes.get('name') == name:
                 elements.append(child)
@@ -232,6 +240,9 @@ class AdvancedHTMLParser(HTMLParser):
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root' [default], the root of the parsed tree will be used.
         '''
         (root, isFromRoot) = self._handleRootArg(root)
+
+        if isFromRoot is True and root.id == _id:
+            return root
 
         for child in root.children:
             if child.attributes.get('id') == _id:
@@ -251,6 +262,10 @@ class AdvancedHTMLParser(HTMLParser):
         (root, isFromRoot) = self._handleRootArg(root)
 
         elements = []
+
+        if isFromRoot is True and className in root.classNames:
+            elements.append(root)
+
         for child in root.children:
             if className in child.classNames:
                 elements.append(child)
@@ -268,6 +283,10 @@ class AdvancedHTMLParser(HTMLParser):
         (root, isFromRoot) = self._handleRootArg(root)
 
         elements = []
+
+        if isFromRoot is True and root.get(attrName) == attrValue:
+            elements.append(root)
+
         for child in root.children:
             if child.attributes.get(attrName) == attrValue:
                 elements.append(child)

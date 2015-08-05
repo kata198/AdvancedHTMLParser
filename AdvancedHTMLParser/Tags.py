@@ -7,6 +7,7 @@ from collections import OrderedDict
 import uuid
 
 from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS
+from .SpecialAttributes import SpecialAttributesDict, StyleAttribute
 
 def uniqueTags(tagList):
     '''
@@ -203,7 +204,6 @@ class TagCollection(list):
         return ret
         
 
-
 class AdvancedTag(object):
     '''
         AdvancedTag - Represents a Tag. Used with AdvancedHTMLParser to create a DOM-model
@@ -226,22 +226,19 @@ class AdvancedTag(object):
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
             isSelfClosing = True
 
-        self.attributes = {}
-        if attrList is not None:
-            for key, value in attrList:
-                self.attributes[key.lower()] = value
-
+        self.attributes = SpecialAttributesDict(self)
         self.text = ''
         self.blocks = ['']
+        self.classNames = []
+        self.className = ''
+        self.style = StyleAttribute('')
 
         self.isSelfClosing = isSelfClosing
 
-        if 'class' in self.attributes:
-            self.className = self.attributes['class']
-            self.classNames = [x for x in self.attributes['class'].split(' ') if x]
-        else:
-            self.className = ''
-            self.classNames = []
+        if attrList is not None:
+            for key, value in attrList:
+                key = key.lower()
+                self.attributes[key] = value
 
         self.children = []
 
@@ -249,6 +246,11 @@ class AdvancedTag(object):
         self.uid = uuid.uuid4()
 
         self.indent = ''
+
+    def __setattr__(self, name, value):
+        if name == 'style' and not isinstance(value, StyleAttribute):
+            value = StyleAttribute(value)
+        return object.__setattr__(self, name,  value)
 
     def appendText(self, text):
         '''
@@ -540,7 +542,6 @@ class AdvancedTag(object):
         return styleDict
 
 
-    # TODO: Should probably implement the StyleString as its own class, that extends string.
     def getStyle(self, styleName):
         '''
             getStyle - Gets the value of a style paramater, part of the "style" attribute
@@ -549,7 +550,7 @@ class AdvancedTag(object):
 
             @return - String of the value of the style. '' is no value.
         '''
-        return self.getStyleDict().get(styleName.lower()) or ''
+        return getattr(self.style, styleName.lower())
         
 
     def setStyle(self, styleName, styleValue):
@@ -567,7 +568,7 @@ class AdvancedTag(object):
 
             @return - String of current value of "style" after change is made.
         '''
-        return self.setStyles( {styleName : styleValue} )
+        setattr(self.style, styleName, styleValue)
 
     def setStyles(self, styleUpdatesDict):
         '''
@@ -581,25 +582,10 @@ class AdvancedTag(object):
 
             @return - String of current value of "style" after change is made.
         '''
-        styleDict = self.getStyleDict()
-
         for newName, newValue in styleUpdatesDict.items():
-            if newValue:
-                # If replacing, just set/override it
-                styleDict[newName] = newValue
-            elif newName in styleDict:
-                # Delete if present and empty value passed
-                del styleDict[newName]
+            setattr(self.style, newName, newValue)
 
-        if styleDict:
-            # If anything left, build a str
-            styleStr = '; '.join([name + ': ' + value for name, value in styleDict.items()])
-            self.setAttribute('style', styleStr)
-            return styleStr
-        else:
-            # Last item removed, so remove attribute.
-            self.removeAttribute('style')
-            return ''
+        return self.style
 
 
     def __str__(self):

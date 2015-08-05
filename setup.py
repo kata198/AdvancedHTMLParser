@@ -51,6 +51,10 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 
 The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
 
+**Style Attribute**
+
+Style attributes can be manipulated just like in javascript, so element.style.position = 'relative' for setting, or element.style.position for access. There are also helper methods, getStyle(name) and setStyle(name, value) which will set the  correct values.
+
 **TagCollection**
 
 A TagCollection can be used like a list. It also exposes the various get\* functions which operate on the elements within the list (and their children).
@@ -171,6 +175,11 @@ Contact Me / Support
 --------------------
 
 I am available by email to provide support, answer questions, or otherwise  provide assistance in using this software. Use my email kata198 at gmail.com with "AdvancedArgumentParser" in the subject line.
+
+Unit Tests
+----------
+
+See "tests" directory available in github. Use "runTests.py" within that directory. Tests use my `GoodTests <https://github.com/kata198/GoodTests>`_ framework. It will download it to the current directory if not found in path, so you don't need to worry that it's a dependency.
 
 """
 

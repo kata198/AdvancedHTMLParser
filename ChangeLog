@@ -1,3 +1,12 @@
+* 6.1.0 Aug 5 2015
+- Fix issue where root node  would not get matched in some conditions
+- Implement some real tests using GoodTests
+- Much better handling of special attributes through a dedicated extension of
+dict
+- Ability to use "style" in the same way javascript allows, like
+element.style.position = 'absolute'
+- Various cleanups
+
 * 6.1.0 prerelease July 27 2015
 - More intuitive usage  with multiple root-level nodes (like parsing an AJAX
 request). Add `getRootNodes` function to return a list of root nodes, and

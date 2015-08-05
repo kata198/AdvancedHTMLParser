@@ -52,6 +52,7 @@ parser2.parseStr('<div name="items"> <span name="itemName">Coop</span><span name
 items[0].parentNode.appendChild(parser2.getRoot())
 items = parser.getElementsByName('items')
 
+#import pdb; pdb.set_trace()
 for item in items:
     priceEm = item.getElementsByName('price')[0]
 
