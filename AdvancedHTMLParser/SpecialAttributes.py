@@ -93,6 +93,11 @@ class StyleAttribute(object):
         return styleDict
 
     def getStyleDict(self):
+        '''
+            getStyleDict - Returns a dictionary of style attribute name:value. 
+
+            @return dict <str:str> style attribute names to values. Impl is OrderedDict and will match positioning in string value
+        '''
         return self._styleDict
 
     def getStyle(self, styleName):
