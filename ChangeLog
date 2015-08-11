@@ -1,4 +1,4 @@
-* 6.2.0 Aug 10 2015
+* 6.2.1 Aug 10 2015
 - Add a lot more tests and  provide exception messages to assert keywords
 (supported in GoodTests)
 - Better error message when trying to set various attributes directly
