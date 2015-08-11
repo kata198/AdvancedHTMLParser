@@ -19,6 +19,8 @@ Full API
 
 Can be found  http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html .
 
+Various examples  can be found in the "tests" directory, check github.
+
 Short Doc
 ---------
 
@@ -71,6 +73,10 @@ some of these include:
 
     removeChild             -  Removes a child
 
+    insertBefore            - Inserts a child before an existing child
+
+    insertAfter             - Inserts a child after an existing child
+
     getChildren             - Returns the children as a list
 
     getStartTag             - Start Tag, with attributes
@@ -86,6 +92,14 @@ some of these include:
     getPeersByClassName   - Gets peers that contain a given class name
 
     getElement\*            - Same as above, but act on the children of this element.
+
+    nextSibling            - Get next sibling, be it text  or  an element
+
+    nextSiblingElement     - Get next sibling, that is an element
+
+    previousSibling            - Get previous sibling, be it text  or  an element
+
+    previousSiblingElement     - Get previous sibling, that is an element
 
     {get,set,has}Attribute  - get/set/test for an attribute
 

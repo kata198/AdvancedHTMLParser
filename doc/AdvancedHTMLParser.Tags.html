@@ -181,6 +181,16 @@ Use&nbsp;the&nbsp;getters&nbsp;and&nbsp;setters&nbsp;instead&nbsp;of&nbsp;attrib
 &nbsp;<br>
 @param&nbsp;className&nbsp;-&nbsp;A&nbsp;class&nbsp;to&nbsp;search</tt></dd></dl>
 
+<dl><dt><a name="AdvancedTag-insertAfter"><strong>insertAfter</strong></a>(self, child, afterChild)</dt><dd><tt>insertAfter&nbsp;-&nbsp;Inserts&nbsp;a&nbsp;child&nbsp;after&nbsp;@afterChild<br>
+&nbsp;<br>
+child&nbsp;-&nbsp;Child&nbsp;to&nbsp;insert<br>
+afterChild&nbsp;-&nbsp;Child&nbsp;&nbsp;to&nbsp;insert&nbsp;after.&nbsp;if&nbsp;None,&nbsp;will&nbsp;&nbsp;be&nbsp;appended</tt></dd></dl>
+
+<dl><dt><a name="AdvancedTag-insertBefore"><strong>insertBefore</strong></a>(self, child, beforeChild)</dt><dd><tt>insertBefore&nbsp;-&nbsp;Inserts&nbsp;a&nbsp;child&nbsp;before&nbsp;@beforeChild<br>
+&nbsp;<br>
+child&nbsp;-&nbsp;Child&nbsp;to&nbsp;insert<br>
+beforeChild&nbsp;-&nbsp;Child&nbsp;&nbsp;to&nbsp;insert&nbsp;before.&nbsp;if&nbsp;None,&nbsp;will&nbsp;&nbsp;be&nbsp;appended</tt></dd></dl>
+
 <dl><dt><a name="AdvancedTag-removeAttribute"><strong>removeAttribute</strong></a>(self, attrName)</dt><dd><tt>removeAttribute&nbsp;-&nbsp;Removes&nbsp;an&nbsp;attribute,&nbsp;by&nbsp;name.<br>
 &nbsp;<br>
 @param&nbsp;attrName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;attribute&nbsp;name</tt></dd></dl>
@@ -196,10 +206,14 @@ Use&nbsp;the&nbsp;getters&nbsp;and&nbsp;setters&nbsp;instead&nbsp;of&nbsp;attrib
 
 <dl><dt><a name="AdvancedTag-removeText"><strong>removeText</strong></a>(self, text)</dt><dd><tt>removeText&nbsp;-&nbsp;Removes&nbsp;some&nbsp;inner&nbsp;text</tt></dd></dl>
 
-<dl><dt><a name="AdvancedTag-setAttribute"><strong>setAttribute</strong></a>(self, attrName, attrValue)</dt><dd><tt>setAttribute&nbsp;-&nbsp;Sets&nbsp;an&nbsp;attribute.&nbsp;Do&nbsp;not&nbsp;use&nbsp;this&nbsp;for&nbsp;classname,&nbsp;use&nbsp;addClass/removeClass.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br>
+<dl><dt><a name="AdvancedTag-setAttribute"><strong>setAttribute</strong></a>(self, attrName, attrValue)</dt><dd><tt>setAttribute&nbsp;-&nbsp;Sets&nbsp;an&nbsp;attribute.&nbsp;Be&nbsp;wary&nbsp;using&nbsp;this&nbsp;for&nbsp;classname,&nbsp;maybe&nbsp;use&nbsp;addClass/removeClass.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br>
 &nbsp;<br>
 @param&nbsp;attrName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;attribute<br>
 @param&nbsp;attrValue&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="AdvancedTag-setAttributes"><strong>setAttributes</strong></a>(self, attributesDict)</dt><dd><tt>setAttributes&nbsp;-&nbsp;Sets&nbsp;&nbsp;several&nbsp;attributes&nbsp;at&nbsp;once,&nbsp;using&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;attrName&nbsp;:&nbsp;attrValue<br>
+&nbsp;<br>
+@param&nbsp;&nbsp;attributesDict&nbsp;-&nbsp;&lt;str:str&gt;&nbsp;-&nbsp;New&nbsp;attribute&nbsp;names&nbsp;-&gt;&nbsp;values</tt></dd></dl>
 
 <dl><dt><a name="AdvancedTag-setStyle"><strong>setStyle</strong></a>(self, styleName, styleValue)</dt><dd><tt>setStyle&nbsp;-&nbsp;Sets&nbsp;a&nbsp;style&nbsp;param.&nbsp;Example:&nbsp;"display",&nbsp;"block"<br>
 &nbsp;<br>
@@ -249,6 +263,12 @@ Data descriptors defined here:<br>
 </dl>
 <dl><dt><strong>name</strong></dt>
 </dl>
+<dl><dt><strong>nextSibling</strong></dt>
+<dd><tt>nextSibling&nbsp;-&nbsp;Returns&nbsp;the&nbsp;next&nbsp;sibling.&nbsp;&nbsp;This&nbsp;could&nbsp;be&nbsp;text&nbsp;or&nbsp;an&nbsp;element.&nbsp;use&nbsp;nextSiblingElement&nbsp;to&nbsp;ensure&nbsp;element</tt></dd>
+</dl>
+<dl><dt><strong>nextSiblingElement</strong></dt>
+<dd><tt>nextSiblingElement&nbsp;-&nbsp;Returns&nbsp;the&nbsp;next&nbsp;sibling&nbsp;&nbsp;that&nbsp;is&nbsp;an&nbsp;element.</tt></dd>
+</dl>
 <dl><dt><strong>outerHTML</strong></dt>
 <dd><tt>outerHTML&nbsp;-&nbsp;Returns&nbsp;start&nbsp;tag,&nbsp;innerHTML,&nbsp;and&nbsp;end&nbsp;tag<br>
 &nbsp;<br>
@@ -261,6 +281,12 @@ Data descriptors defined here:<br>
 <dd><tt>peers&nbsp;-&nbsp;Get&nbsp;elements&nbsp;with&nbsp;same&nbsp;parent&nbsp;as&nbsp;this&nbsp;item<br>
 &nbsp;<br>
 @return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;elements</tt></dd>
+</dl>
+<dl><dt><strong>previousSibling</strong></dt>
+<dd><tt>previousSibling&nbsp;-&nbsp;Returns&nbsp;the&nbsp;previous&nbsp;sibling.&nbsp;&nbsp;This&nbsp;could&nbsp;be&nbsp;text&nbsp;or&nbsp;an&nbsp;element.&nbsp;use&nbsp;previousSiblingElement&nbsp;to&nbsp;ensure&nbsp;element</tt></dd>
+</dl>
+<dl><dt><strong>previousSiblingElement</strong></dt>
+<dd><tt>previousSiblingElement&nbsp;-&nbsp;Returns&nbsp;the&nbsp;previous&nbsp;&nbsp;sibling&nbsp;&nbsp;that&nbsp;is&nbsp;an&nbsp;element.</tt></dd>
 </dl>
 <dl><dt><strong>value</strong></dt>
 <dd><tt>value&nbsp;-&nbsp;The&nbsp;"value"&nbsp;attribute&nbsp;of&nbsp;this&nbsp;element</tt></dd>

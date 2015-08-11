@@ -7,11 +7,9 @@ import sys
 import AdvancedHTMLParser
 
 
-class TestGeneral(object):
+class TestParserGetters(object):
     '''
-        A general test class. Basically example.py converted a bit.
-
-        TODO: Add more specific testsfor everything
+        Testt the various "get"  methods when cakled von the Parser  object
     '''
 
     def __init__(self):

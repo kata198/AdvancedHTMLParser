@@ -65,30 +65,30 @@ class TestGeneral(object):
         items = parser.getElementsByName('items')
         assert len(items) == 5
         for  item in items:
-            assert item.tagName == 'div'
+            assert item.tagName == 'div', 'Bad Tag name, should  have been DIV'
 
     def test_correctTitle(self):
         parser = self.parser
 
         titleEms =  parser.getElementsByTagName('title')
-        assert titleEms
-        assert len(titleEms) == 1
+        assert titleEms, 'Failed to find elements with tag name, "Title"'
+        assert len(titleEms) == 1, 'More than one element with name title found (%d), expected  1.'  %(len(titleEms),)
         
         titleEm  =  titleEms[0]
-        assert titleEm.innerHTML.strip() ==  'HEllo'
+        assert titleEm.innerHTML.strip() ==  'HEllo', 'Bad innerHTML attribute, expected "HEllo"'
 
-        assert titleEm.outerHTML.strip().replace(' ', '') == '<title>HEllo</title>'
+        assert titleEm.outerHTML.strip().replace(' ', '') == '<title>HEllo</title>' , 'Bad outerHTML, extpected "<title>HEllo</title>"'
 
     def _getItemsUnder(self, items, maxPrice):
         itemsUnder = []
         for item in items:
             priceEms =  item.getElementsByName('price')
-            assert priceEms
-            assert len(priceEms) == 1
+            assert priceEms, 'Failed to find price elements'
+            assert len(priceEms) == 1, 'Expected 1 price element, got %d' %(len(priceEms),)
             priceEm = priceEms[0]
 
             priceInner =  priceEm.innerHTML.strip()
-            assert priceInner
+            assert priceInner,  'Got blank innerHTML in price element'
             try:
                 priceValue =  round(float(priceEm.innerHTML.strip()), 2)
             except:
@@ -99,32 +99,32 @@ class TestGeneral(object):
         return itemsUnder
 
     def _getItemName(self, item):
-        peers = item.getElementsByName('itemName')
-        assert peers
-        assert len(peers) == 1
+        itemNames = item.getElementsByName('itemName')
+        assert itemNames, 'Failed to get item name subelement of: %s' %(item.outerHTML,)
+        assert len(itemNames) == 1, 'Expected 1 item name  elements, got %d'  %(len(itemNames),)
 
-        return peers[0].innerHTML.strip()
+        return itemNames[0].innerHTML.strip()
         
 
 
     def test_advancedSearching(self):
         parser = self.parser
         items = parser.getElementsByName('items')
-        assert items
+        assert items, 'Failed to get items'
 
         itemsUnderFour =  self._getItemsUnder(items, 4.00)
-        assert len(itemsUnderFour) == 3
+        assert len(itemsUnderFour) == 3, 'Asserted to find 3 items under 4.00, but found %d' %(len(itemsUnderFour),)
 
         names = [self._getItemName(item) for item in itemsUnderFour]
         for name in names:
-            assert name
+            assert name , 'Expected name not to be blank'
         
         names = set(names)
 
-        assert 'Sponges' in names
-        assert 'Turtles' in names
-        assert 'Pudding Cups' in names
-        assert 'Gold Brick' not in names
+        assert 'Sponges' in names , 'Expected to find Sponges'
+        assert 'Turtles' in names , 'Expected to find  Turtles'
+        assert 'Pudding Cups' in names ,  'Expected to find Pudding Cups'
+        assert 'Gold Brick' not in names , 'Expected NOT TO find Gold Brick'
 
     def test_appendAndSearch(self):
         parser = AdvancedHTMLParser.AdvancedHTMLParser()
@@ -132,10 +132,10 @@ class TestGeneral(object):
 
 
         items = parser.getElementsByName('items')
-        assert items
+        assert items , 'Should have found name=items in %s' %(parser.getHTML(),)
 
         cheapoItems =  self._getItemsUnder(items, .25)
-        assert len(cheapoItems) == 0
+        assert len(cheapoItems) == 0 ,  'Expected  to find  0 items under .25'
 
         parser2 = AdvancedHTMLParser.AdvancedHTMLParser()
         parser2.parseStr('<div name="items"> <span name="itemName">Mint</span><span name="price">.19</span></div>')
@@ -143,10 +143,10 @@ class TestGeneral(object):
         items[0].parentNode.appendChild(parser2.getRoot())
 
         items = parser.getElementsByName('items')
-        assert items
+        assert items , 'Should have found name=items in %s' %(parser.getHTML(),)
 
         cheapoItems =  self._getItemsUnder(items, .25)
-        assert len(cheapoItems) == 1
+        assert len(cheapoItems) == 1 ,  'Expected to find 1 item under  .25'
 
         assert self._getItemName(cheapoItems[0]) == 'Mint'
 
@@ -155,11 +155,9 @@ class TestGeneral(object):
         parser.parseStr('<div id="theItem">Hello World</div>')
 
         theItemEm = parser.getElementById('theItem')
-        assert theItemEm
-        assert theItemEm.id == 'theItem'
+        assert theItemEm , 'Expected  to find div id="theItem"'
+        assert theItemEm.id == 'theItem' , 'Expected it  to be "theItem"'
 
 
 if __name__ == '__main__':
-    import subprocess
-    import sys
-    pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
+    subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()

@@ -23,6 +23,8 @@ Full API
 
 Can be found  `Here <http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html>`_ .
 
+Various examples  can be found in the "tests" directory, check github.
+
 Short Doc
 ---------
 
@@ -69,6 +71,10 @@ some of these include:
     appendText              -  Append text to this element
 
     appendChild             -  Append a child to this element
+
+    insertBefore            -  Inserts a child before an existing child
+
+    insertAfter             - Inserts a child after an existing child
 
     removeChild             -  Removes a child
 
@@ -186,7 +192,7 @@ See "tests" directory available in github. Use "runTests.py" within that directo
 if __name__ == '__main__':
 
     setup(name='AdvancedHTMLParser',
-            version='6.1.0',
+            version='6.2.0',
             packages=['AdvancedHTMLParser'],
             scripts=['formatHTML'],
             author='Tim Savannah',

@@ -155,7 +155,7 @@ class TagCollection(list):
             @return - a single tag matching the id, or None if none found
         '''
         for tag in self:
-            if tag.getId() == _id:
+            if tag.id == _id:
                 return tag
             for subtag in tag.children:
                 tmp = subtag.getElementById(_id)
@@ -250,7 +250,10 @@ class AdvancedTag(object):
     def __setattr__(self, name, value):
         if name == 'style' and not isinstance(value, StyleAttribute):
             value = StyleAttribute(value)
-        return object.__setattr__(self, name,  value)
+        try:
+            return object.__setattr__(self, name,  value)
+        except AttributeError:
+            raise AttributeError('Cannot set property %s. Use setAttribute?' %(name,))
 
     def appendText(self, text):
         '''
@@ -310,7 +313,102 @@ class AdvancedTag(object):
             return None
 
     removeNode = removeChild
-            
+
+    def insertBefore(self, child, beforeChild):
+        '''
+            insertBefore - Inserts a child before @beforeChild
+
+            child - Child to insert
+            beforeChild - Child  to insert before. if None, will  be appended
+
+        '''
+        if beforeChild is None:
+            return self.appendChild(child)
+
+        try:
+            childrenIdx = self.children.index(beforeChild)
+            blocksIdx =  self.blocks.index(beforeChild)
+            self.children = self.children[:childrenIdx] + [child] + self.children[childrenIdx:]
+            self.blocks = self.blocks[:blocksIdx] + [child] + self.blocks[blocksIdx:]
+        except ValueError:
+            raise ValueError('Provided "beforeChild" is not a child of element, cannot insert.')
+
+    def insertAfter(self, child, afterChild):
+        '''
+            insertAfter - Inserts a child after @afterChild
+
+            child - Child to insert
+            afterChild - Child  to insert after. if None, will  be appended
+
+        '''
+        if afterChild is None:
+            return self.appendChild(child)
+
+        try:
+            childrenIdx = self.children.index(afterChild)
+            blocksIdx =  self.blocks.index(afterChild)
+            self.children = self.children[:childrenIdx+1] + [child] + self.children[childrenIdx+1:]
+            self.blocks = self.blocks[:blocksIdx+1] + [child] + self.blocks[blocksIdx+1:]
+        except ValueError:
+            raise ValueError('Provided "afterChild" is not a child of element, cannot insert.')
+
+    @property
+    def nextSibling(self):
+        '''
+            nextSibling - Returns the next sibling.  This could be text or an element. use nextSiblingElement to ensure element
+        '''
+        if not self.parentNode:
+            return None
+        myBlockIdx = self.parentNode.blocks.index(self)
+        if myBlockIdx == len(self.parentNode.blocks):
+            return None
+        return self.parentNode.blocks[myBlockIdx+1]
+
+    @property
+    def nextSiblingElement(self):
+        '''
+            nextSiblingElement - Returns the next sibling  that is an element. 
+        '''
+        if not self.parentNode:
+            return None
+        myElementIdx = self.parentNode.children.index(self)
+        if myElementIdx == len(self.parentNode.children):
+            return None
+        return self.parentNode.children[myElementIdx+1]
+        
+    @property
+    def previousSibling(self):
+        '''
+            previousSibling - Returns the previous sibling.  This could be text or an element. use previousSiblingElement to ensure element
+        '''
+        if not self.parentNode:
+            return None
+        myBlockIdx = self.parentNode.blocks.index(self)
+        if myBlockIdx == 0:
+            return None
+        return self.parentNode.blocks[myBlockIdx-1]
+
+    @property
+    def previousSiblingElement(self):
+        '''
+            previousSiblingElement - Returns the previous  sibling  that is an element. 
+        '''
+        if not self.parentNode:
+            return None
+        myElementIdx = self.parentNode.children.index(self)
+        if myElementIdx == 0:
+            return None
+        return self.parentNode.children[myElementIdx-1]
+        
+
+    def getChildren(self):
+        '''
+            getChildren - returns child nodes as a searchable TagCollection.
+
+                @return - TagCollection of the immediate children to this tag.
+        '''
+        return TagCollection(self.children)
+
     def getChildren(self):
         '''
             getChildren - returns child nodes as a searchable TagCollection.
@@ -460,12 +558,20 @@ class AdvancedTag(object):
 
     def setAttribute(self, attrName, attrValue):
         '''
-            setAttribute - Sets an attribute. Do not use this for classname, use addClass/removeClass. Attribute names are all lowercase.
+            setAttribute - Sets an attribute. Be wary using this for classname, maybe use addClass/removeClass. Attribute names are all lowercase.
         
             @param attrName <str> - The name of the attribute
             @param attrValue <str> - The value of the attribute
         '''
         self.attributes[attrName] = attrValue
+
+    def setAttributes(self, attributesDict):
+        '''
+            setAttributes - Sets  several attributes at once, using a dictionary of attrName : attrValue
+
+            @param  attributesDict - <str:str> - New attribute names -> values
+        '''
+        self.attributes.update(attributesDict)
 
     def hasAttribute(self, attrName):
         '''

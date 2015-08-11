@@ -1,3 +1,12 @@
+* 6.2.0 Aug 10 2015
+- Add a lot more tests and  provide exception messages to assert keywords
+(supported in GoodTests)
+- Better error message when trying to set various attributes directly
+- Add "setAttributes"  method that takes a dict and allows setting many
+attributes at once
+- Added nextSibling, nextSiblingElement, previousSibling, previousSiblingElement
+- Added insertBefore and insertAfter (latter not present in HTML)
+
 * 6.1.0 Aug 5 2015
 - Fix issue where root node  would not get matched in some conditions
 - Implement some real tests using GoodTests
