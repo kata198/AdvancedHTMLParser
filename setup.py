@@ -200,7 +200,7 @@ if __name__ == '__main__':
             maintainer='Tim Savannah',
             url='https://github.com/kata198/AdvancedHTMLParser',
             maintainer_email='kata198@gmail.com',
-            description='A Powerful HTML Parser/Scraper/Validator that constructs a modifiable, searchable DOM tree, and includes many standard JS DOM functions (getElementsBy*, appendChild, etc) and additional methods',
+            description='A Powerful HTML Parser/Scraper/Validator/Formatter that constructs a modifiable, searchable DOM tree, and includes many standard JS DOM functions (getElementsBy*, appendChild, etc) and additional methods',
             long_description=long_description,
             license='LGPLv3',
             keywords=['html', 'parser', 'tree', 'DOM', 'getElementsByName', 'getElementById', 'getElementsByClassName', 'simple', 'python', 'xml', 'HTMLParser', 'getElementsByTagName', 'getElementsByAttr', 'javascript', 'parse', 'scrape', 'test', 'SimpleHTMLParser', 'modify', 'JS', 'write'],
