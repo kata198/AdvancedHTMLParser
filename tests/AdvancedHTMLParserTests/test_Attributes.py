@@ -5,7 +5,7 @@ import subprocess
 
 from AdvancedHTMLParser.Tags import AdvancedTag
 
-class test_Attributes(object):
+class TestAttributes(object):
     '''
         Tests some attribute behaviour
     '''
@@ -17,7 +17,7 @@ class test_Attributes(object):
 
         assert tag.getAttribute('id') == 'abc' , 'Expected id to be abc'
 
-        assert tag.getAttribute('blah') == '' , 'Expected unset attribute to return empty string'
+        assert tag.getAttribute('blah') == None , 'Expected unset attribute to return None, actually returned %s' %(tag.getAttribute('blah'),)
 
     def test_setAttributes(self):
         tag = AdvancedTag('div')
@@ -34,10 +34,12 @@ class test_Attributes(object):
     def test_specialAttributes(self):
         tag = AdvancedTag('div')
         tag.setAttribute('style', 'position: absolute')
-        assert tag.getAttribute('style', 'position: absolute')
+        styleValue = str(tag.getAttribute('style'))
+        styleValue = styleValue.strip()
+        assert styleValue == 'position: absolute' , 'Expected position: absolute, got %s' %(str(tag.getAttribute('style')),)
 
         tag.setAttribute('className', 'one two')
-        assert tag.className == 'one two'
+        assert str(tag.className).strip() == 'one two' , 'Expected classname to be "one two", got %s' %(repr(str(tag.className).strip()),)
 
 
 if __name__ == '__main__':

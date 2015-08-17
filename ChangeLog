@@ -1,3 +1,8 @@
+* 6.2.2 Aug 17 2015
+- Enable tests that weren't running
+- Unify calling .get('key') or ['key'] for tag attributes
+- Fix using 'className' with get/set attribute
+
 * 6.2.1 Aug 10 2015
 - Add a lot more tests and  provide exception messages to assert keywords
 (supported in GoodTests)

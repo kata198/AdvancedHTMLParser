@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 class SpecialAttributesDict(dict):
     '''
-        SpecialAttributesDict - A dictionary that supports the various special members, to allow javascript like syntax
+        SpecialAttributesDict - A dictionary that supports the various special members, to allow javascript-like syntax
     '''
     # A dict that supports returning special members
     def __init__(self, tag):
@@ -18,7 +18,7 @@ class SpecialAttributesDict(dict):
     def __getitem__(self, key):
         if key == 'style':
             return self.tag.style
-        elif key == 'class':
+        elif key in {'class', 'className'}:
             return self.tag.className
 
         try:
@@ -26,10 +26,15 @@ class SpecialAttributesDict(dict):
         except KeyError:
             return None #  TODO: support undefined?
 
+    def get(self, key, default=None):
+        if key in {'style', 'class', 'className'} or key in self.keys():
+            return self[key]
+        return default
+
     def __setitem__(self, key, value):
         if key == 'style':
             self.tag.style = StyleAttribute(value)
-        elif key == 'class':
+        elif key in {'class', 'className'}:
             self.tag.className = value
             self.tag.classNames = [x for x in value.split(' ') if x]
         else:

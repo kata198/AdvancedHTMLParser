@@ -551,7 +551,7 @@ class AdvancedTag(object):
 
     def getAttribute(self, attrName):
         '''
-            getAttribute - Gets an attribute on this tag. Do not use this for classname, use .className . Attribute names are all lowercase.
+            getAttribute - Gets an attribute on this tag. Be wary using this for classname, maybe use addClass/removeClass. Attribute names are all lowercase.
                 @return - The attribute value, or None if none exists.
            '''
         return self.attributes.get(attrName, None)
