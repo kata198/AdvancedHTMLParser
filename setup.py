@@ -200,7 +200,7 @@ See "tests" directory available in github. Use "runTests.py" within that directo
 if __name__ == '__main__':
 
     setup(name='AdvancedHTMLParser',
-            version='6.2.2',
+            version='6.2.2.0',
             packages=['AdvancedHTMLParser'],
             scripts=['formatHTML'],
             author='Tim Savannah',
