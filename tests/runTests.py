@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+# vim: set ts=4 sw=4 expandtab :
 import os
 import glob
 import subprocess
@@ -25,8 +26,9 @@ def findGoodTests():
 def download_goodTests():
     validAnswer = False
     while validAnswer == False:
-        answer = input('GoodTests notfound. Would you like to install  it? (y/n): ')
-        answer = answer.lower()
+        sys.stdout.write('GoodTests notfound. Would you like to install  it? (y/n): ')
+        sys.stdout.flush()
+        answer = sys.stdin.readline().strip().lower()
         if answer not in ('y', 'n', 'yes', 'no'):
             continue
         validAnswer =  True
@@ -48,31 +50,31 @@ def download_goodTests():
             if res != 0:
                 sys.stderr.write('Failed to  install GoodTests with pip or  direct download. aborting.\n')
                 sys.exit(1)
-        try:
-            response = urllib.urlopen(GOODTESTS_URL)
-            contents = response.read()
-            if str !=  bytes:
-                contents = contents.decode('ascii')
-        except Exception as e:
-            sys.stderr.write('Failed  to download  GoodTests.py from "%s"\n%s\n' %(GOODTESTS_URL, str(e)))
-            sys.exit(1)
-        try:
-            with open('GoodTests.py', 'w') as f:
-                f.write(contents)
-        except Exception as e:
-            sys.stderr.write('Failed to write to GoodTests.py\n%s\n' %(str(e,)))
-            sys.exit(1)
-        try:
-            os.chmod('GoodTests.py', 0o775)
-        except:
-            sys.stderr.write('WARNING: Failed to chmod +x GoodTests.py, may not be able to be executed.\n')
+    try:
+        response = urllib.urlopen(GOODTESTS_URL)
+        contents = response.read()
+        if str !=  bytes:
+            contents = contents.decode('ascii')
+    except Exception as e:
+        sys.stderr.write('Failed  to download  GoodTests.py from "%s"\n%s\n' %(GOODTESTS_URL, str(e)))
+        sys.exit(1)
+    try:
+        with open('GoodTests.py', 'w') as f:
+            f.write(contents)
+    except Exception as e:
+        sys.stderr.write('Failed to write to GoodTests.py\n%s\n' %(str(e,)))
+        sys.exit(1)
+    try:
+        os.chmod('GoodTests.py', 0o775)
+    except:
+        sys.stderr.write('WARNING: Failed to chmod +x GoodTests.py, may not be able to be executed.\n')
 
-        try:
-            import GoodTests
-        except ImportError:
-            sys.stderr.write('Seemed to download GoodTests okay, but still cannot  import. Aborting.\n')
-            sys.exit(1)
-        
+    try:
+        import GoodTests
+    except ImportError:
+        sys.stderr.write('Seemed to download GoodTests okay, but still cannot  import. Aborting.\n')
+        sys.exit(1)
+    
 
 if __name__ == '__main__':
 
