@@ -26,7 +26,7 @@ def findGoodTests():
 def download_goodTests():
     validAnswer = False
     while validAnswer == False:
-        sys.stdout.write('GoodTests notfound. Would you like to install  it? (y/n): ')
+        sys.stdout.write('GoodTests notfound. Would you like to install it to local folder? (y/n): ')
         sys.stdout.flush()
         answer = sys.stdin.readline().strip().lower()
         if answer not in ('y', 'n', 'yes', 'no'):
