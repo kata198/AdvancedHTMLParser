@@ -94,6 +94,14 @@ some of these include:
 
     getElement\*            - Same as above, but act on the children of this element.
 
+    nextSibling            - Get next sibling, be it text  or  an element
+
+    nextSiblingElement     - Get next sibling, that is an element
+
+    previousSibling            - Get previous sibling, be it text  or  an element
+
+    previousSiblingElement     - Get previous sibling, that is an element
+
     {get,set,has}Attribute  - get/set/test for an attribute
 
     {add,remove}Class       - Add/remove a class from the list of classes
