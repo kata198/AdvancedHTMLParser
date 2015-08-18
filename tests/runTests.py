@@ -79,6 +79,11 @@ def download_goodTests():
 if __name__ == '__main__':
 
     didDownload = False
+    try:
+        import AdvancedHTMLParser
+    except ImportError:
+        sys.stderr.write('Could not import AdvancedHTMLParser. Either install it, or make a symlink in this directory to ../AdvancedHTMLParser\n')
+        sys.exit(1)
     
     goodTestsInfo = findGoodTests()
     if goodTestsInfo['success'] is False:

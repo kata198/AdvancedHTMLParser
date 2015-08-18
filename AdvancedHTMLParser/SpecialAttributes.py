@@ -37,8 +37,9 @@ class SpecialAttributesDict(dict):
         elif key in {'class', 'className'}:
             self.tag.className = value
             self.tag.classNames = [x for x in value.split(' ') if x]
-        else:
-            dict.__setitem__(self, key,  value)
+
+        dict.__setitem__(self, key,  value)
+
         return value
 
 

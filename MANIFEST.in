@@ -1,8 +1,10 @@
-recursive-include doc *
-recursive-include tests *
-recursive-include AdvancedHTMLParser *
+recursive-include doc *.html
+include tests runTests.py
+recursive-include tests/AdvancedHTMLParserTests *.py
+recursive-include AdvancedHTMLParser *.py .vimrc
 include Changelog
 include example.py
 include indexed_example.py
 include README.md
+include README.rst
 include LICENSE

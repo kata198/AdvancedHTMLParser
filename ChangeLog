@@ -1,3 +1,6 @@
+* 6.2.3 Aug 17 2015
+- Fix style and class attributes not showing up in outerHTML
+
 * 6.2.2 Aug 17 2015
 - Enable tests that weren't running
 - Unify calling .get('key') or ['key'] for tag attributes

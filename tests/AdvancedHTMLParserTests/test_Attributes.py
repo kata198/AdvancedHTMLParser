@@ -41,6 +41,15 @@ class TestAttributes(object):
         tag.setAttribute('className', 'one two')
         assert str(tag.className).strip() == 'one two' , 'Expected classname to be "one two", got %s' %(repr(str(tag.className).strip()),)
 
+    def test_specialAttributesInHTML(self):
+        tag = AdvancedTag('div')
+        tag.attributes['style'] = 'position: absolute; color: purple'
+
+        outerHTML = tag.outerHTML
+
+        assert 'position: absolute' in outerHTML , 'Missing style attribute in outerHTML'
+        assert 'purple' in outerHTML , 'Missing style attribute in outerHTML'
+
 
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
