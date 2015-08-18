@@ -1,5 +1,5 @@
 recursive-include doc *.html
-include tests runTests.py
+recursive-include tests runTests.py
 recursive-include tests/AdvancedHTMLParserTests *.py
 recursive-include AdvancedHTMLParser *.py .vimrc
 include Changelog

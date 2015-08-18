@@ -2,6 +2,7 @@
 - Fix style and class attributes not showing up in outerHTML
 - Allow formatHTML script to read from stdin
 - Cleanup setup.py to read description from file
+- Fix MANIFEST.in
 
 * 6.2.2 Aug 17 2015
 - Enable tests that weren't running
