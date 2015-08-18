@@ -4,8 +4,9 @@ import os
 from setuptools import setup
 
 
-if os.getcwd() != os.path.dirname(__file__):
-    os.chdir(os.path.dirname(__file__))
+dirName = os.path.dirname(__file__)
+if dirName and os.getcwd() != dirName:
+    os.chdir(dirName)
 
 with open('README.rst', 'r') as f:
     long_description = f.read()
