@@ -613,6 +613,7 @@ class AdvancedTag(object):
             return
         self.classNames.append(className)
         self.className = ' '.join(self.classNames)
+        self.attributes._direct_set('class', self.className)
 
         return None
 
@@ -623,6 +624,7 @@ class AdvancedTag(object):
         if className in self.classNames:
             self.classNames.remove(className)
             self.className = ' '.join(self.classNames)
+            self.attributes._direct_set('class', self.className)
             return className
 
         return None

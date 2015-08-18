@@ -6,8 +6,8 @@
 from .Parser import AdvancedHTMLParser, IndexedAdvancedHTMLParser
 from .Formatter import AdvancedHTMLFormatter
 
-__version__ = '6.2.4'
-__version_tuple__ = ('6', '2', '4')
+__version__ = '6.2.5'
+__version_tuple__ = ('6', '2', '5')
 
 __all__ = ['AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter']
 

@@ -50,6 +50,28 @@ class TestAttributes(object):
         assert 'position: absolute' in outerHTML , 'Missing style attribute in outerHTML'
         assert 'purple' in outerHTML , 'Missing style attribute in outerHTML'
 
+    def test_classNames(self):
+        tag = AdvancedTag('div')
+        tag.addClass('abc')
+
+        assert tag.hasClass('abc'), 'Failed to add class'
+        assert 'abc' in tag.outerHTML , 'Failed to add class in outerHTML'
+
+        tag.addClass('def')
+
+        assert tag.hasClass('abc'), 'Failed to retain class'
+        assert 'abc' in tag.outerHTML , ' Failed to retain in outerHTML'
+
+        assert tag.hasClass('def'), 'Failed to add second class'
+        assert 'def' in tag.outerHTML , ' Failed to add to outerHTML'
+
+        tag.removeClass('abc')
+        assert not tag.hasClass('abc'), 'Failed to remove class'
+        assert 'abc' not in tag.outerHTML , 'Failed to remove class from outerHTML'
+
+        assert tag.hasClass('def'), 'Failed to retain class'
+        assert 'def' in tag.outerHTML , ' Failed to retain in outerHTML'
+
 
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()

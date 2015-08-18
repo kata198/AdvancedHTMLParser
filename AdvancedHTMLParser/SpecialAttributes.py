@@ -31,12 +31,18 @@ class SpecialAttributesDict(dict):
             return self[key]
         return default
 
+    def _direct_set(self, key, value):
+        dict.__setitem__(self, key, value)
+        return value
+
     def __setitem__(self, key, value):
         if key == 'style':
             self.tag.style = StyleAttribute(value)
         elif key in {'class', 'className'}:
             self.tag.className = value
             self.tag.classNames = [x for x in value.split(' ') if x]
+            dict.__setitem__(self, 'class',  value)
+            return value
 
         dict.__setitem__(self, key,  value)
 

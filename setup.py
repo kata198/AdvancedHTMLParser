@@ -14,7 +14,7 @@ with open('README.rst', 'r') as f:
 if __name__ == '__main__':
 
     setup(name='AdvancedHTMLParser',
-            version='6.2.4',
+            version='6.2.5',
             packages=['AdvancedHTMLParser'],
             scripts=['formatHTML'],
             author='Tim Savannah',
