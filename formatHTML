@@ -7,8 +7,11 @@ from AdvancedHTMLParser import AdvancedHTMLFormatter
 
 
 def printUsage():
-    sys.stderr.write('''Usage: %s [/path/to/in.html] (optional: [/path/to/output.html])
-  Formats HTML on input and writes to output file, or stdout if output file is omitted.
+    sys.stderr.write('''Usage: %s (optional: /path/to/in.html) (optional: [/path/to/output.html])
+  Formats HTML on input and writes to output.
+
+ If output filename is not specified or is empty string, output will be to stdout.
+ If input filename is not specified or is empty string, input will be from stdin
 ''' %(os.path.basename(sys.argv[0])))
 
 indent = '  '
@@ -37,14 +40,12 @@ for arg in sys.argv[1:]:
         printUsage()
         sys.exit(1)
 
-if not inFilename:
-    sys.stderr.write('No input filename provided\n')
-    printUsage()
-    sys.exit(1)
-
-if not os.path.isfile(inFilename):
-    sys.stderr.write('Input file "%s" does not exist.\n' %(inFilename,))
-    sys.exit(1)
+if inFilename:
+    if not os.path.isfile(inFilename):
+        sys.stderr.write('Input file "%s" does not exist.\n' %(inFilename,))
+        sys.exit(1)
+else:
+    inData = sys.stdin.read()
 
 if outFilename:
     try:
@@ -54,7 +55,10 @@ if outFilename:
     
 
 formatter = AdvancedHTMLFormatter(indent=indent)
-formatter.parseFile(inFilename)
+if inFilename:
+    formatter.parseFile(inFilename)
+else:
+    formatter.parseStr(inData)
 
 if outFilename:
     outFile.write(formatter.getHTML())

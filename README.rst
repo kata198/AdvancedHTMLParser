@@ -144,10 +144,14 @@ The methods are:
 
 A script, formatHTML comes with this package and will perform formatting on an input file, and output to a file or stdout:
 
-    Usage: formatHTML [/path/to/in.html] (optional: [/path/to/output.html])
+    Usage: formatHTML (optional: /path/to/in.html) (optional: [/path/to/output.html])
 
       Formats HTML on input and writes to output file, or stdout if output file is omitted.
 
+
+    If output filename is not specified or is empty string, output will be to stdout.
+
+    If input filename is not specified or is empty string, input will be from stdin
 
 
 Notes
