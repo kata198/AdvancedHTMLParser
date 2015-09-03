@@ -11,10 +11,9 @@ class TestGeneral(object):
     '''
         A general test class. Basically example.py converted a bit.
 
-        TODO: Add more specific testsfor everything
     '''
 
-    def __init__(self):
+    def setup_class(self):
         self.testHTML = '''
 <html>
  <head>
@@ -157,6 +156,18 @@ class TestGeneral(object):
         theItemEm = parser.getElementById('theItem')
         assert theItemEm , 'Expected  to find div id="theItem"'
         assert theItemEm.id == 'theItem' , 'Expected it  to be "theItem"'
+
+
+    def test_withAttrValues(self):
+        parser = AdvancedHTMLParser.AdvancedHTMLParser()
+        parser.parseStr(self.testHTML)
+
+
+        results = parser.getElementsWithAttrValues('src', set(['/abc.gif', '/abc2.gif']))
+
+        assert len(results) == 2 , 'Expected two results'
+
+        assert results[0].tagName == 'img' and results[1].tagName == 'img' , 'Expected to get two images'   
 
 
 if __name__ == '__main__':
