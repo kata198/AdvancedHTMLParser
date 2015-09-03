@@ -7,11 +7,9 @@ import sys
 import AdvancedHTMLParser
 
 
-class TestGeneral(object):
+class TestStyle(object):
     '''
-        A general test class. Basically example.py converted a bit.
-
-        TODO: Add more specific testsfor everything
+        Test special style attribute
     '''
 
     def __init__(self):
