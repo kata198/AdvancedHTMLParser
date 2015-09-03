@@ -1,15 +1,14 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: package AdvancedHTMLParser</title>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head><body bgcolor="#f0f0f8">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
 <tr bgcolor="#7799ee">
 <td valign=bottom>&nbsp;<br>
-<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>AdvancedHTMLParser</strong></big></big> (version 6.3.0)</font></td
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>AdvancedHTMLParser</strong></big></big> (version 6.2.1)</font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/savannah/projects/AdvancedHTMLParser/AdvancedHTMLParser/__init__.py">/home/savannah/projects/AdvancedHTMLParser/AdvancedHTMLParser/__init__.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/media/projects/AdvancedHTMLParser/AdvancedHTMLParser/__init__.py">/home/media/projects/AdvancedHTMLParser/AdvancedHTMLParser/__init__.py</a></font></td></tr></table>
     <p><tt>#&nbsp;Copyright&nbsp;(c)&nbsp;2015&nbsp;Tim&nbsp;Savannah&nbsp;All&nbsp;Rights&nbsp;Rserved&nbsp;under&nbsp;LGPLv3.&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br>
 #<br>
 #&nbsp;In&nbsp;general&nbsp;below,&nbsp;all&nbsp;"tag&nbsp;names"&nbsp;(body,&nbsp;div,&nbsp;etc)&nbsp;should&nbsp;be&nbsp;lowercase.&nbsp;The&nbsp;parser&nbsp;will&nbsp;lowercase&nbsp;internally.&nbsp;All&nbsp;attribute&nbsp;names&nbsp;(like&nbsp;`id`&nbsp;in&nbsp;id="123")&nbsp;provided&nbsp;to&nbsp;search&nbsp;functions&nbsp;should&nbsp;be&nbsp;lowercase.&nbsp;Values&nbsp;are&nbsp;not&nbsp;lowercase.&nbsp;This&nbsp;is&nbsp;because&nbsp;doing&nbsp;tons&nbsp;of&nbsp;searches,&nbsp;lowercasing&nbsp;every&nbsp;search&nbsp;can&nbsp;quickly&nbsp;build&nbsp;up.&nbsp;Lowercase&nbsp;it&nbsp;once&nbsp;in&nbsp;your&nbsp;code,&nbsp;not&nbsp;every&nbsp;time&nbsp;you&nbsp;call&nbsp;a&nbsp;function.</tt></p>
@@ -34,7 +33,7 @@
     
 <tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
-<dt><font face="helvetica, arial"><a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a>(<a href="markupbase.html#ParserBase">markupbase.ParserBase</a>)
+<dt><font face="helvetica, arial"><a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>(<a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>)
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="AdvancedHTMLParser.Formatter.html#AdvancedHTMLFormatter">AdvancedHTMLParser.Formatter.AdvancedHTMLFormatter</a>
@@ -46,24 +45,12 @@
 </dd>
 </dl>
 </dd>
-<dt><font face="helvetica, arial"><a href="__builtin__.html#list">__builtin__.list</a>(<a href="__builtin__.html#object">__builtin__.object</a>)
-</font></dt><dd>
-<dl>
-<dt><font face="helvetica, arial"><a href="AdvancedHTMLParser.Tags.html#TagCollection">AdvancedHTMLParser.Tags.TagCollection</a>
-</font></dt></dl>
-</dd>
-<dt><font face="helvetica, arial"><a href="__builtin__.html#object">__builtin__.object</a>
-</font></dt><dd>
-<dl>
-<dt><font face="helvetica, arial"><a href="AdvancedHTMLParser.Tags.html#AdvancedTag">AdvancedHTMLParser.Tags.AdvancedTag</a>
-</font></dt></dl>
-</dd>
 </dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="AdvancedHTMLFormatter">class <strong>AdvancedHTMLFormatter</strong></a>(<a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="AdvancedHTMLFormatter">class <strong>AdvancedHTMLFormatter</strong></a>(<a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>A&nbsp;formatter&nbsp;for&nbsp;HTML.&nbsp;Note&nbsp;this&nbsp;does&nbsp;not&nbsp;understand&nbsp;CSS,&nbsp;so&nbsp;if&nbsp;you&nbsp;are&nbsp;enabling&nbsp;preformatted&nbsp;text&nbsp;based&nbsp;on&nbsp;css&nbsp;rules,&nbsp;it&nbsp;will&nbsp;not&nbsp;work.<br>
@@ -71,12 +58,13 @@ It&nbsp;does,&nbsp;however,&nbsp;understand&nbsp;"pre",&nbsp;"code"&nbsp;and&nbs
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="AdvancedHTMLParser.Formatter.html#AdvancedHTMLFormatter">AdvancedHTMLFormatter</a></dd>
-<dd><a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a></dd>
-<dd><a href="markupbase.html#ParserBase">markupbase.ParserBase</a></dd>
+<dd><a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a></dd>
+<dd><a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="AdvancedHTMLFormatter-__init__"><strong>__init__</strong></a>(self, indent<font color="#909090">='  '</font>, encoding<font color="#909090">='utf-8'</font>)</dt><dd><tt>Create&nbsp;a&nbsp;formatter.<br>
+<dl><dt><a name="AdvancedHTMLFormatter-__init__"><strong>__init__</strong></a>(self, indent='  ', encoding='utf-8')</dt><dd><tt>Create&nbsp;a&nbsp;formatter.<br>
 &nbsp;<br>
 @param&nbsp;indent&nbsp;-&nbsp;Either&nbsp;a&nbsp;space/tab/newline&nbsp;that&nbsp;represents&nbsp;one&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;an&nbsp;integer&nbsp;to&nbsp;use&nbsp;that&nbsp;number&nbsp;of&nbsp;spaces<br>
 @param&nbsp;encoding&nbsp;-&nbsp;Use&nbsp;this&nbsp;encoding&nbsp;for&nbsp;the&nbsp;document.</tt></dd></dl>
@@ -89,7 +77,7 @@ Methods defined here:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLFormatter-getRoot"><strong>getRoot</strong></a>(self)</dt><dd><tt>getRoot&nbsp;-&nbsp;returns&nbsp;the&nbsp;root&nbsp;Tag&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;<a href="#AdvancedTag">AdvancedTag</a>&nbsp;at&nbsp;root.&nbsp;If&nbsp;you&nbsp;provided&nbsp;multiple&nbsp;root&nbsp;nodes,&nbsp;this&nbsp;will&nbsp;be&nbsp;a&nbsp;"holder"&nbsp;with&nbsp;tagName&nbsp;value&nbsp;as&nbsp;constants.INVISIBLE_ROOT_TAG</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;AdvancedTag&nbsp;at&nbsp;root.&nbsp;If&nbsp;you&nbsp;provided&nbsp;multiple&nbsp;root&nbsp;nodes,&nbsp;this&nbsp;will&nbsp;be&nbsp;a&nbsp;"holder"&nbsp;with&nbsp;tagName&nbsp;value&nbsp;as&nbsp;constants.INVISIBLE_ROOT_TAG</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLFormatter-getRootNodes"><strong>getRootNodes</strong></a>(self)</dt><dd><tt>getRootNodes&nbsp;-&nbsp;Gets&nbsp;all&nbsp;objects&nbsp;at&nbsp;the&nbsp;"root"&nbsp;(first&nbsp;level;&nbsp;no&nbsp;parent).&nbsp;Use&nbsp;this&nbsp;if&nbsp;you&nbsp;may&nbsp;have&nbsp;multiple&nbsp;roots&nbsp;(not&nbsp;children&nbsp;of&nbsp;&lt;html&gt;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Use&nbsp;this&nbsp;method&nbsp;to&nbsp;get&nbsp;objects,&nbsp;for&nbsp;example,&nbsp;in&nbsp;an&nbsp;AJAX&nbsp;request&nbsp;where&nbsp;&lt;html&gt;&nbsp;may&nbsp;not&nbsp;be&nbsp;your&nbsp;root.<br>
@@ -97,7 +85,7 @@ Methods defined here:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Note:&nbsp;If&nbsp;there&nbsp;are&nbsp;multiple&nbsp;root&nbsp;nodes&nbsp;(i.e.&nbsp;no&nbsp;&lt;html&gt;&nbsp;at&nbsp;the&nbsp;top),&nbsp;getRoot&nbsp;will&nbsp;return&nbsp;a&nbsp;special&nbsp;tag.&nbsp;This&nbsp;function&nbsp;automatically<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handles&nbsp;that,&nbsp;and&nbsp;returns&nbsp;all&nbsp;root&nbsp;nodes.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;<a href="__builtin__.html#list">list</a>&lt;<a href="#AdvancedTag">AdvancedTag</a>&gt;&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;of&nbsp;AdvancedTags&nbsp;which&nbsp;are&nbsp;at&nbsp;the&nbsp;root&nbsp;level&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;AdvancedTags&nbsp;which&nbsp;are&nbsp;at&nbsp;the&nbsp;root&nbsp;level&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLFormatter-handle_charref"><strong>handle_charref</strong></a>(self, charRef)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
@@ -113,11 +101,11 @@ Methods defined here:<br>
 
 <dl><dt><a name="AdvancedHTMLFormatter-handle_startendtag"><strong>handle_startendtag</strong></a>(self, tagName, attributeList)</dt><dd><tt>handle_startendtag&nbsp;-&nbsp;Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLFormatter-handle_starttag"><strong>handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing<font color="#909090">=False</font>)</dt><dd><tt>handle_starttag&nbsp;-&nbsp;Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+<dl><dt><a name="AdvancedHTMLFormatter-handle_starttag"><strong>handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing=False)</dt><dd><tt>handle_starttag&nbsp;-&nbsp;Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLFormatter-parseFile"><strong>parseFile</strong></a>(self, filename)</dt><dd><tt>parseFile&nbsp;-&nbsp;Parses&nbsp;a&nbsp;file&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str/file&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;to&nbsp;a&nbsp;filename&nbsp;or&nbsp;a&nbsp;file&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;If&nbsp;file&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;it&nbsp;will&nbsp;not&nbsp;be&nbsp;closed,&nbsp;you&nbsp;must&nbsp;close.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str/file&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;to&nbsp;a&nbsp;filename&nbsp;or&nbsp;a&nbsp;file&nbsp;object.&nbsp;If&nbsp;file&nbsp;object,&nbsp;it&nbsp;will&nbsp;not&nbsp;be&nbsp;closed,&nbsp;you&nbsp;must&nbsp;close.</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLFormatter-parseStr"><strong>parseStr</strong></a>(self, html)</dt><dd><tt>parseStr&nbsp;-&nbsp;Parses&nbsp;a&nbsp;string&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes.<br>
 &nbsp;<br>
@@ -125,12 +113,12 @@ Methods defined here:<br>
 
 <dl><dt><a name="AdvancedHTMLFormatter-setRoot"><strong>setRoot</strong></a>(self, root)</dt><dd><tt>setRoot&nbsp;-&nbsp;Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes<br>
 &nbsp;<br>
-@param&nbsp;root&nbsp;-&nbsp;<a href="#AdvancedTag">AdvancedTag</a>&nbsp;to&nbsp;be&nbsp;new&nbsp;root</tt></dd></dl>
+@param&nbsp;root&nbsp;-&nbsp;AdvancedTag&nbsp;to&nbsp;be&nbsp;new&nbsp;root</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLFormatter-unknown_decl"><strong>unknown_decl</strong></a>(self, decl)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
 <hr>
-Methods inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a>:<br>
+Methods inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
 <dl><dt><a name="AdvancedHTMLFormatter-check_for_whole_start_tag"><strong>check_for_whole_start_tag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;check&nbsp;to&nbsp;see&nbsp;if&nbsp;we&nbsp;have&nbsp;a&nbsp;complete&nbsp;starttag;&nbsp;return&nbsp;end<br>
 #&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete.</tt></dd></dl>
 
@@ -148,7 +136,7 @@ Methods inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParse
 
 <dl><dt><a name="AdvancedHTMLFormatter-handle_pi"><strong>handle_pi</strong></a>(self, data)</dt><dd><tt>#&nbsp;Overridable&nbsp;--&nbsp;handle&nbsp;processing&nbsp;instruction</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLFormatter-parse_bogus_comment"><strong>parse_bogus_comment</strong></a>(self, i, report<font color="#909090">=1</font>)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;bogus&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
+<dl><dt><a name="AdvancedHTMLFormatter-parse_bogus_comment"><strong>parse_bogus_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;bogus&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
 #&nbsp;see&nbsp;<a href="http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state">http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state</a></tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLFormatter-parse_endtag"><strong>parse_endtag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;endtag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete</tt></dd></dl>
@@ -165,23 +153,21 @@ Methods inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParse
 
 <dl><dt><a name="AdvancedHTMLFormatter-set_cdata_mode"><strong>set_cdata_mode</strong></a>(self, elem)</dt></dl>
 
-<dl><dt><a name="AdvancedHTMLFormatter-unescape"><strong>unescape</strong></a>(self, s)</dt></dl>
+<dl><dt><a name="AdvancedHTMLFormatter-unescape"><strong>unescape</strong></a>(self, s)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;helper&nbsp;to&nbsp;remove&nbsp;special&nbsp;character&nbsp;quoting</tt></dd></dl>
 
 <hr>
-Data and other attributes inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a>:<br>
+Data and other attributes inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
 <dl><dt><strong>CDATA_CONTENT_ELEMENTS</strong> = ('script', 'style')</dl>
 
-<dl><dt><strong>entitydefs</strong> = None</dl>
-
 <hr>
-Methods inherited from <a href="markupbase.html#ParserBase">markupbase.ParserBase</a>:<br>
+Methods inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
 <dl><dt><a name="AdvancedHTMLFormatter-getpos"><strong>getpos</strong></a>(self)</dt><dd><tt>Return&nbsp;current&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLFormatter-parse_comment"><strong>parse_comment</strong></a>(self, i, report<font color="#909090">=1</font>)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
+<dl><dt><a name="AdvancedHTMLFormatter-parse_comment"><strong>parse_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLFormatter-parse_declaration"><strong>parse_declaration</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;declaration&nbsp;(for&nbsp;use&nbsp;by&nbsp;subclasses).</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLFormatter-parse_marked_section"><strong>parse_marked_section</strong></a>(self, i, report<font color="#909090">=1</font>)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;a&nbsp;marked&nbsp;section<br>
+<dl><dt><a name="AdvancedHTMLFormatter-parse_marked_section"><strong>parse_marked_section</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;a&nbsp;marked&nbsp;section<br>
 #&nbsp;Override&nbsp;this&nbsp;to&nbsp;handle&nbsp;MS-word&nbsp;extension&nbsp;syntax&nbsp;&lt;![if&nbsp;word]&gt;content&lt;![endif]&gt;</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLFormatter-updatepos"><strong>updatepos</strong></a>(self, i, j)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;update&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.&nbsp;&nbsp;This&nbsp;should&nbsp;be<br>
@@ -189,23 +175,32 @@ Methods inherited from <a href="markupbase.html#ParserBase">markupbase.ParserBas
 #&nbsp;words&nbsp;the&nbsp;concatenation&nbsp;of&nbsp;all&nbsp;the&nbsp;input&nbsp;strings&nbsp;to&nbsp;this<br>
 #&nbsp;function&nbsp;should&nbsp;be&nbsp;exactly&nbsp;the&nbsp;entire&nbsp;input.</tt></dd></dl>
 
+<hr>
+Data descriptors inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
 </td></tr></table> <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="AdvancedHTMLParser">class <strong>AdvancedHTMLParser</strong></a>(<a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="AdvancedHTMLParser">class <strong>AdvancedHTMLParser</strong></a>(<a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt><a href="#AdvancedHTMLParser">AdvancedHTMLParser</a>&nbsp;-&nbsp;This&nbsp;class&nbsp;parses&nbsp;and&nbsp;allows&nbsp;searching&nbsp;of&nbsp;&nbsp;documents<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser">AdvancedHTMLParser</a></dd>
-<dd><a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a></dd>
-<dd><a href="markupbase.html#ParserBase">markupbase.ParserBase</a></dd>
+<dd><a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a></dd>
+<dd><a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="AdvancedHTMLParser-__init__"><strong>__init__</strong></a>(self, filename<font color="#909090">=None</font>, encoding<font color="#909090">='utf-8'</font>)</dt><dd><tt>__init__&nbsp;-&nbsp;Creates&nbsp;an&nbsp;Advanced&nbsp;HTML&nbsp;parser&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;For&nbsp;read-only&nbsp;parsing,&nbsp;consider&nbsp;IndexedAdvancedHTMLPaser&nbsp;for&nbsp;faster&nbsp;searching.<br>
+<dl><dt><a name="AdvancedHTMLParser-__init__"><strong>__init__</strong></a>(self, filename=None, encoding='utf-8')</dt><dd><tt>__init__&nbsp;-&nbsp;Creates&nbsp;an&nbsp;Advanced&nbsp;HTML&nbsp;parser&nbsp;object.&nbsp;For&nbsp;read-only&nbsp;parsing,&nbsp;consider&nbsp;IndexedAdvancedHTMLPaser&nbsp;for&nbsp;faster&nbsp;searching.<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Optional&nbsp;filename&nbsp;to&nbsp;parse.&nbsp;Otherwise&nbsp;use&nbsp;parseFile&nbsp;or&nbsp;parseStr&nbsp;methods.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;encoding&nbsp;&lt;str&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Specifies&nbsp;the&nbsp;document&nbsp;encoding.&nbsp;Default&nbsp;utf-8</tt></dd></dl>
@@ -214,47 +209,35 @@ Methods defined here:<br>
 &nbsp;<br>
 @param&nbsp;contents&nbsp;-&nbsp;Contents</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-getElementById"><strong>getElementById</strong></a>(self, _id, root<font color="#909090">='root'</font>)</dt><dd><tt>getElementById&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;the&nbsp;first&nbsp;(should&nbsp;only&nbsp;be&nbsp;one)&nbsp;element&nbsp;with&nbsp;the&nbsp;given&nbsp;ID.<br>
+<dl><dt><a name="AdvancedHTMLParser-getElementById"><strong>getElementById</strong></a>(self, _id, root='root')</dt><dd><tt>getElementById&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;the&nbsp;first&nbsp;(should&nbsp;only&nbsp;be&nbsp;one)&nbsp;element&nbsp;with&nbsp;the&nbsp;given&nbsp;ID.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;id&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;of&nbsp;the&nbsp;id&nbsp;attribute.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-getElementsByAttr"><strong>getElementsByAttr</strong></a>(self, attrName, attrValue, root<font color="#909090">='root'</font>)</dt><dd><tt>getElementsByAttr&nbsp;-&nbsp;Searches&nbsp;the&nbsp;full&nbsp;tree&nbsp;for&nbsp;elements&nbsp;with&nbsp;a&nbsp;given&nbsp;attribute&nbsp;name&nbsp;and&nbsp;value&nbsp;combination.&nbsp;This&nbsp;is&nbsp;always&nbsp;a&nbsp;full&nbsp;scan.<br>
+<dl><dt><a name="AdvancedHTMLParser-getElementsByAttr"><strong>getElementsByAttr</strong></a>(self, attrName, attrValue, root='root')</dt><dd><tt>getElementsByAttr&nbsp;-&nbsp;Searches&nbsp;the&nbsp;full&nbsp;tree&nbsp;for&nbsp;elements&nbsp;with&nbsp;a&nbsp;given&nbsp;attribute&nbsp;name&nbsp;and&nbsp;value&nbsp;combination.&nbsp;This&nbsp;is&nbsp;always&nbsp;a&nbsp;full&nbsp;scan.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrValue&nbsp;&lt;str&gt;&nbsp;-&nbsp;Expected&nbsp;value&nbsp;of&nbsp;attribute<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-getElementsByClassName"><strong>getElementsByClassName</strong></a>(self, className, root<font color="#909090">='root'</font>)</dt><dd><tt>getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br>
+<dl><dt><a name="AdvancedHTMLParser-getElementsByClassName"><strong>getElementsByClassName</strong></a>(self, className, root='root')</dt><dd><tt>getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;one-word&nbsp;class&nbsp;name<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-getElementsByName"><strong>getElementsByName</strong></a>(self, name, root<font color="#909090">='root'</font>)</dt><dd><tt>getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br>
+<dl><dt><a name="AdvancedHTMLParser-getElementsByName"><strong>getElementsByName</strong></a>(self, name, root='root')</dt><dd><tt>getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;name&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;of&nbsp;the&nbsp;name&nbsp;attribute<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-getElementsByTagName"><strong>getElementsByTagName</strong></a>(self, tagName, root<font color="#909090">='root'</font>)</dt><dd><tt>getElementsByTagName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;tag&nbsp;name.<br>
+<dl><dt><a name="AdvancedHTMLParser-getElementsByTagName"><strong>getElementsByTagName</strong></a>(self, tagName, root='root')</dt><dd><tt>getElementsByTagName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;tag&nbsp;name.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-getElementsCustomFilter"><strong>getElementsCustomFilter</strong></a>(self, filterFunc, root<font color="#909090">='root'</font>)</dt><dd><tt>getElementsCustomFilter&nbsp;-&nbsp;Scan&nbsp;elements&nbsp;using&nbsp;a&nbsp;provided&nbsp;function<br>
-&nbsp;<br>
-@param&nbsp;filterFunc&nbsp;&lt;function&gt;(node)&nbsp;-&nbsp;A&nbsp;function&nbsp;that&nbsp;takes&nbsp;an&nbsp;<a href="#AdvancedTag">AdvancedTag</a>&nbsp;as&nbsp;an&nbsp;argument,&nbsp;and&nbsp;returns&nbsp;True&nbsp;if&nbsp;some&nbsp;arbitrary&nbsp;criteria&nbsp;is&nbsp;met<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements</tt></dd></dl>
+<dl><dt><a name="AdvancedHTMLParser-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attrName, values, root='root')</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Returns&nbsp;elements&nbsp;with&nbsp;an&nbsp;attribute,&nbsp;named&nbsp;by&nbsp;#attrName&nbsp;contains&nbsp;one&nbsp;of&nbsp;the&nbsp;values&nbsp;in&nbsp;the&nbsp;list,&nbsp;#values</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attrName, attrValues, root<font color="#909090">='root'</font>)</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Returns&nbsp;elements&nbsp;with&nbsp;an&nbsp;attribute,&nbsp;named&nbsp;by&nbsp;#attrName&nbsp;contains&nbsp;one&nbsp;of&nbsp;the&nbsp;values&nbsp;in&nbsp;the&nbsp;<a href="__builtin__.html#list">list</a>,&nbsp;#values<br>
-&nbsp;<br>
-@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br>
-@param&nbsp;attrValues&nbsp;set&lt;str&gt;&nbsp;-&nbsp;A&nbsp;set&nbsp;of&nbsp;all&nbsp;valid&nbsp;values.&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-getFormattedHTML"><strong>getFormattedHTML</strong></a>(self, indent<font color="#909090">='  '</font>)</dt><dd><tt>getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br>
+<dl><dt><a name="AdvancedHTMLParser-getFormattedHTML"><strong>getFormattedHTML</strong></a>(self, indent='  ')</dt><dd><tt>getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br>
 &nbsp;<br>
 @param&nbsp;indent&nbsp;-&nbsp;space/tab/newline&nbsp;of&nbsp;each&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;integer&nbsp;for&nbsp;how&nbsp;many&nbsp;spaces&nbsp;per&nbsp;level<br>
 &nbsp;<br>
@@ -272,7 +255,7 @@ Methods defined here:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Note:&nbsp;If&nbsp;there&nbsp;are&nbsp;multiple&nbsp;root&nbsp;nodes&nbsp;(i.e.&nbsp;no&nbsp;&lt;html&gt;&nbsp;at&nbsp;the&nbsp;top),&nbsp;getRoot&nbsp;will&nbsp;return&nbsp;a&nbsp;special&nbsp;tag.&nbsp;This&nbsp;function&nbsp;automatically<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handles&nbsp;that,&nbsp;and&nbsp;returns&nbsp;all&nbsp;root&nbsp;nodes.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;<a href="__builtin__.html#list">list</a>&lt;<a href="#AdvancedTag">AdvancedTag</a>&gt;&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;of&nbsp;AdvancedTags&nbsp;which&nbsp;are&nbsp;at&nbsp;the&nbsp;root&nbsp;level&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;AdvancedTags&nbsp;which&nbsp;are&nbsp;at&nbsp;the&nbsp;root&nbsp;level&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLParser-handle_charref"><strong>handle_charref</strong></a>(self, charRef)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
@@ -288,11 +271,11 @@ Methods defined here:<br>
 
 <dl><dt><a name="AdvancedHTMLParser-handle_startendtag"><strong>handle_startendtag</strong></a>(self, tagName, attributeList)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-handle_starttag"><strong>handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing<font color="#909090">=False</font>)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+<dl><dt><a name="AdvancedHTMLParser-handle_starttag"><strong>handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing=False)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLParser-parseFile"><strong>parseFile</strong></a>(self, filename)</dt><dd><tt>parseFile&nbsp;-&nbsp;Parses&nbsp;a&nbsp;file&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str/file&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;to&nbsp;a&nbsp;filename&nbsp;or&nbsp;a&nbsp;file&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;If&nbsp;file&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;it&nbsp;will&nbsp;not&nbsp;be&nbsp;closed,&nbsp;you&nbsp;must&nbsp;close.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str/file&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;to&nbsp;a&nbsp;filename&nbsp;or&nbsp;a&nbsp;file&nbsp;object.&nbsp;If&nbsp;file&nbsp;object,&nbsp;it&nbsp;will&nbsp;not&nbsp;be&nbsp;closed,&nbsp;you&nbsp;must&nbsp;close.</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLParser-parseStr"><strong>parseStr</strong></a>(self, html)</dt><dd><tt>parseStr&nbsp;-&nbsp;Parses&nbsp;a&nbsp;string&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes.<br>
 &nbsp;<br>
@@ -303,7 +286,7 @@ Methods defined here:<br>
 <dl><dt><a name="AdvancedHTMLParser-unknown_decl"><strong>unknown_decl</strong></a>(self, decl)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
 <hr>
-Methods inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a>:<br>
+Methods inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
 <dl><dt><a name="AdvancedHTMLParser-check_for_whole_start_tag"><strong>check_for_whole_start_tag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;check&nbsp;to&nbsp;see&nbsp;if&nbsp;we&nbsp;have&nbsp;a&nbsp;complete&nbsp;starttag;&nbsp;return&nbsp;end<br>
 #&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete.</tt></dd></dl>
 
@@ -321,7 +304,7 @@ Methods inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParse
 
 <dl><dt><a name="AdvancedHTMLParser-handle_pi"><strong>handle_pi</strong></a>(self, data)</dt><dd><tt>#&nbsp;Overridable&nbsp;--&nbsp;handle&nbsp;processing&nbsp;instruction</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-parse_bogus_comment"><strong>parse_bogus_comment</strong></a>(self, i, report<font color="#909090">=1</font>)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;bogus&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
+<dl><dt><a name="AdvancedHTMLParser-parse_bogus_comment"><strong>parse_bogus_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;bogus&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
 #&nbsp;see&nbsp;<a href="http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state">http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state</a></tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLParser-parse_endtag"><strong>parse_endtag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;endtag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete</tt></dd></dl>
@@ -338,23 +321,21 @@ Methods inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParse
 
 <dl><dt><a name="AdvancedHTMLParser-set_cdata_mode"><strong>set_cdata_mode</strong></a>(self, elem)</dt></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-unescape"><strong>unescape</strong></a>(self, s)</dt></dl>
+<dl><dt><a name="AdvancedHTMLParser-unescape"><strong>unescape</strong></a>(self, s)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;helper&nbsp;to&nbsp;remove&nbsp;special&nbsp;character&nbsp;quoting</tt></dd></dl>
 
 <hr>
-Data and other attributes inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a>:<br>
+Data and other attributes inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
 <dl><dt><strong>CDATA_CONTENT_ELEMENTS</strong> = ('script', 'style')</dl>
 
-<dl><dt><strong>entitydefs</strong> = None</dl>
-
 <hr>
-Methods inherited from <a href="markupbase.html#ParserBase">markupbase.ParserBase</a>:<br>
+Methods inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
 <dl><dt><a name="AdvancedHTMLParser-getpos"><strong>getpos</strong></a>(self)</dt><dd><tt>Return&nbsp;current&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-parse_comment"><strong>parse_comment</strong></a>(self, i, report<font color="#909090">=1</font>)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
+<dl><dt><a name="AdvancedHTMLParser-parse_comment"><strong>parse_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLParser-parse_declaration"><strong>parse_declaration</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;declaration&nbsp;(for&nbsp;use&nbsp;by&nbsp;subclasses).</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-parse_marked_section"><strong>parse_marked_section</strong></a>(self, i, report<font color="#909090">=1</font>)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;a&nbsp;marked&nbsp;section<br>
+<dl><dt><a name="AdvancedHTMLParser-parse_marked_section"><strong>parse_marked_section</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;a&nbsp;marked&nbsp;section<br>
 #&nbsp;Override&nbsp;this&nbsp;to&nbsp;handle&nbsp;MS-word&nbsp;extension&nbsp;syntax&nbsp;&lt;![if&nbsp;word]&gt;content&lt;![endif]&gt;</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLParser-updatepos"><strong>updatepos</strong></a>(self, i, j)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;update&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.&nbsp;&nbsp;This&nbsp;should&nbsp;be<br>
@@ -362,261 +343,13 @@ Methods inherited from <a href="markupbase.html#ParserBase">markupbase.ParserBas
 #&nbsp;words&nbsp;the&nbsp;concatenation&nbsp;of&nbsp;all&nbsp;the&nbsp;input&nbsp;strings&nbsp;to&nbsp;this<br>
 #&nbsp;function&nbsp;should&nbsp;be&nbsp;exactly&nbsp;the&nbsp;entire&nbsp;input.</tt></dd></dl>
 
-</td></tr></table> <p>
-<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
-<td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="AdvancedTag">class <strong>AdvancedTag</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
-    
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#AdvancedTag">AdvancedTag</a>&nbsp;-&nbsp;Represents&nbsp;a&nbsp;Tag.&nbsp;Used&nbsp;with&nbsp;<a href="#AdvancedHTMLParser">AdvancedHTMLParser</a>&nbsp;to&nbsp;create&nbsp;a&nbsp;DOM-model<br>
-&nbsp;<br>
-Keep&nbsp;tag&nbsp;names&nbsp;lowercase.<br>
-&nbsp;<br>
-Use&nbsp;the&nbsp;getters&nbsp;and&nbsp;setters&nbsp;instead&nbsp;of&nbsp;attributes&nbsp;directly,&nbsp;or&nbsp;you&nbsp;may&nbsp;lose&nbsp;accounting.<br>&nbsp;</tt></td></tr>
-<tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
-<dl><dt><a name="AdvancedTag-__getitem__"><strong>__getitem__</strong></a>(self, key)</dt></dl>
-
-<dl><dt><a name="AdvancedTag-__init__"><strong>__init__</strong></a>(self, tagName, attrList<font color="#909090">=None</font>, isSelfClosing<font color="#909090">=False</font>)</dt><dd><tt>__init__&nbsp;-&nbsp;Construct<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;-&nbsp;String&nbsp;of&nbsp;tag&nbsp;name.&nbsp;This&nbsp;will&nbsp;be&nbsp;lowercased!<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrList&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;of&nbsp;tuples&nbsp;(key,&nbsp;value)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;isSelfClosing&nbsp;-&nbsp;True&nbsp;if&nbsp;self-closing&nbsp;tag&nbsp;(&nbsp;&lt;tagName&nbsp;attrs&nbsp;/&gt;&nbsp;)&nbsp;will&nbsp;be&nbsp;set&nbsp;to&nbsp;False&nbsp;if&nbsp;text&nbsp;or&nbsp;children&nbsp;are&nbsp;added.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-__setattr__"><strong>__setattr__</strong></a>(self, name, value)</dt></dl>
-
-<dl><dt><a name="AdvancedTag-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>__str__&nbsp;-&nbsp;Returns&nbsp;start&nbsp;tag,&nbsp;inner&nbsp;text,&nbsp;and&nbsp;end&nbsp;tag</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-addClass"><strong>addClass</strong></a>(self, className)</dt><dd><tt>addClass&nbsp;-&nbsp;append&nbsp;a&nbsp;class&nbsp;name&nbsp;if&nbsp;not&nbsp;present</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-appendChild"><strong>appendChild</strong></a>(self, child)</dt><dd><tt>appendChild&nbsp;-&nbsp;Append&nbsp;a&nbsp;child&nbsp;to&nbsp;this&nbsp;element.<br>
-&nbsp;<br>
-@param&nbsp;child&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>&gt;&nbsp;-&nbsp;Append&nbsp;a&nbsp;child&nbsp;element&nbsp;to&nbsp;this&nbsp;element</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-appendNode"><strong>appendNode</strong></a> = <a href="#AdvancedTag-appendChild">appendChild</a>(self, child)</dt></dl>
-
-<dl><dt><a name="AdvancedTag-appendText"><strong>appendText</strong></a>(self, text)</dt><dd><tt>appendText&nbsp;-&nbsp;append&nbsp;some&nbsp;inner&nbsp;text</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getAttribute"><strong>getAttribute</strong></a>(self, attrName)</dt><dd><tt>getAttribute&nbsp;-&nbsp;Gets&nbsp;an&nbsp;attribute&nbsp;on&nbsp;this&nbsp;tag.&nbsp;Be&nbsp;wary&nbsp;using&nbsp;this&nbsp;for&nbsp;classname,&nbsp;maybe&nbsp;use&nbsp;addClass/removeClass.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;The&nbsp;attribute&nbsp;value,&nbsp;or&nbsp;None&nbsp;if&nbsp;none&nbsp;exists.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getChildren"><strong>getChildren</strong></a>(self)</dt><dd><tt>getChildren&nbsp;-&nbsp;returns&nbsp;child&nbsp;nodes&nbsp;as&nbsp;a&nbsp;searchable&nbsp;<a href="#TagCollection">TagCollection</a>.<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;the&nbsp;immediate&nbsp;children&nbsp;to&nbsp;this&nbsp;tag.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getElementById"><strong>getElementById</strong></a>(self, _id)</dt><dd><tt>getElementById&nbsp;-&nbsp;Search&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;a&nbsp;tag&nbsp;containing&nbsp;an&nbsp;id<br>
-&nbsp;<br>
-@param&nbsp;_id&nbsp;-&nbsp;String&nbsp;of&nbsp;id<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#AdvancedTag">AdvancedTag</a>&nbsp;or&nbsp;None</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getElementsByAttr"><strong>getElementsByAttr</strong></a>(self, attrName, attrValue)</dt><dd><tt>getElementsByAttr&nbsp;-&nbsp;Search&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;tags&nbsp;with&nbsp;an&nbsp;attribute&nbsp;name/value&nbsp;pair<br>
-&nbsp;<br>
-@param&nbsp;attrName&nbsp;-&nbsp;Attribute&nbsp;name&nbsp;(lowercase)<br>
-@param&nbsp;attrValue&nbsp;-&nbsp;Attribute&nbsp;value<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;matching&nbsp;elements</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getElementsByClassName"><strong>getElementsByClassName</strong></a>(self, className)</dt><dd><tt>getElementsByClassName&nbsp;-&nbsp;Search&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;tags&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name<br>
-&nbsp;<br>
-@param&nbsp;className&nbsp;-&nbsp;Class&nbsp;name<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;matching&nbsp;elements</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getElementsByName"><strong>getElementsByName</strong></a>(self, name)</dt><dd><tt>getElementsByName&nbsp;-&nbsp;Search&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;tags&nbsp;with&nbsp;a&nbsp;given&nbsp;name<br>
-&nbsp;<br>
-@param&nbsp;name&nbsp;-&nbsp;name&nbsp;to&nbsp;search<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;matching&nbsp;elements</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getElementsCustomFilter"><strong>getElementsCustomFilter</strong></a>(self, filterFunc)</dt><dd><tt>getElementsCustomFilter&nbsp;-&nbsp;Searches&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;those&nbsp;matching&nbsp;a&nbsp;provided&nbsp;user&nbsp;function<br>
-&nbsp;<br>
-@param&nbsp;filterFunc&nbsp;&lt;function&gt;&nbsp;-&nbsp;A&nbsp;function&nbsp;or&nbsp;lambda&nbsp;expression&nbsp;that&nbsp;should&nbsp;return&nbsp;"True"&nbsp;if&nbsp;the&nbsp;passed&nbsp;node&nbsp;matches&nbsp;criteria.<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;matching&nbsp;results</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attrName, attrValues)</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Search&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;tags&nbsp;with&nbsp;an&nbsp;attribute&nbsp;name&nbsp;and&nbsp;one&nbsp;of&nbsp;several&nbsp;values<br>
-&nbsp;<br>
-@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;Attribute&nbsp;name&nbsp;(lowercase)<br>
-@param&nbsp;attrValues&nbsp;set&lt;str&gt;&nbsp;-&nbsp;set&nbsp;of&nbsp;acceptable&nbsp;attribute&nbsp;values<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;matching&nbsp;elements</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getEndTag"><strong>getEndTag</strong></a>(self)</dt><dd><tt>getEndTag&nbsp;-&nbsp;returns&nbsp;the&nbsp;end&nbsp;tag<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;String&nbsp;of&nbsp;end&nbsp;tag</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getPeers"><strong>getPeers</strong></a>(self)</dt><dd><tt>getPeers&nbsp;-&nbsp;Get&nbsp;elements&nbsp;who&nbsp;share&nbsp;a&nbsp;parent&nbsp;with&nbsp;this&nbsp;element<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;elements</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getPeersByAttr"><strong>getPeersByAttr</strong></a>(self, attrName, attrValue)</dt><dd><tt>getPeersByAttr&nbsp;-&nbsp;Gets&nbsp;peers&nbsp;(elements&nbsp;on&nbsp;same&nbsp;level)&nbsp;which&nbsp;match&nbsp;an&nbsp;attribute/value&nbsp;combination.<br>
-&nbsp;<br>
-@param&nbsp;attrName&nbsp;-&nbsp;Name&nbsp;of&nbsp;attribute<br>
-@param&nbsp;attrValue&nbsp;-&nbsp;Value&nbsp;that&nbsp;must&nbsp;match<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;None&nbsp;if&nbsp;no&nbsp;parent&nbsp;element&nbsp;(error&nbsp;condition),&nbsp;otherwise&nbsp;a&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;peers&nbsp;that&nbsp;matched.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getPeersByClassName"><strong>getPeersByClassName</strong></a>(self, className)</dt><dd><tt>getPeersByClassName&nbsp;-&nbsp;Gets&nbsp;peers&nbsp;(elements&nbsp;on&nbsp;same&nbsp;level)&nbsp;with&nbsp;a&nbsp;given&nbsp;class&nbsp;name<br>
-&nbsp;<br>
-@param&nbsp;className&nbsp;-&nbsp;classname&nbsp;must&nbsp;contain&nbsp;this&nbsp;name<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;None&nbsp;if&nbsp;no&nbsp;parent&nbsp;element&nbsp;(error&nbsp;condition),&nbsp;otherwise&nbsp;a&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;peers&nbsp;that&nbsp;matched.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getPeersByName"><strong>getPeersByName</strong></a>(self, name)</dt><dd><tt>getPeersByName&nbsp;-&nbsp;Gets&nbsp;peers&nbsp;(elements&nbsp;on&nbsp;same&nbsp;level)&nbsp;with&nbsp;a&nbsp;given&nbsp;name<br>
-&nbsp;<br>
-@param&nbsp;name&nbsp;-&nbsp;Name&nbsp;to&nbsp;match<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;None&nbsp;if&nbsp;no&nbsp;parent&nbsp;element&nbsp;(error&nbsp;condition),&nbsp;otherwise&nbsp;a&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;peers&nbsp;that&nbsp;matched.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getPeersWithAttrValues"><strong>getPeersWithAttrValues</strong></a>(self, attrName, attrValues)</dt><dd><tt>getPeersWithAttrValues&nbsp;-&nbsp;Gets&nbsp;peers&nbsp;(elements&nbsp;on&nbsp;same&nbsp;level)&nbsp;whose&nbsp;attribute&nbsp;given&nbsp;by&nbsp;#attrName&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;in&nbsp;the&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;of&nbsp;possible&nbsp;vaues&nbsp;#attrValues<br>
-&nbsp;<br>
-@param&nbsp;attrName&nbsp;-&nbsp;Name&nbsp;of&nbsp;attribute<br>
-@param&nbsp;attrValues&nbsp;-&nbsp;List&nbsp;of&nbsp;possible&nbsp;values&nbsp;which&nbsp;will&nbsp;match<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;None&nbsp;if&nbsp;no&nbsp;parent&nbsp;element&nbsp;(error&nbsp;condition),&nbsp;otherwise&nbsp;a&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;peers&nbsp;that&nbsp;matched.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getStartTag"><strong>getStartTag</strong></a>(self)</dt><dd><tt>getStartTag&nbsp;-&nbsp;Returns&nbsp;the&nbsp;start&nbsp;tag<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;String&nbsp;of&nbsp;start&nbsp;tag&nbsp;with&nbsp;attributes</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getStyle"><strong>getStyle</strong></a>(self, styleName)</dt><dd><tt>getStyle&nbsp;-&nbsp;Gets&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;style&nbsp;paramater,&nbsp;part&nbsp;of&nbsp;the&nbsp;"style"&nbsp;attribute<br>
-&nbsp;<br>
-@param&nbsp;styleName&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;style<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;String&nbsp;of&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;style.&nbsp;''&nbsp;is&nbsp;no&nbsp;value.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getStyleDict"><strong>getStyleDict</strong></a>(self)</dt><dd><tt>getStyleDict&nbsp;-&nbsp;Gets&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;style&nbsp;attribute/value&nbsp;pairs.<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;OrderedDict&nbsp;of&nbsp;"style"&nbsp;attribute.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getTagName"><strong>getTagName</strong></a>(self)</dt><dd><tt>getTagName&nbsp;-&nbsp;Gets&nbsp;the&nbsp;tag&nbsp;name&nbsp;of&nbsp;this&nbsp;Tag.<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;str</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-getUid"><strong>getUid</strong></a>(self)</dt></dl>
-
-<dl><dt><a name="AdvancedTag-hasAttribute"><strong>hasAttribute</strong></a>(self, attrName)</dt><dd><tt>hasAttribute&nbsp;-&nbsp;Checks&nbsp;for&nbsp;the&nbsp;existance&nbsp;of&nbsp;an&nbsp;attribute.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;attribute&nbsp;name<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;True&nbsp;or&nbsp;False&nbsp;if&nbsp;attribute&nbsp;exists&nbsp;by&nbsp;that&nbsp;name</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-hasClass"><strong>hasClass</strong></a>(self, className)</dt><dd><tt>hasClass&nbsp;-&nbsp;Test&nbsp;if&nbsp;this&nbsp;tag&nbsp;has&nbsp;a&nbsp;paticular&nbsp;class&nbsp;name<br>
-&nbsp;<br>
-@param&nbsp;className&nbsp;-&nbsp;A&nbsp;class&nbsp;to&nbsp;search</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-insertAfter"><strong>insertAfter</strong></a>(self, child, afterChild)</dt><dd><tt>insertAfter&nbsp;-&nbsp;Inserts&nbsp;a&nbsp;child&nbsp;after&nbsp;@afterChild<br>
-&nbsp;<br>
-child&nbsp;-&nbsp;Child&nbsp;to&nbsp;insert<br>
-afterChild&nbsp;-&nbsp;Child&nbsp;&nbsp;to&nbsp;insert&nbsp;after.&nbsp;if&nbsp;None,&nbsp;will&nbsp;&nbsp;be&nbsp;appended</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-insertBefore"><strong>insertBefore</strong></a>(self, child, beforeChild)</dt><dd><tt>insertBefore&nbsp;-&nbsp;Inserts&nbsp;a&nbsp;child&nbsp;before&nbsp;@beforeChild<br>
-&nbsp;<br>
-child&nbsp;-&nbsp;Child&nbsp;to&nbsp;insert<br>
-beforeChild&nbsp;-&nbsp;Child&nbsp;&nbsp;to&nbsp;insert&nbsp;before.&nbsp;if&nbsp;None,&nbsp;will&nbsp;&nbsp;be&nbsp;appended</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-removeAttribute"><strong>removeAttribute</strong></a>(self, attrName)</dt><dd><tt>removeAttribute&nbsp;-&nbsp;Removes&nbsp;an&nbsp;attribute,&nbsp;by&nbsp;name.<br>
-&nbsp;<br>
-@param&nbsp;attrName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;attribute&nbsp;name</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-removeChild"><strong>removeChild</strong></a>(self, child)</dt><dd><tt>removeChild&nbsp;-&nbsp;Remove&nbsp;a&nbsp;child,&nbsp;if&nbsp;present.<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;child&nbsp;-&nbsp;The&nbsp;child&nbsp;to&nbsp;remove<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;The&nbsp;child&nbsp;[with&nbsp;parentNode&nbsp;cleared]&nbsp;if&nbsp;removed,&nbsp;otherwise&nbsp;None.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-removeClass"><strong>removeClass</strong></a>(self, className)</dt><dd><tt>removeClass&nbsp;-&nbsp;remove&nbsp;a&nbsp;class&nbsp;name&nbsp;if&nbsp;present.&nbsp;Returns&nbsp;the&nbsp;class&nbsp;name&nbsp;if&nbsp;&nbsp;removed,&nbsp;otherwise&nbsp;None.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-removeNode"><strong>removeNode</strong></a> = <a href="#AdvancedTag-removeChild">removeChild</a>(self, child)</dt></dl>
-
-<dl><dt><a name="AdvancedTag-removeText"><strong>removeText</strong></a>(self, text)</dt><dd><tt>removeText&nbsp;-&nbsp;Removes&nbsp;some&nbsp;inner&nbsp;text</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-setAttribute"><strong>setAttribute</strong></a>(self, attrName, attrValue)</dt><dd><tt>setAttribute&nbsp;-&nbsp;Sets&nbsp;an&nbsp;attribute.&nbsp;Be&nbsp;wary&nbsp;using&nbsp;this&nbsp;for&nbsp;classname,&nbsp;maybe&nbsp;use&nbsp;addClass/removeClass.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br>
-&nbsp;<br>
-@param&nbsp;attrName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;attribute<br>
-@param&nbsp;attrValue&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-setAttributes"><strong>setAttributes</strong></a>(self, attributesDict)</dt><dd><tt>setAttributes&nbsp;-&nbsp;Sets&nbsp;&nbsp;several&nbsp;attributes&nbsp;at&nbsp;once,&nbsp;using&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;attrName&nbsp;:&nbsp;attrValue<br>
-&nbsp;<br>
-@param&nbsp;&nbsp;attributesDict&nbsp;-&nbsp;&lt;str:str&gt;&nbsp;-&nbsp;New&nbsp;attribute&nbsp;names&nbsp;-&gt;&nbsp;values</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-setStyle"><strong>setStyle</strong></a>(self, styleName, styleValue)</dt><dd><tt>setStyle&nbsp;-&nbsp;Sets&nbsp;a&nbsp;style&nbsp;param.&nbsp;Example:&nbsp;"display",&nbsp;"block"<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;need&nbsp;to&nbsp;set&nbsp;many&nbsp;styles&nbsp;on&nbsp;an&nbsp;element,&nbsp;use&nbsp;setStyles&nbsp;instead.&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;It&nbsp;takes&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;attribute,&nbsp;value&nbsp;pairs&nbsp;and&nbsp;applies&nbsp;it&nbsp;all&nbsp;in&nbsp;one&nbsp;go&nbsp;(faster)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;remove&nbsp;a&nbsp;style,&nbsp;set&nbsp;its&nbsp;value&nbsp;to&nbsp;empty&nbsp;string.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;When&nbsp;all&nbsp;styles&nbsp;are&nbsp;removed,&nbsp;the&nbsp;"style"&nbsp;attribute&nbsp;will&nbsp;be&nbsp;nullified.<br>
-&nbsp;<br>
-@param&nbsp;styleName&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;style&nbsp;element<br>
-@param&nbsp;styleValue&nbsp;-&nbsp;The&nbsp;value&nbsp;of&nbsp;which&nbsp;to&nbsp;assign&nbsp;the&nbsp;style&nbsp;element<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;String&nbsp;of&nbsp;current&nbsp;value&nbsp;of&nbsp;"style"&nbsp;after&nbsp;change&nbsp;is&nbsp;made.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedTag-setStyles"><strong>setStyles</strong></a>(self, styleUpdatesDict)</dt><dd><tt>setStyles&nbsp;-&nbsp;Sets&nbsp;one&nbsp;or&nbsp;more&nbsp;style&nbsp;params.&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;all&nbsp;happens&nbsp;in&nbsp;one&nbsp;shot,&nbsp;so&nbsp;it&nbsp;is&nbsp;much&nbsp;much&nbsp;faster&nbsp;than&nbsp;calling&nbsp;setStyle&nbsp;for&nbsp;every&nbsp;value.<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;remove&nbsp;a&nbsp;style,&nbsp;set&nbsp;its&nbsp;value&nbsp;to&nbsp;empty&nbsp;string.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;When&nbsp;all&nbsp;styles&nbsp;are&nbsp;removed,&nbsp;the&nbsp;"style"&nbsp;attribute&nbsp;will&nbsp;be&nbsp;nullified.<br>
-&nbsp;<br>
-@param&nbsp;styleUpdatesDict&nbsp;-&nbsp;Dictionary&nbsp;of&nbsp;attribute&nbsp;:&nbsp;value&nbsp;styles.<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;String&nbsp;of&nbsp;current&nbsp;value&nbsp;of&nbsp;"style"&nbsp;after&nbsp;change&nbsp;is&nbsp;made.</tt></dd></dl>
-
 <hr>
-Data descriptors defined here:<br>
+Data descriptors inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
 <dl><dt><strong>__dict__</strong></dt>
 <dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
 <dl><dt><strong>__weakref__</strong></dt>
 <dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
-</dl>
-<dl><dt><strong>childNodes</strong></dt>
-<dd><tt>childNodes&nbsp;-&nbsp;returns&nbsp;immediate&nbsp;child&nbsp;nodes&nbsp;as&nbsp;a&nbsp;TagCollection<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;child&nbsp;nodes</tt></dd>
-</dl>
-<dl><dt><strong>classList</strong></dt>
-<dd><tt>classList&nbsp;-&nbsp;get&nbsp;the&nbsp;list&nbsp;of&nbsp;class&nbsp;names</tt></dd>
-</dl>
-<dl><dt><strong>id</strong></dt>
-</dl>
-<dl><dt><strong>innerHTML</strong></dt>
-<dd><tt>innerHTML&nbsp;-&nbsp;Returns&nbsp;a&nbsp;string&nbsp;of&nbsp;the&nbsp;inner&nbsp;contents&nbsp;of&nbsp;this&nbsp;tag,&nbsp;including&nbsp;children.<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;String&nbsp;of&nbsp;inner&nbsp;contents</tt></dd>
-</dl>
-<dl><dt><strong>name</strong></dt>
-</dl>
-<dl><dt><strong>nextSibling</strong></dt>
-<dd><tt>nextSibling&nbsp;-&nbsp;Returns&nbsp;the&nbsp;next&nbsp;sibling.&nbsp;&nbsp;This&nbsp;could&nbsp;be&nbsp;text&nbsp;or&nbsp;an&nbsp;element.&nbsp;use&nbsp;nextSiblingElement&nbsp;to&nbsp;ensure&nbsp;element</tt></dd>
-</dl>
-<dl><dt><strong>nextSiblingElement</strong></dt>
-<dd><tt>nextSiblingElement&nbsp;-&nbsp;Returns&nbsp;the&nbsp;next&nbsp;sibling&nbsp;&nbsp;that&nbsp;is&nbsp;an&nbsp;element.</tt></dd>
-</dl>
-<dl><dt><strong>outerHTML</strong></dt>
-<dd><tt>outerHTML&nbsp;-&nbsp;Returns&nbsp;start&nbsp;tag,&nbsp;innerHTML,&nbsp;and&nbsp;end&nbsp;tag<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;String&nbsp;of&nbsp;start&nbsp;tag,&nbsp;innerHTML,&nbsp;and&nbsp;end&nbsp;tag</tt></dd>
-</dl>
-<dl><dt><strong>parentElement</strong></dt>
-<dd><tt>parentElement&nbsp;-&nbsp;get&nbsp;the&nbsp;parent&nbsp;element</tt></dd>
-</dl>
-<dl><dt><strong>peers</strong></dt>
-<dd><tt>peers&nbsp;-&nbsp;Get&nbsp;elements&nbsp;with&nbsp;same&nbsp;parent&nbsp;as&nbsp;this&nbsp;item<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;elements</tt></dd>
-</dl>
-<dl><dt><strong>previousSibling</strong></dt>
-<dd><tt>previousSibling&nbsp;-&nbsp;Returns&nbsp;the&nbsp;previous&nbsp;sibling.&nbsp;&nbsp;This&nbsp;could&nbsp;be&nbsp;text&nbsp;or&nbsp;an&nbsp;element.&nbsp;use&nbsp;previousSiblingElement&nbsp;to&nbsp;ensure&nbsp;element</tt></dd>
-</dl>
-<dl><dt><strong>previousSiblingElement</strong></dt>
-<dd><tt>previousSiblingElement&nbsp;-&nbsp;Returns&nbsp;the&nbsp;previous&nbsp;&nbsp;sibling&nbsp;&nbsp;that&nbsp;is&nbsp;an&nbsp;element.</tt></dd>
-</dl>
-<dl><dt><strong>value</strong></dt>
-<dd><tt>value&nbsp;-&nbsp;The&nbsp;"value"&nbsp;attribute&nbsp;of&nbsp;this&nbsp;element</tt></dd>
 </dl>
 </td></tr></table> <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -631,12 +364,13 @@ Data descriptors defined here:<br>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="AdvancedHTMLParser.Parser.html#IndexedAdvancedHTMLParser">IndexedAdvancedHTMLParser</a></dd>
 <dd><a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser">AdvancedHTMLParser</a></dd>
-<dd><a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a></dd>
-<dd><a href="markupbase.html#ParserBase">markupbase.ParserBase</a></dd>
+<dd><a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a></dd>
+<dd><a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="IndexedAdvancedHTMLParser-__init__"><strong>__init__</strong></a>(self, filename<font color="#909090">=None</font>, encoding<font color="#909090">='utf-8'</font>, indexIDs<font color="#909090">=True</font>, indexNames<font color="#909090">=True</font>, indexClassNames<font color="#909090">=True</font>, indexTagNames<font color="#909090">=True</font>)</dt><dd><tt>__init__&nbsp;-&nbsp;Creates&nbsp;an&nbsp;Advanced&nbsp;HTML&nbsp;parser&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;with&nbsp;specific&nbsp;indexing&nbsp;settings.<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-__init__"><strong>__init__</strong></a>(self, filename=None, encoding='utf-8', indexIDs=True, indexNames=True, indexClassNames=True, indexTagNames=True)</dt><dd><tt>__init__&nbsp;-&nbsp;Creates&nbsp;an&nbsp;Advanced&nbsp;HTML&nbsp;parser&nbsp;object,&nbsp;with&nbsp;specific&nbsp;indexing&nbsp;settings.<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;the&nbsp;various&nbsp;index*&nbsp;arguments,&nbsp;if&nbsp;True&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;collected&nbsp;and&nbsp;use&nbsp;(if&nbsp;useIndex=True&nbsp;[default]&nbsp;on&nbsp;get*&nbsp;function)<br>
 &nbsp;<br>
@@ -658,49 +392,49 @@ Methods defined here:<br>
 &nbsp;&nbsp;Maybe&nbsp;useful&nbsp;in&nbsp;some&nbsp;scenarios&nbsp;where&nbsp;you&nbsp;want&nbsp;to&nbsp;parse,&nbsp;add&nbsp;a&nbsp;ton&nbsp;of&nbsp;elements,&nbsp;then&nbsp;index<br>
 &nbsp;&nbsp;and&nbsp;do&nbsp;a&nbsp;bunch&nbsp;of&nbsp;searching.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-getElementById"><strong>getElementById</strong></a>(self, _id, root<font color="#909090">='root'</font>, useIndex<font color="#909090">=True</font>)</dt><dd><tt>getElementById&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;the&nbsp;first&nbsp;(should&nbsp;only&nbsp;be&nbsp;one)&nbsp;element&nbsp;with&nbsp;the&nbsp;given&nbsp;ID.<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-getElementById"><strong>getElementById</strong></a>(self, _id, root='root', useIndex=True)</dt><dd><tt>getElementById&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;the&nbsp;first&nbsp;(should&nbsp;only&nbsp;be&nbsp;one)&nbsp;element&nbsp;with&nbsp;the&nbsp;given&nbsp;ID.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;id&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;of&nbsp;the&nbsp;id&nbsp;attribute.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;ids&nbsp;are&nbsp;indexed&nbsp;[see&nbsp;constructor]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsByAttr"><strong>getElementsByAttr</strong></a>(self, attrName, attrValue, root<font color="#909090">='root'</font>, useIndex<font color="#909090">=True</font>)</dt><dd><tt>getElementsByAttr&nbsp;-&nbsp;Searches&nbsp;the&nbsp;full&nbsp;tree&nbsp;for&nbsp;elements&nbsp;with&nbsp;a&nbsp;given&nbsp;attribute&nbsp;name&nbsp;and&nbsp;value&nbsp;combination.&nbsp;If&nbsp;you&nbsp;want&nbsp;multiple&nbsp;potential&nbsp;values,&nbsp;see&nbsp;getElementsWithAttrValues<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsByAttr"><strong>getElementsByAttr</strong></a>(self, attrName, attrValue, root='root', useIndex=True)</dt><dd><tt>getElementsByAttr&nbsp;-&nbsp;Searches&nbsp;the&nbsp;full&nbsp;tree&nbsp;for&nbsp;elements&nbsp;with&nbsp;a&nbsp;given&nbsp;attribute&nbsp;name&nbsp;and&nbsp;value&nbsp;combination.&nbsp;If&nbsp;you&nbsp;want&nbsp;multiple&nbsp;potential&nbsp;values,&nbsp;see&nbsp;getElementsWithAttrValues<br>
 &nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;want&nbsp;an&nbsp;index&nbsp;on&nbsp;a&nbsp;random&nbsp;attribute,&nbsp;use&nbsp;the&nbsp;addIndexOnAttribute&nbsp;function.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrValue&nbsp;&lt;str&gt;&nbsp;-&nbsp;Expected&nbsp;value&nbsp;of&nbsp;attribute<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;this&nbsp;specific&nbsp;attribute&nbsp;is&nbsp;indexed&nbsp;[see&nbsp;addIndexOnAttribute]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsByClassName"><strong>getElementsByClassName</strong></a>(self, className, root<font color="#909090">='root'</font>, useIndex<font color="#909090">=True</font>)</dt><dd><tt>getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsByClassName"><strong>getElementsByClassName</strong></a>(self, className, root='root', useIndex=True)</dt><dd><tt>getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;one-word&nbsp;class&nbsp;name<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;class&nbsp;names&nbsp;are&nbsp;indexed&nbsp;[see&nbsp;constructor]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsByName"><strong>getElementsByName</strong></a>(self, name, root<font color="#909090">='root'</font>, useIndex<font color="#909090">=True</font>)</dt><dd><tt>getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsByName"><strong>getElementsByName</strong></a>(self, name, root='root', useIndex=True)</dt><dd><tt>getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;name&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;of&nbsp;the&nbsp;name&nbsp;attribute<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;names&nbsp;are&nbsp;indexed&nbsp;[see&nbsp;constructor]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsByTagName"><strong>getElementsByTagName</strong></a>(self, tagName, root<font color="#909090">='root'</font>, useIndex<font color="#909090">=True</font>)</dt><dd><tt>getElementsByTagName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;tag&nbsp;name.<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsByTagName"><strong>getElementsByTagName</strong></a>(self, tagName, root='root', useIndex=True)</dt><dd><tt>getElementsByTagName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;tag&nbsp;name.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;-&nbsp;If&nbsp;True&nbsp;[default]&nbsp;and&nbsp;tag&nbsp;names&nbsp;are&nbsp;set&nbsp;to&nbsp;be&nbsp;indexed&nbsp;[default,&nbsp;see&nbsp;constructor],&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;If&nbsp;False,&nbsp;all&nbsp;tags<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;be&nbsp;searched.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attrName, values, root<font color="#909090">='root'</font>, useIndex<font color="#909090">=True</font>)</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Returns&nbsp;elements&nbsp;with&nbsp;an&nbsp;attribute&nbsp;matching&nbsp;one&nbsp;of&nbsp;several&nbsp;values.&nbsp;For&nbsp;a&nbsp;single&nbsp;name/value&nbsp;combination,&nbsp;see&nbsp;getElementsByAttr<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attrName, values, root='root', useIndex=True)</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Returns&nbsp;elements&nbsp;with&nbsp;an&nbsp;attribute&nbsp;matching&nbsp;one&nbsp;of&nbsp;several&nbsp;values.&nbsp;For&nbsp;a&nbsp;single&nbsp;name/value&nbsp;combination,&nbsp;see&nbsp;getElementsByAttr<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrValues&nbsp;set&lt;str&gt;&nbsp;-&nbsp;List&nbsp;of&nbsp;expected&nbsp;values&nbsp;of&nbsp;attribute<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag">AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrValues&nbsp;list&lt;str&gt;&nbsp;-&nbsp;List&nbsp;of&nbsp;expected&nbsp;values&nbsp;of&nbsp;attribute<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;this&nbsp;specific&nbsp;attribute&nbsp;is&nbsp;indexed&nbsp;[see&nbsp;addIndexOnAttribute]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-handle_starttag"><strong>handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing<font color="#909090">=False</font>)</dt><dd><tt>internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+<dl><dt><a name="IndexedAdvancedHTMLParser-handle_starttag"><strong>handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing=False)</dt><dd><tt>internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-reindex"><strong>reindex</strong></a>(self, newIndexIDs<font color="#909090">=None</font>, newIndexNames<font color="#909090">=None</font>, newIndexClassNames<font color="#909090">=None</font>, newIndexTagNames<font color="#909090">=None</font>)</dt><dd><tt>reindex&nbsp;-&nbsp;reindex&nbsp;the&nbsp;tree.&nbsp;Optionally,&nbsp;change&nbsp;what&nbsp;fields&nbsp;are&nbsp;indexed.<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-reindex"><strong>reindex</strong></a>(self, newIndexIDs=None, newIndexNames=None, newIndexClassNames=None, newIndexTagNames=None)</dt><dd><tt>reindex&nbsp;-&nbsp;reindex&nbsp;the&nbsp;tree.&nbsp;Optionally,&nbsp;change&nbsp;what&nbsp;fields&nbsp;are&nbsp;indexed.<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newIndexIDs&nbsp;&lt;bool/None&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;None&nbsp;to&nbsp;leave&nbsp;same,&nbsp;otherwise&nbsp;new&nbsp;value&nbsp;to&nbsp;index&nbsp;IDs<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@parma&nbsp;newIndexNames&nbsp;&lt;bool/None&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;None&nbsp;to&nbsp;leave&nbsp;same,&nbsp;otherwise&nbsp;new&nbsp;value&nbsp;to&nbsp;index&nbsp;names<br>
@@ -713,7 +447,7 @@ Methods defined here:<br>
 
 <dl><dt><a name="IndexedAdvancedHTMLParser-setRoot"><strong>setRoot</strong></a>(self, root)</dt><dd><tt>Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes<br>
 &nbsp;<br>
-@param&nbsp;root&nbsp;-&nbsp;<a href="#AdvancedTag">AdvancedTag</a>&nbsp;for&nbsp;root</tt></dd></dl>
+@param&nbsp;root&nbsp;-&nbsp;AdvancedTag&nbsp;for&nbsp;root</tt></dd></dl>
 
 <hr>
 Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser">AdvancedHTMLParser</a>:<br>
@@ -721,13 +455,7 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 &nbsp;<br>
 @param&nbsp;contents&nbsp;-&nbsp;Contents</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsCustomFilter"><strong>getElementsCustomFilter</strong></a>(self, filterFunc, root<font color="#909090">='root'</font>)</dt><dd><tt>getElementsCustomFilter&nbsp;-&nbsp;Scan&nbsp;elements&nbsp;using&nbsp;a&nbsp;provided&nbsp;function<br>
-&nbsp;<br>
-@param&nbsp;filterFunc&nbsp;&lt;function&gt;(node)&nbsp;-&nbsp;A&nbsp;function&nbsp;that&nbsp;takes&nbsp;an&nbsp;<a href="#AdvancedTag">AdvancedTag</a>&nbsp;as&nbsp;an&nbsp;argument,&nbsp;and&nbsp;returns&nbsp;True&nbsp;if&nbsp;some&nbsp;arbitrary&nbsp;criteria&nbsp;is&nbsp;met<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-getFormattedHTML"><strong>getFormattedHTML</strong></a>(self, indent<font color="#909090">='  '</font>)</dt><dd><tt>getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-getFormattedHTML"><strong>getFormattedHTML</strong></a>(self, indent='  ')</dt><dd><tt>getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br>
 &nbsp;<br>
 @param&nbsp;indent&nbsp;-&nbsp;space/tab/newline&nbsp;of&nbsp;each&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;integer&nbsp;for&nbsp;how&nbsp;many&nbsp;spaces&nbsp;per&nbsp;level<br>
 &nbsp;<br>
@@ -745,7 +473,7 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 &nbsp;&nbsp;&nbsp;&nbsp;Note:&nbsp;If&nbsp;there&nbsp;are&nbsp;multiple&nbsp;root&nbsp;nodes&nbsp;(i.e.&nbsp;no&nbsp;&lt;html&gt;&nbsp;at&nbsp;the&nbsp;top),&nbsp;getRoot&nbsp;will&nbsp;return&nbsp;a&nbsp;special&nbsp;tag.&nbsp;This&nbsp;function&nbsp;automatically<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handles&nbsp;that,&nbsp;and&nbsp;returns&nbsp;all&nbsp;root&nbsp;nodes.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;<a href="__builtin__.html#list">list</a>&lt;<a href="#AdvancedTag">AdvancedTag</a>&gt;&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;of&nbsp;AdvancedTags&nbsp;which&nbsp;are&nbsp;at&nbsp;the&nbsp;root&nbsp;level&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;AdvancedTags&nbsp;which&nbsp;are&nbsp;at&nbsp;the&nbsp;root&nbsp;level&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
 
 <dl><dt><a name="IndexedAdvancedHTMLParser-handle_charref"><strong>handle_charref</strong></a>(self, charRef)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
@@ -763,7 +491,7 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 
 <dl><dt><a name="IndexedAdvancedHTMLParser-parseFile"><strong>parseFile</strong></a>(self, filename)</dt><dd><tt>parseFile&nbsp;-&nbsp;Parses&nbsp;a&nbsp;file&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str/file&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;to&nbsp;a&nbsp;filename&nbsp;or&nbsp;a&nbsp;file&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;If&nbsp;file&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;it&nbsp;will&nbsp;not&nbsp;be&nbsp;closed,&nbsp;you&nbsp;must&nbsp;close.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str/file&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;to&nbsp;a&nbsp;filename&nbsp;or&nbsp;a&nbsp;file&nbsp;object.&nbsp;If&nbsp;file&nbsp;object,&nbsp;it&nbsp;will&nbsp;not&nbsp;be&nbsp;closed,&nbsp;you&nbsp;must&nbsp;close.</tt></dd></dl>
 
 <dl><dt><a name="IndexedAdvancedHTMLParser-parseStr"><strong>parseStr</strong></a>(self, html)</dt><dd><tt>parseStr&nbsp;-&nbsp;Parses&nbsp;a&nbsp;string&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes.<br>
 &nbsp;<br>
@@ -772,7 +500,7 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 <dl><dt><a name="IndexedAdvancedHTMLParser-unknown_decl"><strong>unknown_decl</strong></a>(self, decl)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
 <hr>
-Methods inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a>:<br>
+Methods inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
 <dl><dt><a name="IndexedAdvancedHTMLParser-check_for_whole_start_tag"><strong>check_for_whole_start_tag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;check&nbsp;to&nbsp;see&nbsp;if&nbsp;we&nbsp;have&nbsp;a&nbsp;complete&nbsp;starttag;&nbsp;return&nbsp;end<br>
 #&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete.</tt></dd></dl>
 
@@ -790,7 +518,7 @@ Methods inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParse
 
 <dl><dt><a name="IndexedAdvancedHTMLParser-handle_pi"><strong>handle_pi</strong></a>(self, data)</dt><dd><tt>#&nbsp;Overridable&nbsp;--&nbsp;handle&nbsp;processing&nbsp;instruction</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_bogus_comment"><strong>parse_bogus_comment</strong></a>(self, i, report<font color="#909090">=1</font>)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;bogus&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-parse_bogus_comment"><strong>parse_bogus_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;bogus&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
 #&nbsp;see&nbsp;<a href="http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state">http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state</a></tt></dd></dl>
 
 <dl><dt><a name="IndexedAdvancedHTMLParser-parse_endtag"><strong>parse_endtag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;endtag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete</tt></dd></dl>
@@ -807,23 +535,21 @@ Methods inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParse
 
 <dl><dt><a name="IndexedAdvancedHTMLParser-set_cdata_mode"><strong>set_cdata_mode</strong></a>(self, elem)</dt></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-unescape"><strong>unescape</strong></a>(self, s)</dt></dl>
+<dl><dt><a name="IndexedAdvancedHTMLParser-unescape"><strong>unescape</strong></a>(self, s)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;helper&nbsp;to&nbsp;remove&nbsp;special&nbsp;character&nbsp;quoting</tt></dd></dl>
 
 <hr>
-Data and other attributes inherited from <a href="HTMLParser.html#HTMLParser">HTMLParser.HTMLParser</a>:<br>
+Data and other attributes inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
 <dl><dt><strong>CDATA_CONTENT_ELEMENTS</strong> = ('script', 'style')</dl>
 
-<dl><dt><strong>entitydefs</strong> = None</dl>
-
 <hr>
-Methods inherited from <a href="markupbase.html#ParserBase">markupbase.ParserBase</a>:<br>
+Methods inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
 <dl><dt><a name="IndexedAdvancedHTMLParser-getpos"><strong>getpos</strong></a>(self)</dt><dd><tt>Return&nbsp;current&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_comment"><strong>parse_comment</strong></a>(self, i, report<font color="#909090">=1</font>)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
+<dl><dt><a name="IndexedAdvancedHTMLParser-parse_comment"><strong>parse_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
 
 <dl><dt><a name="IndexedAdvancedHTMLParser-parse_declaration"><strong>parse_declaration</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;declaration&nbsp;(for&nbsp;use&nbsp;by&nbsp;subclasses).</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_marked_section"><strong>parse_marked_section</strong></a>(self, i, report<font color="#909090">=1</font>)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;a&nbsp;marked&nbsp;section<br>
+<dl><dt><a name="IndexedAdvancedHTMLParser-parse_marked_section"><strong>parse_marked_section</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;a&nbsp;marked&nbsp;section<br>
 #&nbsp;Override&nbsp;this&nbsp;to&nbsp;handle&nbsp;MS-word&nbsp;extension&nbsp;syntax&nbsp;&lt;![if&nbsp;word]&gt;content&lt;![endif]&gt;</tt></dd></dl>
 
 <dl><dt><a name="IndexedAdvancedHTMLParser-updatepos"><strong>updatepos</strong></a>(self, i, j)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;update&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.&nbsp;&nbsp;This&nbsp;should&nbsp;be<br>
@@ -831,181 +557,14 @@ Methods inherited from <a href="markupbase.html#ParserBase">markupbase.ParserBas
 #&nbsp;words&nbsp;the&nbsp;concatenation&nbsp;of&nbsp;all&nbsp;the&nbsp;input&nbsp;strings&nbsp;to&nbsp;this<br>
 #&nbsp;function&nbsp;should&nbsp;be&nbsp;exactly&nbsp;the&nbsp;entire&nbsp;input.</tt></dd></dl>
 
-</td></tr></table> <p>
-<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
-<td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="TagCollection">class <strong>TagCollection</strong></a>(<a href="__builtin__.html#list">__builtin__.list</a>)</font></td></tr>
-    
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>A&nbsp;collection&nbsp;of&nbsp;AdvancedTags.&nbsp;You&nbsp;may&nbsp;use&nbsp;this&nbsp;like&nbsp;a&nbsp;normal&nbsp;<a href="__builtin__.html#list">list</a>,&nbsp;or&nbsp;you&nbsp;can&nbsp;use&nbsp;the&nbsp;various&nbsp;getElements*&nbsp;functions&nbsp;within&nbsp;to&nbsp;operate&nbsp;on&nbsp;the&nbsp;results.<br>
-Generally,&nbsp;this&nbsp;is&nbsp;the&nbsp;return&nbsp;of&nbsp;all&nbsp;get*&nbsp;functions.<br>
-&nbsp;<br>
-All&nbsp;the&nbsp;get*&nbsp;functions&nbsp;called&nbsp;on&nbsp;a&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;search&nbsp;all&nbsp;contained&nbsp;elements&nbsp;and&nbsp;their&nbsp;childrens.&nbsp;If&nbsp;you&nbsp;need&nbsp;to&nbsp;check&nbsp;ONLY&nbsp;the&nbsp;elements&nbsp;in&nbsp;the&nbsp;tag&nbsp;collection,&nbsp;and&nbsp;not&nbsp;their&nbsp;children,<br>
-either&nbsp;provide&nbsp;your&nbsp;own&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;comprehension&nbsp;to&nbsp;do&nbsp;so,&nbsp;or&nbsp;use&nbsp;the&nbsp;"filterCollection"&nbsp;method,&nbsp;which&nbsp;takes&nbsp;an&nbsp;arbitrary&nbsp;function/lambda&nbsp;expression&nbsp;and&nbsp;filters&nbsp;just&nbsp;the&nbsp;immediate&nbsp;tags.<br>&nbsp;</tt></td></tr>
-<tr><td>&nbsp;</td>
-<td width="100%"><dl><dt>Method resolution order:</dt>
-<dd><a href="AdvancedHTMLParser.Tags.html#TagCollection">TagCollection</a></dd>
-<dd><a href="__builtin__.html#list">__builtin__.list</a></dd>
-<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
-</dl>
 <hr>
-Methods defined here:<br>
-<dl><dt><a name="TagCollection-__add__"><strong>__add__</strong></a>(self, others)</dt></dl>
-
-<dl><dt><a name="TagCollection-__init__"><strong>__init__</strong></a>(self, values<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.<br>
-&nbsp;<br>
-@param&nbsp;values&nbsp;-&nbsp;Initial&nbsp;values,&nbsp;or&nbsp;None&nbsp;for&nbsp;empty</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__sub__"><strong>__sub__</strong></a>(self, others)</dt></dl>
-
-<dl><dt><a name="TagCollection-all"><strong>all</strong></a>(self)</dt><dd><tt>all&nbsp;-&nbsp;A&nbsp;plain&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;of&nbsp;these&nbsp;elements<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;List&nbsp;of&nbsp;these&nbsp;elements</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-append"><strong>append</strong></a>(self, tag)</dt><dd><tt>append&nbsp;-&nbsp;Append&nbsp;an&nbsp;item&nbsp;to&nbsp;this&nbsp;tag&nbsp;collection<br>
-&nbsp;<br>
-@param&nbsp;tag&nbsp;-&nbsp;an&nbsp;<a href="#AdvancedTag">AdvancedTag</a></tt></dd></dl>
-
-<dl><dt><a name="TagCollection-filterCollection"><strong>filterCollection</strong></a>(self, filterFunc)</dt><dd><tt>filterCollection&nbsp;-&nbsp;Filters&nbsp;only&nbsp;the&nbsp;immediate&nbsp;objects&nbsp;contained&nbsp;within&nbsp;this&nbsp;Collection&nbsp;against&nbsp;a&nbsp;function,&nbsp;not&nbsp;including&nbsp;any&nbsp;children<br>
-&nbsp;<br>
-@param&nbsp;filterFunc&nbsp;&lt;function&gt;&nbsp;-&nbsp;A&nbsp;function&nbsp;or&nbsp;lambda&nbsp;expression&nbsp;that&nbsp;returns&nbsp;True&nbsp;to&nbsp;have&nbsp;that&nbsp;element&nbsp;match<br>
-&nbsp;<br>
-@return&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;tags&nbsp;that&nbsp;met&nbsp;the&nbsp;given&nbsp;criteria</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-getElementById"><strong>getElementById</strong></a>(self, _id)</dt><dd><tt>getElementById&nbsp;-&nbsp;Gets&nbsp;an&nbsp;element&nbsp;within&nbsp;this&nbsp;collection&nbsp;by&nbsp;id<br>
-&nbsp;<br>
-@param&nbsp;_id&nbsp;-&nbsp;string&nbsp;of&nbsp;"id"&nbsp;attribute<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;a&nbsp;single&nbsp;tag&nbsp;matching&nbsp;the&nbsp;id,&nbsp;or&nbsp;None&nbsp;if&nbsp;none&nbsp;found</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-getElementsByAttr"><strong>getElementsByAttr</strong></a>(self, attr, value)</dt><dd><tt>getElementsByAttr&nbsp;-&nbsp;Get&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;posessing&nbsp;a&nbsp;given&nbsp;attribute/value&nbsp;pair<br>
-&nbsp;<br>
-@param&nbsp;attr&nbsp;-&nbsp;Attribute&nbsp;name&nbsp;(lowercase)<br>
-@param&nbsp;value&nbsp;-&nbsp;Matching&nbsp;value<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;all&nbsp;elements&nbsp;matching&nbsp;name/value</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-getElementsByClassName"><strong>getElementsByClassName</strong></a>(self, className)</dt><dd><tt>getElementsByClassName&nbsp;-&nbsp;Get&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;containing&nbsp;a&nbsp;specific&nbsp;class&nbsp;name<br>
-&nbsp;<br>
-@param&nbsp;className&nbsp;-&nbsp;A&nbsp;single&nbsp;class&nbsp;name<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;unique&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;tagged&nbsp;with&nbsp;a&nbsp;specific&nbsp;class&nbsp;name</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-getElementsByName"><strong>getElementsByName</strong></a>(self, name)</dt><dd><tt>getElementsByName&nbsp;-&nbsp;Get&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;having&nbsp;a&nbsp;specific&nbsp;name<br>
-&nbsp;<br>
-@param&nbsp;name&nbsp;-&nbsp;String&nbsp;of&nbsp;"name"&nbsp;attribute<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;unique&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;with&nbsp;given&nbsp;"name"</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-getElementsByTagName"><strong>getElementsByTagName</strong></a>(self, tagName)</dt><dd><tt>getElementsByTagName&nbsp;-&nbsp;Gets&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;having&nbsp;a&nbsp;specific&nbsp;tag&nbsp;name<br>
-&nbsp;<br>
-@param&nbsp;tagName&nbsp;-&nbsp;String&nbsp;of&nbsp;tag&nbsp;name<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;unique&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;with&nbsp;given&nbsp;tag&nbsp;name</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-getElementsCustomFilter"><strong>getElementsCustomFilter</strong></a>(self, filterFunc)</dt><dd><tt>getElementsCustomFilter&nbsp;-&nbsp;Get&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;that&nbsp;match&nbsp;a&nbsp;user-provided&nbsp;function.<br>
-&nbsp;<br>
-@param&nbsp;filterFunc&nbsp;&lt;function&gt;&nbsp;-&nbsp;A&nbsp;function&nbsp;that&nbsp;returns&nbsp;True&nbsp;if&nbsp;the&nbsp;element&nbsp;matches&nbsp;criteria<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;all&nbsp;elements&nbsp;that&nbsp;matched&nbsp;criteria</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attr, values)</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Get&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;possessing&nbsp;an&nbsp;attribute&nbsp;name&nbsp;matching&nbsp;one&nbsp;of&nbsp;several&nbsp;values<br>
-&nbsp;<br>
-@param&nbsp;attr&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;Attribute&nbsp;name&nbsp;(lowerase)<br>
-@param&nbsp;values&nbsp;set&lt;str&gt;&nbsp;-&nbsp;Set&nbsp;of&nbsp;possible&nbsp;matching&nbsp;values<br>
-&nbsp;<br>
-@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;all&nbsp;elements&nbsp;matching&nbsp;criteria</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-remove"><strong>remove</strong></a>(self, toRemove)</dt><dd><tt>remove&nbsp;-&nbsp;Remove&nbsp;an&nbsp;item&nbsp;from&nbsp;this&nbsp;tag&nbsp;collection<br>
-&nbsp;<br>
-@param&nbsp;toRemove&nbsp;-&nbsp;an&nbsp;<a href="#AdvancedTag">AdvancedTag</a></tt></dd></dl>
-
-<hr>
-Data descriptors defined here:<br>
+Data descriptors inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
 <dl><dt><strong>__dict__</strong></dt>
 <dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
 <dl><dt><strong>__weakref__</strong></dt>
 <dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
-<hr>
-Methods inherited from <a href="__builtin__.html#list">__builtin__.list</a>:<br>
-<dl><dt><a name="TagCollection-__contains__"><strong>__contains__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__contains__">__contains__</a>(y)&nbsp;&lt;==&gt;&nbsp;y&nbsp;in&nbsp;x</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__delitem__"><strong>__delitem__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__delitem__">__delitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[y]</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__delslice__"><strong>__delslice__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__delslice__">__delslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[i:j]<br>
-&nbsp;<br>
-Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__eq__"><strong>__eq__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__eq__">__eq__</a>(y)&nbsp;&lt;==&gt;&nbsp;x==y</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__ge__"><strong>__ge__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__ge__">__ge__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;=y</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
-&nbsp;<br>
-Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__gt__"><strong>__gt__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__gt__">__gt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;y</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__iadd__"><strong>__iadd__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__iadd__">__iadd__</a>(y)&nbsp;&lt;==&gt;&nbsp;x+=y</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__imul__"><strong>__imul__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__imul__">__imul__</a>(y)&nbsp;&lt;==&gt;&nbsp;x*=y</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__iter__"><strong>__iter__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__iter__">__iter__</a>()&nbsp;&lt;==&gt;&nbsp;iter(x)</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__le__"><strong>__le__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__le__">__le__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;=y</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__len__"><strong>__len__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__len__">__len__</a>()&nbsp;&lt;==&gt;&nbsp;len(x)</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__lt__"><strong>__lt__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__lt__">__lt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;y</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__mul__"><strong>__mul__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__mul__">__mul__</a>(n)&nbsp;&lt;==&gt;&nbsp;x*n</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__ne__"><strong>__ne__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__ne__">__ne__</a>(y)&nbsp;&lt;==&gt;&nbsp;x!=y</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__reversed__"><strong>__reversed__</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-__reversed__">__reversed__</a>()&nbsp;--&nbsp;return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;<a href="__builtin__.html#list">list</a></tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__rmul__"><strong>__rmul__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__rmul__">__rmul__</a>(n)&nbsp;&lt;==&gt;&nbsp;n*x</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__setitem__"><strong>__setitem__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__setitem__">__setitem__</a>(i,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i]=y</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__setslice__"><strong>__setslice__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__setslice__">__setslice__</a>(i,&nbsp;j,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i:j]=y<br>
-&nbsp;<br>
-Use&nbsp;&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-__sizeof__"><strong>__sizeof__</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-__sizeof__">__sizeof__</a>()&nbsp;--&nbsp;size&nbsp;of&nbsp;L&nbsp;in&nbsp;memory,&nbsp;in&nbsp;bytes</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-count"><strong>count</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-count">count</a>(value)&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;number&nbsp;of&nbsp;occurrences&nbsp;of&nbsp;value</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-extend"><strong>extend</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-extend">extend</a>(iterable)&nbsp;--&nbsp;extend&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-index"><strong>index</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-index">index</a>(value,&nbsp;[start,&nbsp;[stop]])&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;first&nbsp;index&nbsp;of&nbsp;value.<br>
-Raises&nbsp;ValueError&nbsp;if&nbsp;the&nbsp;value&nbsp;is&nbsp;not&nbsp;present.</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-insert"><strong>insert</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-insert">insert</a>(index,&nbsp;<a href="__builtin__.html#object">object</a>)&nbsp;--&nbsp;insert&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;before&nbsp;index</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-pop"><strong>pop</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-pop">pop</a>([index])&nbsp;-&gt;&nbsp;item&nbsp;--&nbsp;remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last).<br>
-Raises&nbsp;IndexError&nbsp;if&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;is&nbsp;empty&nbsp;or&nbsp;index&nbsp;is&nbsp;out&nbsp;of&nbsp;range.</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-reverse"><strong>reverse</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-reverse">reverse</a>()&nbsp;--&nbsp;reverse&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-sort"><strong>sort</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-sort">sort</a>(cmp=None,&nbsp;key=None,&nbsp;reverse=False)&nbsp;--&nbsp;stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*;<br>
-cmp(x,&nbsp;y)&nbsp;-&gt;&nbsp;-1,&nbsp;0,&nbsp;1</tt></dd></dl>
-
-<hr>
-Data and other attributes inherited from <a href="__builtin__.html#list">__builtin__.list</a>:<br>
-<dl><dt><strong>__hash__</strong> = None</dl>
-
-<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#TagCollection-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
-
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
@@ -1013,8 +572,6 @@ Data and other attributes inherited from <a href="__builtin__.html#list">__built
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>__all__</strong> = ['AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection']<br>
-<strong>__int_version_tuple__</strong> = (6, 3, 0)<br>
-<strong>__version__</strong> = '6.3.0'<br>
-<strong>__version_tuple__</strong> = ('6', '3', '0')</td></tr></table>
+<td width="100%"><strong>__all__</strong> = ['AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter']<br>
+<strong>__version_tuple__</strong> = ('6', '2', '1')</td></tr></table>
 </body></html>
