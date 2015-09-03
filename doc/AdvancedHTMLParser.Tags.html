@@ -1,6 +1,7 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module AdvancedHTMLParser.Tags</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="utf-8">
 </head><body bgcolor="#f0f0f8">
 
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
@@ -8,7 +9,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="AdvancedHTMLParser.html"><font color="#ffffff">AdvancedHTMLParser</font></a>.Tags</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/media/projects/AdvancedHTMLParser/AdvancedHTMLParser/Tags.py">/home/media/projects/AdvancedHTMLParser/AdvancedHTMLParser/Tags.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/savannah/projects/AdvancedHTMLParser/AdvancedHTMLParser/Tags.py">/home/savannah/projects/AdvancedHTMLParser/AdvancedHTMLParser/Tags.py</a></font></td></tr></table>
     <p><tt>#&nbsp;Copyright&nbsp;(c)&nbsp;2015&nbsp;Tim&nbsp;Savannah&nbsp;under&nbsp;LGPLv3.&nbsp;<br>
 #&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br>
 #&nbsp;&nbsp;<a href="#AdvancedTag">AdvancedTag</a>&nbsp;and&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;which&nbsp;represent&nbsp;tags&nbsp;and&nbsp;their&nbsp;data.</tt></p>
@@ -28,13 +29,13 @@
     
 <tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
-<dt><font face="helvetica, arial"><a href="builtins.html#list">builtins.list</a>(<a href="builtins.html#object">builtins.object</a>)
+<dt><font face="helvetica, arial"><a href="__builtin__.html#list">__builtin__.list</a>(<a href="__builtin__.html#object">__builtin__.object</a>)
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="AdvancedHTMLParser.Tags.html#TagCollection">TagCollection</a>
 </font></dt></dl>
 </dd>
-<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+<dt><font face="helvetica, arial"><a href="__builtin__.html#object">__builtin__.object</a>
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="AdvancedHTMLParser.Tags.html#AdvancedTag">AdvancedTag</a>
@@ -45,7 +46,7 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="AdvancedTag">class <strong>AdvancedTag</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="AdvancedTag">class <strong>AdvancedTag</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt><a href="#AdvancedTag">AdvancedTag</a>&nbsp;-&nbsp;Represents&nbsp;a&nbsp;Tag.&nbsp;Used&nbsp;with&nbsp;AdvancedHTMLParser&nbsp;to&nbsp;create&nbsp;a&nbsp;DOM-model<br>
@@ -57,10 +58,10 @@ Use&nbsp;the&nbsp;getters&nbsp;and&nbsp;setters&nbsp;instead&nbsp;of&nbsp;attrib
 <td width="100%">Methods defined here:<br>
 <dl><dt><a name="AdvancedTag-__getitem__"><strong>__getitem__</strong></a>(self, key)</dt></dl>
 
-<dl><dt><a name="AdvancedTag-__init__"><strong>__init__</strong></a>(self, tagName, attrList=None, isSelfClosing=False)</dt><dd><tt>__init__&nbsp;-&nbsp;Construct<br>
+<dl><dt><a name="AdvancedTag-__init__"><strong>__init__</strong></a>(self, tagName, attrList<font color="#909090">=None</font>, isSelfClosing<font color="#909090">=False</font>)</dt><dd><tt>__init__&nbsp;-&nbsp;Construct<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;-&nbsp;String&nbsp;of&nbsp;tag&nbsp;name.&nbsp;This&nbsp;will&nbsp;be&nbsp;lowercased!<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrList&nbsp;-&nbsp;A&nbsp;<a href="builtins.html#list">list</a>&nbsp;of&nbsp;tuples&nbsp;(key,&nbsp;value)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrList&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;of&nbsp;tuples&nbsp;(key,&nbsp;value)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;isSelfClosing&nbsp;-&nbsp;True&nbsp;if&nbsp;self-closing&nbsp;tag&nbsp;(&nbsp;&lt;tagName&nbsp;attrs&nbsp;/&gt;&nbsp;)&nbsp;will&nbsp;be&nbsp;set&nbsp;to&nbsp;False&nbsp;if&nbsp;text&nbsp;or&nbsp;children&nbsp;are&nbsp;added.</tt></dd></dl>
 
 <dl><dt><a name="AdvancedTag-__setattr__"><strong>__setattr__</strong></a>(self, name, value)</dt></dl>
@@ -77,7 +78,7 @@ Use&nbsp;the&nbsp;getters&nbsp;and&nbsp;setters&nbsp;instead&nbsp;of&nbsp;attrib
 
 <dl><dt><a name="AdvancedTag-appendText"><strong>appendText</strong></a>(self, text)</dt><dd><tt>appendText&nbsp;-&nbsp;append&nbsp;some&nbsp;inner&nbsp;text</tt></dd></dl>
 
-<dl><dt><a name="AdvancedTag-getAttribute"><strong>getAttribute</strong></a>(self, attrName)</dt><dd><tt>getAttribute&nbsp;-&nbsp;Gets&nbsp;an&nbsp;attribute&nbsp;on&nbsp;this&nbsp;tag.&nbsp;Do&nbsp;not&nbsp;use&nbsp;this&nbsp;for&nbsp;classname,&nbsp;use&nbsp;.className&nbsp;.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br>
+<dl><dt><a name="AdvancedTag-getAttribute"><strong>getAttribute</strong></a>(self, attrName)</dt><dd><tt>getAttribute&nbsp;-&nbsp;Gets&nbsp;an&nbsp;attribute&nbsp;on&nbsp;this&nbsp;tag.&nbsp;Be&nbsp;wary&nbsp;using&nbsp;this&nbsp;for&nbsp;classname,&nbsp;maybe&nbsp;use&nbsp;addClass/removeClass.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;The&nbsp;attribute&nbsp;value,&nbsp;or&nbsp;None&nbsp;if&nbsp;none&nbsp;exists.</tt></dd></dl>
 
 <dl><dt><a name="AdvancedTag-getChildren"><strong>getChildren</strong></a>(self)</dt><dd><tt>getChildren&nbsp;-&nbsp;returns&nbsp;child&nbsp;nodes&nbsp;as&nbsp;a&nbsp;searchable&nbsp;<a href="#TagCollection">TagCollection</a>.<br>
@@ -109,10 +110,16 @@ Use&nbsp;the&nbsp;getters&nbsp;and&nbsp;setters&nbsp;instead&nbsp;of&nbsp;attrib
 &nbsp;<br>
 @return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;matching&nbsp;elements</tt></dd></dl>
 
+<dl><dt><a name="AdvancedTag-getElementsCustomFilter"><strong>getElementsCustomFilter</strong></a>(self, filterFunc)</dt><dd><tt>getElementsCustomFilter&nbsp;-&nbsp;Searches&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;those&nbsp;matching&nbsp;a&nbsp;provided&nbsp;user&nbsp;function<br>
+&nbsp;<br>
+@param&nbsp;filterFunc&nbsp;&lt;function&gt;&nbsp;-&nbsp;A&nbsp;function&nbsp;or&nbsp;lambda&nbsp;expression&nbsp;that&nbsp;should&nbsp;return&nbsp;"True"&nbsp;if&nbsp;the&nbsp;passed&nbsp;node&nbsp;matches&nbsp;criteria.<br>
+&nbsp;<br>
+@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;matching&nbsp;results</tt></dd></dl>
+
 <dl><dt><a name="AdvancedTag-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attrName, attrValues)</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Search&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;tags&nbsp;with&nbsp;an&nbsp;attribute&nbsp;name&nbsp;and&nbsp;one&nbsp;of&nbsp;several&nbsp;values<br>
 &nbsp;<br>
-@param&nbsp;attrName&nbsp;-&nbsp;Attribute&nbsp;name&nbsp;(lowercase)<br>
-@param&nbsp;attrValues&nbsp;-&nbsp;Attribute&nbsp;values<br>
+@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;Attribute&nbsp;name&nbsp;(lowercase)<br>
+@param&nbsp;attrValues&nbsp;set&lt;str&gt;&nbsp;-&nbsp;set&nbsp;of&nbsp;acceptable&nbsp;attribute&nbsp;values<br>
 &nbsp;<br>
 @return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;matching&nbsp;elements</tt></dd></dl>
 
@@ -144,7 +151,7 @@ Use&nbsp;the&nbsp;getters&nbsp;and&nbsp;setters&nbsp;instead&nbsp;of&nbsp;attrib
 @return&nbsp;-&nbsp;None&nbsp;if&nbsp;no&nbsp;parent&nbsp;element&nbsp;(error&nbsp;condition),&nbsp;otherwise&nbsp;a&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;peers&nbsp;that&nbsp;matched.</tt></dd></dl>
 
 <dl><dt><a name="AdvancedTag-getPeersWithAttrValues"><strong>getPeersWithAttrValues</strong></a>(self, attrName, attrValues)</dt><dd><tt>getPeersWithAttrValues&nbsp;-&nbsp;Gets&nbsp;peers&nbsp;(elements&nbsp;on&nbsp;same&nbsp;level)&nbsp;whose&nbsp;attribute&nbsp;given&nbsp;by&nbsp;#attrName&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;in&nbsp;the&nbsp;<a href="builtins.html#list">list</a>&nbsp;of&nbsp;possible&nbsp;vaues&nbsp;#attrValues<br>
+&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;in&nbsp;the&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;of&nbsp;possible&nbsp;vaues&nbsp;#attrValues<br>
 &nbsp;<br>
 @param&nbsp;attrName&nbsp;-&nbsp;Name&nbsp;of&nbsp;attribute<br>
 @param&nbsp;attrValues&nbsp;-&nbsp;List&nbsp;of&nbsp;possible&nbsp;values&nbsp;which&nbsp;will&nbsp;match<br>
@@ -295,28 +302,31 @@ Data descriptors defined here:<br>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="TagCollection">class <strong>TagCollection</strong></a>(<a href="builtins.html#list">builtins.list</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="TagCollection">class <strong>TagCollection</strong></a>(<a href="__builtin__.html#list">__builtin__.list</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>A&nbsp;collection&nbsp;of&nbsp;AdvancedTags.&nbsp;You&nbsp;may&nbsp;use&nbsp;this&nbsp;like&nbsp;a&nbsp;normal&nbsp;<a href="builtins.html#list">list</a>,&nbsp;or&nbsp;you&nbsp;can&nbsp;use&nbsp;the&nbsp;various&nbsp;getElements*&nbsp;functions&nbsp;within&nbsp;to&nbsp;operate&nbsp;on&nbsp;the&nbsp;results.<br>
-Generally,&nbsp;this&nbsp;is&nbsp;the&nbsp;return&nbsp;of&nbsp;get*&nbsp;functions.<br>&nbsp;</tt></td></tr>
+<td colspan=2><tt>A&nbsp;collection&nbsp;of&nbsp;AdvancedTags.&nbsp;You&nbsp;may&nbsp;use&nbsp;this&nbsp;like&nbsp;a&nbsp;normal&nbsp;<a href="__builtin__.html#list">list</a>,&nbsp;or&nbsp;you&nbsp;can&nbsp;use&nbsp;the&nbsp;various&nbsp;getElements*&nbsp;functions&nbsp;within&nbsp;to&nbsp;operate&nbsp;on&nbsp;the&nbsp;results.<br>
+Generally,&nbsp;this&nbsp;is&nbsp;the&nbsp;return&nbsp;of&nbsp;all&nbsp;get*&nbsp;functions.<br>
+&nbsp;<br>
+All&nbsp;the&nbsp;get*&nbsp;functions&nbsp;called&nbsp;on&nbsp;a&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;search&nbsp;all&nbsp;contained&nbsp;elements&nbsp;and&nbsp;their&nbsp;childrens.&nbsp;If&nbsp;you&nbsp;need&nbsp;to&nbsp;check&nbsp;ONLY&nbsp;the&nbsp;elements&nbsp;in&nbsp;the&nbsp;tag&nbsp;collection,&nbsp;and&nbsp;not&nbsp;their&nbsp;children,<br>
+either&nbsp;provide&nbsp;your&nbsp;own&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;comprehension&nbsp;to&nbsp;do&nbsp;so,&nbsp;or&nbsp;use&nbsp;the&nbsp;"filterCollection"&nbsp;method,&nbsp;which&nbsp;takes&nbsp;an&nbsp;arbitrary&nbsp;function/lambda&nbsp;expression&nbsp;and&nbsp;filters&nbsp;just&nbsp;the&nbsp;immediate&nbsp;tags.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="AdvancedHTMLParser.Tags.html#TagCollection">TagCollection</a></dd>
-<dd><a href="builtins.html#list">builtins.list</a></dd>
-<dd><a href="builtins.html#object">builtins.object</a></dd>
+<dd><a href="__builtin__.html#list">__builtin__.list</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
 </dl>
 <hr>
 Methods defined here:<br>
 <dl><dt><a name="TagCollection-__add__"><strong>__add__</strong></a>(self, others)</dt></dl>
 
-<dl><dt><a name="TagCollection-__init__"><strong>__init__</strong></a>(self, values=None)</dt><dd><tt>Create&nbsp;this&nbsp;<a href="builtins.html#object">object</a>.<br>
+<dl><dt><a name="TagCollection-__init__"><strong>__init__</strong></a>(self, values<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.<br>
 &nbsp;<br>
 @param&nbsp;values&nbsp;-&nbsp;Initial&nbsp;values,&nbsp;or&nbsp;None&nbsp;for&nbsp;empty</tt></dd></dl>
 
 <dl><dt><a name="TagCollection-__sub__"><strong>__sub__</strong></a>(self, others)</dt></dl>
 
-<dl><dt><a name="TagCollection-all"><strong>all</strong></a>(self)</dt><dd><tt>all&nbsp;-&nbsp;A&nbsp;plain&nbsp;<a href="builtins.html#list">list</a>&nbsp;of&nbsp;these&nbsp;elements<br>
+<dl><dt><a name="TagCollection-all"><strong>all</strong></a>(self)</dt><dd><tt>all&nbsp;-&nbsp;A&nbsp;plain&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;of&nbsp;these&nbsp;elements<br>
 &nbsp;<br>
 @return&nbsp;-&nbsp;List&nbsp;of&nbsp;these&nbsp;elements</tt></dd></dl>
 
@@ -324,13 +334,19 @@ Methods defined here:<br>
 &nbsp;<br>
 @param&nbsp;tag&nbsp;-&nbsp;an&nbsp;<a href="#AdvancedTag">AdvancedTag</a></tt></dd></dl>
 
+<dl><dt><a name="TagCollection-filterCollection"><strong>filterCollection</strong></a>(self, filterFunc)</dt><dd><tt>filterCollection&nbsp;-&nbsp;Filters&nbsp;only&nbsp;the&nbsp;immediate&nbsp;objects&nbsp;contained&nbsp;within&nbsp;this&nbsp;Collection&nbsp;against&nbsp;a&nbsp;function,&nbsp;not&nbsp;including&nbsp;any&nbsp;children<br>
+&nbsp;<br>
+@param&nbsp;filterFunc&nbsp;&lt;function&gt;&nbsp;-&nbsp;A&nbsp;function&nbsp;or&nbsp;lambda&nbsp;expression&nbsp;that&nbsp;returns&nbsp;True&nbsp;to&nbsp;have&nbsp;that&nbsp;element&nbsp;match<br>
+&nbsp;<br>
+@return&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;tags&nbsp;that&nbsp;met&nbsp;the&nbsp;given&nbsp;criteria</tt></dd></dl>
+
 <dl><dt><a name="TagCollection-getElementById"><strong>getElementById</strong></a>(self, _id)</dt><dd><tt>getElementById&nbsp;-&nbsp;Gets&nbsp;an&nbsp;element&nbsp;within&nbsp;this&nbsp;collection&nbsp;by&nbsp;id<br>
 &nbsp;<br>
 @param&nbsp;_id&nbsp;-&nbsp;string&nbsp;of&nbsp;"id"&nbsp;attribute<br>
 &nbsp;<br>
 @return&nbsp;-&nbsp;a&nbsp;single&nbsp;tag&nbsp;matching&nbsp;the&nbsp;id,&nbsp;or&nbsp;None&nbsp;if&nbsp;none&nbsp;found</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-getElementsByAttr"><strong>getElementsByAttr</strong></a>(self, attr, value)</dt><dd><tt>getElementsByAttr&nbsp;-&nbsp;Get&nbsp;elements&nbsp;with&nbsp;a&nbsp;given&nbsp;attribute/value&nbsp;pair<br>
+<dl><dt><a name="TagCollection-getElementsByAttr"><strong>getElementsByAttr</strong></a>(self, attr, value)</dt><dd><tt>getElementsByAttr&nbsp;-&nbsp;Get&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;posessing&nbsp;a&nbsp;given&nbsp;attribute/value&nbsp;pair<br>
 &nbsp;<br>
 @param&nbsp;attr&nbsp;-&nbsp;Attribute&nbsp;name&nbsp;(lowercase)<br>
 @param&nbsp;value&nbsp;-&nbsp;Matching&nbsp;value<br>
@@ -355,10 +371,16 @@ Methods defined here:<br>
 &nbsp;<br>
 @return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;unique&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;with&nbsp;given&nbsp;tag&nbsp;name</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attr, values)</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Get&nbsp;elements&nbsp;with&nbsp;an&nbsp;attribute&nbsp;name&nbsp;matching&nbsp;one&nbsp;of&nbsp;several&nbsp;values<br>
+<dl><dt><a name="TagCollection-getElementsCustomFilter"><strong>getElementsCustomFilter</strong></a>(self, filterFunc)</dt><dd><tt>getElementsCustomFilter&nbsp;-&nbsp;Get&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;that&nbsp;match&nbsp;a&nbsp;user-provided&nbsp;function.<br>
 &nbsp;<br>
-@param&nbsp;attr&nbsp;-&nbsp;Attribute&nbsp;name&nbsp;(lowerase)<br>
-@param&nbsp;values&nbsp;-&nbsp;List&nbsp;of&nbsp;matching&nbsp;values<br>
+@param&nbsp;filterFunc&nbsp;&lt;function&gt;&nbsp;-&nbsp;A&nbsp;function&nbsp;that&nbsp;returns&nbsp;True&nbsp;if&nbsp;the&nbsp;element&nbsp;matches&nbsp;criteria<br>
+&nbsp;<br>
+@return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;all&nbsp;elements&nbsp;that&nbsp;matched&nbsp;criteria</tt></dd></dl>
+
+<dl><dt><a name="TagCollection-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attr, values)</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Get&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;possessing&nbsp;an&nbsp;attribute&nbsp;name&nbsp;matching&nbsp;one&nbsp;of&nbsp;several&nbsp;values<br>
+&nbsp;<br>
+@param&nbsp;attr&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;Attribute&nbsp;name&nbsp;(lowerase)<br>
+@param&nbsp;values&nbsp;set&lt;str&gt;&nbsp;-&nbsp;Set&nbsp;of&nbsp;possible&nbsp;matching&nbsp;values<br>
 &nbsp;<br>
 @return&nbsp;-&nbsp;<a href="#TagCollection">TagCollection</a>&nbsp;of&nbsp;all&nbsp;elements&nbsp;matching&nbsp;criteria</tt></dd></dl>
 
@@ -375,72 +397,81 @@ Data descriptors defined here:<br>
 <dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
 <hr>
-Methods inherited from <a href="builtins.html#list">builtins.list</a>:<br>
-<dl><dt><a name="TagCollection-__contains__"><strong>__contains__</strong></a>(self, key, /)</dt><dd><tt>Return&nbsp;key&nbsp;in&nbsp;self.</tt></dd></dl>
+Methods inherited from <a href="__builtin__.html#list">__builtin__.list</a>:<br>
+<dl><dt><a name="TagCollection-__contains__"><strong>__contains__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__contains__">__contains__</a>(y)&nbsp;&lt;==&gt;&nbsp;y&nbsp;in&nbsp;x</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__delitem__"><strong>__delitem__</strong></a>(self, key, /)</dt><dd><tt>Delete&nbsp;self[key].</tt></dd></dl>
+<dl><dt><a name="TagCollection-__delitem__"><strong>__delitem__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__delitem__">__delitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[y]</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__eq__"><strong>__eq__</strong></a>(self, value, /)</dt><dd><tt>Return&nbsp;self==value.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__delslice__"><strong>__delslice__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__delslice__">__delslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__ge__"><strong>__ge__</strong></a>(self, value, /)</dt><dd><tt>Return&nbsp;self&gt;=value.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__eq__"><strong>__eq__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__eq__">__eq__</a>(y)&nbsp;&lt;==&gt;&nbsp;x==y</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__getattribute__"><strong>__getattribute__</strong></a>(self, name, /)</dt><dd><tt>Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+<dl><dt><a name="TagCollection-__ge__"><strong>__ge__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__ge__">__ge__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;=y</tt></dd></dl>
+
+<dl><dt><a name="TagCollection-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
 
 <dl><dt><a name="TagCollection-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__gt__"><strong>__gt__</strong></a>(self, value, /)</dt><dd><tt>Return&nbsp;self&gt;value.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__iadd__"><strong>__iadd__</strong></a>(self, value, /)</dt><dd><tt>Implement&nbsp;self+=value.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__gt__"><strong>__gt__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__gt__">__gt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;y</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__imul__"><strong>__imul__</strong></a>(self, value, /)</dt><dd><tt>Implement&nbsp;self*=value.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__iadd__"><strong>__iadd__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__iadd__">__iadd__</a>(y)&nbsp;&lt;==&gt;&nbsp;x+=y</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__iter__"><strong>__iter__</strong></a>(self, /)</dt><dd><tt>Implement&nbsp;iter(self).</tt></dd></dl>
+<dl><dt><a name="TagCollection-__imul__"><strong>__imul__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__imul__">__imul__</a>(y)&nbsp;&lt;==&gt;&nbsp;x*=y</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__le__"><strong>__le__</strong></a>(self, value, /)</dt><dd><tt>Return&nbsp;self&lt;=value.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__iter__"><strong>__iter__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__iter__">__iter__</a>()&nbsp;&lt;==&gt;&nbsp;iter(x)</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__len__"><strong>__len__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;len(self).</tt></dd></dl>
+<dl><dt><a name="TagCollection-__le__"><strong>__le__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__le__">__le__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;=y</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__lt__"><strong>__lt__</strong></a>(self, value, /)</dt><dd><tt>Return&nbsp;self&lt;value.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__len__"><strong>__len__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__len__">__len__</a>()&nbsp;&lt;==&gt;&nbsp;len(x)</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__mul__"><strong>__mul__</strong></a>(self, value, /)</dt><dd><tt>Return&nbsp;self*value.n</tt></dd></dl>
+<dl><dt><a name="TagCollection-__lt__"><strong>__lt__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__lt__">__lt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;y</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__ne__"><strong>__ne__</strong></a>(self, value, /)</dt><dd><tt>Return&nbsp;self!=value.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__mul__"><strong>__mul__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__mul__">__mul__</a>(n)&nbsp;&lt;==&gt;&nbsp;x*n</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__ne__"><strong>__ne__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__ne__">__ne__</a>(y)&nbsp;&lt;==&gt;&nbsp;x!=y</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+<dl><dt><a name="TagCollection-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__reversed__"><strong>__reversed__</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-__reversed__">__reversed__</a>()&nbsp;--&nbsp;return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;<a href="builtins.html#list">list</a></tt></dd></dl>
+<dl><dt><a name="TagCollection-__reversed__"><strong>__reversed__</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-__reversed__">__reversed__</a>()&nbsp;--&nbsp;return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;<a href="__builtin__.html#list">list</a></tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__rmul__"><strong>__rmul__</strong></a>(self, value, /)</dt><dd><tt>Return&nbsp;self*value.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__rmul__"><strong>__rmul__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__rmul__">__rmul__</a>(n)&nbsp;&lt;==&gt;&nbsp;n*x</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-__setitem__"><strong>__setitem__</strong></a>(self, key, value, /)</dt><dd><tt>Set&nbsp;self[key]&nbsp;to&nbsp;value.</tt></dd></dl>
+<dl><dt><a name="TagCollection-__setitem__"><strong>__setitem__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__setitem__">__setitem__</a>(i,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i]=y</tt></dd></dl>
+
+<dl><dt><a name="TagCollection-__setslice__"><strong>__setslice__</strong></a>(...)</dt><dd><tt>x.<a href="#TagCollection-__setslice__">__setslice__</a>(i,&nbsp;j,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i:j]=y<br>
+&nbsp;<br>
+Use&nbsp;&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
 
 <dl><dt><a name="TagCollection-__sizeof__"><strong>__sizeof__</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-__sizeof__">__sizeof__</a>()&nbsp;--&nbsp;size&nbsp;of&nbsp;L&nbsp;in&nbsp;memory,&nbsp;in&nbsp;bytes</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-clear"><strong>clear</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-clear">clear</a>()&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;remove&nbsp;all&nbsp;items&nbsp;from&nbsp;L</tt></dd></dl>
-
-<dl><dt><a name="TagCollection-copy"><strong>copy</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-copy">copy</a>()&nbsp;-&gt;&nbsp;<a href="builtins.html#list">list</a>&nbsp;--&nbsp;a&nbsp;shallow&nbsp;copy&nbsp;of&nbsp;L</tt></dd></dl>
-
 <dl><dt><a name="TagCollection-count"><strong>count</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-count">count</a>(value)&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;number&nbsp;of&nbsp;occurrences&nbsp;of&nbsp;value</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-extend"><strong>extend</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-extend">extend</a>(iterable)&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;extend&nbsp;<a href="builtins.html#list">list</a>&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable</tt></dd></dl>
+<dl><dt><a name="TagCollection-extend"><strong>extend</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-extend">extend</a>(iterable)&nbsp;--&nbsp;extend&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable</tt></dd></dl>
 
 <dl><dt><a name="TagCollection-index"><strong>index</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-index">index</a>(value,&nbsp;[start,&nbsp;[stop]])&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;first&nbsp;index&nbsp;of&nbsp;value.<br>
 Raises&nbsp;ValueError&nbsp;if&nbsp;the&nbsp;value&nbsp;is&nbsp;not&nbsp;present.</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-insert"><strong>insert</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-insert">insert</a>(index,&nbsp;<a href="builtins.html#object">object</a>)&nbsp;--&nbsp;insert&nbsp;<a href="builtins.html#object">object</a>&nbsp;before&nbsp;index</tt></dd></dl>
+<dl><dt><a name="TagCollection-insert"><strong>insert</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-insert">insert</a>(index,&nbsp;<a href="__builtin__.html#object">object</a>)&nbsp;--&nbsp;insert&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;before&nbsp;index</tt></dd></dl>
 
 <dl><dt><a name="TagCollection-pop"><strong>pop</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-pop">pop</a>([index])&nbsp;-&gt;&nbsp;item&nbsp;--&nbsp;remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last).<br>
-Raises&nbsp;IndexError&nbsp;if&nbsp;<a href="builtins.html#list">list</a>&nbsp;is&nbsp;empty&nbsp;or&nbsp;index&nbsp;is&nbsp;out&nbsp;of&nbsp;range.</tt></dd></dl>
+Raises&nbsp;IndexError&nbsp;if&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;is&nbsp;empty&nbsp;or&nbsp;index&nbsp;is&nbsp;out&nbsp;of&nbsp;range.</tt></dd></dl>
 
 <dl><dt><a name="TagCollection-reverse"><strong>reverse</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-reverse">reverse</a>()&nbsp;--&nbsp;reverse&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
 
-<dl><dt><a name="TagCollection-sort"><strong>sort</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-sort">sort</a>(key=None,&nbsp;reverse=False)&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
+<dl><dt><a name="TagCollection-sort"><strong>sort</strong></a>(...)</dt><dd><tt>L.<a href="#TagCollection-sort">sort</a>(cmp=None,&nbsp;key=None,&nbsp;reverse=False)&nbsp;--&nbsp;stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*;<br>
+cmp(x,&nbsp;y)&nbsp;-&gt;&nbsp;-1,&nbsp;0,&nbsp;1</tt></dd></dl>
 
 <hr>
-Data and other attributes inherited from <a href="builtins.html#list">builtins.list</a>:<br>
+Data and other attributes inherited from <a href="__builtin__.html#list">__builtin__.list</a>:<br>
 <dl><dt><strong>__hash__</strong> = None</dl>
+
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#TagCollection-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
 
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -451,7 +482,7 @@ Data and other attributes inherited from <a href="builtins.html#list">builtins.l
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl><dt><a name="-uniqueTags"><strong>uniqueTags</strong></a>(tagList)</dt><dd><tt>uniqueTags&nbsp;-&nbsp;Returns&nbsp;the&nbsp;unique&nbsp;tags&nbsp;in&nbsp;tagList.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagList&nbsp;<a href="builtins.html#list">list</a>&lt;<a href="#AdvancedTag">AdvancedTag</a>&gt;&nbsp;:&nbsp;A&nbsp;<a href="builtins.html#list">list</a>&nbsp;of&nbsp;tag&nbsp;objects.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagList&nbsp;<a href="__builtin__.html#list">list</a>&lt;<a href="#AdvancedTag">AdvancedTag</a>&gt;&nbsp;:&nbsp;A&nbsp;<a href="__builtin__.html#list">list</a>&nbsp;of&nbsp;tag&nbsp;objects.</tt></dd></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
