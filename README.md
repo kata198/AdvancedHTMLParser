@@ -41,6 +41,8 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 
     getElementsWithAttrValues - Returns a list of all elements with a specific attribute name containing one of a list of values
 
+    getElementsCustomFilter - Provide a function/lambda that takes a tag argument, and returns True to "match" it. Returns all matched objects
+
     getHTML                 - Returns string of HTML representing this DOM
 
     getRootNodes            - Get a list of nodes at root level (0)
@@ -58,7 +60,7 @@ Style attributes can be manipulated just like in javascript, so element.style.po
 
 **TagCollection**
 
-A TagCollection can be used like a list. It also exposes the various get\* functions which operate on the elements within the list (and their children).
+A TagCollection can be used like a list. It also exposes the various get\* functions which operate on the elements within the list (and their children). To operate just on items in the list, you can use filterCollection which takes a lambda/function and returns True to retain that tag in the return.
 
 **AdvancedTag**
 

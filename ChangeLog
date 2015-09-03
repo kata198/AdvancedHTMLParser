@@ -1,3 +1,13 @@
+* 6.3.0 Sep 03 2015
+- Clarify that a set is better to use for getElementsWithAttrValues as the "attrValues" portion. If used within "Parser" -- make this conversion for them,
+  as this is the most common case, and the only one-time-test case. Maybe worth splitting public and private methods to handle such microoptimizations in
+  the future
+- Support filtering on a custom function. Added "getElementsCustomFilter" to Parser, TagCollection, and AdvancedTag. With Tests.
+- Support filtering the direct members of a TagCollection, using filterCollection method. Does not transverse to children. 
+- Add AdvancedTag and TagCollection to __init__ (for "from AdvancedHTMLParser import *") 
+- Add an integer version tuple, __int_version_tuple__ for easier comparison
+- A couple micro optimizations
+
 * 6.2.5 Aug 17 2015
 - Fix style and class attributes not showing up in outerHTML
 - Allow formatHTML script to read from stdin

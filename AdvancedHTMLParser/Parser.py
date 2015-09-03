@@ -293,14 +293,45 @@ class AdvancedHTMLParser(HTMLParser):
             elements += self.getElementsByAttr(attrName, attrValue, child)
         return TagCollection(elements)
 
-    def getElementsWithAttrValues(self, attrName, values, root='root'):
+    def getElementsWithAttrValues(self, attrName, attrValues, root='root'):
         '''
             getElementsWithAttrValues - Returns elements with an attribute, named by #attrName contains one of the values in the list, #values
 
+            @param attrName <lowercase str> - A lowercase attribute name
+            @param attrValues set<str> - A set of all valid values. 
+
+
+            @return - TagCollection of all matching elements
+
         '''
         (root, isFromRoot) = self._handleRootArg(root)
+        if type(attrValues) != set:
+            attrValues = set(attrValues)
         
-        return root.getElementsWithAttrValues(attrName, values)
+        return root.getElementsWithAttrValues(attrName, attrValues)
+
+
+    def getElementsCustomFilter(self, filterFunc, root='root'):
+        '''
+            getElementsCustomFilter - Scan elements using a provided function
+
+            @param filterFunc <function>(node) - A function that takes an AdvancedTag as an argument, and returns True if some arbitrary criteria is met
+
+            @return - TagCollection of all matching elements
+        '''
+        (root, isFromRoot) = self._handleRootArg(root)
+
+        elements = []
+
+        if isFromRoot is True and filterFunc(root) is True:
+            elements.append(root)
+
+        for child in root.children:
+            if filterFunc(child) is True:
+                elements.append(child)
+            elements += self.getElementsCustomFilter(filterFunc, child)
+        return TagCollection(elements)
+
 
     def getHTML(self):
         '''
@@ -674,7 +705,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
             getElementsWithAttrValues - Returns elements with an attribute matching one of several values. For a single name/value combination, see getElementsByAttr
 
                 @param attrName <lowercase str> - A lowercase attribute name
-                @param attrValues list<str> - List of expected values of attribute
+                @param attrValues set<str> - List of expected values of attribute
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root', the root of the parsed tree will be used.
                 @param useIndex <bool> If useIndex is True and this specific attribute is indexed [see addIndexOnAttribute] only the index will be used. Otherwise a full search is performed.
         '''

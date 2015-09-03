@@ -27,7 +27,10 @@ def uniqueTags(tagList):
 class TagCollection(list):
     '''
         A collection of AdvancedTags. You may use this like a normal list, or you can use the various getElements* functions within to operate on the results.
-        Generally, this is the return of get* functions.
+        Generally, this is the return of all get* functions.
+
+        All the get* functions called on a TagCollection search all contained elements and their childrens. If you need to check ONLY the elements in the tag collection, and not their children,
+        either provide your own list comprehension to do so, or use the "filterCollection" method, which takes an arbitrary function/lambda expression and filters just the immediate tags.
     '''
 
     def __init__(self, values=None):
@@ -90,6 +93,24 @@ class TagCollection(list):
             @return - List of these elements
         '''
         return list(self)
+
+    def filterCollection(self, filterFunc):
+        '''
+            filterCollection - Filters only the immediate objects contained within this Collection against a function, not including any children
+
+            @param filterFunc <function> - A function or lambda expression that returns True to have that element match
+
+            @return TagCollection of tags that met the given criteria
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        for tag in self:
+            if filterFunc(tag) is True:
+                ret.append(tag)
+
+        return ret
 
     def getElementsByTagName(self, tagName):
         '''
@@ -165,7 +186,7 @@ class TagCollection(list):
 
     def getElementsByAttr(self, attr, value):
         '''
-            getElementsByAttr - Get elements with a given attribute/value pair
+            getElementsByAttr - Get elements within this collection posessing a given attribute/value pair
 
             @param attr - Attribute name (lowercase)
             @param value - Matching value
@@ -185,10 +206,10 @@ class TagCollection(list):
 
     def getElementsWithAttrValues(self, attr, values):
         '''
-            getElementsWithAttrValues - Get elements with an attribute name matching one of several values
+            getElementsWithAttrValues - Get elements within this collection possessing an attribute name matching one of several values
 
-            @param attr - Attribute name (lowerase)
-            @param values - List of matching values
+            @param attr <lowercase str> - Attribute name (lowerase)
+            @param values set<str> - Set of possible matching values
 
             @return - TagCollection of all elements matching criteria
         '''
@@ -196,11 +217,32 @@ class TagCollection(list):
         if len(self) == 0:
             return ret
 
+        if type(values) != set:
+            values = set(values)
+
         attr = attr.lower()
         _cmpFunc = lambda tag : tag.getAttribute(attr) in values
         for tag in self:
             TagCollection._subset(ret, _cmpFunc, tag)
         
+        return ret
+
+    def getElementsCustomFilter(self, filterFunc):
+        '''
+            getElementsCustomFilter - Get elements within this collection that match a user-provided function.
+
+            @param filterFunc <function> - A function that returns True if the element matches criteria
+
+            @return - TagCollection of all elements that matched criteria
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        _cmpFunc = lambda tag : filterFunc(tag) is True
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+
         return ret
         
 
@@ -730,12 +772,12 @@ class AdvancedTag(object):
 
             @return - TagCollection of matching elements
         '''
-        elements = TagCollection()
+        elements = []
         for child in self.children:
             if child.getAttribute(attrName) == attrValue:
                 elements.append(child)
             elements += child.getElementsByAttr(attrName, attrValue)
-        return elements
+        return TagCollection(elements)
 
     def getElementsByName(self, name):
         '''
@@ -755,29 +797,47 @@ class AdvancedTag(object):
 
             @return - TagCollection of matching elements
         '''
-        elements = TagCollection()
+        elements = []
         for child in self.children:
             if child.hasClass(className) is True:
                 elements.append(child)
             elements += child.getElementsByClassName(className)
-        return elements
+        return TagCollection(elements)
 
     def getElementsWithAttrValues(self, attrName, attrValues):
         '''
             getElementsWithAttrValues - Search children of this tag for tags with an attribute name and one of several values
 
-            @param attrName - Attribute name (lowercase)
-            @param attrValues - Attribute values
+            @param attrName <lowercase str> - Attribute name (lowercase)
+            @param attrValues set<str> - set of acceptable attribute values
 
             @return - TagCollection of matching elements
         '''
-        elements = TagCollection()
+        elements = []
 
         for child in self.children:
             if child.getAttribute(attrName) in attrValues:
                 elements.append(child)
             elements += child.getElementsWithAttrValues(attrName, attrValues)
-        return elements
+        return TagCollection(elements)
+
+
+    def getElementsCustomFilter(self, filterFunc):
+        '''
+            getElementsCustomFilter - Searches children of this tag for those matching a provided user function
+
+            @param filterFunc <function> - A function or lambda expression that should return "True" if the passed node matches criteria.
+
+            @return - TagCollection of matching results
+        '''
+        elements = []
+
+        for child in self.children:
+            if filterFunc(child) is True:
+                elements.append(child)
+            elements += child.getElementsCustomFilter(filterFunc)
+
+        return TagCollection(elements)
 
     def getPeersByAttr(self, attrName, attrValue):
         '''
