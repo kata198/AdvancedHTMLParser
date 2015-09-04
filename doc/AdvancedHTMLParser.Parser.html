@@ -126,22 +126,6 @@ Methods defined here:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;AdvancedTags&nbsp;which&nbsp;are&nbsp;at&nbsp;the&nbsp;root&nbsp;level&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-handle_charref"><strong>handle_charref</strong></a>(self, charRef)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-handle_comment"><strong>handle_comment</strong></a>(self, comment)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-handle_data"><strong>handle_data</strong></a>(self, data)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-handle_decl"><strong>handle_decl</strong></a>(self, decl)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-handle_endtag"><strong>handle_endtag</strong></a>(self, tagName)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-handle_entityref"><strong>handle_entityref</strong></a>(self, entity)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-handle_startendtag"><strong>handle_startendtag</strong></a>(self, tagName, attributeList)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-handle_starttag"><strong>handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing=False)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
 <dl><dt><a name="AdvancedHTMLParser-parseFile"><strong>parseFile</strong></a>(self, filename)</dt><dd><tt>parseFile&nbsp;-&nbsp;Parses&nbsp;a&nbsp;file&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str/file&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;to&nbsp;a&nbsp;filename&nbsp;or&nbsp;a&nbsp;file&nbsp;object.&nbsp;If&nbsp;file&nbsp;object,&nbsp;it&nbsp;will&nbsp;not&nbsp;be&nbsp;closed,&nbsp;you&nbsp;must&nbsp;close.</tt></dd></dl>
@@ -152,74 +136,10 @@ Methods defined here:<br>
 
 <dl><dt><a name="AdvancedHTMLParser-setRoot"><strong>setRoot</strong></a>(self, root)</dt><dd><tt>Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-unknown_decl"><strong>unknown_decl</strong></a>(self, decl)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
 <hr>
-Methods inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
-<dl><dt><a name="AdvancedHTMLParser-check_for_whole_start_tag"><strong>check_for_whole_start_tag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;check&nbsp;to&nbsp;see&nbsp;if&nbsp;we&nbsp;have&nbsp;a&nbsp;complete&nbsp;starttag;&nbsp;return&nbsp;end<br>
-#&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-clear_cdata_mode"><strong>clear_cdata_mode</strong></a>(self)</dt></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-close"><strong>close</strong></a>(self)</dt><dd><tt>Handle&nbsp;any&nbsp;buffered&nbsp;data.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-error"><strong>error</strong></a>(self, message)</dt></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-get_starttag_text"><strong>get_starttag_text</strong></a>(self)</dt><dd><tt>Return&nbsp;full&nbsp;source&nbsp;of&nbsp;start&nbsp;tag:&nbsp;'&lt;...&gt;'.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-goahead"><strong>goahead</strong></a>(self, end)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;handle&nbsp;data&nbsp;as&nbsp;far&nbsp;as&nbsp;reasonable.&nbsp;&nbsp;May&nbsp;leave&nbsp;state<br>
-#&nbsp;and&nbsp;data&nbsp;to&nbsp;be&nbsp;processed&nbsp;by&nbsp;a&nbsp;subsequent&nbsp;call.&nbsp;&nbsp;If&nbsp;'end'&nbsp;is<br>
-#&nbsp;true,&nbsp;force&nbsp;handling&nbsp;all&nbsp;data&nbsp;as&nbsp;if&nbsp;followed&nbsp;by&nbsp;EOF&nbsp;marker.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-handle_pi"><strong>handle_pi</strong></a>(self, data)</dt><dd><tt>#&nbsp;Overridable&nbsp;--&nbsp;handle&nbsp;processing&nbsp;instruction</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-parse_bogus_comment"><strong>parse_bogus_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;bogus&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
-#&nbsp;see&nbsp;<a href="http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state">http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state</a></tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-parse_endtag"><strong>parse_endtag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;endtag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-parse_html_declaration"><strong>parse_html_declaration</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;html&nbsp;declarations,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
-#&nbsp;See&nbsp;w3.org/TR/html5/tokenization.html#markup-declaration-open-state<br>
-#&nbsp;See&nbsp;also&nbsp;parse_declaration&nbsp;in&nbsp;_markupbase</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-parse_pi"><strong>parse_pi</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;processing&nbsp;instr,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-parse_starttag"><strong>parse_starttag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;handle&nbsp;starttag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLParser-reset"><strong>reset</strong></a>(self)</dt><dd><tt>Reset&nbsp;this&nbsp;instance.&nbsp;&nbsp;Loses&nbsp;all&nbsp;unprocessed&nbsp;data.</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-set_cdata_mode"><strong>set_cdata_mode</strong></a>(self, elem)</dt></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-unescape"><strong>unescape</strong></a>(self, s)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;helper&nbsp;to&nbsp;remove&nbsp;special&nbsp;character&nbsp;quoting</tt></dd></dl>
-
-<hr>
-Data and other attributes inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
-<dl><dt><strong>CDATA_CONTENT_ELEMENTS</strong> = ('script', 'style')</dl>
-
-<hr>
-Methods inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
-<dl><dt><a name="AdvancedHTMLParser-getpos"><strong>getpos</strong></a>(self)</dt><dd><tt>Return&nbsp;current&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-parse_comment"><strong>parse_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-parse_declaration"><strong>parse_declaration</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;declaration&nbsp;(for&nbsp;use&nbsp;by&nbsp;subclasses).</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-parse_marked_section"><strong>parse_marked_section</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;a&nbsp;marked&nbsp;section<br>
-#&nbsp;Override&nbsp;this&nbsp;to&nbsp;handle&nbsp;MS-word&nbsp;extension&nbsp;syntax&nbsp;&lt;![if&nbsp;word]&gt;content&lt;![endif]&gt;</tt></dd></dl>
-
-<dl><dt><a name="AdvancedHTMLParser-updatepos"><strong>updatepos</strong></a>(self, i, j)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;update&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.&nbsp;&nbsp;This&nbsp;should&nbsp;be<br>
-#&nbsp;called&nbsp;for&nbsp;each&nbsp;piece&nbsp;of&nbsp;data&nbsp;exactly&nbsp;once,&nbsp;in&nbsp;order&nbsp;--&nbsp;in&nbsp;other<br>
-#&nbsp;words&nbsp;the&nbsp;concatenation&nbsp;of&nbsp;all&nbsp;the&nbsp;input&nbsp;strings&nbsp;to&nbsp;this<br>
-#&nbsp;function&nbsp;should&nbsp;be&nbsp;exactly&nbsp;the&nbsp;entire&nbsp;input.</tt></dd></dl>
-
-<hr>
-Data descriptors inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
-<dl><dt><strong>__dict__</strong></dt>
-<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
-</dl>
-<dl><dt><strong>__weakref__</strong></dt>
-<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
-</dl>
 </td></tr></table> <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
@@ -301,8 +221,6 @@ Methods defined here:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;this&nbsp;specific&nbsp;attribute&nbsp;is&nbsp;indexed&nbsp;[see&nbsp;addIndexOnAttribute]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-handle_starttag"><strong>handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing=False)</dt><dd><tt>internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
 <dl><dt><a name="IndexedAdvancedHTMLParser-reindex"><strong>reindex</strong></a>(self, newIndexIDs=None, newIndexNames=None, newIndexClassNames=None, newIndexTagNames=None)</dt><dd><tt>reindex&nbsp;-&nbsp;reindex&nbsp;the&nbsp;tree.&nbsp;Optionally,&nbsp;change&nbsp;what&nbsp;fields&nbsp;are&nbsp;indexed.<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newIndexIDs&nbsp;&lt;bool/None&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;None&nbsp;to&nbsp;leave&nbsp;same,&nbsp;otherwise&nbsp;new&nbsp;value&nbsp;to&nbsp;index&nbsp;IDs<br>
@@ -350,20 +268,6 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;AdvancedTags&nbsp;which&nbsp;are&nbsp;at&nbsp;the&nbsp;root&nbsp;level&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-handle_charref"><strong>handle_charref</strong></a>(self, charRef)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-handle_comment"><strong>handle_comment</strong></a>(self, comment)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-handle_data"><strong>handle_data</strong></a>(self, data)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-handle_decl"><strong>handle_decl</strong></a>(self, decl)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-handle_endtag"><strong>handle_endtag</strong></a>(self, tagName)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-handle_entityref"><strong>handle_entityref</strong></a>(self, entity)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-handle_startendtag"><strong>handle_startendtag</strong></a>(self, tagName, attributeList)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
 <dl><dt><a name="IndexedAdvancedHTMLParser-parseFile"><strong>parseFile</strong></a>(self, filename)</dt><dd><tt>parseFile&nbsp;-&nbsp;Parses&nbsp;a&nbsp;file&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str/file&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;to&nbsp;a&nbsp;filename&nbsp;or&nbsp;a&nbsp;file&nbsp;object.&nbsp;If&nbsp;file&nbsp;object,&nbsp;it&nbsp;will&nbsp;not&nbsp;be&nbsp;closed,&nbsp;you&nbsp;must&nbsp;close.</tt></dd></dl>
@@ -372,74 +276,13 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-unknown_decl"><strong>unknown_decl</strong></a>(self, decl)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
 <hr>
 Methods inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
 <dl><dt><a name="IndexedAdvancedHTMLParser-check_for_whole_start_tag"><strong>check_for_whole_start_tag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;check&nbsp;to&nbsp;see&nbsp;if&nbsp;we&nbsp;have&nbsp;a&nbsp;complete&nbsp;starttag;&nbsp;return&nbsp;end<br>
 #&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-clear_cdata_mode"><strong>clear_cdata_mode</strong></a>(self)</dt></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-close"><strong>close</strong></a>(self)</dt><dd><tt>Handle&nbsp;any&nbsp;buffered&nbsp;data.</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-error"><strong>error</strong></a>(self, message)</dt></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-get_starttag_text"><strong>get_starttag_text</strong></a>(self)</dt><dd><tt>Return&nbsp;full&nbsp;source&nbsp;of&nbsp;start&nbsp;tag:&nbsp;'&lt;...&gt;'.</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-goahead"><strong>goahead</strong></a>(self, end)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;handle&nbsp;data&nbsp;as&nbsp;far&nbsp;as&nbsp;reasonable.&nbsp;&nbsp;May&nbsp;leave&nbsp;state<br>
-#&nbsp;and&nbsp;data&nbsp;to&nbsp;be&nbsp;processed&nbsp;by&nbsp;a&nbsp;subsequent&nbsp;call.&nbsp;&nbsp;If&nbsp;'end'&nbsp;is<br>
-#&nbsp;true,&nbsp;force&nbsp;handling&nbsp;all&nbsp;data&nbsp;as&nbsp;if&nbsp;followed&nbsp;by&nbsp;EOF&nbsp;marker.</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-handle_pi"><strong>handle_pi</strong></a>(self, data)</dt><dd><tt>#&nbsp;Overridable&nbsp;--&nbsp;handle&nbsp;processing&nbsp;instruction</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_bogus_comment"><strong>parse_bogus_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;bogus&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
-#&nbsp;see&nbsp;<a href="http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state">http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state</a></tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_endtag"><strong>parse_endtag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;endtag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_html_declaration"><strong>parse_html_declaration</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;html&nbsp;declarations,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
-#&nbsp;See&nbsp;w3.org/TR/html5/tokenization.html#markup-declaration-open-state<br>
-#&nbsp;See&nbsp;also&nbsp;parse_declaration&nbsp;in&nbsp;_markupbase</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_pi"><strong>parse_pi</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;processing&nbsp;instr,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_starttag"><strong>parse_starttag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;handle&nbsp;starttag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
-
 <dl><dt><a name="IndexedAdvancedHTMLParser-reset"><strong>reset</strong></a>(self)</dt><dd><tt>Reset&nbsp;this&nbsp;instance.&nbsp;&nbsp;Loses&nbsp;all&nbsp;unprocessed&nbsp;data.</tt></dd></dl>
 
-<dl><dt><a name="IndexedAdvancedHTMLParser-set_cdata_mode"><strong>set_cdata_mode</strong></a>(self, elem)</dt></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-unescape"><strong>unescape</strong></a>(self, s)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;helper&nbsp;to&nbsp;remove&nbsp;special&nbsp;character&nbsp;quoting</tt></dd></dl>
-
-<hr>
-Data and other attributes inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
-<dl><dt><strong>CDATA_CONTENT_ELEMENTS</strong> = ('script', 'style')</dl>
-
-<hr>
-Methods inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
-<dl><dt><a name="IndexedAdvancedHTMLParser-getpos"><strong>getpos</strong></a>(self)</dt><dd><tt>Return&nbsp;current&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_comment"><strong>parse_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_declaration"><strong>parse_declaration</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;declaration&nbsp;(for&nbsp;use&nbsp;by&nbsp;subclasses).</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-parse_marked_section"><strong>parse_marked_section</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;a&nbsp;marked&nbsp;section<br>
-#&nbsp;Override&nbsp;this&nbsp;to&nbsp;handle&nbsp;MS-word&nbsp;extension&nbsp;syntax&nbsp;&lt;![if&nbsp;word]&gt;content&lt;![endif]&gt;</tt></dd></dl>
-
-<dl><dt><a name="IndexedAdvancedHTMLParser-updatepos"><strong>updatepos</strong></a>(self, i, j)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;update&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.&nbsp;&nbsp;This&nbsp;should&nbsp;be<br>
-#&nbsp;called&nbsp;for&nbsp;each&nbsp;piece&nbsp;of&nbsp;data&nbsp;exactly&nbsp;once,&nbsp;in&nbsp;order&nbsp;--&nbsp;in&nbsp;other<br>
-#&nbsp;words&nbsp;the&nbsp;concatenation&nbsp;of&nbsp;all&nbsp;the&nbsp;input&nbsp;strings&nbsp;to&nbsp;this<br>
-#&nbsp;function&nbsp;should&nbsp;be&nbsp;exactly&nbsp;the&nbsp;entire&nbsp;input.</tt></dd></dl>
-
-<hr>
-Data descriptors inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
-<dl><dt><strong>__dict__</strong></dt>
-<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
-</dl>
-<dl><dt><strong>__weakref__</strong></dt>
-<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
-</dl>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
