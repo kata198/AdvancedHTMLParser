@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="AdvancedHTMLParser.html"><font color="#ffffff">AdvancedHTMLParser</font></a>.Parser</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/media/projects/AdvancedHTMLParser/AdvancedHTMLParser/Parser.py">/home/media/projects/AdvancedHTMLParser/AdvancedHTMLParser/Parser.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/AdvancedHTMLParser/Parser.py">Parser.py</a></font></td></tr></table>
     <p><tt>#&nbsp;Copyright&nbsp;(c)&nbsp;2015&nbsp;Tim&nbsp;Savannah&nbsp;under&nbsp;LGPLv3.&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br>
 #<br>
 #&nbsp;&nbsp;&nbsp;Parser&nbsp;implementation</tt></p>
@@ -92,7 +92,19 @@ Methods defined here:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
-<dl><dt><a name="AdvancedHTMLParser-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attrName, values, root='root')</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Returns&nbsp;elements&nbsp;with&nbsp;an&nbsp;attribute,&nbsp;named&nbsp;by&nbsp;#attrName&nbsp;contains&nbsp;one&nbsp;of&nbsp;the&nbsp;values&nbsp;in&nbsp;the&nbsp;list,&nbsp;#values</tt></dd></dl>
+<dl><dt><a name="AdvancedHTMLParser-getElementsCustomFilter"><strong>getElementsCustomFilter</strong></a>(self, filterFunc, root='root')</dt><dd><tt>getElementsCustomFilter&nbsp;-&nbsp;Scan&nbsp;elements&nbsp;using&nbsp;a&nbsp;provided&nbsp;function<br>
+&nbsp;<br>
+@param&nbsp;filterFunc&nbsp;&lt;function&gt;(node)&nbsp;-&nbsp;A&nbsp;function&nbsp;that&nbsp;takes&nbsp;an&nbsp;AdvancedTag&nbsp;as&nbsp;an&nbsp;argument,&nbsp;and&nbsp;returns&nbsp;True&nbsp;if&nbsp;some&nbsp;arbitrary&nbsp;criteria&nbsp;is&nbsp;met<br>
+&nbsp;<br>
+@return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements</tt></dd></dl>
+
+<dl><dt><a name="AdvancedHTMLParser-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attrName, attrValues, root='root')</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Returns&nbsp;elements&nbsp;with&nbsp;an&nbsp;attribute,&nbsp;named&nbsp;by&nbsp;#attrName&nbsp;contains&nbsp;one&nbsp;of&nbsp;the&nbsp;values&nbsp;in&nbsp;the&nbsp;list,&nbsp;#values<br>
+&nbsp;<br>
+@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br>
+@param&nbsp;attrValues&nbsp;set&lt;str&gt;&nbsp;-&nbsp;A&nbsp;set&nbsp;of&nbsp;all&nbsp;valid&nbsp;values.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements</tt></dd></dl>
 
 <dl><dt><a name="AdvancedHTMLParser-getFormattedHTML"><strong>getFormattedHTML</strong></a>(self, indent='  ')</dt><dd><tt>getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br>
 &nbsp;<br>
@@ -285,7 +297,7 @@ Methods defined here:<br>
 <dl><dt><a name="IndexedAdvancedHTMLParser-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attrName, values, root='root', useIndex=True)</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Returns&nbsp;elements&nbsp;with&nbsp;an&nbsp;attribute&nbsp;matching&nbsp;one&nbsp;of&nbsp;several&nbsp;values.&nbsp;For&nbsp;a&nbsp;single&nbsp;name/value&nbsp;combination,&nbsp;see&nbsp;getElementsByAttr<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br>
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrValues&nbsp;list&lt;str&gt;&nbsp;-&nbsp;List&nbsp;of&nbsp;expected&nbsp;values&nbsp;of&nbsp;attribute<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrValues&nbsp;set&lt;str&gt;&nbsp;-&nbsp;List&nbsp;of&nbsp;expected&nbsp;values&nbsp;of&nbsp;attribute<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;this&nbsp;specific&nbsp;attribute&nbsp;is&nbsp;indexed&nbsp;[see&nbsp;addIndexOnAttribute]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
@@ -311,6 +323,12 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 <dl><dt><a name="IndexedAdvancedHTMLParser-feed"><strong>feed</strong></a>(self, contents)</dt><dd><tt>feed&nbsp;-&nbsp;Feed&nbsp;contents.&nbsp;Use&nbsp;&nbsp;parseStr&nbsp;or&nbsp;parseFile&nbsp;instead.<br>
 &nbsp;<br>
 @param&nbsp;contents&nbsp;-&nbsp;Contents</tt></dd></dl>
+
+<dl><dt><a name="IndexedAdvancedHTMLParser-getElementsCustomFilter"><strong>getElementsCustomFilter</strong></a>(self, filterFunc, root='root')</dt><dd><tt>getElementsCustomFilter&nbsp;-&nbsp;Scan&nbsp;elements&nbsp;using&nbsp;a&nbsp;provided&nbsp;function<br>
+&nbsp;<br>
+@param&nbsp;filterFunc&nbsp;&lt;function&gt;(node)&nbsp;-&nbsp;A&nbsp;function&nbsp;that&nbsp;takes&nbsp;an&nbsp;AdvancedTag&nbsp;as&nbsp;an&nbsp;argument,&nbsp;and&nbsp;returns&nbsp;True&nbsp;if&nbsp;some&nbsp;arbitrary&nbsp;criteria&nbsp;is&nbsp;met<br>
+&nbsp;<br>
+@return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements</tt></dd></dl>
 
 <dl><dt><a name="IndexedAdvancedHTMLParser-getFormattedHTML"><strong>getFormattedHTML</strong></a>(self, indent='  ')</dt><dd><tt>getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br>
 &nbsp;<br>
