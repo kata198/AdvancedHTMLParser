@@ -1,4 +1,4 @@
-* 6.4.0 Oct 15 2015
+* 6.4.1 Oct 15 2015
 - Fix typo in formatter in MultipleRootNode case
 - Fix encoding issue in parsing files (non-utf-8/ascii)
 - Support providing an encoding to "formatHTML"

@@ -422,7 +422,10 @@ class AdvancedHTMLParser(HTMLParser):
                 @param html <str> - valid HTML
         '''
         self.reset()
-        self.feed(html)
+        if isinstance(html, bytes):
+            self.feed(html.decode(self.encoding))
+        else:
+            self.feed(html)
 
 class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     '''

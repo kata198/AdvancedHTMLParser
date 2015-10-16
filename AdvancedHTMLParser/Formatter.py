@@ -273,6 +273,9 @@ class AdvancedHTMLFormatter(HTMLParser):
                 @param html <str> - valid HTML
         '''
         self.reset()
-        self.feed(html)
- 
+        if isinstance(html, bytes):
+            self.feed(html.decode(self.encoding))
+        else:
+            self.feed(html)
+
 #vim: set ts=4 sw=4 expandtab

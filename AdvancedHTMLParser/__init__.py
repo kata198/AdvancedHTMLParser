@@ -7,9 +7,9 @@ from .Parser import AdvancedHTMLParser, IndexedAdvancedHTMLParser
 from .Tags import AdvancedTag, TagCollection
 from .Formatter import AdvancedHTMLFormatter
 
-__version__ = '6.4.0'
-__version_tuple__ = ('6', '4', '0')
-__int_version_tuple__ = (6, 4, 0)
+__version__ = '6.4.1'
+__version_tuple__ = ('6', '4', '1')
+__int_version_tuple__ = (6, 4, 1)
 
 __all__ = ['AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection']
 
