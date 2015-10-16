@@ -7,62 +7,85 @@ from AdvancedHTMLParser import AdvancedHTMLFormatter
 
 
 def printUsage():
-    sys.stderr.write('''Usage: %s (optional: /path/to/in.html) (optional: [/path/to/output.html])
+    sys.stderr.write('''Usage: %s (optional: -e [encoding] ) (optional: /path/to/in.html) (optional: [/path/to/output.html])
   Formats HTML on input and writes to output.
 
  If output filename is not specified or is empty string, output will be to stdout.
  If input filename is not specified or is empty string, input will be from stdin
+ If -e is provided, will use that as the encoding. Defaults to utf-8
 ''' %(os.path.basename(sys.argv[0])))
 
-indent = '  '
-inFilename  = None
-outFilename = None
+if __name__ == '__main__':
 
-args = sys.argv[1:]
-for arg in sys.argv[1:]:
-    if arg.startswith('--indent='):
-        indent = arg[len('--indent='):]
-        if indent.isdigit():
-            indent = ' ' * indent
-        elif len(indent.replace(' ', '').replace('\t', '').replace('\r', '').replace('\n', '')) > 0:
-            sys.stderr.write('Supported values for indent are: # of spaces, or a string of tabs, spaces, newlines which represent one level of indentation.\n')
+
+    indent = '  '
+    inFilename  = None
+    outFilename = None
+
+    args = sys.argv[1:]
+    tmpArgs = args[:]
+    encoding = 'utf-8'
+
+    for i in range(len(args)):
+        arg = args[i]
+        if arg.startswith('-e'):
+            if len(arg) > 2:
+                encoding = arg[2:]
+                args = args[:i] + args[i+1:]
+                break
+            else:
+                if i == len(args) - 1:
+                    sys.stderr.write('-e takes an argument, encoding.\n')
+                    sys.exit(1)
+                encoding = args[i+1]
+                args = args[:i] + args[i+2:]
+                break
+
+
+    for arg in args:
+        if arg.startswith('--indent='):
+            indent = arg[len('--indent='):]
+            if indent.isdigit():
+                indent = ' ' * indent
+            elif len(indent.replace(' ', '').replace('\t', '').replace('\r', '').replace('\n', '')) > 0:
+                sys.stderr.write('Supported values for indent are: # of spaces, or a string of tabs, spaces, newlines which represent one level of indentation.\n')
+                sys.exit(1)
+            args.remove(arg)
+        elif arg == '--help':
+            printUsage()
             sys.exit(1)
-        args.remove(arg)
-    elif arg == '--help':
-        printUsage()
-        sys.exit(1)
-    elif inFilename is None:
-        inFilename = arg
-    elif outFilename is None:
-        outFilename = arg
+        elif inFilename is None:
+            inFilename = arg
+        elif outFilename is None:
+            outFilename = arg
+        else:
+            sys.stderr.write('Too many arguments\n\n')
+            printUsage()
+            sys.exit(1)
+
+    if inFilename:
+        if not os.path.isfile(inFilename):
+            sys.stderr.write('Input file "%s" does not exist.\n' %(inFilename,))
+            sys.exit(1)
     else:
-        sys.stderr.write('Too many arguments\n\n')
-        printUsage()
-        sys.exit(1)
+        inData = sys.stdin.read()
 
-if inFilename:
-    if not os.path.isfile(inFilename):
-        sys.stderr.write('Input file "%s" does not exist.\n' %(inFilename,))
-        sys.exit(1)
-else:
-    inData = sys.stdin.read()
+    if outFilename:
+        try:
+            outFile = open(outFilename, 'w')
+        except IOError:
+            sys.stderr.write('Cannot open output file %s\n' %(outFilename,))
+        
 
-if outFilename:
-    try:
-        outFile = open(outFilename, 'w')
-    except IOError:
-        sys.stderr.write('Cannot open output file %s\n' %(outFilename,))
-    
+    formatter = AdvancedHTMLFormatter(indent=indent, encoding=encoding)
+    if inFilename:
+        formatter.parseFile(inFilename)
+    else:
+        formatter.parseStr(inData)
 
-formatter = AdvancedHTMLFormatter(indent=indent)
-if inFilename:
-    formatter.parseFile(inFilename)
-else:
-    formatter.parseStr(inData)
-
-if outFilename:
-    outFile.write(formatter.getHTML())
-    outFile.write('\n')
-else:
-    sys.stdout.write(formatter.getHTML())
-    sys.stdout.write('\n')
+    if outFilename:
+        outFile.write(formatter.getHTML())
+        outFile.write('\n')
+    else:
+        sys.stdout.write(formatter.getHTML())
+        sys.stdout.write('\n')
