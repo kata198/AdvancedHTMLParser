@@ -69,7 +69,7 @@ class AdvancedHTMLFormatter(HTMLParser):
             HTMLParser.feed(self, contents)
         except MultipleRootNodeException:
             self.reset()
-            HTMLParser.feed(self, '<%s>%</%s>' %(INVISIBLE_ROOT_TAG, contents, INVISIBLE_ROOT_TAG))
+            HTMLParser.feed(self, '<%s>%s</%s>' %(INVISIBLE_ROOT_TAG, contents, INVISIBLE_ROOT_TAG))
 
 
 
