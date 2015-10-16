@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module AdvancedHTMLParser.utils</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="AdvancedHTMLParser.html"><font color="#ffffff">AdvancedHTMLParser</font></a>.utils</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br></font></td></tr></table>
+    <p><tt>#&nbsp;Copyright&nbsp;(c)&nbsp;2015&nbsp;Tim&nbsp;Savannah&nbsp;&nbsp;under&nbsp;terms&nbsp;of&nbsp;LGPLv3</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="re.html">re</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-addStartTag"><strong>addStartTag</strong></a>(contents, startTag)</dt><dd><tt>addStartTag&nbsp;-&nbsp;Safetly&nbsp;add&nbsp;a&nbsp;start&nbsp;tag&nbsp;to&nbsp;the&nbsp;document,&nbsp;taking&nbsp;into&nbsp;account&nbsp;the&nbsp;DOCTYPE<br>
+&nbsp;<br>
+@param&nbsp;contents&nbsp;&lt;str&gt;&nbsp;-&nbsp;Contents<br>
+@param&nbsp;startTag&nbsp;&lt;str&gt;&nbsp;-&nbsp;Fully&nbsp;formed&nbsp;tag,&nbsp;i.e.&nbsp;&lt;html&gt;</tt></dd></dl>
+ <dl><dt><a name="-stripIEConditionals"><strong>stripIEConditionals</strong></a>(contents, addHtmlIfMissing=True)</dt><dd><tt>stripIEConditionals&nbsp;-&nbsp;Strips&nbsp;Internet&nbsp;Explorer&nbsp;conditional&nbsp;statements.<br>
+&nbsp;<br>
+@param&nbsp;contents&nbsp;&lt;str&gt;&nbsp;-&nbsp;Contents&nbsp;String<br>
+@param&nbsp;addHtmlIfMissing&nbsp;&lt;bool&gt;&nbsp;-&nbsp;Since&nbsp;these&nbsp;normally&nbsp;encompass&nbsp;the&nbsp;"html"&nbsp;element,&nbsp;optionally&nbsp;add&nbsp;it&nbsp;back&nbsp;if&nbsp;missing.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>DOCTYPE_MATCH</strong> = re.compile('[\n]*[ \t]*(?P&lt;tag&gt;&lt;[!][ \t]*[dD][oO][cC][tT][yY][pP][eE].*[&gt;])')<br>
+<strong>END_HTML</strong> = re.compile('.*&lt;/[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br>
+<strong>IE_CONDITIONAL_PATTERN</strong> = re.compile('[&lt;][!][-][-][ \t\r\n]*[\\[][ \t\r\n]*if.*--&gt;', re.MULTILINE)<br>
+<strong>START_HTML</strong> = re.compile('.*&lt;[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)</td></tr></table>
+</body></html>

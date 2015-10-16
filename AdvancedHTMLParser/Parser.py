@@ -22,11 +22,13 @@ except NameError:
 
 from collections import defaultdict
 
-from .constants import IMPLICIT_SELF_CLOSING_TAGS, INVISIBLE_ROOT_TAG
+from .constants import IMPLICIT_SELF_CLOSING_TAGS, INVISIBLE_ROOT_TAG, INVISIBLE_ROOT_TAG_START, INVISIBLE_ROOT_TAG_END
 from .exceptions import MultipleRootNodeException
 from .Tags import AdvancedTag, TagCollection
 
-from codecs import open
+import codecs
+
+from .utils import stripIEConditionals, addStartTag
 
 class AdvancedHTMLParser(HTMLParser):
     '''
@@ -110,6 +112,14 @@ class AdvancedHTMLParser(HTMLParser):
             Internal for parsing
         '''
         try:
+            foundIt = False
+            for i in range(len(self.inTag)):
+                if self.inTag[i].tagName == tagName:
+                    foundIt = True
+                    break
+
+            if not foundIt:
+                return
             # Handle closing tags which should have been closed but weren't
             while self.inTag[-1].tagName != tagName:
                 self.inTag.pop()
@@ -383,16 +393,12 @@ class AdvancedHTMLParser(HTMLParser):
 
             @param contents - Contents
         '''
-        if self.encoding and self.encoding != sys.getdefaultencoding():
-            if pyver == 2:
-                contents = contents.decode(self.encoding)
-            else:
-                contents = contents.encode().decode(self.encoding)
+        contents = stripIEConditionals(contents)
         try:
             HTMLParser.feed(self, contents)
         except MultipleRootNodeException:
             self.reset()
-            HTMLParser.feed(self, '<%s>%s</%s>' %(INVISIBLE_ROOT_TAG, contents, INVISIBLE_ROOT_TAG))
+            HTMLParser.feed(self, "%s%s" %(addStartTag(contents, INVISIBLE_ROOT_TAG_START), INVISIBLE_ROOT_TAG_END))
 
     def parseFile(self, filename):
         '''

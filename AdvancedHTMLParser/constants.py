@@ -15,3 +15,7 @@ PRESERVE_CONTENTS_TAGS = set(['script', 'pre', 'code', 'style'])
 #  I.E. an inomplete page, or an ajax request. @see Parser.AdvancedHTMLParser.getRootNodes
 INVISIBLE_ROOT_TAG = 'xxxblank'
 
+INVISIBLE_ROOT_TAG_START = '<%s>' %(INVISIBLE_ROOT_TAG,)
+INVISIBLE_ROOT_TAG_END = '</%s>' %(INVISIBLE_ROOT_TAG,)
+
+

@@ -2,6 +2,10 @@
 - Fix typo in formatter in MultipleRootNode case
 - Fix encoding issue in parsing files (non-utf-8/ascii)
 - Support providing an encoding to "formatHTML"
+- When parsing, drop stray end-tags instead of crashing
+- Strip internet explorer conditionals from the document, and optionally add a
+blank <html> since that's where they usually are.
+- Take into account doctype when inserting top-node on multiple-root-node case
 
 * 6.3.0 Sep 03 2015
 - Clarify that a set is better to use for getElementsWithAttrValues as the "attrValues" portion. If used within "Parser" -- make this conversion for them,

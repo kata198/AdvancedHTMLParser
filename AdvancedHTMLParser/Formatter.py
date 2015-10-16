@@ -18,9 +18,11 @@ except NameError:
     from io import TextIOWrapper as file
 
 
-from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, PRESERVE_CONTENTS_TAGS, INVISIBLE_ROOT_TAG
+from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, PRESERVE_CONTENTS_TAGS, INVISIBLE_ROOT_TAG, INVISIBLE_ROOT_TAG_START, INVISIBLE_ROOT_TAG_END
 from .exceptions import MultipleRootNodeException
 from .Tags import AdvancedTag
+
+from .utils import addStartTag, stripIEConditionals
 
 import codecs
 
@@ -62,11 +64,13 @@ class AdvancedHTMLFormatter(HTMLParser):
 
             @param contents - HTML contents
         '''
+        contents = stripIEConditionals(contents)
         try:
             HTMLParser.feed(self, contents)
         except MultipleRootNodeException:
             self.reset()
-            HTMLParser.feed(self, '<%s>%s</%s>' %(INVISIBLE_ROOT_TAG, contents, INVISIBLE_ROOT_TAG))
+
+            HTMLParser.feed(self, "%s%s" %(addStartTag(contents, INVISIBLE_ROOT_TAG_START), INVISIBLE_ROOT_TAG_END))
 
 
 
@@ -175,6 +179,16 @@ class AdvancedHTMLFormatter(HTMLParser):
         '''
         try:
             # Handle closing tags which should have been closed but weren't
+            foundIt = False
+            for i in range(len(self.inTag)):
+                if self.inTag[i].tagName == tagName:
+                    foundIt = True
+                    break
+
+            if not foundIt:
+                sys.stderr.write('WARNING: found close tag with no matching start.\n')
+                return
+                
             while self.inTag[-1].tagName != tagName:
                 oldTag = self.inTag.pop()
                 if oldTag.tagName in PREFORMATTED_TAGS:
