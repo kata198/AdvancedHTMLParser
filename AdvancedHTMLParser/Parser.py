@@ -26,6 +26,8 @@ from .constants import IMPLICIT_SELF_CLOSING_TAGS, INVISIBLE_ROOT_TAG
 from .exceptions import MultipleRootNodeException
 from .Tags import AdvancedTag, TagCollection
 
+from codecs import open
+
 class AdvancedHTMLParser(HTMLParser):
     '''
         AdvancedHTMLParser - This class parses and allows searching of  documents
@@ -403,7 +405,7 @@ class AdvancedHTMLParser(HTMLParser):
         if isinstance(filename, file):
             contents = filename.read()
         else:
-            with open(filename, 'r') as f:
+            with codecs.open(filename, 'r', encoding=self.encoding) as f:
                 contents = f.read()
         self.feed(contents)
 

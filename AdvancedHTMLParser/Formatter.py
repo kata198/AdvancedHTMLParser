@@ -22,6 +22,8 @@ from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, PRESERVE_C
 from .exceptions import MultipleRootNodeException
 from .Tags import AdvancedTag
 
+import codecs
+
 
 class AdvancedHTMLFormatter(HTMLParser):
     '''
@@ -60,11 +62,6 @@ class AdvancedHTMLFormatter(HTMLParser):
 
             @param contents - HTML contents
         '''
-        if self.encoding and self.encoding != sys.getdefaultencoding():
-            if pyver == 2:
-                contents = contents.decode(self.encoding)
-            else:
-                contents = contents.encode().decode(self.encoding)
         try:
             HTMLParser.feed(self, contents)
         except MultipleRootNodeException:
@@ -251,7 +248,7 @@ class AdvancedHTMLFormatter(HTMLParser):
         if isinstance(filename, file):
             contents = filename.read()
         else:
-            with open(filename, 'r') as f:
+            with codecs.open(filename, 'r', encoding=self.encoding) as f:
                 contents = f.read()
         self.feed(contents)
 
