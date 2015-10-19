@@ -1,20 +1,32 @@
 #!/usr/bin/env python
+#
+# Copyright (c) 2015 Timothy Savannah under terms of LGPLv3. You should have received a copy of this with this distribution as "LICENSE"
+
+
+#vim: set ts=4 sw=4 expandtab
 
 import os
 from setuptools import setup
 
 
-dirName = os.path.dirname(__file__)
-if dirName and os.getcwd() != dirName:
-    os.chdir(dirName)
-
-with open('README.rst', 'r') as f:
-    long_description = f.read()
-
 if __name__ == '__main__':
+ 
+
+    dirName = os.path.dirname(__file__)
+    if dirName and os.getcwd() != dirName:
+        os.chdir(dirName)
+
+    summary = 'A Powerful HTML Parser/Scraper/Validator/Formatter that constructs a modifiable, searchable DOM tree, and includes many standard JS DOM functions (getElementsBy*, appendChild, etc) and additional methods'
+
+    try:
+        with open('README.rst', 'r') as f:
+            long_description = f.read()
+    except Exception as e:
+        sys.stderr.write('Exception when reading long description: %s\n' %(str(e),))
+        long_description = summary
 
     setup(name='AdvancedHTMLParser',
-            version='6.4.1',
+            version='6.4.2',
             packages=['AdvancedHTMLParser'],
             scripts=['formatHTML'],
             author='Tim Savannah',
@@ -22,7 +34,7 @@ if __name__ == '__main__':
             maintainer='Tim Savannah',
             url='https://github.com/kata198/AdvancedHTMLParser',
             maintainer_email='kata198@gmail.com',
-            description='A Powerful HTML Parser/Scraper/Validator/Formatter that constructs a modifiable, searchable DOM tree, and includes many standard JS DOM functions (getElementsBy*, appendChild, etc) and additional methods',
+            description=summary,
             long_description=long_description,
             license='LGPLv3',
             keywords=['html', 'parser', 'tree', 'DOM', 'getElementsByName', 'getElementById', 'getElementsByClassName', 'simple', 'python', 'xml', 'HTMLParser', 'getElementsByTagName', 'getElementsByAttr', 'javascript', 'parse', 'scrape', 'test', 'SimpleHTMLParser', 'modify', 'JS', 'write'],
@@ -119,4 +131,3 @@ for item in items:
 
 """
 
-#vim: set ts=4 sw=4 expandtab

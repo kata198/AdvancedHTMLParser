@@ -1,3 +1,6 @@
+* 6.4.2 Oct 19 2015
+- Cleanup setup file
+
 * 6.4.1 Oct 15 2015
 - Fix typo in formatter in MultipleRootNode case
 - Fix encoding issue in parsing files (non-utf-8/ascii)
