@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# Copyright (c) 2015 Tim Savannah All Rights Rserved under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+
 from .Parser import AdvancedHTMLParser
 
 from .exceptions import InvalidCloseException, MissedCloseException
