@@ -19,7 +19,7 @@ if __name__ == '__main__':
     summary = 'A Powerful HTML Parser/Scraper/Validator/Formatter that constructs a modifiable, searchable DOM tree, and includes many standard JS DOM functions (getElementsBy*, appendChild, etc) and additional methods'
 
     try:
-        with open('README.rst', 'r') as f:
+        with open('README.rst', 'rt') as f:
             long_description = f.read()
     except Exception as e:
         sys.stderr.write('Exception when reading long description: %s\n' %(str(e),))

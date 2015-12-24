@@ -39,5 +39,3 @@ class ValidatingAdvancedHTMLParser(AdvancedHTMLParser):
 
         self.inTag.pop()
 
-    def handle_startendtag(self, tagName, attrList):
-        AdvancedHTMLParser.handle_startendtag(tagName, attrList)
