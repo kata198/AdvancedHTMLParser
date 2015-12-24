@@ -6,11 +6,14 @@
 from .Parser import AdvancedHTMLParser, IndexedAdvancedHTMLParser
 from .Tags import AdvancedTag, TagCollection
 from .Formatter import AdvancedHTMLFormatter
+from .Validator import ValidatingAdvancedHTMLParser
+from .exceptions import InvalidCloseException, MissedCloseException, HTMLValidationException
 
 __version__ = '6.4.2'
 __version_tuple__ = ('6', '4', '2')
 __int_version_tuple__ = (6, 4, 2)
 
-__all__ = ['AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection']
+__all__ = ['AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection'
+    'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException' ]
 
 #vim: set ts=4 sw=4 expandtab
