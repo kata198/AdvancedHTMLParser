@@ -5,7 +5,7 @@ import tempfile
 
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser
 
-TEST_HTML = """<html>
+TEST_HTML = b"""<html>
   <head>
   </head>
   <body>
