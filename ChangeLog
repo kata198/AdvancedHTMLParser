@@ -1,3 +1,9 @@
+* 6.5.0 Dec 24 2015
+- Add "Validator" class and associated exceptions/tests/docs. Raises
+exceptions when the standard parser would have to make an assumption during
+parsing.
+- Fix some tests in python 3.4.3
+
 * 6.4.2 Oct 19 2015
 - Cleanup setup file
 
