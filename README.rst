@@ -126,6 +126,18 @@ And some properties:
     tagName                - The tag name
 
 
+Validation
+----------
+Validation can be performed by using ValidatingAdvancedHTMLParser. It will raise an exception if an assumption would have to be made to continue parsing (i.e. something important).
+
+
+InvalidCloseException - Tried to close a tag that shouldn't have been closed
+
+
+MissedCloseException  - Missed a non-optional close of a tag that would lead to causing an assumption during parsing.
+
+
+
 IndexedAdvancedHTMLParser
 -------------------------
 

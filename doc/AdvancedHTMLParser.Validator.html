@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module AdvancedHTMLParser.Validator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="AdvancedHTMLParser.html"><font color="#ffffff">AdvancedHTMLParser</font></a>.Validator</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href="AdvancedHTMLParser.html">index</a><br><a href="https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/AdvancedHTMLParser/Validator.py">Validator.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser">AdvancedHTMLParser.Parser.AdvancedHTMLParser</a>(<a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="AdvancedHTMLParser.Validator.html#ValidatingAdvancedHTMLParser">ValidatingAdvancedHTMLParser</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException">AdvancedHTMLParser.exceptions.HTMLValidationException</a>(<a href="builtins.html#Exception">builtins.Exception</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="AdvancedHTMLParser.exceptions.html#InvalidCloseException">AdvancedHTMLParser.exceptions.InvalidCloseException</a>
+</font></dt><dt><font face="helvetica, arial"><a href="AdvancedHTMLParser.exceptions.html#MissedCloseException">AdvancedHTMLParser.exceptions.MissedCloseException</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="InvalidCloseException">class <strong>InvalidCloseException</strong></a>(<a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException">HTMLValidationException</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#InvalidCloseException">InvalidCloseException</a>&nbsp;-&nbsp;Raised&nbsp;when&nbsp;a&nbsp;tag&nbsp;is&nbsp;closed&nbsp;that&nbsp;shouldn't&nbsp;be&nbsp;closed.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="AdvancedHTMLParser.exceptions.html#InvalidCloseException">InvalidCloseException</a></dd>
+<dd><a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException">HTMLValidationException</a></dd>
+<dd><a href="builtins.html#Exception">builtins.Exception</a></dd>
+<dd><a href="builtins.html#BaseException">builtins.BaseException</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="InvalidCloseException-__init__"><strong>__init__</strong></a>(self, triedToClose, stillOpen)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException">HTMLValidationException</a>:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="builtins.html#Exception">builtins.Exception</a>:<br>
+<dl><dt><a name="InvalidCloseException-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;object.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><a name="InvalidCloseException-__delattr__"><strong>__delattr__</strong></a>(self, name, /)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="InvalidCloseException-__getattribute__"><strong>__getattribute__</strong></a>(self, name, /)</dt><dd><tt>Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="InvalidCloseException-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="InvalidCloseException-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="InvalidCloseException-__setattr__"><strong>__setattr__</strong></a>(self, name, value, /)</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<dl><dt><a name="InvalidCloseException-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="InvalidCloseException-__str__"><strong>__str__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="InvalidCloseException-with_traceback"><strong>with_traceback</strong></a>(...)</dt><dd><tt>Exception.<a href="#InvalidCloseException-with_traceback">with_traceback</a>(tb)&nbsp;--<br>
+set&nbsp;self.<strong>__traceback__</strong>&nbsp;to&nbsp;tb&nbsp;and&nbsp;return&nbsp;self.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><strong>__cause__</strong></dt>
+<dd><tt>exception&nbsp;cause</tt></dd>
+</dl>
+<dl><dt><strong>__context__</strong></dt>
+<dd><tt>exception&nbsp;context</tt></dd>
+</dl>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__suppress_context__</strong></dt>
+</dl>
+<dl><dt><strong>__traceback__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="MissedCloseException">class <strong>MissedCloseException</strong></a>(<a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException">HTMLValidationException</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#MissedCloseException">MissedCloseException</a>&nbsp;-&nbsp;Raised&nbsp;when&nbsp;a&nbsp;close&nbsp;was&nbsp;missed<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="AdvancedHTMLParser.exceptions.html#MissedCloseException">MissedCloseException</a></dd>
+<dd><a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException">HTMLValidationException</a></dd>
+<dd><a href="builtins.html#Exception">builtins.Exception</a></dd>
+<dd><a href="builtins.html#BaseException">builtins.BaseException</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="MissedCloseException-__init__"><strong>__init__</strong></a>(self, triedToClose, stillOpen)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException">HTMLValidationException</a>:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="builtins.html#Exception">builtins.Exception</a>:<br>
+<dl><dt><a name="MissedCloseException-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;object.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><a name="MissedCloseException-__delattr__"><strong>__delattr__</strong></a>(self, name, /)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="MissedCloseException-__getattribute__"><strong>__getattribute__</strong></a>(self, name, /)</dt><dd><tt>Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="MissedCloseException-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MissedCloseException-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="MissedCloseException-__setattr__"><strong>__setattr__</strong></a>(self, name, value, /)</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<dl><dt><a name="MissedCloseException-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="MissedCloseException-__str__"><strong>__str__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="MissedCloseException-with_traceback"><strong>with_traceback</strong></a>(...)</dt><dd><tt>Exception.<a href="#MissedCloseException-with_traceback">with_traceback</a>(tb)&nbsp;--<br>
+set&nbsp;self.<strong>__traceback__</strong>&nbsp;to&nbsp;tb&nbsp;and&nbsp;return&nbsp;self.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><strong>__cause__</strong></dt>
+<dd><tt>exception&nbsp;cause</tt></dd>
+</dl>
+<dl><dt><strong>__context__</strong></dt>
+<dd><tt>exception&nbsp;context</tt></dd>
+</dl>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__suppress_context__</strong></dt>
+</dl>
+<dl><dt><strong>__traceback__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ValidatingAdvancedHTMLParser">class <strong>ValidatingAdvancedHTMLParser</strong></a>(<a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser">AdvancedHTMLParser.Parser.AdvancedHTMLParser</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#ValidatingAdvancedHTMLParser">ValidatingAdvancedHTMLParser</a>&nbsp;-&nbsp;A&nbsp;parser&nbsp;which&nbsp;will&nbsp;raise&nbsp;Exceptions&nbsp;for&nbsp;a&nbsp;couple&nbsp;HTML&nbsp;errors&nbsp;that&nbsp;would&nbsp;otherwise&nbsp;cause<br>
+&nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;assumption&nbsp;to&nbsp;be&nbsp;made&nbsp;during&nbsp;parsing.<br>
+&nbsp;<br>
+exceptions.<a href="#InvalidCloseException">InvalidCloseException</a>&nbsp;-&nbsp;The&nbsp;parsed&nbsp;string/file&nbsp;tried&nbsp;to&nbsp;close&nbsp;something&nbsp;it&nbsp;shouldn't&nbsp;have.<br>
+exceptions.<a href="#MissedCloseException">MissedCloseException</a>&nbsp;&nbsp;-&nbsp;The&nbsp;parsed&nbsp;string/file&nbsp;missed&nbsp;closing&nbsp;an&nbsp;item.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="AdvancedHTMLParser.Validator.html#ValidatingAdvancedHTMLParser">ValidatingAdvancedHTMLParser</a></dd>
+<dd><a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser">AdvancedHTMLParser.Parser.AdvancedHTMLParser</a></dd>
+<dd><a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a></dd>
+<dd><a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_endtag"><strong>handle_endtag</strong></a>(self, tagName)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_startendtag"><strong>handle_startendtag</strong></a>(self, tagName, attrList)</dt></dl>
+
+<hr>
+Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser">AdvancedHTMLParser.Parser.AdvancedHTMLParser</a>:<br>
+<dl><dt><a name="ValidatingAdvancedHTMLParser-__init__"><strong>__init__</strong></a>(self, filename=None, encoding='utf-8')</dt><dd><tt>__init__&nbsp;-&nbsp;Creates&nbsp;an&nbsp;Advanced&nbsp;HTML&nbsp;parser&nbsp;object.&nbsp;For&nbsp;read-only&nbsp;parsing,&nbsp;consider&nbsp;IndexedAdvancedHTMLPaser&nbsp;for&nbsp;faster&nbsp;searching.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Optional&nbsp;filename&nbsp;to&nbsp;parse.&nbsp;Otherwise&nbsp;use&nbsp;parseFile&nbsp;or&nbsp;parseStr&nbsp;methods.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;encoding&nbsp;&lt;str&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Specifies&nbsp;the&nbsp;document&nbsp;encoding.&nbsp;Default&nbsp;utf-8</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-feed"><strong>feed</strong></a>(self, contents)</dt><dd><tt>feed&nbsp;-&nbsp;Feed&nbsp;contents.&nbsp;Use&nbsp;&nbsp;parseStr&nbsp;or&nbsp;parseFile&nbsp;instead.<br>
+&nbsp;<br>
+@param&nbsp;contents&nbsp;-&nbsp;Contents</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getElementById"><strong>getElementById</strong></a>(self, _id, root='root')</dt><dd><tt>getElementById&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;the&nbsp;first&nbsp;(should&nbsp;only&nbsp;be&nbsp;one)&nbsp;element&nbsp;with&nbsp;the&nbsp;given&nbsp;ID.<br>
+&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;id&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;of&nbsp;the&nbsp;id&nbsp;attribute.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getElementsByAttr"><strong>getElementsByAttr</strong></a>(self, attrName, attrValue, root='root')</dt><dd><tt>getElementsByAttr&nbsp;-&nbsp;Searches&nbsp;the&nbsp;full&nbsp;tree&nbsp;for&nbsp;elements&nbsp;with&nbsp;a&nbsp;given&nbsp;attribute&nbsp;name&nbsp;and&nbsp;value&nbsp;combination.&nbsp;This&nbsp;is&nbsp;always&nbsp;a&nbsp;full&nbsp;scan.<br>
+&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrValue&nbsp;&lt;str&gt;&nbsp;-&nbsp;Expected&nbsp;value&nbsp;of&nbsp;attribute<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getElementsByClassName"><strong>getElementsByClassName</strong></a>(self, className, root='root')</dt><dd><tt>getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;one-word&nbsp;class&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getElementsByName"><strong>getElementsByName</strong></a>(self, name, root='root')</dt><dd><tt>getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;name&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;of&nbsp;the&nbsp;name&nbsp;attribute<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getElementsByTagName"><strong>getElementsByTagName</strong></a>(self, tagName, root='root')</dt><dd><tt>getElementsByTagName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;tag&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getElementsCustomFilter"><strong>getElementsCustomFilter</strong></a>(self, filterFunc, root='root')</dt><dd><tt>getElementsCustomFilter&nbsp;-&nbsp;Scan&nbsp;elements&nbsp;using&nbsp;a&nbsp;provided&nbsp;function<br>
+&nbsp;<br>
+@param&nbsp;filterFunc&nbsp;&lt;function&gt;(node)&nbsp;-&nbsp;A&nbsp;function&nbsp;that&nbsp;takes&nbsp;an&nbsp;AdvancedTag&nbsp;as&nbsp;an&nbsp;argument,&nbsp;and&nbsp;returns&nbsp;True&nbsp;if&nbsp;some&nbsp;arbitrary&nbsp;criteria&nbsp;is&nbsp;met<br>
+&nbsp;<br>
+@return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getElementsWithAttrValues"><strong>getElementsWithAttrValues</strong></a>(self, attrName, attrValues, root='root')</dt><dd><tt>getElementsWithAttrValues&nbsp;-&nbsp;Returns&nbsp;elements&nbsp;with&nbsp;an&nbsp;attribute,&nbsp;named&nbsp;by&nbsp;#attrName&nbsp;contains&nbsp;one&nbsp;of&nbsp;the&nbsp;values&nbsp;in&nbsp;the&nbsp;list,&nbsp;#values<br>
+&nbsp;<br>
+@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br>
+@param&nbsp;attrValues&nbsp;set&lt;str&gt;&nbsp;-&nbsp;A&nbsp;set&nbsp;of&nbsp;all&nbsp;valid&nbsp;values.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getFormattedHTML"><strong>getFormattedHTML</strong></a>(self, indent='  ')</dt><dd><tt>getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br>
+&nbsp;<br>
+@param&nbsp;indent&nbsp;-&nbsp;space/tab/newline&nbsp;of&nbsp;each&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;integer&nbsp;for&nbsp;how&nbsp;many&nbsp;spaces&nbsp;per&nbsp;level<br>
+&nbsp;<br>
+@return&nbsp;-&nbsp;Formatted&nbsp;html&nbsp;as&nbsp;string</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getHTML"><strong>getHTML</strong></a>(self)</dt><dd><tt>getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getRoot"><strong>getRoot</strong></a>(self)</dt><dd><tt>getRoot&nbsp;-&nbsp;returns&nbsp;the&nbsp;root&nbsp;Tag&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;Tag</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getRootNodes"><strong>getRootNodes</strong></a>(self)</dt><dd><tt>getRootNodes&nbsp;-&nbsp;Gets&nbsp;all&nbsp;objects&nbsp;at&nbsp;the&nbsp;"root"&nbsp;(first&nbsp;level;&nbsp;no&nbsp;parent).&nbsp;Use&nbsp;this&nbsp;if&nbsp;you&nbsp;may&nbsp;have&nbsp;multiple&nbsp;roots&nbsp;(not&nbsp;children&nbsp;of&nbsp;&lt;html&gt;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Use&nbsp;this&nbsp;method&nbsp;to&nbsp;get&nbsp;objects,&nbsp;for&nbsp;example,&nbsp;in&nbsp;an&nbsp;AJAX&nbsp;request&nbsp;where&nbsp;&lt;html&gt;&nbsp;may&nbsp;not&nbsp;be&nbsp;your&nbsp;root.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Note:&nbsp;If&nbsp;there&nbsp;are&nbsp;multiple&nbsp;root&nbsp;nodes&nbsp;(i.e.&nbsp;no&nbsp;&lt;html&gt;&nbsp;at&nbsp;the&nbsp;top),&nbsp;getRoot&nbsp;will&nbsp;return&nbsp;a&nbsp;special&nbsp;tag.&nbsp;This&nbsp;function&nbsp;automatically<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handles&nbsp;that,&nbsp;and&nbsp;returns&nbsp;all&nbsp;root&nbsp;nodes.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;AdvancedTags&nbsp;which&nbsp;are&nbsp;at&nbsp;the&nbsp;root&nbsp;level&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_charref"><strong>handle_charref</strong></a>(self, charRef)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_comment"><strong>handle_comment</strong></a>(self, comment)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_data"><strong>handle_data</strong></a>(self, data)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_decl"><strong>handle_decl</strong></a>(self, decl)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_entityref"><strong>handle_entityref</strong></a>(self, entity)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_starttag"><strong>handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing=False)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-parseFile"><strong>parseFile</strong></a>(self, filename)</dt><dd><tt>parseFile&nbsp;-&nbsp;Parses&nbsp;a&nbsp;file&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str/file&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;to&nbsp;a&nbsp;filename&nbsp;or&nbsp;a&nbsp;file&nbsp;object.&nbsp;If&nbsp;file&nbsp;object,&nbsp;it&nbsp;will&nbsp;not&nbsp;be&nbsp;closed,&nbsp;you&nbsp;must&nbsp;close.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-parseStr"><strong>parseStr</strong></a>(self, html)</dt><dd><tt>parseStr&nbsp;-&nbsp;Parses&nbsp;a&nbsp;string&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-setRoot"><strong>setRoot</strong></a>(self, root)</dt><dd><tt>Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-unknown_decl"><strong>unknown_decl</strong></a>(self, decl)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
+<dl><dt><a name="ValidatingAdvancedHTMLParser-check_for_whole_start_tag"><strong>check_for_whole_start_tag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;check&nbsp;to&nbsp;see&nbsp;if&nbsp;we&nbsp;have&nbsp;a&nbsp;complete&nbsp;starttag;&nbsp;return&nbsp;end<br>
+#&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-clear_cdata_mode"><strong>clear_cdata_mode</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-close"><strong>close</strong></a>(self)</dt><dd><tt>Handle&nbsp;any&nbsp;buffered&nbsp;data.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-error"><strong>error</strong></a>(self, message)</dt></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-get_starttag_text"><strong>get_starttag_text</strong></a>(self)</dt><dd><tt>Return&nbsp;full&nbsp;source&nbsp;of&nbsp;start&nbsp;tag:&nbsp;'&lt;...&gt;'.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-goahead"><strong>goahead</strong></a>(self, end)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;handle&nbsp;data&nbsp;as&nbsp;far&nbsp;as&nbsp;reasonable.&nbsp;&nbsp;May&nbsp;leave&nbsp;state<br>
+#&nbsp;and&nbsp;data&nbsp;to&nbsp;be&nbsp;processed&nbsp;by&nbsp;a&nbsp;subsequent&nbsp;call.&nbsp;&nbsp;If&nbsp;'end'&nbsp;is<br>
+#&nbsp;true,&nbsp;force&nbsp;handling&nbsp;all&nbsp;data&nbsp;as&nbsp;if&nbsp;followed&nbsp;by&nbsp;EOF&nbsp;marker.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_pi"><strong>handle_pi</strong></a>(self, data)</dt><dd><tt>#&nbsp;Overridable&nbsp;--&nbsp;handle&nbsp;processing&nbsp;instruction</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-parse_bogus_comment"><strong>parse_bogus_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;bogus&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
+#&nbsp;see&nbsp;<a href="http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state">http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state</a></tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-parse_endtag"><strong>parse_endtag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;endtag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-parse_html_declaration"><strong>parse_html_declaration</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;html&nbsp;declarations,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br>
+#&nbsp;See&nbsp;w3.org/TR/html5/tokenization.html#markup-declaration-open-state<br>
+#&nbsp;See&nbsp;also&nbsp;parse_declaration&nbsp;in&nbsp;_markupbase</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-parse_pi"><strong>parse_pi</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;processing&nbsp;instr,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-parse_starttag"><strong>parse_starttag</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;handle&nbsp;starttag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-reset"><strong>reset</strong></a>(self)</dt><dd><tt>Reset&nbsp;this&nbsp;instance.&nbsp;&nbsp;Loses&nbsp;all&nbsp;unprocessed&nbsp;data.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-set_cdata_mode"><strong>set_cdata_mode</strong></a>(self, elem)</dt></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-unescape"><strong>unescape</strong></a>(self, s)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;helper&nbsp;to&nbsp;remove&nbsp;special&nbsp;character&nbsp;quoting</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLParser</a>:<br>
+<dl><dt><strong>CDATA_CONTENT_ELEMENTS</strong> = ('script', 'style')</dl>
+
+<hr>
+Methods inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
+<dl><dt><a name="ValidatingAdvancedHTMLParser-getpos"><strong>getpos</strong></a>(self)</dt><dd><tt>Return&nbsp;current&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-parse_comment"><strong>parse_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-parse_declaration"><strong>parse_declaration</strong></a>(self, i)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;declaration&nbsp;(for&nbsp;use&nbsp;by&nbsp;subclasses).</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-parse_marked_section"><strong>parse_marked_section</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;a&nbsp;marked&nbsp;section<br>
+#&nbsp;Override&nbsp;this&nbsp;to&nbsp;handle&nbsp;MS-word&nbsp;extension&nbsp;syntax&nbsp;&lt;![if&nbsp;word]&gt;content&lt;![endif]&gt;</tt></dd></dl>
+
+<dl><dt><a name="ValidatingAdvancedHTMLParser-updatepos"><strong>updatepos</strong></a>(self, i, j)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;update&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.&nbsp;&nbsp;This&nbsp;should&nbsp;be<br>
+#&nbsp;called&nbsp;for&nbsp;each&nbsp;piece&nbsp;of&nbsp;data&nbsp;exactly&nbsp;once,&nbsp;in&nbsp;order&nbsp;--&nbsp;in&nbsp;other<br>
+#&nbsp;words&nbsp;the&nbsp;concatenation&nbsp;of&nbsp;all&nbsp;the&nbsp;input&nbsp;strings&nbsp;to&nbsp;this<br>
+#&nbsp;function&nbsp;should&nbsp;be&nbsp;exactly&nbsp;the&nbsp;entire&nbsp;input.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__all__</strong> = ('InvalidCloseException', 'MissedCloseException', 'ValidatingAdvancedHTMLParser')</td></tr></table>
+</body></html>
