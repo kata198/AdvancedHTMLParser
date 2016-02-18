@@ -69,6 +69,7 @@ for item in items:
 # 
 # Sponges - $1.96
 # Turtles - $3.55
+# Coop - $1.44
 # Pudding Cups - $1.60
 
 
