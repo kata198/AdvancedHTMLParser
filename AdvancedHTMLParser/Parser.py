@@ -296,7 +296,7 @@ class AdvancedHTMLParser(HTMLParser):
 
         elements = []
 
-        if isFromRoot is True and root.get(attrName) == attrValue:
+        if isFromRoot is True and root.getAttribute(attrName) == attrValue:
             elements.append(root)
 
         for child in root.children:
