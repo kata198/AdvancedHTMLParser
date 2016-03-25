@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2015 Timothy Savannah under terms of LGPLv3. You should have received a copy of this with this distribution as "LICENSE"
+# Copyright (c) 2015, 2016 Timothy Savannah under terms of LGPLv3. You should have received a copy of this with this distribution as "LICENSE"
 
 
 #vim: set ts=4 sw=4 expandtab
@@ -26,7 +26,7 @@ if __name__ == '__main__':
         long_description = summary
 
     setup(name='AdvancedHTMLParser',
-            version='6.5.0',
+            version='6.5.1',
             packages=['AdvancedHTMLParser'],
             scripts=['formatHTML'],
             author='Tim Savannah',
@@ -48,6 +48,7 @@ if __name__ == '__main__':
                           'Programming Language :: Python :: 3',
                           'Programming Language :: Python :: 3.3',
                           'Programming Language :: Python :: 3.4',
+                          'Programming Language :: Python :: 3.5',
                           'Topic :: Internet :: WWW/HTTP',
                           'Topic :: Text Processing :: Markup :: HTML',
                           'Topic :: Software Development :: Libraries :: Python Modules',
