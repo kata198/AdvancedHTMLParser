@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2015 Tim Savannah under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+# Copyright (c) 2015, 2016 Tim Savannah under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #
 #   Parser implementation
 
