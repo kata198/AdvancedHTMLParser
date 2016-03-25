@@ -10,3 +10,4 @@ include README.rst
 include LICENSE
 include MANIFEST.in
 include setup.py
+include formatHTML
