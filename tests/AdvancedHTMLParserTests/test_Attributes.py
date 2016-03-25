@@ -4,6 +4,7 @@ import sys
 import subprocess
 
 from AdvancedHTMLParser.Tags import AdvancedTag
+from AdvancedHTMLParser.Parser import AdvancedHTMLParser
 
 class TestAttributes(object):
     '''
@@ -18,6 +19,34 @@ class TestAttributes(object):
         assert tag.getAttribute('id') == 'abc' , 'Expected id to be abc'
 
         assert tag.getAttribute('blah') == None , 'Expected unset attribute to return None, actually returned %s' %(tag.getAttribute('blah'),)
+
+    def test_getElementsByAttr(self):
+        html = """<html> <head> <title> Hello </title> </head>
+<body>
+    <div cheese="cheddar" id="cheddar1" >
+        <span> Hello </span>
+    </div>
+    <div cheese="bologna" id="not_really_cheese">
+        <span cheese="cheddar" id="cheddar2" > Goodbye </span>
+    </div>
+</body>
+</html>"""
+        parser = AdvancedHTMLParser()
+        parser.parseStr(html)
+
+        elements = parser.getElementsByAttr('cheese', 'cheddar')
+        assert len(elements) == 2
+        
+        foundCheese1 = foundCheese2 = False
+        for element in elements:
+            myID = element.getAttribute('id')
+            if myID == 'cheddar1':
+                foundCheese1 = True
+            elif myID == 'cheddar2':
+                foundCheese2 = True
+
+        assert foundCheese1
+        assert foundCheese2
 
     def test_setAttributes(self):
         tag = AdvancedTag('div')
