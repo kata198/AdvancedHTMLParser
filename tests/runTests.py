@@ -119,7 +119,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
         try:
-            os.symlink(MY_PACKAGE_MODULE, '../'  + MY_PACKAGE_MODULE)
+            os.symlink('../'  + MY_PACKAGE_MODULE, MY_PACKAGE_MODULE)
         except Exception as e:
             sys.stderr.write('Unable to create a symlink to ../%s: %s\n' %(MY_PACKAGE_MODULE, str(e)))
             sys.exit(1)
