@@ -1,3 +1,11 @@
+* 6.6.0 Jul 25 2016
+- In a multiple root node scenario, make sure getHTML returns text that falls
+between the root nodes.
+- Retain text, comments, etc that occur before and after the root node
+- Update runTests.py to be latest from GoodTests -- allows providing arguments
+to GoodTests.py (by passing them to runTests.py) and removes the need for the
+symlink in the "tests" directory (which duplicates source in the dist)
+
 * 6.5.1 Mar 23 2016
 - Merge in patch by "Tai Kedzierski" which fixes a typo in getElementsByAttr. Thanks!
 - Fix missing files in MANIFEST.in
