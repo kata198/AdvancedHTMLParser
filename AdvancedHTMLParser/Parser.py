@@ -145,6 +145,8 @@ class AdvancedHTMLParser(HTMLParser):
         '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('&%s;' %(entity,))
+        else:
+            raise MultipleRootNodeException()
 
     def handle_charref(self, charRef):
         '''
@@ -152,6 +154,8 @@ class AdvancedHTMLParser(HTMLParser):
         '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('&#%s;' %(charRef,))
+        else:
+            raise MultipleRootNodeException()
 
     def handle_comment(self, comment):
         '''
@@ -159,6 +163,8 @@ class AdvancedHTMLParser(HTMLParser):
         '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('<!-- %s -->' %(comment,))
+        else:
+            raise MultipleRootNodeException()
 
     def handle_decl(self, decl):
         '''

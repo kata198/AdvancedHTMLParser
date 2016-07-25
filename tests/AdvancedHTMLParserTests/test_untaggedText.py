@@ -76,6 +76,51 @@ class TestUntaggedText(object):
         assert strippedHTML.startswith('Hello') , 'Expected text before root tag to be retained, got "%s"' %(strippedHTML,)
         assert strippedHTML.endswith('World') , 'Expected text after root tag to be retained, got "%s"' %(strippedHTML,)
 
+    def test_commentRetained(self):
+        html = """<html>
+        <!-- CommentX -->
+        <body><span>Hello</span></body></html>"""
+
+        parser = AdvancedHTMLParser()
+        parser.parseStr(html)
+
+        retHTML = parser.getHTML()
+
+        assert 'CommentX' in retHTML, 'Expected to find comment, "CommentX" in returned HTML: "%s"' %(retHTML,)
+
+    def test_commentRetainedPriorRoot(self):
+        html = """<!-- CommentX --><html>
+        <body><span>Hello</span></body></html>"""
+
+        parser = AdvancedHTMLParser()
+        parser.parseStr(html)
+
+        retHTML = parser.getHTML()
+
+        assert 'CommentX' in retHTML, 'Expected to find comment, "CommentX" in returned HTML: "%s"' %(retHTML,)
+
+    def test_commentRetainedAfterRoot(self):
+        html = """<html>
+        <body><span>Hello</span></body></html><!-- CommentX -->"""
+
+        parser = AdvancedHTMLParser()
+        parser.parseStr(html)
+
+        retHTML = parser.getHTML()
+
+        assert 'CommentX' in retHTML, 'Expected to find comment, "CommentX" in returned HTML: "%s"' %(retHTML,)
+
+    def test_commentRetainedBeforeAndAfterRoot(self):
+        html = """<!-- CommentX --><html>
+        <body><span>Hello</span></body></html><!-- CommentY -->"""
+
+        parser = AdvancedHTMLParser()
+        parser.parseStr(html)
+
+        retHTML = parser.getHTML()
+
+        assert 'CommentX' in retHTML, 'Expected to find comment, "CommentX" in returned HTML: "%s"' %(retHTML,)
+        assert 'CommentY' in retHTML, 'Expected to find comment, "CommentY" in returned HTML: "%s"' %(retHTML,)
 
 
 
