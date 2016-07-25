@@ -359,7 +359,15 @@ class AdvancedHTMLParser(HTMLParser):
         else:
             doctypeStr = ''
 
-        return doctypeStr + ''.join([elem.outerHTML for elem in self.getRootNodes()])
+        # 6.6.0: If we have a real root tag, print the outerHTML. If we have a fake root tag (for multiple root condition),
+        #   then print the innerHTML (skipping the outer root tag). Otherwise, we will miss
+        #   untagged text (between the multiple root nodes).
+        rootNode = self.getRoot()
+        if rootNode.tagName == INVISIBLE_ROOT_TAG:
+            return doctypeStr + rootNode.innerHTML
+        else:
+            return doctypeStr + rootNode.outerHTML
+#        return doctypeStr + ''.join([elem.outerHTML for elem in self.getRootNodes()])
 
 
     def getFormattedHTML(self, indent='  '):
