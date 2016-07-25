@@ -39,6 +39,45 @@ class TestUntaggedText(object):
         strippedHTML = parser.getHTML().replace('\n', '').replace(' ','')
         assert strippedHTML == html, "Expected multiple root nodes with text between the nodes to retain, '%s' == '%s'" %(html, strippedHTML)
 
+    def test_textPriorToRoot(self):
+        html = """Hello<html><span id="one">Cheese</span><div>Goodbye</div></html>"""
+
+        parser = AdvancedHTMLParser()
+        parser.parseStr(html)
+
+        strippedHTML = parser.getHTML().replace('\n', '')
+
+#        print ( strippedHTML )
+        assert strippedHTML.startswith('Hello') , 'Expected text before root tag to be retained, got "%s"' %(strippedHTML,)
+
+    def test_textAfterRoot(self):
+        html = """<html><span id="one">Cheese</span><div>Goodbye</div></html>Hello"""
+
+        parser = AdvancedHTMLParser()
+        parser.parseStr(html)
+
+        strippedHTML = parser.getHTML().replace('\n', '')
+
+#        print ( strippedHTML )
+
+        assert strippedHTML.endswith('Hello') , 'Expected text after root tag to be retained, got "%s"' %(strippedHTML,)
+
+
+    def test_textBeforeAndAfterRoot(self):
+        html = """Hello<html><span id="one">Cheese</span><div>Goodbye</div></html>World"""
+
+        parser = AdvancedHTMLParser()
+        parser.parseStr(html)
+
+        strippedHTML = parser.getHTML().replace('\n', '')
+
+#        print ( strippedHTML )
+
+        assert strippedHTML.startswith('Hello') , 'Expected text before root tag to be retained, got "%s"' %(strippedHTML,)
+        assert strippedHTML.endswith('World') , 'Expected text after root tag to be retained, got "%s"' %(strippedHTML,)
+
+
+
 
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
