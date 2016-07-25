@@ -132,8 +132,12 @@ class AdvancedHTMLParser(HTMLParser):
         '''
             Internal for parsing
         '''
-        if data and len(self.inTag) > 0:
-            self.inTag[-1].appendText(data)
+        if data:
+            if len(self.inTag) > 0:
+                self.inTag[-1].appendText(data)
+            elif data.strip(): #and not self.getRoot():
+                # Must be text prior to or after root node
+                raise MultipleRootNodeException()
 
     def handle_entityref(self, entity):
         '''
