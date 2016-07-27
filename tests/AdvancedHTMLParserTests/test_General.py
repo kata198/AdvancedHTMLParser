@@ -1,6 +1,8 @@
 #!/usr/bin/env GoodTests.py
+'''
+    Test some general parsing
+'''
 
-import re
 import subprocess
 import sys
 

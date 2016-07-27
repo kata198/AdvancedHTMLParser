@@ -1,10 +1,13 @@
 #!/usr/bin/env GoodTests.py
+'''
+    Test that we can build HTML using the parser
+'''
 
 import subprocess
 import sys
 
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser
-from AdvancedHTMLParser.Tags import AdvancedTag, TagCollection
+from AdvancedHTMLParser.Tags import AdvancedTag
 
 class TestBuilding(object):
 

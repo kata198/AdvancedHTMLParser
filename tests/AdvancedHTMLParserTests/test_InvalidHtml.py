@@ -1,7 +1,10 @@
 #!/usr/bin/env GoodTests.py
+'''
+    Test that we properly handle InvalidHTML
+'''
 
 import sys
-import tempfile
+import subprocess
 
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser
 

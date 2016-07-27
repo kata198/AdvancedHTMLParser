@@ -1,10 +1,13 @@
 #!/usr/bin/env GoodTests.py
+'''
+    Test that we can validate some types of invalid html
+'''
 
 import sys
-import tempfile
+import subprocess
 
 from AdvancedHTMLParser.Validator import ValidatingAdvancedHTMLParser
-from AdvancedHTMLParser.exceptions import HTMLValidationException, InvalidCloseException, MissedCloseException
+from AdvancedHTMLParser.exceptions import InvalidCloseException, MissedCloseException
 
 
 MULTIPLE_ROOT = """

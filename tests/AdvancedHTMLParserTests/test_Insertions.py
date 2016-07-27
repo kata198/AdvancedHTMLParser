@@ -1,10 +1,13 @@
 #!/usr/bin/env GoodTests.py
+'''
+    Test inserting data and tags
+'''
 
 import subprocess
 import sys
 
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser
-from AdvancedHTMLParser.Tags import AdvancedTag, TagCollection
+from AdvancedHTMLParser.Tags import AdvancedTag
 
 class TestInsertions(object):
 

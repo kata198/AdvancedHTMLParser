@@ -1,6 +1,8 @@
 #!/usr/bin/env GoodTests.py
+'''
+    Test that the get* methods work as expected
+'''
 
-import re
 import subprocess
 import sys
 
