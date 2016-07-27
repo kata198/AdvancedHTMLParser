@@ -1,5 +1,10 @@
+#!/usr/bin/env GoodTests.py
+'''
+    Test that Custom Filters work as expected
+'''
 
-
+import sys
+import subprocess
 from AdvancedHTMLParser import AdvancedHTMLParser
 
 class TestCustomFilter(object):

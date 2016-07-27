@@ -4,7 +4,6 @@
 '''
 
 import sys
-import tempfile
 import subprocess
 
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser

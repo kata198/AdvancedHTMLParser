@@ -1,6 +1,10 @@
 #!/usr/bin/env GoodTests.py
+'''
+    Test that Parse methods work as expected
+'''
 
 import sys
+import subprocess
 import tempfile
 
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser

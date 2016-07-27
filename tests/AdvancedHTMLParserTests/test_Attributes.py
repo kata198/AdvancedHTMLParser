@@ -1,4 +1,7 @@
 #!/usr/bin/env GoodTests.py
+'''
+    Test various attribute getting/setting
+'''
 
 import sys
 import subprocess
