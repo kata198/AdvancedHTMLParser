@@ -1,3 +1,10 @@
+* 6.6.1 Jul 27 2016
+- Python's HTMLParser automatically converts &lt; and &gt; into '<' and '>'
+before passing to handle_data. This will cause the &lt; and &gt; to be
+converted into their character counterparts and show up in the final result,
+which is incorrect. Convert them back, and add test case.
+- Cleanup imports and add comments to test cases.
+
 * 6.6.0 Jul 25 2016
 - In a multiple root node scenario, make sure getHTML returns text that falls
 between the root nodes.
