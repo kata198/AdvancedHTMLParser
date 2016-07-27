@@ -1,9 +1,11 @@
-* 6.6.1 Jul 27 2016
-- Python's HTMLParser automatically converts &lt; and &gt; into '<' and '>'
-before passing to handle_data. This will cause the &lt; and &gt; to be
-converted into their character counterparts and show up in the final result,
-which is incorrect. Convert them back, and add test case.
+* 6.6.2 Jul 27 2016
+- Python's HTMLParser on python3 only automatically converts charrefs
+(backwards incompatible...) -- so make it stop doing that. This allows things
+like &nbsp; and &lt; to not be converted to ' ' and '<' on python3. Added
+tests as well.
 - Cleanup imports and add comments to test cases.
+- Add fixes made to AdvancedHTMLParser in 6.6.0, relating to text outside root
+nodes into AdvancedHTMLFormatter.
 
 * 6.6.0 Jul 25 2016
 - In a multiple root node scenario, make sure getHTML returns text that falls
