@@ -133,6 +133,8 @@ class AdvancedHTMLParser(HTMLParser):
             Internal for parsing
         '''
         if data:
+            # Python HTMLParser so helpfully automatically replaces &lt; with < and &gt; with >.... sigh.
+            data = data.replace('<', '&lt;').replace('>', '&gt;')
             if len(self.inTag) > 0:
                 self.inTag[-1].appendText(data)
             elif data.strip(): #and not self.getRoot():
