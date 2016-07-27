@@ -44,6 +44,8 @@ class AdvancedHTMLParser(HTMLParser):
                                             
         '''
         HTMLParser.__init__(self)
+        # Do not automatically convert charrefs in python3
+        self.convert_charrefs = False
 
         self.encoding = encoding
 
@@ -128,13 +130,12 @@ class AdvancedHTMLParser(HTMLParser):
         except:
             pass
 
+
     def handle_data(self, data):
         '''
             Internal for parsing
         '''
         if data:
-            # Python HTMLParser so helpfully automatically replaces &lt; with < and &gt; with >.... sigh.
-            data = data.replace('<', '&lt;').replace('>', '&gt;')
             if len(self.inTag) > 0:
                 self.inTag[-1].appendText(data)
             elif data.strip(): #and not self.getRoot():
