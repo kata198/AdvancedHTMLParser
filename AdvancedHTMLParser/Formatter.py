@@ -91,7 +91,15 @@ class AdvancedHTMLFormatter(HTMLParser):
         else:
             doctypeStr = ''
 
-        return doctypeStr + ''.join([elem.outerHTML for elem in self.getRootNodes()])
+        # 6.6.0: If we have a real root tag, print the outerHTML. If we have a fake root tag (for multiple root condition),
+        #   then print the innerHTML (skipping the outer root tag). Otherwise, we will miss
+        #   untagged text (between the multiple root nodes).
+        rootNode = self.getRoot()
+        if rootNode.tagName == INVISIBLE_ROOT_TAG:
+            return doctypeStr + rootNode.innerHTML
+        else:
+            return doctypeStr + rootNode.outerHTML
+#        return doctypeStr + ''.join([elem.outerHTML for elem in self.getRootNodes()])
 
     def getRoot(self):
         '''
@@ -211,14 +219,18 @@ class AdvancedHTMLFormatter(HTMLParser):
         '''
             handle_data - Internal for parsing
         '''
-        if data and len(self.inTag) > 0:
-            if self.inTag[-1].tagName not in PRESERVE_CONTENTS_TAGS:
-                data = data.replace('\t', ' ').strip('\r\n')
-                if data.startswith(' '):
-                    data = ' ' + data.lstrip()
-                if data.endswith(' '):
-                    data = data.rstrip() + ' '
-            self.inTag[-1].appendText(data)
+        if data:
+            if len(self.inTag) > 0:
+                if self.inTag[-1].tagName not in PRESERVE_CONTENTS_TAGS:
+                    data = data.replace('\t', ' ').strip('\r\n')
+                    if data.startswith(' '):
+                        data = ' ' + data.lstrip()
+                    if data.endswith(' '):
+                        data = data.rstrip() + ' '
+                self.inTag[-1].appendText(data)
+            elif data.strip():
+                # Must be text prior to or after root node
+                raise MultipleRootNodeException()
 
     def handle_entityref(self, entity):
         '''
@@ -226,6 +238,8 @@ class AdvancedHTMLFormatter(HTMLParser):
         '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('&%s;' %(entity,))
+        else:
+            raise MultipleRootNodeException()
 
     def handle_charref(self, charRef):
         '''
@@ -233,6 +247,8 @@ class AdvancedHTMLFormatter(HTMLParser):
         '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('&#%s;' %(charRef,))
+        else:
+            raise MultipleRootNodeException()
 
     def handle_comment(self, comment):
         '''
@@ -240,6 +256,8 @@ class AdvancedHTMLFormatter(HTMLParser):
         '''
         if len(self.inTag) > 0:
             self.inTag[-1].appendText('<!-- %s -->' %(comment,))
+        else:
+            raise MultipleRootNodeException()
 
     def handle_decl(self, decl):
         '''
