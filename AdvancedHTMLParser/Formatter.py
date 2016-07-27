@@ -42,6 +42,9 @@ class AdvancedHTMLFormatter(HTMLParser):
         '''
         HTMLParser.__init__(self)
 
+        # Do not automatically convert charrefs in python3
+        self.convert_charrefs = False
+
         self.parsedData = []
         self.reset = self._reset
         self.decl = None
