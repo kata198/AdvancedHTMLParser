@@ -105,5 +105,14 @@ class TestAttributes(object):
         assert 'def' in tag.outerHTML , ' Failed to retain in outerHTML'
 
 
+    def test_noValueAttributes(self):
+        parser = AdvancedHTMLParser()
+        parser.parseStr('<input id="thebox" type="checkbox" checked />')
+
+        tag = parser.getElementById('thebox')
+        assert 'checked' in tag.attributes
+        assert 'checked' in tag.outerHTML
+
+
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()

@@ -531,6 +531,8 @@ class AdvancedTag(object):
             if val:
                 val = val.replace('"', '\\"')
                 attributeString.append('%s="%s"' %(name, val) )
+            else:
+                attributeString.append(name)
 
         if attributeString:
             attributeString = ' ' + ' '.join(attributeString)
