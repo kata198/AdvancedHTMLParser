@@ -1,3 +1,10 @@
+* 6.6.4 (unreleased)
+- Fix regression where "AdvancedTag.getAttribute" method would not accept a default
+(second param).
+- Fix calling ".value" on an AdvancedTag to get the "value" attribute (was
+broken by previous regression)
+
+
 * 6.6.3 Oct 03 2016
 - Fix no-value attributes not appearing in html output (like "checked" on an input). Was in attributes, but not in html output.
 
