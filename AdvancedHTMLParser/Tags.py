@@ -593,12 +593,12 @@ class AdvancedTag(object):
         '''
         return self.getAttribute('value', '')
 
-    def getAttribute(self, attrName):
+    def getAttribute(self, attrName, defaultValue=None):
         '''
             getAttribute - Gets an attribute on this tag. Be wary using this for classname, maybe use addClass/removeClass. Attribute names are all lowercase.
                 @return - The attribute value, or None if none exists.
            '''
-        return self.attributes.get(attrName, None)
+        return self.attributes.get(attrName, defaultValue)
 
     def setAttribute(self, attrName, attrValue):
         '''

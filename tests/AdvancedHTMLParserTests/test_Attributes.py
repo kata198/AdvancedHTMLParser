@@ -113,6 +113,21 @@ class TestAttributes(object):
         assert 'checked' in tag.attributes
         assert 'checked' in tag.outerHTML
 
+    def test_valueMethod(self):
+        parser = AdvancedHTMLParser()
+        parser.parseStr('<input id="item" type="text" value="hello" />')
+
+        tag = parser.getElementById('item')
+        assert tag.value == 'hello'
+
+    def test_attributeDefault(self):
+        parser = AdvancedHTMLParser()
+        parser.parseStr('<input id="item" type="text" value="hello" />')
+
+        tag = parser.getElementById('item')
+        assert tag.getAttribute('type', 'bloogity') == 'text'
+        assert tag.getAttribute('woogity', 'snoogity') == 'snoogity'
+
 
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
