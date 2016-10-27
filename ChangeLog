@@ -1,4 +1,4 @@
-* 6.6.4 (unreleased)
+* 6.6.4 Oct 27 2016
 - Fix regression where "AdvancedTag.getAttribute" method would not accept a default
 (second param).
 - Fix calling ".value" on an AdvancedTag to get the "value" attribute (was

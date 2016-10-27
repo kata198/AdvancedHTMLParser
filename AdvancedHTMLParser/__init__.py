@@ -9,9 +9,9 @@ from .Formatter import AdvancedHTMLFormatter
 from .Validator import ValidatingAdvancedHTMLParser
 from .exceptions import InvalidCloseException, MissedCloseException, HTMLValidationException
 
-__version__ = '6.6.3'
-__version_tuple__ = ('6', '6', '3')
-__int_version_tuple__ = (6, 6, 3)
+__version__ = '6.6.4'
+__version_tuple__ = ('6', '6', '4')
+__int_version_tuple__ = (6, 6, 4)
 
 __all__ = ['AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection'
     'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException' ]
