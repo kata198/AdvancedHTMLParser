@@ -1,3 +1,24 @@
+* 6.7.0 ??? ?? ????
+-  Implement __repr__ on AdvancedTag
+-  Fix __repr__ on StyleAttribute to include the class name
+-  Make style attributes compare (__eq__ and __ne__) regardless of order
+
+-  Implement __eq__ and __ne__ on AdvancedTag, these do identity
+comparison (same tag equals itself ONLY).
+-  Implement an isTagEqual method on AdvancedTag which compares the tag
+name and attributes to another tag (for testing between < and > are the
+same), non-identity comparison.
+
+- Implement __copy__ and __deepcopy__ methods on StyleAttribute and
+AdvancedTag so that tags can be copied.
+
+- Add getAttributesList and getAttributesDict on an AdvancedTag to make a copy of a list
+of values (like for attrList on AdvancedTag constructor) or a copy of a
+dict of values.
+
+- Add tests for the comparison operators
+
+
 * 6.6.4 Oct 27 2016
 - Fix regression where "AdvancedTag.getAttribute" method would not accept a default
 (second param).
