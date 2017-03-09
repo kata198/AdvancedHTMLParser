@@ -9,6 +9,8 @@ import subprocess
 from AdvancedHTMLParser.Tags import AdvancedTag
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser
 
+# TODO: add tests for getAttributesList and getAttributesDict
+
 class TestAttributes(object):
     '''
         Tests some attribute behaviour
