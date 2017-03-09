@@ -1,10 +1,11 @@
-# Copyright (c) 2015 Tim Savannah under LGPLv3. 
+# Copyright (c) 2015, 2016, 2017 Tim Savannah under LGPLv3. 
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #  AdvancedTag and TagCollection which represent tags and their data.
 
 from collections import OrderedDict
 
 import uuid
+import copy
 
 from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS
 from .SpecialAttributes import SpecialAttributesDict, StyleAttribute
@@ -244,6 +245,9 @@ class TagCollection(list):
             TagCollection._subset(ret, _cmpFunc, tag)
 
         return ret
+
+    def __repr__(self):
+        return "%s(%s)" %(self.__class__.__name__, list.__repr__(self))
         
 
 class AdvancedTag(object):
@@ -254,7 +258,7 @@ class AdvancedTag(object):
 
         Use the getters and setters instead of attributes directly, or you may lose accounting.
     '''
-    def __init__(self, tagName, attrList=None, isSelfClosing=False):
+    def __init__(self, tagName, attrList=None, isSelfClosing=False, uid=None):
         '''
             __init__ - Construct
 
@@ -600,6 +604,12 @@ class AdvancedTag(object):
            '''
         return self.attributes.get(attrName, defaultValue)
 
+    def getAttributesList(self):
+        return [ (str(name)[:], str(value)[:]) for name, value in self.attributes.items() ]
+
+    def getAttributesDict(self):
+        return copy.copy(self.attributes)
+
     def setAttribute(self, attrName, attrValue):
         '''
             setAttribute - Sets an attribute. Be wary using this for classname, maybe use addClass/removeClass. Attribute names are all lowercase.
@@ -895,7 +905,127 @@ class AdvancedTag(object):
         if peers is None:
             return None
         return TagCollection([peer for peer in peers if peer.hasClass(className)])
-                
+
+    def __repr__(self):
+        '''
+            __repr__ - A reconstructable representation of this AdvancedTag.
+
+                TODO: Incorporate uid somehow? Without it the tags won't be the SAME TAG, but they'll be equivilant
+        '''
+        return "%s(%s, %s, %s)" %(self.__class__.__name__, repr(self.tagName), repr(self.getAttributesList()), repr(self.isSelfClosing))
+#        return "%s(%s, %s, %s) # uid=%s" %(self.__class__.__name__, repr(self.tagName), repr(self.getAttributesList()), repr(self.isSelfClosing), self.uid)
+
+
+    def isTagEqual(self, other):
+        '''
+            isTagEqual - Compare if a tag contains the same tag name and attributes as another tag,
+
+                i.e. if everything between < and > parts of this tag are the same.
+
+                Does NOT compare children, etc. Does NOT compare if these are the same exact tag in the html (use regular == operator for that)
+
+                So for example:
+
+                    tag1 = document.getElementById('something')
+                    tag2 = copy.copy(tag1)
+
+                    tag1 == tag2          # This is False
+                    tag1.isTagEqual(tag2) # This is True
+
+                @return bool - True if tags have the same name and attributes, otherwise False
+        '''
+#        if type(other) != type(self):
+#            return False
+
+#       NOTE: Instead of type check,
+#          just see if we can get the needed attributes in case subclassing
+        try:
+            if self.tagName != other.tagName:
+                return False
+
+            attributeKeysSelf = list(self.attributes.keys())
+            attributeKeysOther = list(other.attributes.keys())
+        except:
+            return False
+
+        # Check that we have all the same attribute names
+        if set(attributeKeysSelf) != set(attributeKeysOther):
+            return False
+
+        for key in attributeKeysSelf:
+
+#            if key == 'class':
+#                # Class can be in any order and still be equal
+#                classNames1 = self.classNames[:]
+#                classNames2 = other.classNames[:]
+#                classNames1.sort()
+#                classNames2.sort()
+#
+#                if classNames1 != classNames2:
+#                    return False
+#
+            if self.attributes.get(key) != other.attributes.get(key):
+                return False
+
+        return True
+
+
+    def __eq__(self, other):
+        '''
+            __eq__ - Test if this and other are THE SAME TAG. 
+            
+            Note: this does NOT test if the tags have the same name, attributes, etc.
+                Use isTagEqual to test if a tag has the same data (other than children)
+
+            So for example:
+
+                tag1 = document.getElementById('something')
+                tag2 = copy.copy(tag1)
+
+                tag1 == tag2          # This is False
+                tag1.isTagEqual(tag2) # This is True
+        '''
+        if type(other) != type(self):
+            return False
+        return self.uid == other.uid
+
+    def __ne__(self, other):
+        '''
+            __ne__ - Test if this and other are NOT THE SAME TAG. Note
+
+            Note: this does NOT test if the tags have the same name, attributes, etc.
+                Use isTagEqual to test if a tag has the same data (other than children)
+
+            @see AdvancedTag.__eq__
+            @see AdvancedTag.isTagEqual
+        '''
+
+        if type(other) != type(self):
+            return True
+        return self.uid != other.uid
+
+
+    # Copy methods - Create exact copies (including copying uid)
+    def __copy__(self):
+        '''
+            __copy__ - Create a copy (except uid). This tag will NOT ==.
+
+               but is safe to add to the same tree as its original
+        '''
+        ret = self.__class__(self.tagName, self.getAttributesList(), self.isSelfClosing)
+
+        return ret
+
+    def __deepcopy__(self, arg):
+        '''
+            __deepcopy__ - Create a copy (except uid) for deepcopy. This tag will NOT ==
+
+               but is safe to add to the same tree as its original
+        '''
+        ret = self.__class__(self.tagName, self.getAttributesList(), self.isSelfClosing)
+
+        return ret
+        
 
 
 # Uncomment this line to display the HTML in lists

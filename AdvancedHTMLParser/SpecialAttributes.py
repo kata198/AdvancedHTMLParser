@@ -179,10 +179,35 @@ class StyleAttribute(object):
         return ''
 
 
+    def __eq__(self, other):
+        selfDict = self._styleDict
+        otherDict = other._styleDict
+
+        selfDictKeys = list(selfDict.keys())
+        otherDictKeys = list(otherDict.keys())
+
+        if set(selfDictKeys) != set(otherDictKeys):
+            return False
+
+        for key in selfDictKeys:
+            if selfDict.get(key) != otherDict.get(key):
+                return False
+
+        return True
+
+    def __ne__(self, other):
+        return not ( self == other )
+
     def __str__(self):
         return self._asStr()
 
     def __repr__(self):
-        return repr(self._asStr())
+        return "%s(%s)" %(self.__class__.__name__, repr(self._asStr()))
+
+    def __copy__(self):
+        return self.__class__(self._asStr())
+
+    def __deepcopy__(self, memo):
+        return self.__class__(self._asStr())
 
 #vim: set ts=4 sw=4 expandtab :
