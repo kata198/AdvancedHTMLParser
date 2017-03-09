@@ -1,4 +1,4 @@
-# Copyright (c) 2015 Tim Savannah under LGPLv3. 
+# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3. 
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #
 # These are various helpers for "special" attributes
