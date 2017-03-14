@@ -1,14 +1,13 @@
 * 6.7.0 ??? ?? ????
 - Fix camel-case vs dash names when using style attributes (like so em.style.paddingTop translates to 'padding-top')
 -  Implement __repr__ on AdvancedTag
+
 -  Fix __repr__ on StyleAttribute to include the class name
 -  Make style attributes compare (__eq__ and __ne__) regardless of order
+-  Allow StyleAttribute objects to be created from other StyleAttribute objects
 
 -  Implement __eq__ and __ne__ on AdvancedTag, these do identity
 comparison (same tag equals itself ONLY).
--  Implement an isTagEqual method on AdvancedTag which compares the tag
-name and attributes to another tag (for testing between < and > are the
-same), non-identity comparison.
 
 - Implement __copy__ and __deepcopy__ methods on StyleAttribute and
 AdvancedTag so that tags can be copied.
@@ -17,8 +16,11 @@ AdvancedTag so that tags can be copied.
 of values (like for attrList on AdvancedTag constructor) or a copy of a
 dict of values.
 
-- Add tests for the comparison operators
+-  Implement an isTagEqual method on AdvancedTag which compares the tag
+name and attributes to another tag (for testing between < and > are the
+same), non-identity comparison.
 
+- Add tests for all changes
 
 
 * 6.6.4 Oct 27 2016
