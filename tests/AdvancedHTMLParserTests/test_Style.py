@@ -16,7 +16,7 @@ class TestStyle(object):
 
     def __init__(self):
         self.testHTML = '''
-        <div id="testItem" style="display: block">Hello</div>
+        <div id="testItem" style="display: block; padding-left: 5px">Hello</div>
 '''
 
     def setup_method(self, method):
@@ -72,6 +72,23 @@ class TestStyle(object):
         assert item.style.position == 'relative'
         assert item.style.top == '6px'
         assert item.style.display == '' # Should have cleared because we overrode
+
+
+    def test_dashNames(self):
+
+        item = self.item
+
+        assert item.style.paddingLeft == '5px' , 'Expected to convert name "padding-left" to "paddingLeft" on attribute access.'
+
+        item.style.paddingTop = '10px'
+
+        assert item.style.paddingTop == '10px', 'Expected that after setting "paddingTop" you can retrieve it back using "paddingTop"'
+
+        styleStr = str(item.style)
+
+        assert 'padding-left: 5px' in styleStr , 'Expected to see dash-name "padding-left" in style string. Got: %s' %(styleStr, )
+
+        assert 'padding-top: 10px' in styleStr, 'Expected to see dash-name "padding-top" in style string. Got: %s' %(styleStr, )
 
 
 if __name__ == '__main__':
