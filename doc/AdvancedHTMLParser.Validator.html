@@ -8,8 +8,8 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="AdvancedHTMLParser.html"><font color="#ffffff">AdvancedHTMLParser</font></a>.Validator</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href="AdvancedHTMLParser.html">index</a><br><a href="https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/AdvancedHTMLParser/Validator.py">Validator.py</a></font></td></tr></table>
-    <p></p>
+><font color="#ffffff" face="helvetica, arial"><a href="AdvancedHTMLParser.html">index</a></font></td></tr></table>
+    <p><tt>#&nbsp;Copyright&nbsp;(c)&nbsp;2015&nbsp;Tim&nbsp;Savannah&nbsp;All&nbsp;Rights&nbsp;Rserved&nbsp;under&nbsp;LGPLv3.&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ee77aa">
@@ -50,7 +50,7 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="InvalidCloseException-__init__"><strong>__init__</strong></a>(self, triedToClose, stillOpen)</dt></dl>
+<dl><dt><a name="InvalidCloseException-__init__"><strong>__init__</strong></a>(self, triedToClose, stillOpen)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException">HTMLValidationException</a>:<br>
@@ -67,7 +67,7 @@ Methods inherited from <a href="builtins.html#BaseException">builtins.BaseExcept
 
 <dl><dt><a name="InvalidCloseException-__getattribute__"><strong>__getattribute__</strong></a>(self, name, /)</dt><dd><tt>Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
 
-<dl><dt><a name="InvalidCloseException-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+<dl><dt><a name="InvalidCloseException-__reduce__"><strong>__reduce__</strong></a>(...)</dt><dd><tt>helper&nbsp;for&nbsp;pickle</tt></dd></dl>
 
 <dl><dt><a name="InvalidCloseException-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
 
@@ -114,7 +114,7 @@ Data descriptors inherited from <a href="builtins.html#BaseException">builtins.B
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="MissedCloseException-__init__"><strong>__init__</strong></a>(self, triedToClose, stillOpen)</dt></dl>
+<dl><dt><a name="MissedCloseException-__init__"><strong>__init__</strong></a>(self, triedToClose, stillOpen)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException">HTMLValidationException</a>:<br>
@@ -131,7 +131,7 @@ Methods inherited from <a href="builtins.html#BaseException">builtins.BaseExcept
 
 <dl><dt><a name="MissedCloseException-__getattribute__"><strong>__getattribute__</strong></a>(self, name, /)</dt><dd><tt>Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
 
-<dl><dt><a name="MissedCloseException-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+<dl><dt><a name="MissedCloseException-__reduce__"><strong>__reduce__</strong></a>(...)</dt><dd><tt>helper&nbsp;for&nbsp;pickle</tt></dd></dl>
 
 <dl><dt><a name="MissedCloseException-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
 
@@ -183,8 +183,6 @@ exceptions.<a href="#MissedCloseException">MissedCloseException</a>&nbsp;&nbsp;-
 <hr>
 Methods defined here:<br>
 <dl><dt><a name="ValidatingAdvancedHTMLParser-handle_endtag"><strong>handle_endtag</strong></a>(self, tagName)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
-
-<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_startendtag"><strong>handle_startendtag</strong></a>(self, tagName, attrList)</dt></dl>
 
 <hr>
 Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser">AdvancedHTMLParser.Parser.AdvancedHTMLParser</a>:<br>
@@ -267,6 +265,8 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 
 <dl><dt><a name="ValidatingAdvancedHTMLParser-handle_entityref"><strong>handle_entityref</strong></a>(self, entity)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
+<dl><dt><a name="ValidatingAdvancedHTMLParser-handle_startendtag"><strong>handle_startendtag</strong></a>(self, tagName, attributeList)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
 <dl><dt><a name="ValidatingAdvancedHTMLParser-handle_starttag"><strong>handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing=False)</dt><dd><tt>Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
 <dl><dt><a name="ValidatingAdvancedHTMLParser-parseFile"><strong>parseFile</strong></a>(self, filename)</dt><dd><tt>parseFile&nbsp;-&nbsp;Parses&nbsp;a&nbsp;file&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes<br>
@@ -289,8 +289,6 @@ Methods inherited from <a href="html.parser.html#HTMLParser">html.parser.HTMLPar
 <dl><dt><a name="ValidatingAdvancedHTMLParser-clear_cdata_mode"><strong>clear_cdata_mode</strong></a>(self)</dt></dl>
 
 <dl><dt><a name="ValidatingAdvancedHTMLParser-close"><strong>close</strong></a>(self)</dt><dd><tt>Handle&nbsp;any&nbsp;buffered&nbsp;data.</tt></dd></dl>
-
-<dl><dt><a name="ValidatingAdvancedHTMLParser-error"><strong>error</strong></a>(self, message)</dt></dl>
 
 <dl><dt><a name="ValidatingAdvancedHTMLParser-get_starttag_text"><strong>get_starttag_text</strong></a>(self)</dt><dd><tt>Return&nbsp;full&nbsp;source&nbsp;of&nbsp;start&nbsp;tag:&nbsp;'&lt;...&gt;'.</tt></dd></dl>
 
@@ -325,6 +323,8 @@ Data and other attributes inherited from <a href="html.parser.html#HTMLParser">h
 
 <hr>
 Methods inherited from <a href="_markupbase.html#ParserBase">_markupbase.ParserBase</a>:<br>
+<dl><dt><a name="ValidatingAdvancedHTMLParser-error"><strong>error</strong></a>(self, message)</dt></dl>
+
 <dl><dt><a name="ValidatingAdvancedHTMLParser-getpos"><strong>getpos</strong></a>(self)</dt><dd><tt>Return&nbsp;current&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.</tt></dd></dl>
 
 <dl><dt><a name="ValidatingAdvancedHTMLParser-parse_comment"><strong>parse_comment</strong></a>(self, i, report=1)</dt><dd><tt>#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
