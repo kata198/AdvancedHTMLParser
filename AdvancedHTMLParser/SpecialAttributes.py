@@ -62,6 +62,9 @@ class StyleAttribute(object):
 
             @param styleValue <str> - A style string ( like "display: none; padding-top: 5px" )
         '''
+        if isinstance(styleValue, StyleAttribute):
+            styleValue = str(styleValue)
+
         self._styleValue = styleValue
         self._styleDict = StyleAttribute.styleToDict(styleValue)
 

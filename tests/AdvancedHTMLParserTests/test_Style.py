@@ -8,6 +8,8 @@ import sys
 
 import AdvancedHTMLParser
 
+from AdvancedHTMLParser.SpecialAttributes import StyleAttribute
+
 
 class TestStyle(object):
     '''
@@ -89,6 +91,24 @@ class TestStyle(object):
         assert 'padding-left: 5px' in styleStr , 'Expected to see dash-name "padding-left" in style string. Got: %s' %(styleStr, )
 
         assert 'padding-top: 10px' in styleStr, 'Expected to see dash-name "padding-top" in style string. Got: %s' %(styleStr, )
+
+    def test_createStyleFromStyle(self):
+
+        item = self.item
+
+        newStyle = StyleAttribute(item.style)
+
+        assert newStyle.display == 'block' , 'Expected new StyleAttribute from StyleAttribute to have same values. Got different value for display, expected "block", got "%s"' %(newStyle.display, )
+
+        assert newStyle.paddingLeft == '5px', 'Expected new StyleAttribute from StyleAttribute to have same values. Got different value for padding-left, expected "5px", got "%s"' %(newStyle.paddingLeft, )
+
+        newStyle.paddingLeft = '11px'
+
+        assert newStyle.paddingLeft == '11px' , 'Expected to be able to change attributes on the new StyleAttribute object.'
+
+        assert item.style.paddingLeft != '11px', 'Expected changes to the copy do not affect the original.'
+
+
 
 
 if __name__ == '__main__':
