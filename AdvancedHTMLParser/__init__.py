@@ -8,12 +8,13 @@ from .Tags import AdvancedTag, TagCollection
 from .Formatter import AdvancedHTMLFormatter
 from .Validator import ValidatingAdvancedHTMLParser
 from .exceptions import InvalidCloseException, MissedCloseException, HTMLValidationException
+from .SpecialAttributes import StyleAttribute
 
 __version__ = '6.6.4'
 __version_tuple__ = ('6', '6', '4')
 __int_version_tuple__ = (6, 6, 4)
 
 __all__ = ['AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection'
-    'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException' ]
+    'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'StyleAttribute' ]
 
 #vim: set ts=4 sw=4 expandtab
