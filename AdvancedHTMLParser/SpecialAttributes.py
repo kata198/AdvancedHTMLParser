@@ -57,22 +57,54 @@ class StyleAttribute(object):
     RESERVED_ATTRIBUTES = ('_styleValue', '_styleDict', '_asStr')
 
     def __init__(self, styleValue):
+        '''
+            __init__ - Create a StyleAttribute object.
+
+            @param styleValue <str> - A style string ( like "display: none; padding-top: 5px" )
+        '''
         self._styleValue = styleValue
         self._styleDict = StyleAttribute.styleToDict(styleValue)
 
     def __getattribute__(self, name):
+        '''
+            __getattribute__ - used on dot (.) access on a Style element.
+
+            @param name <str> - The style attribute name
+
+              NOTE: This should the camelCase name (like paddingTop)
+
+            @return <str> - The attribute value or empty string if not set
+        '''
         if name in StyleAttribute.RESERVED_ATTRIBUTES:
             return object.__getattribute__(self, name)
 
-        name = name.lower()
+        dashName = StyleAttribute.camelCaseToDashName(name)
+
+        if '-' in dashName:
+            name = dashName
 
         return self._styleDict.get(name) or ''
 
+
     def __setattr__(self, name, val):
+        '''
+            __setattr__ - Used to set an attribute using dot (.) access on a Style element
+
+            @param name <str> - The attribute name
+
+              NOTE: This must be the camelCase name (like paddingTop).
+
+            @param val <str> - The value of the attribute
+
+        '''
         if name in StyleAttribute.RESERVED_ATTRIBUTES:
             return object.__setattr__(self, name, val)
 
-        name = name.lower()
+        
+        attrName = StyleAttribute.camelCaseToDashName(name)
+
+        if attrName != name:
+            name = attrName
 
         if not val:
             if name in self._styleDict:
@@ -83,9 +115,51 @@ class StyleAttribute(object):
         return val
 
     @staticmethod
+    def dashNameToCamelCase(dashName):
+        '''
+            dashNameToCamelCase - Converts a "dash name" (like padding-top) to its camel-case name ( like "paddingTop" )
+
+            @param dashName <str> - A name containing dashes
+
+                NOTE: This method is currently unused, but may be used in the future. kept for completeness.
+
+            @return <str> - The camel-case form
+        '''
+        nameParts = dashName.split('-')
+        for i in range(1, len(nameParts), 1):
+            nameParts[i][0] = nameParts[i][0].upper()
+
+        return ''.join(nameParts)
+
+    @staticmethod
+    def camelCaseToDashName(camelCase):
+        '''
+            camelCaseToDashName - Convert a camel case name to a dash-name (like paddingTop to padding-top)
+
+            @param camelCase <str> - A camel-case string
+
+            @return <str> - A dash-name
+        '''
+
+        camelCaseList = list(camelCase)
+
+        ret = []
+
+        for ch in camelCaseList:
+            if ch.isupper():
+                ret.append('-')
+                ret.append(ch.lower())
+            else:
+                ret.append(ch)
+
+        return ''.join(ret)
+
+    @staticmethod
     def styleToDict(styleStr):
         '''
             getStyleDict - Gets a dictionary of style attribute/value pairs.
+
+              NOTE: dash-names (like padding-top) are used here
 
             @return - OrderedDict of "style" attribute.
         '''
@@ -118,6 +192,8 @@ class StyleAttribute(object):
 
             @param styleName - The name of the style
 
+              NOTE: dash-names (like padding-top) are expected here
+
             @return - String of the value of the style. '' is no value.
         '''
         return self.getStyleDict().get(styleName.lower()) or ''
@@ -134,7 +210,10 @@ class StyleAttribute(object):
                 When all styles are removed, the "style" attribute will be nullified.
 
             @param styleName - The name of the style element
+
             @param styleValue - The value of which to assign the style element
+
+              NOTE: dash-names (like padding-top) are expected here
 
             @return - String of current value of "style" after change is made.
         '''
@@ -149,6 +228,8 @@ class StyleAttribute(object):
                 When all styles are removed, the "style" attribute will be nullified.
 
             @param styleUpdatesDict - Dictionary of attribute : value styles.
+
+              NOTE: dash-names (like padding-top) are expected here.
 
             @return - String of current value of "style" after change is made.
         '''
