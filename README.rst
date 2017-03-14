@@ -55,6 +55,9 @@ The results of all of these getElement\* functions are TagCollection objects. Th
 
 Style attributes can be manipulated just like in javascript, so element.style.position = 'relative' for setting, or element.style.position for access. There are also helper methods, getStyle(name) and setStyle(name, value) which will set the  correct values.
 
+The naming conventions are the same as in javascript, like "element.style.paddingTop" for "padding-top" attribute.
+
+
 **TagCollection**
 
 A TagCollection can be used like a list. It also exposes the various get\* functions which operate on the elements within the list (and their children). To operate just on items in the list, you can use filterCollection which takes a lambda/function and returns True to retain that tag in the return.
