@@ -1,4 +1,4 @@
-* 6.7.0 ??? ?? ????
+* 6.7.0 Mar 14 2017
 - Fix camel-case vs dash names when using style attributes (like so em.style.paddingTop translates to 'padding-top')
 -  Implement __repr__ on AdvancedTag
 
