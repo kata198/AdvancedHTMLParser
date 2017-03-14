@@ -1,4 +1,5 @@
 * 6.7.0 ??? ?? ????
+- Fix camel-case vs dash names when using style attributes (like so em.style.paddingTop translates to 'padding-top')
 -  Implement __repr__ on AdvancedTag
 -  Fix __repr__ on StyleAttribute to include the class name
 -  Make style attributes compare (__eq__ and __ne__) regardless of order
@@ -17,6 +18,7 @@ of values (like for attrList on AdvancedTag constructor) or a copy of a
 dict of values.
 
 - Add tests for the comparison operators
+
 
 
 * 6.6.4 Oct 27 2016
