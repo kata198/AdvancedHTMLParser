@@ -605,10 +605,29 @@ class AdvancedTag(object):
         return self.attributes.get(attrName, defaultValue)
 
     def getAttributesList(self):
+        '''
+            getAttributesList - Get a copy of all attributes as a list of tuples (name, value)
+
+              ALL values are converted to string and copied, so modifications will not affect the original attributes.
+                If you want types like "style" to work as before, you'll need to recreate those elements (like StyleAttribute(strValue) ).
+
+              @return list< tuple< str(name), str(value) > > - A list of tuples of attrName, attrValue pairs, all converted to strings.
+
+                This is suitable for passing back into AdvancedTag when creating a new tag.
+        '''
         return [ (str(name)[:], str(value)[:]) for name, value in self.attributes.items() ]
 
     def getAttributesDict(self):
-        return copy.copy(self.attributes)
+        '''
+            getAttributesDict - Get a copy of all attributes as a dict map of name -> value
+
+              ALL values are converted to string and copied, so modifications will not affect the original attributes.
+                If you want types like "style" to work as before, you'll need to recreate those elements (like StyleAttribute(strValue) ).
+
+              @return <dict ( str(name), str(value) )> - A dict of attrName to attrValue , all as strings and copies.
+        '''
+            
+        return { str(name)[:] : str(value)[:] for name, value in self.attributes.items() }
 
     def setAttribute(self, attrName, attrValue):
         '''
