@@ -25,7 +25,7 @@ from collections import defaultdict
 
 from .constants import IMPLICIT_SELF_CLOSING_TAGS, INVISIBLE_ROOT_TAG, INVISIBLE_ROOT_TAG_START, INVISIBLE_ROOT_TAG_END
 from .exceptions import MultipleRootNodeException
-from .Tags import AdvancedTag, TagCollection
+from .Tags import AdvancedTag, TagCollection, canFilterTags, FilterableTagCollection
 
 import codecs
 
@@ -380,99 +380,63 @@ class AdvancedHTMLParser(HTMLParser):
         return TagCollection(elements)
 
 
-    def getHTML(self):
-        '''
-            getHTML - Get the full HTML as contained within this tree
-                @returns - String
-        '''
-        root = self.getRoot()
-        if root is None:
-            raise ValueError('Did not parse anything. Use parseFile or parseStr')
-
-        if self.doctype:
-            doctypeStr = '<!%s>\n' %(self.doctype)
-        else:
-            doctypeStr = ''
-
-        # 6.6.0: If we have a real root tag, print the outerHTML. If we have a fake root tag (for multiple root condition),
-        #   then print the innerHTML (skipping the outer root tag). Otherwise, we will miss
-        #   untagged text (between the multiple root nodes).
-        rootNode = self.getRoot()
-        if rootNode.tagName == INVISIBLE_ROOT_TAG:
-            return doctypeStr + rootNode.innerHTML
-        else:
-            return doctypeStr + rootNode.outerHTML
-#        return doctypeStr + ''.join([elem.outerHTML for elem in self.getRootNodes()])
-
-
-    def getFormattedHTML(self, indent='  '):
-        '''
-            getFormattedHTML - Get formatted and xhtml of this document
-
-            @param indent - space/tab/newline of each level of indent, or integer for how many spaces per level
-        
-            @return - Formatted html as string
-        '''
-        from .Formatter import AdvancedHTMLFormatter
-        html = self.getHTML()
-        formatter = AdvancedHTMLFormatter(indent, None) # Do not double-encode
-        formatter.feed(html)
-        return formatter.getHTML()
-    
-
-    def _reset(self):
-        '''
-            _reset - reset this object. Assigned to .reset after __init__ call.
-        '''
-        HTMLParser.reset(self)
-
-        self.root = None
-        self.doctype = None
-        self.inTag = []
-
-    def feed(self, contents):
-        '''
-            feed - Feed contents. Use  parseStr or parseFile instead.
-
-            @param contents - Contents
-        '''
-        contents = stripIEConditionals(contents)
-        try:
-            HTMLParser.feed(self, contents)
-        except MultipleRootNodeException:
-            self.reset()
-            HTMLParser.feed(self, "%s%s" %(addStartTag(contents, INVISIBLE_ROOT_TAG_START), INVISIBLE_ROOT_TAG_END))
-
-    def parseFile(self, filename):
-        '''
-            parseFile - Parses a file and creates the DOM tree and indexes
-    
-                @param filename <str/file> - A string to a filename or a file object. If file object, it will not be closed, you must close.
-        '''
-        self.reset()
-
-        if isinstance(filename, file):
-            contents = filename.read()
-        else:
-            with codecs.open(filename, 'r', encoding=self.encoding) as f:
-                contents = f.read()
-        self.feed(contents)
-
-    def parseStr(self, html):
-        '''
-            parseStr - Parses a string and creates the DOM tree and indexes.
-
-                @param html <str> - valid HTML
-        '''
-        self.reset()
-        if isinstance(html, bytes):
-            self.feed(html.decode(self.encoding))
-        else:
-            self.feed(html)
-
     def filter(self, **kwargs):
         '''
-            filter - Perform a search of elements using kwargs to filter.
+            filter aka filterAnd - Filter ALL the elements in this DOM.
+
+            Results must match ALL the filter criteria. for ANY, use the *Or methods
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+            Special Keys:
+
+               tagname - The tag name
+               text    - The inner text
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        allNodes = self.getAllChildNodes() + [self]
+
+        filterableNodes = FilterableTagCollection(allNodes)
+
+        return filterableNodes.filterAnd(**kwargs)
+
+    filterAnd = filter
+
+    def filterOr(self, **kwargs):
+        '''
+            filterOr - Perform a filter operation on this node and all children (and their children, onto the end)
+
+            Results must match ANY the filter criteria. for ALL, use the *AND methods
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative, consider AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        allNodes = self.getAllNodes() + [self]
+
+        filterableNodes = FilterableTagCollection(allNodes)
+
+        return filterableNodes.filterOr(**kwargs)
+
+    def find(self, **kwargs):
+        '''
+            find - Perform a search of elements using kwargs to filter.
 
             Arguments are key = value, or key can equal a tuple/list of values to match ANY of those values.
 
@@ -484,34 +448,24 @@ class AdvancedHTMLParser(HTMLParser):
                tagname    - The tag name of the element
                text       - The text within an element
 
+            If you installed the QueryableList module (i.e. ran setup.py without --no-deps) it is
+              better to use the "filter"/"filterAnd" or "filterOr" methods, which are also available
+              on all tags and tag collections (tag collections also have filterAllAnd and filterAllOr)
+
+            NOTE: For unset values, use empty string here. On the filter functions, None and empty
+              string have different meanings (unset vs empty value)
+
+
             @return TagCollection<AdvancedTag> - A list of tags that matched the filter criteria
-
-            TODO: Should support testing against None to to test if an attribute is unset (or maybe just
-              empty string, which should already work, would be enough?)
-
-            TODO: This would be useful to move onto TagCollection, and have the parser impl gather a TagCollection
-              of every element, have AdvancedTags gather just their children, etc. That way it can be chained, or
-              performed against a smaller subset.
-
-            TODO: This could also be used to implement a "document.all" like thing, where it filters by id first and
-              if no results, then name.
-
-            TODO: Investigate if there's a simple way to extend QueryableList so we can have automatic usage of all
-              those special __ things. Actually, this SHOULD be done, we just need to extend and implement one function...
         '''
 
         if not kwargs:
             return TagCollection()
 
-        # There is a very strange (bug I guess?) in python where trying to generate lambdas
-        #  in a loop below causes the reference to CHANGE each iteration, even with copies,
-        #  deletes, etc.
-        #
-        # But if a functiong generates the lambda, the closure is created as expected,
-        #  and is not updated when the iteration changes
 
-
-
+        # Because of how closures work in python, need a function to generate these lambdas
+        #  because the closure basically references "current key in iteration" and not
+        #  "actual instance" of variable. Seems to me to be a bug... but whatever
         def _makeTagnameLambda(tagName):
             return lambda em : em.tagName == tagName
 
@@ -646,6 +600,145 @@ class AdvancedHTMLParser(HTMLParser):
             return True
 
         return self.getElementsCustomFilter(doMatchFunc)
+
+
+    def getHTML(self):
+        '''
+            getHTML - Get the full HTML as contained within this tree
+                @returns - String
+        '''
+        root = self.getRoot()
+        if root is None:
+            raise ValueError('Did not parse anything. Use parseFile or parseStr')
+
+        if self.doctype:
+            doctypeStr = '<!%s>\n' %(self.doctype)
+        else:
+            doctypeStr = ''
+
+        # 6.6.0: If we have a real root tag, print the outerHTML. If we have a fake root tag (for multiple root condition),
+        #   then print the innerHTML (skipping the outer root tag). Otherwise, we will miss
+        #   untagged text (between the multiple root nodes).
+        rootNode = self.getRoot()
+        if rootNode.tagName == INVISIBLE_ROOT_TAG:
+            return doctypeStr + rootNode.innerHTML
+        else:
+            return doctypeStr + rootNode.outerHTML
+#        return doctypeStr + ''.join([elem.outerHTML for elem in self.getRootNodes()])
+
+
+    def getFormattedHTML(self, indent='  '):
+        '''
+            getFormattedHTML - Get formatted and xhtml of this document
+
+            @param indent - space/tab/newline of each level of indent, or integer for how many spaces per level
+        
+            @return - Formatted html as string
+        '''
+        from .Formatter import AdvancedHTMLFormatter
+        html = self.getHTML()
+        formatter = AdvancedHTMLFormatter(indent, None) # Do not double-encode
+        formatter.feed(html)
+        return formatter.getHTML()
+    
+
+    def _reset(self):
+        '''
+            _reset - reset this object. Assigned to .reset after __init__ call.
+        '''
+        HTMLParser.reset(self)
+
+        self.root = None
+        self.doctype = None
+        self.inTag = []
+
+    def feed(self, contents):
+        '''
+            feed - Feed contents. Use  parseStr or parseFile instead.
+
+            @param contents - Contents
+        '''
+        contents = stripIEConditionals(contents)
+        try:
+            HTMLParser.feed(self, contents)
+        except MultipleRootNodeException:
+            self.reset()
+            HTMLParser.feed(self, "%s%s" %(addStartTag(contents, INVISIBLE_ROOT_TAG_START), INVISIBLE_ROOT_TAG_END))
+
+    def parseFile(self, filename):
+        '''
+            parseFile - Parses a file and creates the DOM tree and indexes
+    
+                @param filename <str/file> - A string to a filename or a file object. If file object, it will not be closed, you must close.
+        '''
+        self.reset()
+
+        if isinstance(filename, file):
+            contents = filename.read()
+        else:
+            with codecs.open(filename, 'r', encoding=self.encoding) as f:
+                contents = f.read()
+        self.feed(contents)
+
+    def parseStr(self, html):
+        '''
+            parseStr - Parses a string and creates the DOM tree and indexes.
+
+                @param html <str> - valid HTML
+        '''
+        self.reset()
+        if isinstance(html, bytes):
+            self.feed(html.decode(self.encoding))
+        else:
+            self.feed(html)
+
+
+    def __eq__(self, other):
+        '''
+            __eq__ - Test if this and other are THE SAME TAG. 
+            
+            Note: this does NOT test if the tags have the same name, attributes, etc.
+                Use isTagEqual to test if a tag has the same data (other than children)
+
+            So for example:
+
+                tag1 = document.getElementById('something')
+                tag2 = copy.copy(tag1)
+
+                tag1 == tag2          # This is False
+                tag1.isTagEqual(tag2) # This is True
+        '''
+        if type(other) != type(self):
+            return False
+        return self.uid == other.uid
+
+    def __ne__(self, other):
+        '''
+            __ne__ - Test if this and other are NOT THE SAME TAG. Note
+
+            Note: this does NOT test if the tags have the same name, attributes, etc.
+                Use isTagEqual to test if a tag has the same data (other than children)
+
+            @see AdvancedTag.__eq__
+            @see AdvancedTag.isTagEqual
+        '''
+
+        if type(other) != type(self):
+            return True
+        return self.uid != other.uid
+
+
+    # Copy methods - Create exact copies (including copying uid)
+    def __copy__(self):
+        '''
+            __copy__ - Create a copy (except uid). This tag will NOT ==.
+
+               but is safe to add to the same tree as its original
+        '''
+        ret = self.__class__(self.tagName, self.getAttributesList(), self.isSelfClosing)
+
+        return ret
+
 
 
 class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
