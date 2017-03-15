@@ -773,6 +773,60 @@ class AdvancedTag(object):
         return True
 
 
+    def filter(self, **kwargs):
+        '''
+            filter aka filterAnd - Perform a filter operation on this node and all children (and all their children, onto the end)
+
+            Results must match ALL the filter criteria. for ANY, use the *Or methods
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        allNodes = self.getAllChildNodes() + [self]
+
+        filterableNodes = FilterableTagCollection(allNodes)
+
+        return filterableNodes.filterAnd(**kwargs)
+
+    filterAnd = filter
+
+    def filterOr(self, **kwargs):
+        '''
+            filterOr - Perform a filter operation on this node and all children (and their children, onto the end)
+
+            Results must match ANY the filter criteria. for ALL, use the *AND methods
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        allNodes = self.getAllNodes() + [self]
+
+        filterableNodes = FilterableTagCollection(allNodes)
+
+        return filterableNodes.filterOr(**kwargs)
+
+
+
     def __eq__(self, other):
         '''
             __eq__ - Test if this and other are THE SAME TAG. 
@@ -906,7 +960,7 @@ class TagCollection(list):
 
             @param filterFunc <function> - A function or lambda expression that returns True to have that element match
 
-            @return TagCollection of tags that met the given criteria
+            @return TagCollection<AdvancedTag>
         '''
         ret = TagCollection()
         if len(self) == 0:
@@ -1063,9 +1117,155 @@ class TagCollection(list):
 
         return ret
 
+    def filterAll(self, **kwargs):
+        '''
+            filterAll aka filterAllAnd - Perform a filter operation on ALL nodes in this collection and all their children.
+
+            Results must match ALL the filter criteria. for ANY, use the *Or methods
+
+            For just the nodes in this collection, use "filter" or "filterAnd" on a TagCollection
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        allNodes = self.getAllNodes()
+
+        filterableNodes = FilterableTagCollection(allNodes)
+
+        return filterableNodes.filterAnd(**kwargs)
+
+    filterAllAnd = filter
+
+    def filterAllOr(self, **kwargs):
+        '''
+            filterAllOr - Perform a filter operation on ALL nodes in this collection and all their children.
+
+            Results must match ANY the filter criteria. for ALL, use the *And methods
+
+            For just the nodes in this collection, use "filterOr" on a TagCollection
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        allNodes = self.getAllNodes()
+
+        filterableNodes = FilterableTagCollection(allNodes)
+
+        return filterableNodes.filterOr(**kwargs)
+
+    def filter(self, **kwargs):
+        '''
+            filter aka filterAnd - Perform a filter operation on ALL nodes in this collection (NOT including children, see #filterAnd for that)
+
+            Results must match ALL the filter criteria. for ANY, use the *Or methods
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        filterableNodes = FilterableTagCollection(self)
+
+        return filterableNodes.filterAnd(**kwargs)
+
+    filterAnd = filter
+
+    def filterOr(self, **kwargs):
+        '''
+            filterOr - Perform a filter operation on the nodes in this collection (NOT including children, see #filterAllOr for that)
+
+            Results must match ANY the filter criteria. for ALL, use the *And methods
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        filterableNodes = FilterableTagCollection(self)
+
+        return filterableNodes.filterOr(**kwargs)
+
+
     def __repr__(self):
         return "%s(%s)" %(self.__class__.__name__, list.__repr__(self))
-        
+
+try:
+    import QueryableList
+    from QueryableList.Base import QueryableListBase
+
+    class FilterableTagCollection(QueryableListBase):
+
+        @staticmethod
+        def _get_item_value(item, fieldName):
+            fieldName = fieldName.lower()
+
+            if fieldName == 'tagname':
+                return item.tagName
+            elif fieldName == 'text':
+                return item.text
+            else:
+                return item.getAttribute(fieldName)
+
+        def filterAnd(self, **kwargs):
+            ret = QueryableListBase.filterAnd(self, **kwargs)
+
+            return TagCollection(ret)
+
+        filter = filterAnd
+
+        def filterOr(self, **kwargs):
+            ret = QueryableListBase.filterOr(self, **kwargs)
+
+            return TagCollection(ret)
+
+    canFilterTags = True
+
+except ImportError:
+    class FilterableTagCollection(object):
+
+        def __init__(self, *args, **kwargs):
+            raise ImportError('QueryableList is not installed, you cannot use tag filters. Please install QueryableList or use one of the getElement* methods.')
+
+    canFilterTags = False
 
 
 # Uncomment this line to display the HTML in lists

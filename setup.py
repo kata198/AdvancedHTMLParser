@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2015, 2016 Timothy Savannah under terms of LGPLv3. You should have received a copy of this with this distribution as "LICENSE"
+# Copyright (c) 2015, 2016, 2017 Timothy Savannah under terms of LGPLv3.
+# You should have received a copy of this with this distribution as "LICENSE"
+#
+#  NOTE: - If you pass --no-deps, you can get a standalone install of AdvancedHTMLParser
+#   (aka no deps), but the .filter method will be unavailable
 
 
 #vim: set ts=4 sw=4 expandtab
 
 import os
+import sys
 from setuptools import setup
 
 
@@ -15,6 +20,13 @@ if __name__ == '__main__':
     dirName = os.path.dirname(__file__)
     if dirName and os.getcwd() != dirName:
         os.chdir(dirName)
+
+    if '--no-deps' in sys.argv:
+        requires = []
+        sys.argv.remove('--no-deps')
+    else:
+        requires = ['QueryableList']
+
 
     summary = 'A Powerful HTML Parser/Scraper/Validator/Formatter that constructs a modifiable, searchable DOM tree, and includes many standard JS DOM functions (getElementsBy*, appendChild, etc) and additional methods'
 
@@ -32,6 +44,8 @@ if __name__ == '__main__':
             author='Tim Savannah',
             author_email='kata198@gmail.com',
             maintainer='Tim Savannah',
+            requires=requires,
+            install_requires=requires,
             url='https://github.com/kata198/AdvancedHTMLParser',
             maintainer_email='kata198@gmail.com',
             description=summary,
