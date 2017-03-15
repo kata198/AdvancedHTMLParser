@@ -13,7 +13,26 @@ name__contains='abc' or name='abc' or name__ne='something').
   their children)
 
 
-* 6.7.0 ??? ?? ????
+* 6.8.0 
+- Add "getAllChildNodes" to tags, which return all the children (and all their
+children, on and so forth) of the given tag
+
+- Add "getAllNodes" to AdvancedHTMLParser.AdvancedHTMLParser - which gets the
+root nodes, all children of them, and all children all the way to the end
+
+- Add "getAllNodes" to TagCollection, which returns those nodes contained
+within, and all of their children (on and so forth)
+
+- Add "find" method to AdvancedHTMLParser.AdvancedHTMLParser, which supports filtering by attr=value style, supporting
+either single values or list of values (for ANY aka or), and some specials
+( __contains and __icontains suffixes on keys for "value contains" or
+"case-insensitive value contains") This method is only available in one place.
+7.0.0 will have a full filter implementation on the parser, tags, and tag
+collections, but will require QueryableList to be installed. This will be
+optional, and this method will remain as an incomplete version.
+
+
+* 6.7.0 Mar 14 2017
 - Fix camel-case vs dash names when using style attributes (like so em.style.paddingTop translates to 'padding-top')
 -  Implement __repr__ on AdvancedTag
 
