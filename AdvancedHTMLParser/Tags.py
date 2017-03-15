@@ -246,6 +246,18 @@ class TagCollection(list):
 
         return ret
 
+    def getAllNodes(self):
+        '''
+            getAllNodes - Gets all the nodes, and all their children for every node within this collection
+        '''
+        ret = TagCollection()
+
+        for tag in self:
+            ret.append(tag)
+            ret += tag.getAllChildNodes()
+
+        return ret
+
     def __repr__(self):
         return "%s(%s)" %(self.__class__.__name__, list.__repr__(self))
         
@@ -455,13 +467,22 @@ class AdvancedTag(object):
         '''
         return TagCollection(self.children)
 
-    def getChildren(self):
+    def getAllChildNodes(self):
         '''
-            getChildren - returns child nodes as a searchable TagCollection.
+            getAllChildNodes - Gets all the children, and their children, 
+               and their children, and so on, all the way to the end
 
-                @return - TagCollection of the immediate children to this tag.
+            @return TagCollection<AdvancedTag>
         '''
-        return TagCollection(self.children)
+
+        ret = TagCollection()
+
+        for child in self.getChildren():
+            ret.append(child)
+
+            ret += child.getAllChildNodes()
+
+        return ret
 
     def getPeers(self):
         '''

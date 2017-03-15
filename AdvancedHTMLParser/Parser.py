@@ -189,7 +189,7 @@ class AdvancedHTMLParser(HTMLParser):
 
     def getRoot(self):
         '''
-            getRoot - returns the root Tag 
+            getRoot - returns the root Tag
                 @return Tag
         '''
         return self.root
@@ -210,6 +210,22 @@ class AdvancedHTMLParser(HTMLParser):
         if root.tagName == INVISIBLE_ROOT_TAG:
             return list(root.children)
         return [root]
+
+    def getAllNodes(self):
+        '''
+            getAllNodes - Get every element
+
+            @return TagCollection<AdvancedTag>
+        '''
+
+        ret = TagCollection()
+
+        for rootNode in self.getRootNodes():
+            ret.append(rootNode)
+
+            ret += rootNode.getAllChildNodes()
+
+        return ret
 
     def setRoot(self, root):
         '''
