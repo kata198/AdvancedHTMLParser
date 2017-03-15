@@ -189,8 +189,13 @@ class AdvancedHTMLParser(HTMLParser):
 
     def getRoot(self):
         '''
-            getRoot - returns the root Tag
-                @return Tag
+            getRoot - returns the root Tag.
+
+              NOTE: if there are multiple roots, this will be a special tag.
+               You may want to consider using getRootNodes instead if this
+               is a possible situation for you.
+
+            @return AdvancedTag
         '''
         return self.root
 
