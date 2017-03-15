@@ -5,6 +5,7 @@
 
 # In general below, all "tag names" (body, div, etc) should be lowercase. The parser will lowercase internally. All attribute names (like `id` in id="123") provided to search functions should be lowercase. Values are not lowercase. This is because doing tons of searches, lowercasing every search can quickly build up. Lowercase it once in your code, not every time you call a function.
 
+import re
 import sys
 
 # Python 2/3 compatibility:
@@ -447,6 +448,184 @@ class AdvancedHTMLParser(HTMLParser):
             self.feed(html.decode(self.encoding))
         else:
             self.feed(html)
+
+    def filter(self, **kwargs):
+        '''
+            filter - Perform a search of elements using kwargs to filter.
+
+            Arguments are key = value, or key can equal a tuple/list of values to match ANY of those values.
+
+            Append a key with __contains to test if some strs (or several possible strs) are within an element
+            Append a key with __icontains to perform the same __contains op, but ignoring case
+
+            Special keys:
+
+               tagname    - The tag name of the element
+               text       - The text within an element
+
+            @return TagCollection<AdvancedTag> - A list of tags that matched the filter criteria
+
+            TODO: Should support testing against None to to test if an attribute is unset (or maybe just
+              empty string, which should already work, would be enough?)
+
+            TODO: This would be useful to move onto TagCollection, and have the parser impl gather a TagCollection
+              of every element, have AdvancedTags gather just their children, etc. That way it can be chained, or
+              performed against a smaller subset.
+
+            TODO: This could also be used to implement a "document.all" like thing, where it filters by id first and
+              if no results, then name.
+
+            TODO: Investigate if there's a simple way to extend QueryableList so we can have automatic usage of all
+              those special __ things. Actually, this SHOULD be done, we just need to extend and implement one function...
+        '''
+
+        if not kwargs:
+            return TagCollection()
+
+        # There is a very strange (bug I guess?) in python where trying to generate lambdas
+        #  in a loop below causes the reference to CHANGE each iteration, even with copies,
+        #  deletes, etc.
+        #
+        # But if a functiong generates the lambda, the closure is created as expected,
+        #  and is not updated when the iteration changes
+
+
+
+        def _makeTagnameLambda(tagName):
+            return lambda em : em.tagName == tagName
+
+        def _makeAttributeLambda(_key, _value):
+            return lambda em : em.getAttribute(_key, '') == _value
+
+        def _makeTagnameInLambda(tagNames):
+            return lambda em : em.tagName in tagNames
+
+        def _makeAttributeInLambda(_key, _values):
+            return lambda em : em.getAttribute(_key, '') in _values
+
+        def _makeTextLambda(_value):
+            return lambda em : em.text == _value
+
+        def _makeTextInLambda(_values):
+            return lambda em : em.text in _values
+
+        def _makeAttributeContainsLambda(_key, _value, icontains=False):
+            if icontains is False:
+                return lambda em : _value in em.getAttribute(_key, '')
+            else:
+                _value = _value.lower()
+                return lambda em : _value in em.getAttribute(_key, '').lower()
+
+        def _makeTextContainsLambda(_value, icontains=False):
+            if icontains is False:
+                return lambda em : _value in em.text
+            else:
+                _value = _value.lower()
+#                def f(em):
+#                    import pdb; pdb.set_trace()
+#                    return _value in em.text.lower()
+#                return f
+                return lambda em : _value in em.text.lower()
+
+        def _makeAttributeContainsInLambda(_key, _values, icontains=False):
+            if icontains:
+                _values = tuple([x.lower() for x in _values])
+
+            def _testFunc(em):
+                attrValue = em.getAttribute(_key, '')
+                if icontains:
+                    attrValue = attrValue.lower()
+
+                for value in _values:
+                    if value in attrValue:
+                        return True
+
+                return False
+
+            return _testFunc
+
+        def _makeTextContainsInLambda(_values, icontains=False):
+            if icontains:
+                _values = tuple([x.lower() for x in _values])
+
+            def _testFunc(em):
+                import pdb; pdb.set_trace()
+                text = em.text
+                if icontains:
+                    text = text.lower()
+
+                for value in _values:
+                    if value in text:
+                        return True
+
+                return False
+
+            return _testFunc
+
+        # This will hold all the functions we will chain for matching
+        matchFunctions = []
+
+        # Iterate over all the filter portions, and build a filter.
+        for key, value in kwargs.items():
+            key = key.lower()
+
+            endsIContains = key.endswith('__icontains')
+            endsContains = key.endswith('__contains')
+
+            print ( "Key %s icontains? %s %s" %(key, endsIContains, endsContains))
+
+            isValueList = isinstance(value, (list, tuple))
+
+            thisFunc = None
+
+            if endsIContains or endsContains:
+                key = re.sub('__[i]{0,1}contains$', '', key)
+                print ( "Key after: " + key )
+                if key == 'tagname':
+                    raise ValueError('tagname is not supported for contains')
+
+                if isValueList:
+                    if key == 'text':
+                        thisFunc = _makeTextContainsInLambda(value, icontains=endsIContains)
+                    else:
+                        thisFunc = _makeAttributeContainsLambda(key, value, icontains=endsIContains)
+                else:
+                    if key == 'text':
+                        thisFunc = _makeTextContainsLambda(value, icontains=endsIContains)
+                    else:
+                        thisFunc = _makeAttributeContainsLambda(key, value, icontains=endsIContains)
+
+            else:
+                # Not contains, straight up
+
+                if isValueList:
+                    if key == 'tagname':
+                        thisFunc = _makeTagnameInLambda(value)
+                    elif key == 'text':
+                        thisFunc = _makeTextInLambda(value)
+                    else:
+                        thisFunc = _makeAttributeInLambda(key, value)
+                else:
+                    if key == 'tagname':
+                        thisFunc = _makeTagnameLambda(value)
+                    elif key == 'text':
+                        thisFunc = _makeTextLambda(value)
+                    else:
+                        thisFunc = _makeAttributeLambda(key, value)
+
+
+            matchFunctions.append( thisFunc )
+
+        def doMatchFunc(em):
+            #import pdb; pdb.set_trace()
+            for matchFunction in matchFunctions:
+                if matchFunction(em) is False:
+                    return False
+
+            return True
+
+        return self.getElementsCustomFilter(doMatchFunc)
+
 
 class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     '''
