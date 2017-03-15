@@ -25,243 +25,6 @@ def uniqueTags(tagList):
         ret.append(tag)
     return TagCollection(ret) # Convert to a TagCollection here for performance reasons.
 
-class TagCollection(list):
-    '''
-        A collection of AdvancedTags. You may use this like a normal list, or you can use the various getElements* functions within to operate on the results.
-        Generally, this is the return of all get* functions.
-
-        All the get* functions called on a TagCollection search all contained elements and their childrens. If you need to check ONLY the elements in the tag collection, and not their children,
-        either provide your own list comprehension to do so, or use the "filterCollection" method, which takes an arbitrary function/lambda expression and filters just the immediate tags.
-    '''
-
-    def __init__(self, values=None):
-        '''
-            Create this object.
-
-            @param values - Initial values, or None for empty
-        '''
-        list.__init__(self)
-        self.uids = set()
-        if values is not None:
-            self.__add__(values)
-
-    @staticmethod
-    def _subset(ret, cmpFunc, tag):
-        if cmpFunc(tag) is True and ret._hasTag(tag) is False:
-            ret.append(tag)
-
-        for subtag in tag.getChildren():
-            TagCollection._subset(ret, cmpFunc, subtag)
-
-        return ret
-
-    def __add__(self, others):
-        # Maybe this can be optimized by changing self.uids to a dictionary, and using appending the set difference
-        for other in others:
-            if self._hasTag(other) is False:
-                self.append(other)
-
-    def __sub__(self, others):
-        for other in others:
-            if self._hasTag(other) is True:
-                self.remove(other)
-
-    def _hasTag(self, tag):
-        return tag.uid in self.uids
-
-    def append(self, tag):
-        '''
-            append - Append an item to this tag collection
-
-            @param tag - an AdvancedTag
-        '''
-        list.append(self, tag)
-        self.uids.add(tag.uid)
-
-    def remove(self, toRemove):
-        '''
-            remove - Remove an item from this tag collection
-
-            @param toRemove - an AdvancedTag
-        '''
-        list.remove(self, toRemove)
-        self.uids.remove(toRemove.uid)
-
-    def all(self):
-        '''
-            all - A plain list of these elements
-
-            @return - List of these elements
-        '''
-        return list(self)
-
-    def filterCollection(self, filterFunc):
-        '''
-            filterCollection - Filters only the immediate objects contained within this Collection against a function, not including any children
-
-            @param filterFunc <function> - A function or lambda expression that returns True to have that element match
-
-            @return TagCollection of tags that met the given criteria
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-
-        for tag in self:
-            if filterFunc(tag) is True:
-                ret.append(tag)
-
-        return ret
-
-    def getElementsByTagName(self, tagName):
-        '''
-            getElementsByTagName - Gets elements within this collection having a specific tag name
-
-            @param tagName - String of tag name
-
-            @return - TagCollection of unique elements within this collection with given tag name
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-
-        tagName = tagName.lower()
-        _cmpFunc = lambda tag : bool(tag.tagName == tagName)
-        
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-
-        return ret
-
-            
-    def getElementsByName(self, name):
-        '''
-            getElementsByName - Get elements within this collection having a specific name
-
-            @param name - String of "name" attribute
-
-            @return - TagCollection of unique elements within this collection with given "name"
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-        _cmpFunc = lambda tag : bool(tag.name == name)
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-
-        return ret
-
-    def getElementsByClassName(self, className):
-        '''
-            getElementsByClassName - Get elements within this collection containing a specific class name
-
-            @param className - A single class name
-
-            @return - TagCollection of unique elements within this collection tagged with a specific class name
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-        _cmpFunc = lambda tag : tag.hasClass(className)
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-        
-        return ret
-
-    def getElementById(self, _id):
-        '''
-            getElementById - Gets an element within this collection by id
-
-            @param _id - string of "id" attribute
-
-            @return - a single tag matching the id, or None if none found
-        '''
-        for tag in self:
-            if tag.id == _id:
-                return tag
-            for subtag in tag.children:
-                tmp = subtag.getElementById(_id)
-                if tmp is not None:
-                    return tmp
-        return None
-
-    def getElementsByAttr(self, attr, value):
-        '''
-            getElementsByAttr - Get elements within this collection posessing a given attribute/value pair
-
-            @param attr - Attribute name (lowercase)
-            @param value - Matching value
-
-            @return - TagCollection of all elements matching name/value
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-
-        attr = attr.lower()
-        _cmpFunc = lambda tag : tag.getAttribute(attr) == value
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-        
-        return ret
-
-    def getElementsWithAttrValues(self, attr, values):
-        '''
-            getElementsWithAttrValues - Get elements within this collection possessing an attribute name matching one of several values
-
-            @param attr <lowercase str> - Attribute name (lowerase)
-            @param values set<str> - Set of possible matching values
-
-            @return - TagCollection of all elements matching criteria
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-
-        if type(values) != set:
-            values = set(values)
-
-        attr = attr.lower()
-        _cmpFunc = lambda tag : tag.getAttribute(attr) in values
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-        
-        return ret
-
-    def getElementsCustomFilter(self, filterFunc):
-        '''
-            getElementsCustomFilter - Get elements within this collection that match a user-provided function.
-
-            @param filterFunc <function> - A function that returns True if the element matches criteria
-
-            @return - TagCollection of all elements that matched criteria
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-
-        _cmpFunc = lambda tag : filterFunc(tag) is True
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-
-        return ret
-
-    def getAllNodes(self):
-        '''
-            getAllNodes - Gets all the nodes, and all their children for every node within this collection
-        '''
-        ret = TagCollection()
-
-        for tag in self:
-            ret.append(tag)
-            ret += tag.getAllChildNodes()
-
-        return ret
-
-    def __repr__(self):
-        return "%s(%s)" %(self.__class__.__name__, list.__repr__(self))
-        
-
 class AdvancedTag(object):
     '''
         AdvancedTag - Represents a Tag. Used with AdvancedHTMLParser to create a DOM-model
@@ -1065,6 +828,243 @@ class AdvancedTag(object):
         ret = self.__class__(self.tagName, self.getAttributesList(), self.isSelfClosing)
 
         return ret
+
+
+class TagCollection(list):
+    '''
+        A collection of AdvancedTags. You may use this like a normal list, or you can use the various getElements* functions within to operate on the results.
+        Generally, this is the return of all get* functions.
+
+        All the get* functions called on a TagCollection search all contained elements and their childrens. If you need to check ONLY the elements in the tag collection, and not their children,
+        either provide your own list comprehension to do so, or use the "filterCollection" method, which takes an arbitrary function/lambda expression and filters just the immediate tags.
+    '''
+
+    def __init__(self, values=None):
+        '''
+            Create this object.
+
+            @param values - Initial values, or None for empty
+        '''
+        list.__init__(self)
+        self.uids = set()
+        if values is not None:
+            self.__add__(values)
+
+    @staticmethod
+    def _subset(ret, cmpFunc, tag):
+        if cmpFunc(tag) is True and ret._hasTag(tag) is False:
+            ret.append(tag)
+
+        for subtag in tag.getChildren():
+            TagCollection._subset(ret, cmpFunc, subtag)
+
+        return ret
+
+    def __add__(self, others):
+        # Maybe this can be optimized by changing self.uids to a dictionary, and using appending the set difference
+        for other in others:
+            if self._hasTag(other) is False:
+                self.append(other)
+
+    def __sub__(self, others):
+        for other in others:
+            if self._hasTag(other) is True:
+                self.remove(other)
+
+    def _hasTag(self, tag):
+        return tag.uid in self.uids
+
+    def append(self, tag):
+        '''
+            append - Append an item to this tag collection
+
+            @param tag - an AdvancedTag
+        '''
+        list.append(self, tag)
+        self.uids.add(tag.uid)
+
+    def remove(self, toRemove):
+        '''
+            remove - Remove an item from this tag collection
+
+            @param toRemove - an AdvancedTag
+        '''
+        list.remove(self, toRemove)
+        self.uids.remove(toRemove.uid)
+
+    def all(self):
+        '''
+            all - A plain list of these elements
+
+            @return - List of these elements
+        '''
+        return list(self)
+
+    def filterCollection(self, filterFunc):
+        '''
+            filterCollection - Filters only the immediate objects contained within this Collection against a function, not including any children
+
+            @param filterFunc <function> - A function or lambda expression that returns True to have that element match
+
+            @return TagCollection of tags that met the given criteria
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        for tag in self:
+            if filterFunc(tag) is True:
+                ret.append(tag)
+
+        return ret
+
+    def getElementsByTagName(self, tagName):
+        '''
+            getElementsByTagName - Gets elements within this collection having a specific tag name
+
+            @param tagName - String of tag name
+
+            @return - TagCollection of unique elements within this collection with given tag name
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        tagName = tagName.lower()
+        _cmpFunc = lambda tag : bool(tag.tagName == tagName)
+        
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+
+        return ret
+
+            
+    def getElementsByName(self, name):
+        '''
+            getElementsByName - Get elements within this collection having a specific name
+
+            @param name - String of "name" attribute
+
+            @return - TagCollection of unique elements within this collection with given "name"
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+        _cmpFunc = lambda tag : bool(tag.name == name)
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+
+        return ret
+
+    def getElementsByClassName(self, className):
+        '''
+            getElementsByClassName - Get elements within this collection containing a specific class name
+
+            @param className - A single class name
+
+            @return - TagCollection of unique elements within this collection tagged with a specific class name
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+        _cmpFunc = lambda tag : tag.hasClass(className)
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+        
+        return ret
+
+    def getElementById(self, _id):
+        '''
+            getElementById - Gets an element within this collection by id
+
+            @param _id - string of "id" attribute
+
+            @return - a single tag matching the id, or None if none found
+        '''
+        for tag in self:
+            if tag.id == _id:
+                return tag
+            for subtag in tag.children:
+                tmp = subtag.getElementById(_id)
+                if tmp is not None:
+                    return tmp
+        return None
+
+    def getElementsByAttr(self, attr, value):
+        '''
+            getElementsByAttr - Get elements within this collection posessing a given attribute/value pair
+
+            @param attr - Attribute name (lowercase)
+            @param value - Matching value
+
+            @return - TagCollection of all elements matching name/value
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        attr = attr.lower()
+        _cmpFunc = lambda tag : tag.getAttribute(attr) == value
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+        
+        return ret
+
+    def getElementsWithAttrValues(self, attr, values):
+        '''
+            getElementsWithAttrValues - Get elements within this collection possessing an attribute name matching one of several values
+
+            @param attr <lowercase str> - Attribute name (lowerase)
+            @param values set<str> - Set of possible matching values
+
+            @return - TagCollection of all elements matching criteria
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        if type(values) != set:
+            values = set(values)
+
+        attr = attr.lower()
+        _cmpFunc = lambda tag : tag.getAttribute(attr) in values
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+        
+        return ret
+
+    def getElementsCustomFilter(self, filterFunc):
+        '''
+            getElementsCustomFilter - Get elements within this collection that match a user-provided function.
+
+            @param filterFunc <function> - A function that returns True if the element matches criteria
+
+            @return - TagCollection of all elements that matched criteria
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        _cmpFunc = lambda tag : filterFunc(tag) is True
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+
+        return ret
+
+    def getAllNodes(self):
+        '''
+            getAllNodes - Gets all the nodes, and all their children for every node within this collection
+        '''
+        ret = TagCollection()
+
+        for tag in self:
+            ret.append(tag)
+            ret += tag.getAllChildNodes()
+
+        return ret
+
+    def __repr__(self):
+        return "%s(%s)" %(self.__class__.__name__, list.__repr__(self))
         
 
 
