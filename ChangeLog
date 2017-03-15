@@ -1,3 +1,18 @@
+* 7.0.0 ??? ?? ????
+- Add "filter"-style functions (think ORM-style filtering, like
+name__contains='abc' or name='abc' or name__ne='something').
+  * These have been added to AdvancedHTMLParser.AdvancedHTMLParser (as
+  filter/filterAnd and filterOr) to work on all nodes in the parser
+  * These have been added to AdvancedTag (as filter/filterAnd and filterOr)
+  which work on the tag itself and all children (and their children, and so
+  on)
+  * These have been added to TagCollection (as filter/filterAnd and filterOr)
+  that work directly on the elements contained only
+  * Also, TagCollection has filterAll/filterAllAnd and filterAllOr that work
+  directly on the containing elements, and all children of those elements (and
+  their children)
+
+
 * 6.7.0 ??? ?? ????
 - Fix camel-case vs dash names when using style attributes (like so em.style.paddingTop translates to 'padding-top')
 -  Implement __repr__ on AdvancedTag
