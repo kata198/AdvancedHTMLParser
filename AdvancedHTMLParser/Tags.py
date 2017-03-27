@@ -381,6 +381,14 @@ class AdvancedTag(object):
         '''
         return self.getAttribute('value', '')
 
+    @property
+    def tabIndex(self):
+        ret = self.getAttribute('tabindex', -1)
+        try:
+            return int(ret)
+        except:
+            return -1
+
     def getAttribute(self, attrName, defaultValue=None):
         '''
             getAttribute - Gets an attribute on this tag. Be wary using this for classname, maybe use addClass/removeClass. Attribute names are all lowercase.
@@ -757,16 +765,6 @@ class AdvancedTag(object):
 
         for key in attributeKeysSelf:
 
-#            if key == 'class':
-#                # Class can be in any order and still be equal
-#                classNames1 = self.classNames[:]
-#                classNames2 = other.classNames[:]
-#                classNames1.sort()
-#                classNames2.sort()
-#
-#                if classNames1 != classNames2:
-#                    return False
-#
             if self.attributes.get(key) != other.attributes.get(key):
                 return False
 
