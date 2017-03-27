@@ -7,6 +7,7 @@
 
 import re
 import sys
+import uuid
 
 # Python 2/3 compatibility:
 try:
@@ -394,6 +395,29 @@ class AdvancedHTMLParser(HTMLParser):
         return False
 
     __contains__ = contains
+
+    def containsUid(self, uid):
+        '''
+            Check if #uid is found anywhere within this element tree
+
+            @param uid <uuid.UUID> - Uid
+
+            @return <bool> - If #uid is found within this tree
+        '''
+        for rootNode in self.getRootNodes():
+            if rootNode.containsUid(em):
+                return True
+
+        return False
+
+    def __contains__(self, other):
+        if isinstance(other, uuid.UUID):
+            return self.containsUid(other)
+        elif issubclass(other.__class__, AdvancedTag):
+            return self.contains(other)
+        else:
+            raise TypeError('Invalid operand, should be either a uuid.UUID object or an AdvancedTag')
+
 
     def filter(self, **kwargs):
         '''
