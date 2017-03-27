@@ -44,3 +44,26 @@ def addStartTag(contents, startTag):
         idx = 0
     return "%s\n%s\n%s" %(contents[:idx], startTag, contents[idx:])
 
+
+def escapeQuote(value):
+    '''
+        escapeQuote - Escape quotes within a value (replaces " with &quot;)
+
+        @param value <str>
+
+        @return <str> - Escaped value
+    '''
+    return value.replace('"', '&quot;')
+
+
+def unescapeQuote(value):
+    '''
+        unescapeQuote - Unescapes quotes within a value (replaces &quot; with ")
+
+        @param value <str>
+
+        @return <str> - Escaped value
+    '''
+    return value.replace('&quot;', '"')
+
+
