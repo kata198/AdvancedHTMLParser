@@ -10,6 +10,8 @@ import copy
 from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES, COMMON_JAVASCRIPT_ATTRIBUTES, ALL_JAVASCRIPT_EVENT_ATTRIBUTES, TAG_ITEM_BINARY_ATTRIBUTES, TAG_ITEM_ATTRIBUTE_LINKS, TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES, TAG_ITEM_CHANGE_NAME_FROM_ATTR, TAG_ITEM_CHANGE_NAME_FROM_ITEM
 from .SpecialAttributes import SpecialAttributesDict, StyleAttribute
 
+from .utils import escapeQuotes
+
 
 def uniqueTags(tagList):
     '''
@@ -483,7 +485,7 @@ class AdvancedTag(object):
         attributeString = []
         for name, val in self._attributes.items():
             if val:
-                val = val.replace('"', '\\"')
+                val = escapeQuotes(val)
                 attributeString.append('%s="%s"' %(name, val) )
             else:
                 attributeString.append(name)

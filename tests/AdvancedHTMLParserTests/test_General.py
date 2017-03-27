@@ -169,7 +169,14 @@ class TestGeneral(object):
 
         assert len(results) == 2 , 'Expected two results'
 
-        assert results[0].tagName == 'img' and results[1].tagName == 'img' , 'Expected to get two images'   
+        assert results[0].tagName == 'img' and results[1].tagName == 'img' , 'Expected to get two images'
+
+    def test_escapeQuotes(self):
+        tag = AdvancedHTMLParser.AdvancedTag('div')
+
+        tag.setAttribute('onclick', 'alert("hi");')
+
+        assert 'onclick="alert(&quot;hi&quot;);"' in tag.outerHTML , 'Expected to escape quotes in attribute. Got: %s' %(tag.outerHTML, )
 
 
 if __name__ == '__main__':
