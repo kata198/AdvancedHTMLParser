@@ -873,6 +873,11 @@ class AdvancedTag(object):
             return False
         return self.uid == other.uid
 
+    '''
+        isEqualNode - Compares the internal ID of a node (same as == operator). A node will only equal itself.
+    '''
+    isEqualNode = __eq__
+
     def __ne__(self, other):
         '''
             __ne__ - Test if this and other are NOT THE SAME TAG. Note
