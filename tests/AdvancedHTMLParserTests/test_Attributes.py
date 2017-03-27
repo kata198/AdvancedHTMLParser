@@ -188,7 +188,7 @@ class TestAttributes(object):
 
     def test_specialAttributesInHTML(self):
         tag = AdvancedTag('div')
-        tag.attributes['style'] = 'position: absolute; color: purple'
+        tag._attributes['style'] = 'position: absolute; color: purple'
 
         outerHTML = tag.outerHTML
 
@@ -223,7 +223,7 @@ class TestAttributes(object):
         parser.parseStr('<input id="thebox" type="checkbox" checked />')
 
         tag = parser.getElementById('thebox')
-        assert 'checked' in tag.attributes
+        assert tag.hasAttribute('checked')
         assert 'checked' in tag.outerHTML
 
     def test_valueMethod(self):

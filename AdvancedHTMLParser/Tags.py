@@ -47,7 +47,7 @@ class AdvancedTag(object):
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
             isSelfClosing = True
 
-        self.attributes = SpecialAttributesDict(self)
+        self._attributes = SpecialAttributesDict(self)
         self.text = ''
         self.blocks = ['']
         self.classNames = []
@@ -59,7 +59,7 @@ class AdvancedTag(object):
         if attrList is not None:
             for key, value in attrList:
                 key = key.lower()
-                self.attributes[key] = value
+                self._attributes[key] = value
 
         self.children = []
 
@@ -302,11 +302,11 @@ class AdvancedTag(object):
 
     @property
     def name(self):
-        return self.attributes.get('name', '')
+        return self._attributes.get('name', '')
 
     @property
     def id(self):
-        return self.attributes.get('id', '')
+        return self._attributes.get('id', '')
 
     def getUid(self):
         return self.uid
@@ -326,7 +326,7 @@ class AdvancedTag(object):
             @return - String of start tag with attributes
         '''
         attributeString = []
-        for name, val in self.attributes.items():
+        for name, val in self._attributes.items():
             if val:
                 val = val.replace('"', '\\"')
                 attributeString.append('%s="%s"' %(name, val) )
@@ -405,7 +405,7 @@ class AdvancedTag(object):
             getAttribute - Gets an attribute on this tag. Be wary using this for classname, maybe use addClass/removeClass. Attribute names are all lowercase.
                 @return - The attribute value, or None if none exists.
            '''
-        return self.attributes.get(attrName, defaultValue)
+        return self._attributes.get(attrName, defaultValue)
 
     def getAttributesList(self):
         '''
@@ -418,7 +418,7 @@ class AdvancedTag(object):
 
                 This is suitable for passing back into AdvancedTag when creating a new tag.
         '''
-        return [ (str(name)[:], str(value)[:]) for name, value in self.attributes.items() ]
+        return [ (str(name)[:], str(value)[:]) for name, value in self._attributes.items() ]
 
     def getAttributesDict(self):
         '''
@@ -430,7 +430,7 @@ class AdvancedTag(object):
               @return <dict ( str(name), str(value) )> - A dict of attrName to attrValue , all as strings and copies.
         '''
             
-        return { str(name)[:] : str(value)[:] for name, value in self.attributes.items() }
+        return { str(name)[:] : str(value)[:] for name, value in self._attributes.items() }
 
     def setAttribute(self, attrName, attrValue):
         '''
@@ -439,7 +439,7 @@ class AdvancedTag(object):
             @param attrName <str> - The name of the attribute
             @param attrValue <str> - The value of the attribute
         '''
-        self.attributes[attrName] = attrValue
+        self._attributes[attrName] = attrValue
 
     def setAttributes(self, attributesDict):
         '''
@@ -447,7 +447,7 @@ class AdvancedTag(object):
 
             @param  attributesDict - <str:str> - New attribute names -> values
         '''
-        self.attributes.update(attributesDict)
+        self._attributes.update(attributesDict)
 
     def hasAttribute(self, attrName):
         '''
@@ -458,7 +458,7 @@ class AdvancedTag(object):
                 @return <bool> - True or False if attribute exists by that name
         '''
         attrName = attrName.lower()
-        return bool(attrName in self.attributes)
+        return bool(attrName in self._attributes)
 
     def removeAttribute(self, attrName):
         '''
@@ -469,7 +469,7 @@ class AdvancedTag(object):
         '''
         attrName = attrName.lower()
         try:
-            del self.attributes[attrName]
+            del self._attributes[attrName]
         except KeyError:
             pass
 
@@ -489,7 +489,7 @@ class AdvancedTag(object):
             return
         self.classNames.append(className)
         self.className = ' '.join(self.classNames)
-        self.attributes._direct_set('class', self.className)
+        self._attributes._direct_set('class', self.className)
 
         return None
 
@@ -500,7 +500,7 @@ class AdvancedTag(object):
         if className in self.classNames:
             self.classNames.remove(className)
             self.className = ' '.join(self.classNames)
-            self.attributes._direct_set('class', self.className)
+            self._attributes._direct_set('class', self.className)
             return className
 
         return None
@@ -765,8 +765,8 @@ class AdvancedTag(object):
             if self.tagName != other.tagName:
                 return False
 
-            attributeKeysSelf = list(self.attributes.keys())
-            attributeKeysOther = list(other.attributes.keys())
+            attributeKeysSelf = list(self._attributes.keys())
+            attributeKeysOther = list(other._attributes.keys())
         except:
             return False
 
@@ -776,7 +776,7 @@ class AdvancedTag(object):
 
         for key in attributeKeysSelf:
 
-            if self.attributes.get(key) != other.attributes.get(key):
+            if self._attributes.get(key) != other._attributes.get(key):
                 return False
 
         return True
