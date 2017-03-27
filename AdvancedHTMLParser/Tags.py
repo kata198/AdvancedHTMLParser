@@ -247,6 +247,17 @@ class AdvancedTag(object):
 
         return ret
 
+    def getAllNodes(self):
+        '''
+            getAllNodes - Returns this node, all children, and all their children and so on till the end
+
+            @return TagCollection<AdvancedTag>
+        '''
+        ret = TagCollection([self])
+        ret += self.getAllChildNodes()
+
+        return ret
+
     def getPeers(self):
         '''
             getPeers - Get elements who share a parent with this element
@@ -790,7 +801,7 @@ class AdvancedTag(object):
         if canFilterTags is False:
             raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
 
-        allNodes = self.getAllChildNodes() + [self]
+        allNodes = self.getAllNodes()
 
         filterableNodes = FilterableTagCollection(allNodes)
 
@@ -817,7 +828,7 @@ class AdvancedTag(object):
         if canFilterTags is False:
             raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
 
-        allNodes = self.getAllNodes() + [self]
+        allNodes = self.getAllNodes()
 
         filterableNodes = FilterableTagCollection(allNodes)
 
