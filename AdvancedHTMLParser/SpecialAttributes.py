@@ -10,6 +10,7 @@ class SpecialAttributesDict(dict):
     '''
         SpecialAttributesDict - A dictionary that supports the various special members, to allow javascript-like syntax
     '''
+
     # A dict that supports returning special members
     def __init__(self, tag):
         dict.__init__(self)
@@ -18,8 +19,8 @@ class SpecialAttributesDict(dict):
     def __getitem__(self, key):
         if key == 'style':
             return self.tag.style
-        elif key in {'class', 'className'}:
-            return self.tag.className
+        elif key == 'class':
+            return dict.get(self, 'class', '')
 
         try:
             return dict.__getitem__(self, key)
@@ -27,7 +28,7 @@ class SpecialAttributesDict(dict):
             return None #  TODO: support undefined?
 
     def get(self, key, default=None):
-        if key in {'style', 'class', 'className'} or key in self.keys():
+        if key in {'style', 'class'} or key in self.keys():
             return self[key]
         return default
 
@@ -38,8 +39,9 @@ class SpecialAttributesDict(dict):
     def __setitem__(self, key, value):
         if key == 'style':
             self.tag.style = StyleAttribute(value)
-        elif key in {'class', 'className'}:
-            self.tag.className = value
+        elif key == 'class':
+
+            # Ensure when we update the "class" attribute, that we update the list as well.
             self.tag.classNames = [x for x in value.split(' ') if x]
             dict.__setitem__(self, 'class',  value)
             return value
@@ -293,5 +295,6 @@ class StyleAttribute(object):
 
     def __deepcopy__(self, memo):
         return self.__class__(self._asStr())
+
 
 #vim: set ts=4 sw=4 expandtab :

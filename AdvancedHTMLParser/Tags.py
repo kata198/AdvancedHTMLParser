@@ -10,6 +10,20 @@ import copy
 from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS
 from .SpecialAttributes import SpecialAttributesDict, StyleAttribute
 
+TAG_ITEM_ATTRIBUTE_LINKS = { 'id', 'name', 'title', 'dir', 'align', 'tabIndex', 'value', 'className' }
+
+TAG_ITEM_CHANGE_NAME_FROM_ITEM = {
+    'tabIndex' : 'tabindex',
+    'className' : 'class',
+}
+
+TAG_ITEM_CHANGE_NAME_FROM_ATTR = { val : key for key, val in TAG_ITEM_CHANGE_NAME_FROM_ITEM.items() }
+
+TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
+    'tabIndex' : lambda em : _attr_value_int_or_negative_one_if_unset(em.getAttribute('tabindex', None))
+}
+
+
 def uniqueTags(tagList):
     '''
         uniqueTags - Returns the unique tags in tagList.
@@ -51,7 +65,6 @@ class AdvancedTag(object):
         self.text = ''
         self.blocks = ['']
         self.classNames = []
-        self.className = ''
         self.style = StyleAttribute('')
 
         self.isSelfClosing = isSelfClosing
@@ -69,12 +82,35 @@ class AdvancedTag(object):
         self.indent = ''
 
     def __setattr__(self, name, value):
+
+        # Check if this is one of the special (old) items which map directly to attributes
+        if name in TAG_ITEM_ATTRIBUTE_LINKS:
+            if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
+                name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
+            self.setAttribute(name, str(value))
+            return
+
         if name == 'style' and not isinstance(value, StyleAttribute):
             value = StyleAttribute(value)
+
         try:
             return object.__setattr__(self, name,  value)
         except AttributeError:
             raise AttributeError('Cannot set property %s. Use setAttribute?' %(name,))
+
+    def __getattribute__(self, name):
+        
+        if name in TAG_ITEM_ATTRIBUTE_LINKS:
+            if name in TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES:
+                return TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES[name](self)
+
+            if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
+                name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
+
+            return self.getAttribute(name, '')
+
+        return object.__getattribute__(self, name)
+
 
     def cloneNode(self):
         '''
@@ -411,14 +447,6 @@ class AdvancedTag(object):
         '''
         return self.classNames
 
-    @property
-    def name(self):
-        return self._attributes.get('name', '')
-
-    @property
-    def id(self):
-        return self._attributes.get('id', '')
-
     def getUid(self):
         return self.uid
 
@@ -495,21 +523,6 @@ class AdvancedTag(object):
             @return - String of start tag, innerHTML, and end tag
         '''
         return self.getStartTag() + self.innerHTML + self.getEndTag()
-
-    @property
-    def value(self):
-        '''
-            value - The "value" attribute of this element
-        '''
-        return self.getAttribute('value', '')
-
-    @property
-    def tabIndex(self):
-        ret = self.getAttribute('tabindex', -1)
-        try:
-            return int(ret)
-        except:
-            return -1
 
     def getAttribute(self, attrName, defaultValue=None):
         '''
@@ -1456,6 +1469,16 @@ except ImportError:
             raise ImportError('QueryableList is not installed, you cannot use tag filters. Please install QueryableList or use one of the getElement* methods.')
 
     canFilterTags = False
+
+
+def _attr_value_int_or_negative_one_if_unset(val):
+    if val in (None, ''):
+        return -1
+    try:
+        return int(val)
+    except:
+        return -1
+
 
 
 # Uncomment this line to display the HTML in lists
