@@ -911,7 +911,7 @@ class TagCollection(list):
         list.__init__(self)
         self.uids = set()
         if values is not None:
-            self.__add__(values)
+            self.__iadd__(values)
 
     @staticmethod
     def _subset(ret, cmpFunc, tag):
@@ -925,14 +925,31 @@ class TagCollection(list):
 
     def __add__(self, others):
         # Maybe this can be optimized by changing self.uids to a dictionary, and using appending the set difference
+        ret = TagCollection(self[:])
+        for other in others:
+            if self._hasTag(other) is False:
+                ret.append(other)
+        return ret
+
+    def __iadd__(self, others):
         for other in others:
             if self._hasTag(other) is False:
                 self.append(other)
 
+
     def __sub__(self, others):
+        ret = TagCollection(self[:])
+
+        for other in others:
+            if self._hasTag(other) is True:
+                ret.remove(other)
+        return ret
+
+    def __isub__(self, others):
         for other in others:
             if self._hasTag(other) is True:
                 self.remove(other)
+            
 
     def _hasTag(self, tag):
         return tag.uid in self.uids
