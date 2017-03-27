@@ -12,11 +12,34 @@ from .SpecialAttributes import SpecialAttributesDict, StyleAttribute
 
 
 TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = { 
-    'input' : ('checked', ) 
+    'input' : {'checked', 'onsearch', 'onchange', 'oncontextmenu', 'oninput', 'oninvalid', 'onreset', 'onselect'},
+    'body'  : {'onafterprint', 'onbeforeprint', 'onbeforeunload', 'onerror', 'onhashchange', 'onload', 'onmessage', \
+                'onoffline', 'ononline', 'onpagehide', 'onpageshow', 'onpopstate', 'onresize', 'onstorage', 'onunload'},
+    'form'  : {'onblur', 'onchange', 'oncontextmenu', 'onfocus', 'oninput', 'oninvalid', 'onreset', 'onsearch', 'onselect', 'onsubmit'},
+    'menu'  : {'onshow', },
+    'details' : {'ontoggle', },
 }
+
+for otherInputName in ('button', 'select', 'option'):
+    TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES['button'] = TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES['input']
+
+TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES['submit'] = TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES['input'].union('onsubmit')
+
+COMMON_JAVASCRIPT_ATTRIBUTES = { 'onkeydown', 'onkeyup', 'onkeypress', 'onfocus', 'onblur', 'onselect', 'oncontextmenu', \
+                                    'onclick', 'ondblclick', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover', \
+                                    'onmouseup', 'onmousewheel', 'onwheel', 'oncopy', 'onpaste', 'oncut', \
+                                    'ondrag', 'ondragend', 'ondragenter', 'ondragleave', 'ondragover', 'ondragstop', 'ondrop', 'onscroll',
+                                    'onchange', 
+}
+
+ALL_JAVASCRIPT_EVENT_ATTRIBUTES = COMMON_JAVASCRIPT_ATTRIBUTES.union( 
+    set([value for values in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.values() for value in values if value.startswith('on')]) 
+)
 
 TAG_ITEM_ATTRIBUTE_LINKS = { 'id', 'name', 'title', 'dir', 'align', 'tabIndex', 'value', 'className', 
     'hidden', }
+
+TAG_ITEM_ATTRIBUTE_LINKS.update(COMMON_JAVASCRIPT_ATTRIBUTES)
 
 TAG_ITEM_CHANGE_NAME_FROM_ITEM = {
     'tabIndex' : 'tabindex',
@@ -135,7 +158,12 @@ class AdvancedTag(object):
 
                 return False
 
-            return self.getAttribute(name, '')
+            if name in ALL_JAVASCRIPT_EVENT_ATTRIBUTES:
+                default = None
+            else:
+                default = ''
+
+            return self.getAttribute(name, default)
 
         try:
             return object.__getattribute__(self, name)
