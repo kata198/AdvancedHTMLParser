@@ -10,12 +10,20 @@ import copy
 from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS
 from .SpecialAttributes import SpecialAttributesDict, StyleAttribute
 
-TAG_ITEM_ATTRIBUTE_LINKS = { 'id', 'name', 'title', 'dir', 'align', 'tabIndex', 'value', 'className' }
+
+TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = { 
+    'input' : ('checked', ) 
+}
+
+TAG_ITEM_ATTRIBUTE_LINKS = { 'id', 'name', 'title', 'dir', 'align', 'tabIndex', 'value', 'className', 
+    'hidden', }
 
 TAG_ITEM_CHANGE_NAME_FROM_ITEM = {
     'tabIndex' : 'tabindex',
     'className' : 'class',
 }
+
+TAG_ITEM_BINARY_ATTRIBUTES = { 'hidden', 'checked' }
 
 TAG_ITEM_CHANGE_NAME_FROM_ATTR = { val : key for key, val in TAG_ITEM_CHANGE_NAME_FROM_ITEM.items() }
 
@@ -79,16 +87,27 @@ class AdvancedTag(object):
         self.parentNode = None
         self.uid = uuid.uuid4()
 
-        self.indent = ''
+        self._indent = ''
 
     def __setattr__(self, name, value):
 
+        if name == 'tagName':
+            # Anything we access within this function must go first
+            return object.__setattr__(self, 'tagName', value)
+
         # Check if this is one of the special (old) items which map directly to attributes
-        if name in TAG_ITEM_ATTRIBUTE_LINKS:
+        if name in TAG_ITEM_ATTRIBUTE_LINKS or name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
             if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
                 name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
+            elif name in TAG_ITEM_BINARY_ATTRIBUTES:
+                if bool(value) is False:
+                    self.removeAttribute(name)
+                else:
+                    self.setAttribute(name, "")
+                return value
+
             self.setAttribute(name, str(value))
-            return
+            return value
 
         if name == 'style' and not isinstance(value, StyleAttribute):
             value = StyleAttribute(value)
@@ -99,17 +118,30 @@ class AdvancedTag(object):
             raise AttributeError('Cannot set property %s. Use setAttribute?' %(name,))
 
     def __getattribute__(self, name):
+
+        if name == 'tagName':
+            return object.__getattribute__(self, 'tagName')
         
-        if name in TAG_ITEM_ATTRIBUTE_LINKS:
+        if name in TAG_ITEM_ATTRIBUTE_LINKS or name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
             if name in TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES:
                 return TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES[name](self)
 
             if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
                 name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
+            elif name in TAG_ITEM_BINARY_ATTRIBUTES:
+                val = self.getAttribute(name, False)
+                if val is not False:
+                    return True
+
+                return False
 
             return self.getAttribute(name, '')
 
-        return object.__getattribute__(self, name)
+        try:
+            return object.__getattribute__(self, name)
+        except AttributeError:
+            # Ensure any access that is a "miss" returns None (null/undefined)
+            return None
 
 
     def cloneNode(self):
@@ -478,9 +510,9 @@ class AdvancedTag(object):
             attributeString = ''
 
         if self.isSelfClosing is False:
-            return "%s<%s%s >" %(self.indent, self.tagName, attributeString)
+            return "%s<%s%s >" %(self._indent, self.tagName, attributeString)
         else:
-            return "%s<%s%s />" %(self.indent, self.tagName, attributeString)
+            return "%s<%s%s />" %(self._indent, self.tagName, attributeString)
     
     def getEndTag(self):
         '''
@@ -492,10 +524,10 @@ class AdvancedTag(object):
             return ''
 
         # Do not add any indentation to the end of preformatted tags.
-        if self.indent and self.tagName in PREFORMATTED_TAGS:
+        if self._indent and self.tagName in PREFORMATTED_TAGS:
             return "</%s>" %(self.tagName)
 
-        return "%s</%s>" %(self.indent, self.tagName)
+        return "%s</%s>" %(self._indent, self.tagName)
 
     @property
     def innerHTML(self):

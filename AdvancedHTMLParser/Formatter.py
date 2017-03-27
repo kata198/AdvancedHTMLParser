@@ -167,7 +167,7 @@ class AdvancedHTMLFormatter(HTMLParser):
             raise MultipleRootNodeException()
 
         if self.inPreformatted is 0:
-            newTag.indent = self._getIndent()
+            newTag._indent = self._getIndent()
 
         if tagName in PREFORMATTED_TAGS:
             self.inPreformatted += 1
