@@ -90,7 +90,7 @@ class TestBuilding(object):
 
         assert childIds == ['item1', 'item2', 'item2point5', 'item3'] , 'Expected items to be ordered. Got: %s' %(str(childIds,))
 
-    def test_remove(self):
+    def test_removeAndContains(self):
         parser = AdvancedHTMLParser()
 
         parser.parseStr("""<div id='outer'> <div id='items'> <div name="item" id="item1" >item1 <span id="subItem1">Sub item</span></div> <div name="item" id="item2" >item2</div> </div> </div>""")
@@ -98,10 +98,19 @@ class TestBuilding(object):
 
         itemsEm = parser.getElementById('items')
         item1Em = parser.getElementById('item1')
+        subItem1 = parser.getElementById('subItem1')
 
         assert itemsEm.hasChild(item1Em) is True, 'Expected itemsEm to have item1Em as a child.'
 
         assert parser.getElementById('subItem1') is not None, 'Expected to find id=subItem1'
+
+        assert itemsEm.contains(item1Em) , 'Expected itemsEm to contain items1Em'
+        assert itemsEm.contains(subItem1) , 'Expected itemsEm to contain subItem1'
+
+        assert subItem1.uid in itemsEm.getAllNodeUids()
+
+        assert parser.contains(item1Em) , 'Expected parser to contain item1Em via contains'
+        assert item1Em in parser, 'Expected parser to contain item1Em via in operator'
 
         # Remove item1 from the tree
         item1Em.remove()
@@ -113,6 +122,15 @@ class TestBuilding(object):
         assert parser.getElementById('subItem1') is None, 'Expected to not be able to find sub item of id=item1, id=subItem1 after remove.'
 
         assert item1Em.parentNode is None , 'Expected parentNode on item1Em to be None after remove.'
+
+        assert not itemsEm.contains(item1Em) , 'Expected itemsEm to not contain items1Em'
+        assert not itemsEm.containsUid(item1Em.uid) , 'Expected itemsEm to not contain items1Em'
+        assert not itemsEm.contains(subItem1) , 'Expected itemsEm to not contain subItem1'
+
+        assert subItem1.uid not in itemsEm.getAllNodeUids()
+
+        assert not parser.contains(item1Em) , 'Expected parser to not contain item1Em via contains'
+        assert item1Em not in parser, 'Expected parser to not contain item1Em via in operator'
 
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()

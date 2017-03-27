@@ -274,6 +274,33 @@ class AdvancedTag(object):
         '''
         return bool(len(self.children) != 0)
 
+    def contains(self, other):
+        '''
+            contains - Check if a provided tag appears anywhere as a sub to this node, or is this node itself.
+
+                @param other <AdvancedTag> - Tag to check
+
+            @return <bool> - True if #other appears anywhere beneath or is this tag, otherwise False
+        '''
+        return self.containsUid(other.uid)
+
+    def containsUid(self, uid):
+        '''
+            containsUid - Check if the uid (unique internal ID) appears anywhere as a sub to this node, or the node itself.
+
+                @param uid <uuid.UUID> - uuid to check
+
+            @return <bool> - True if #uid is this node's uid, or is the uid of any children at any level down
+        '''
+        if self.uid == uid:
+            return True
+
+        for child in self.children:
+            if child.containsUid(uid):
+                return True
+
+        return False
+
     def getAllChildNodes(self):
         '''
             getAllChildNodes - Gets all the children, and their children, 
@@ -301,6 +328,37 @@ class AdvancedTag(object):
         ret += self.getAllChildNodes()
 
         return ret
+
+
+    def getAllChildNodeUids(self):
+        '''
+            getAllChildNodeUids - Returns all the unique internal IDs for all children, and there children, 
+              so on and so forth until the end.
+
+              For performing "contains node" kind of logic, this is more efficent than copying the entire nodeset
+
+            @return set<uuid.UUID> A set of uuid objects
+        '''
+        ret = set()
+
+        for child in self.children:
+            ret.add(child.uid)
+            ret.update(child.getAllChildNodeUids())
+
+        return ret
+
+    def getAllNodeUids(self):
+        '''
+            getAllNodeUids - Returns all the unique internal IDs from getAllChildNodeUids, but also includes this tag's uid
+
+            @return set<uuid.UUID> A set of uuid objects
+        '''
+        ret = { self.uid }
+
+        ret.update(self.getAllChildNodeUids())
+
+        return ret
+
 
     def getPeers(self):
         '''
@@ -1200,6 +1258,54 @@ class TagCollection(list):
             ret += tag.getAllChildNodes()
 
         return ret
+
+    def getAllNodeUids(self):
+        '''
+            getAllNodeUids - Gets all the internal uids of all nodes, their children, and all their children so on..
+
+              @return set<uuid.UUID>
+        '''
+        ret = set()
+
+        for child in self:
+            ret.update(child.getAllNodeUids())
+
+        return ret
+
+    def contains(self, em):
+        '''
+            contains - Check if #em occurs within any of the elements within this list, as themselves or as a child, any
+               number of levels down.
+
+               To check if JUST an element is contained within this list directly, use the "in" operator.
+            
+            @param em <AdvancedTag> - Element of interest
+
+            @return <bool> - True if contained, otherwise False
+        '''
+
+        for node in self:
+            if node.contains(em):
+                return True
+
+        return False
+
+    def containsUid(self, uid):
+        '''
+            containsUid - Check if #uid is the uid (unique internal identifier) of any of the elements within this list,
+              as themselves or as a child, any number of levels down.
+
+           
+            @param uid <uuid.UUID> - uuid of interest
+
+            @return <bool> - True if contained, otherwise False
+        '''
+        for node in self:
+            if node.containsUid(uid):
+                return True
+
+        return False
+
 
     def filterAll(self, **kwargs):
         '''
