@@ -183,7 +183,7 @@ class TestAttributes(object):
         styleValue = styleValue.strip()
         assert styleValue == 'position: absolute' , 'Expected position: absolute, got %s' %(str(tag.getAttribute('style')),)
 
-        tag.setAttribute('className', 'one two')
+        tag.className = 'one two'
         assert str(tag.className).strip() == 'one two' , 'Expected classname to be "one two", got %s' %(repr(str(tag.className).strip()),)
 
     def test_specialAttributesInHTML(self):
@@ -240,6 +240,27 @@ class TestAttributes(object):
         tag = parser.getElementById('item')
         assert tag.getAttribute('type', 'bloogity') == 'text'
         assert tag.getAttribute('woogity', 'snoogity') == 'snoogity'
+
+
+    def test_setAttributesOnItem(self):
+        tag = AdvancedTag('div')
+
+        tag.id = 'hello'
+
+
+        assert tag.id == 'hello' , 'Expected to be able to set special attribute "id" and have it show up as both attribute and on item'
+        assert tag.getAttribute('id', '') == 'hello' , 'Expected to be able to set special attribute "id" and have it show up as both attribute and on item'
+
+        tag.name = 'cheese'
+
+        assert tag.name == 'cheese' , 'Expected to be able to set special attribute "name" and have it show up as both attribute and on item'
+        assert tag.getAttribute('name', '') == 'cheese' , 'Expected to be able to set special attribute "name" and have it show up as both attribute and on item'
+
+        assert tag.tabIndex == -1 , 'Expected default tab index (unset) to be -1'
+
+        tag.tabIndex = 5
+
+        assert 'tabindex="5"' in tag.outerHTML , 'Expected setting the tabIndex to set tabindex attribute on html'
 
 
 if __name__ == '__main__':
