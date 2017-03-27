@@ -76,6 +76,15 @@ class AdvancedTag(object):
         except AttributeError:
             raise AttributeError('Cannot set property %s. Use setAttribute?' %(name,))
 
+    def cloneNode(self):
+        '''
+            cloneNode - Clone this node (tag name and attributes). Does not clone children.
+
+            Tags will be equal according to isTagEqual method, but will contain a different internal
+            unique id such tag origTag != origTag.cloneNode() , as is the case in JS DOM.
+        '''
+        return self.__class__(self.tagName, self.getAttributesList(), self.isSelfClosing)
+
     def appendText(self, text):
         '''
             appendText - append some inner text
@@ -285,6 +294,15 @@ class AdvancedTag(object):
             @return - TagCollection of child nodes
         '''
         return TagCollection(self.children)
+
+    @property
+    def childElementCount(self):
+        '''
+            childElementCount - Returns the number of direct children to this node
+
+            @return <int> - The number of direct children to this node
+        '''
+        return len(self.children)
 
     @property
     def parentElement(self):

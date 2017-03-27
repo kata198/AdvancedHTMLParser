@@ -65,6 +65,8 @@ class TestBuilding(object):
 
         assert len(itemsEm.children) == 2 , 'Expected two children'
 
+        assert itemsEm.childElementCount == 2 , 'Expected childElementCount to equal 2'
+
         newItem =  AdvancedTag('div')
         newItem.setAttributes( {
             'name' : 'item',
