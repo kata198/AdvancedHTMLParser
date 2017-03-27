@@ -12,6 +12,37 @@ name__contains='abc' or name='abc' or name__ne='something').
   directly on the containing elements, and all children of those elements (and
   their children)
 
+- Support javascript-style assignment and access on a handful of tags (The older ones, name, id, align, etc).
+  You can now do things like:   myTag.name = 'hello'    to set the name, and    myTag.name   to access it 
+  (previously you had to use setAttribute and getAttribute)
+
+
+- Fix where "className" could get out of sync with "classList"/"classNames"
+- No longer treat "classname" and "class" as the same attribute, they are in fact distinct on the attribute dict, but
+  className maps to class on object-access
+
+- Support binary-style attribute set/access, (like for "hidden" property, or "checked")
+- Support attributes conditional on tag name, like "checked" on an input
+
+- Change so accessing an attribute on an AdvancedTag which is not set returns None (undefined/null), instead of raising an AttributeError
+
+- Implement "cloneNode" function from JS DOM
+- Fix TagCollection __add__ and __sub__ were working on the inline element. Moved these to __iadd__ and __isub__ (for += and -=)
+  and implemented add and subtract to work on copies
+- Add "isEqualNode" JS DOM method as equivilant to the '==' operator on AdvancedTag
+- Add "contains" JS DOM method to both AdvancedTag, TagCollection, and AdvancedHTMLParser
+- Implemented "in" operator on Parser to check if an element ( or uuid if passed) is contained
+
+- Implements "hasChild" method to see if an element is a direct child of another element
+- Implement "remove" method on an AdvancedTag, to remove it from the parent.
+
+- Some other minor DOM methods, (childElementCount)
+- Rename on AdvancedTag "attributes" to "_attributes" in preparation of implementing DOM-style named node map
+
+- Added some functions for accessing the whole of uids
+
+
+
 
 * 6.8.0 
 - Add "getAllChildNodes" to tags, which return all the children (and all their
