@@ -112,6 +112,22 @@ class AdvancedTag(object):
 
         self.text = ''.join([block for block in self.blocks if not isinstance(block, AdvancedTag)])
 
+    def remove(self):
+        '''
+            remove - Will remove this node from its parent, if it has a parent (thus taking it out of the HTML tree)
+
+                NOTE: If you are using an IndexedAdvancedHTMLParser, calling this will NOT update the index. You MUST call
+                  reindex method manually.
+
+            @return <bool> - While JS DOM defines no return for this function, this function will return True if a
+               remove did happen, or False if no parent was set.
+        '''
+        if self.parentNode:
+            self.parentNode.removeChild(self)
+            # self.parentNode will now be None by 'removeChild' method
+            return True
+        return False
+
     def appendChild(self, child):
         '''
             appendChild - Append a child to this element.
@@ -238,6 +254,25 @@ class AdvancedTag(object):
                 @return - TagCollection of the immediate children to this tag.
         '''
         return TagCollection(self.children)
+
+    def hasChild(self, child):
+        '''
+            hasChild - Returns if #child is a DIRECT child of this node.
+
+            @param child <AdvancedTag> - The tag to check
+
+            @return <bool> - If #child is a direct child of this node, True. Otherwise, False.
+        '''
+        return bool(child in self.children)
+
+    
+    def hasChildNodes(self):
+        '''
+            hasChildNodes - Checks if this node has any children.
+
+            @return <bool> - True if this child has any children, otherwise False.
+        '''
+        return bool(len(self.children) != 0)
 
     def getAllChildNodes(self):
         '''
