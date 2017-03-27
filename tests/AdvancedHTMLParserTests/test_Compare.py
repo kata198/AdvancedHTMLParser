@@ -170,6 +170,25 @@ class TestCompare(object):
 
         assert child1.isTagEqual(child1Copy) is False, "Expected same tag name same attribute names but different value to return isTagEqual as False"
 
+    def test_cloneNode(self):
+        parser = AdvancedHTMLParser()
+        parser.parseStr('''
+        <div id="hello"  class="classX classY" cheese="cheddar" > <span>Child</span><span>Other Child</span> </div>
+        ''')
+
+        helloEm = parser.getElementById('hello')
+
+        helloClone = helloEm.cloneNode()
+
+        for attributeName in ('id', 'class', 'cheese'):
+            helloEmValue = helloEm.getAttribute(attributeName, None)
+            helloCloneValue = helloClone.getAttribute(attributeName, None)
+            assert helloEmValue == helloCloneValue, 'Expected cloneNode to return an exact copy, got different %s. %s != %s' %(attributeName, repr(helloEmValue), repr(helloCloneValue))
+
+        assert helloEm.childElementCount == 2 , 'Expected original helloEm to retain two direct children'
+        assert helloClone.childElementCount == 0 , 'Expected clone to NOT copy children'
+
+
 
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
