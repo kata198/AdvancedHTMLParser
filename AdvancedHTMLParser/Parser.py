@@ -273,7 +273,7 @@ class AdvancedHTMLParser(HTMLParser):
             elements.append(root)
 
         for child in root.children:
-            if child.attributes.get('name') == name:
+            if child.getAttribute('name') == name:
                 elements.append(child)
             elements += self.getElementsByName(name, child)
 
@@ -292,7 +292,7 @@ class AdvancedHTMLParser(HTMLParser):
             return root
 
         for child in root.children:
-            if child.attributes.get('id') == _id:
+            if child.getAttribute('id') == _id:
                 return child
             potential = self.getElementById(_id, child)
             if potential is not None:
@@ -335,7 +335,7 @@ class AdvancedHTMLParser(HTMLParser):
             elements.append(root)
 
         for child in root.children:
-            if child.attributes.get(attrName) == attrValue:
+            if child.getAttribute(attrName) == attrValue:
                 elements.append(child)
             elements += self.getElementsByAttr(attrName, attrValue, child)
         return TagCollection(elements)
