@@ -8,7 +8,7 @@ import uuid
 import copy
 
 from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES, COMMON_JAVASCRIPT_ATTRIBUTES, ALL_JAVASCRIPT_EVENT_ATTRIBUTES, TAG_ITEM_BINARY_ATTRIBUTES, TAG_ITEM_ATTRIBUTE_LINKS, TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES, TAG_ITEM_CHANGE_NAME_FROM_ATTR, TAG_ITEM_CHANGE_NAME_FROM_ITEM
-from .SpecialAttributes import SpecialAttributesDict, StyleAttribute
+from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeNodeMap
 
 from .utils import escapeQuotes
 
@@ -251,6 +251,42 @@ class AdvancedTag(object):
             self.blocks = self.blocks[:blocksIdx+1] + [child] + self.blocks[blocksIdx+1:]
         except ValueError:
             raise ValueError('Provided "afterChild" is not a child of element, cannot insert.')
+
+
+    # Maybe we want to do a more full implementation of the Node stuff.... but I don't think anyone really
+    #   uses this stuff
+    @property
+    def nodeName(self):
+        '''
+            nodeName - Return the name of this name (tag name)
+        '''
+        return self.tagName
+
+    @property
+    def nodeValue(self):
+        '''
+            nodeValue - Return the value of this node (None)
+        '''
+        return None
+
+    @property
+    def nodeType(self):
+        '''
+            nodeType - Return the type of this node (1 - ELEMENT_NODE)
+        '''
+        return 1
+
+    @property
+    def attributes(self):
+        '''
+            attributes - Return a NamedNodeMap of the attributes on this object.
+
+              This is a horrible method and is not used in practice anywhere. Please use setAttribute, getAttribute, hasAttribute methods instead.
+        
+            @return AttributeNodeMap
+        '''
+        return AttributeNodeMap(self._attributes, self, ownerDocument=None)
+        
 
     @property
     def nextSibling(self):
