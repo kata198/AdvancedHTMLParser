@@ -729,54 +729,6 @@ class AdvancedHTMLParser(HTMLParser):
             self.feed(html)
 
 
-    def __eq__(self, other):
-        '''
-            __eq__ - Test if this and other are THE SAME TAG. 
-            
-            Note: this does NOT test if the tags have the same name, attributes, etc.
-                Use isTagEqual to test if a tag has the same data (other than children)
-
-            So for example:
-
-                tag1 = document.getElementById('something')
-                tag2 = copy.copy(tag1)
-
-                tag1 == tag2          # This is False
-                tag1.isTagEqual(tag2) # This is True
-        '''
-        if type(other) != type(self):
-            return False
-        return self.uid == other.uid
-
-    def __ne__(self, other):
-        '''
-            __ne__ - Test if this and other are NOT THE SAME TAG. Note
-
-            Note: this does NOT test if the tags have the same name, attributes, etc.
-                Use isTagEqual to test if a tag has the same data (other than children)
-
-            @see AdvancedTag.__eq__
-            @see AdvancedTag.isTagEqual
-        '''
-
-        if type(other) != type(self):
-            return True
-        return self.uid != other.uid
-
-
-    # Copy methods - Create exact copies (including copying uid)
-    def __copy__(self):
-        '''
-            __copy__ - Create a copy (except uid). This tag will NOT ==.
-
-               but is safe to add to the same tree as its original
-        '''
-        ret = self.__class__(self.tagName, self.getAttributesList(), self.isSelfClosing)
-
-        return ret
-
-
-
 class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     '''
         An AdvancedHTMLParser that indexes for much much faster searching. If you are doing searching/validation, this is your bet.
