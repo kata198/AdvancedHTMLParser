@@ -92,7 +92,7 @@ class AdvancedHTMLParser(HTMLParser):
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
             isSelfClosing = True
 
-        newTag = AdvancedTag(tagName, attributeList, isSelfClosing)
+        newTag = AdvancedTag(tagName, attributeList, isSelfClosing, ownerDocument=self)
         if self.root is None:
             self.root = newTag
         elif len(self.inTag) > 0:

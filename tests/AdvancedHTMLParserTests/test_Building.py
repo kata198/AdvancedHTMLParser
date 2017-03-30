@@ -90,6 +90,39 @@ class TestBuilding(object):
 
         assert childIds == ['item1', 'item2', 'item2point5', 'item3'] , 'Expected items to be ordered. Got: %s' %(str(childIds,))
 
+    def test_ownerDocument(self):
+        parser = AdvancedHTMLParser()
+
+        parser.parseStr("""<div id='outer'> <div id='items'> <div name="item" id="item1" >item1 <span id="subItem1">Sub item</span></div> <div name="item" id="item2" >item2</div> </div> </div>""")
+
+        outerEm = parser.getElementById('outer')
+
+        assert outerEm.ownerDocument == parser , 'Expected the ownerDocument to be set to parser'
+
+        for element in outerEm.getAllNodes():
+            assert element.ownerDocument == parser, 'Expected ownerDocument to be set on every element. Was not set on: %s' %(element.getStartTag(),)
+
+
+        clonedEm = outerEm.cloneNode()
+
+        assert clonedEm.parentNode is None , 'Expected cloned child to have no parent'
+        assert clonedEm.ownerDocument is None , 'Expected cloned child to have no owner document'
+
+        assert len(clonedEm.children) == 0 , 'Expected cloned element to have no children'
+
+        itemsEm = outerEm.removeChild(outerEm.children[0])
+
+        assert itemsEm , 'Expected removeChild to return removed element'
+
+        assert itemsEm.id == 'items' , 'Got wrong element, expected to remove "items", got: %s' %(itemsEm.getStartTag(),)
+
+        assert itemsEm.ownerDocument is None , 'Expected owner document to be set to None after element was removed.'
+
+        for subElement in itemsEm.getAllChildNodes():
+            assert subElement.ownerDocument is None, 'Expected owner document to be cleared on all children after removal from document'
+
+
+
     def test_removeAndContains(self):
         parser = AdvancedHTMLParser()
 
@@ -112,6 +145,8 @@ class TestBuilding(object):
         assert parser.contains(item1Em) , 'Expected parser to contain item1Em via contains'
         assert item1Em in parser, 'Expected parser to contain item1Em via in operator'
 
+        assert item1Em.ownerDocument == parser , 'Expected ownerDocument to be set prior to remove'
+
         # Remove item1 from the tree
         item1Em.remove()
 
@@ -131,6 +166,8 @@ class TestBuilding(object):
 
         assert not parser.contains(item1Em) , 'Expected parser to not contain item1Em via contains'
         assert item1Em not in parser, 'Expected parser to not contain item1Em via in operator'
+
+        assert item1Em.ownerDocument is None , 'Expected owner document to be unset upon removal'
 
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
