@@ -36,13 +36,14 @@ class AdvancedTag(object):
 
         Use the getters and setters instead of attributes directly, or you may lose accounting.
     '''
-    def __init__(self, tagName, attrList=None, isSelfClosing=False, uid=None):
+    def __init__(self, tagName, attrList=None, isSelfClosing=False, ownerDocument=None, uid=None):
         '''
             __init__ - Construct
 
                 @param tagName - String of tag name. This will be lowercased!
                 @param attrList - A list of tuples (key, value)
                 @param isSelfClosing - True if self-closing tag ( <tagName attrs /> ) will be set to False if text or children are added.
+                @param ownerDocument <None/AdvancedHTMLParser> - The parser (document) associated with this tag, or None for no association
         '''
                 
         self.tagName = tagName.lower()
@@ -66,6 +67,7 @@ class AdvancedTag(object):
         self.children = []
 
         self.parentNode = None
+        self.ownerDocument = ownerDocument
         self.uid = uuid.uuid4()
 
         self._indent = ''
@@ -190,6 +192,9 @@ class AdvancedTag(object):
         '''
     
         child.parentNode = self
+        child.ownerDocument = self.ownerDocument
+        for subChild in child.getAllChildNodes():
+            subChild.ownerDocument = self.ownerDocument
         self.isSelfClosing = False
         self.children.append(child)
         self.blocks.append(child)
@@ -208,6 +213,9 @@ class AdvancedTag(object):
             self.children.remove(child)
             self.blocks.remove(child)
             child.parentNode = None
+            child.ownerDocument = None
+            for subChild in child.getAllChildNodes():
+                subChild.ownerDocument = None
             return child
         except ValueError:
             return None
