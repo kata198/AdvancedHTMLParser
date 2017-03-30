@@ -401,7 +401,7 @@ class AdvancedTag(object):
 
         ret = TagCollection()
 
-        for child in self.getChildren():
+        for child in self.children:
             ret.append(child)
 
             ret += child.getAllChildNodes()
@@ -1118,6 +1118,8 @@ class TagCollection(list):
         for other in others:
             if self._hasTag(other) is False:
                 self.append(other)
+        return self
+
         return self
 
 
