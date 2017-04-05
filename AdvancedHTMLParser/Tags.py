@@ -1118,6 +1118,7 @@ class TagCollection(list):
         for other in others:
             if self._hasTag(other) is False:
                 self.append(other)
+        return self
 
 
     def __sub__(self, others):
@@ -1132,6 +1133,7 @@ class TagCollection(list):
         for other in others:
             if self._hasTag(other) is True:
                 self.remove(other)
+        return self
             
 
     def _hasTag(self, tag):
