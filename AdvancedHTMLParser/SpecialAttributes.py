@@ -7,7 +7,7 @@ import copy
 
 from collections import OrderedDict
 
-from utils import escapeQuotes
+from .utils import escapeQuotes
 
 
 class SpecialAttributesDict(dict):
