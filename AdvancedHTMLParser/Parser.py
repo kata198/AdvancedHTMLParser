@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2015, 2016 Tim Savannah under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+# Copyright (c) 2015, 2016, 2017 Tim Savannah under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #
 #   Parser implementation
 
@@ -32,6 +32,8 @@ import codecs
 
 from .utils import stripIEConditionals, addStartTag
 
+__all__ = ('AdvancedHTMLParser', 'IndexedAdvancedHTMLParser')
+
 class AdvancedHTMLParser(HTMLParser):
     '''
         AdvancedHTMLParser - This class parses and allows searching of  documents
@@ -39,7 +41,7 @@ class AdvancedHTMLParser(HTMLParser):
 
     def __init__(self, filename=None, encoding='utf-8'):
         '''
-            __init__ - Creates an Advanced HTML parser object. For read-only parsing, consider IndexedAdvancedHTMLPaser for faster searching.
+            __init__ - Creates an Advanced HTML parser object. For read-only parsing, consider IndexedAdvancedHTMLParser for faster searching.
 
                 @param filename <str>         - Optional filename to parse. Otherwise use parseFile or parseStr methods.
                 @param encoding <str>         - Specifies the document encoding. Default utf-8

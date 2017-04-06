@@ -12,6 +12,8 @@ from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeN
 
 from .utils import escapeQuotes
 
+__all__ = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection')
+
 
 def uniqueTags(tagList):
     '''
@@ -1496,6 +1498,9 @@ class TagCollection(list):
 
     def __repr__(self):
         return "%s(%s)" %(self.__class__.__name__, list.__repr__(self))
+
+
+global canFilterTags
 
 try:
     import QueryableList
