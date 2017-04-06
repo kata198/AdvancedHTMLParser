@@ -293,8 +293,8 @@ class AdvancedTag(object):
         
             @return AttributeNodeMap
         '''
-        return AttributeNodeMap(self._attributes, self, ownerDocument=None)
-        
+        return AttributeNodeMap(self._attributes, self, ownerDocument=self.ownerDocument)
+
 
     @property
     def nextSibling(self):

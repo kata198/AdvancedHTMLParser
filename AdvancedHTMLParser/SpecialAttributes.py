@@ -64,11 +64,8 @@ class AttributeNode(object):
         self.name = name
         self._value = value
         self.ownerElement = ownerElement
-        self.ownerDocument = None
+        self.ownerDocument = ownerDocument
 
-        # Set these after, because the above will become immutable.
-#        self.__setattr__ = self.X__setattr__
-#        self.__setitem__ = self.X__setattr__
 
     @property
     def specified(self):
@@ -139,7 +136,18 @@ class AttributeNode(object):
     def __repr__(self):
         return "%s(%s, %s, %s, %s)" %(self.__class__.__name__, repr(self.name), repr(self._value), repr(self.ownerElement), repr(self.ownerDocument))
 
-    
+    def __hash__(self):
+        return hash( "%d_%d_%d_%d" %(hash(self.name), hash(self._value), hash(self.ownerElement), hash(self.ownerDocument)) )
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+
+        return hash(self) == hash(other)
+
+    def __ne__(self, other):
+        return not self.__eq__(self, other)
+
 
 class AttributeNodeMap(object):
     '''
@@ -151,12 +159,13 @@ class AttributeNodeMap(object):
             You probably want to just use the normal getAttribute and setAttribute on nodes... that way makes sense.
              This way really doesn't make a whole lot of sense.
     '''
-    
+
 
     def __init__(self, attributesDict, ownerElement, ownerDocument=None):
-        self.__attributesDict = attributesDict
-        self.__ownerElement = ownerElement
-        self.__ownerDocument = ownerDocument
+
+        self._attributesDict = attributesDict
+        self._ownerElement = ownerElement
+        self._ownerDocument = ownerDocument
 
         self.__setitem__ = self.X__setitem__
         self.__setattr__ = self.X__setitem__
@@ -164,8 +173,8 @@ class AttributeNodeMap(object):
     def getNamedItem(self, name):
         name = name.lower()
 
-        if name in self.__attributesDict:
-            return AttributeNode(name, self.__attributesDict['name'], self.__ownerElement, self.__ownerDocument)
+        if name in self._attributesDict:
+            return AttributeNode(name, self._attributesDict[name], self._ownerElement, self._ownerDocument)
 
         return None
 
@@ -179,15 +188,15 @@ class AttributeNodeMap(object):
 
     def __getitem__(self, name):
         if isinstance(name, int):
-            return self.getNamedItem(self.__attributesDict.keys()[name])
+            return self.getNamedItem(self._attributesDict.keys()[name])
         
         return self.getNamedItem(name)
 
     def __iter__(self):
-        keys = list(self.__attributesDict.keys())
+        keys = list(self._attributesDict.keys())
 
         for key in keys:
-            if key in self.__attributesDict:
+            if key in self._attributesDict:
                 yield key
 
     item = getNamedItem
@@ -200,7 +209,7 @@ class AttributeNodeMap(object):
 
 
     def __str__(self):
-        return '[ %s ]' %(' '.join([str(self.getNamedItem(name)) for name in self.__attributesDict.keys()]))
+        return '[ %s ]' %(' '.join([str(self.getNamedItem(name)) for name in self._attributesDict.keys()]))
 
 
 
