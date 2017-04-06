@@ -1,6 +1,10 @@
-# Copyright (c) 2015 Tim Savannah  under terms of LGPLv3
+# Copyright (c) 2015, 2017 Tim Savannah  under terms of LGPLv3
+#  Some misc utils and regular expressions
 
 import re
+
+__all__ = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 
+    'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes')
 
 IE_CONDITIONAL_PATTERN = re.compile('[<][!][-][-][ \t\r\n]*[\[][ \t\r\n]*if.*-->', re.MULTILINE)
 
@@ -43,4 +47,27 @@ def addStartTag(contents, startTag):
     else:
         idx = 0
     return "%s\n%s\n%s" %(contents[:idx], startTag, contents[idx:])
+
+
+def escapeQuotes(value):
+    '''
+        escapeQuotes - Escape quotes within a value (replaces " with &quot;)
+
+        @param value <str>
+
+        @return <str> - Escaped value
+    '''
+    return value.replace('"', '&quot;')
+
+
+def unescapeQuotes(value):
+    '''
+        unescapeQuotes - Unescapes quotes within a value (replaces &quot; with ")
+
+        @param value <str>
+
+        @return <str> - Escaped value
+    '''
+    return value.replace('&quot;', '"')
+
 
