@@ -12,7 +12,7 @@ from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeN
 
 from .utils import escapeQuotes
 
-__all__ = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection')
+__all__ = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection', 'toggleAttributesDOM')
 
 
 def uniqueTags(tagList):
@@ -29,6 +29,25 @@ def uniqueTags(tagList):
             continue
         ret.append(tag)
     return TagCollection(ret) # Convert to a TagCollection here for performance reasons.
+
+def toggleAttributesDOM(isEnabled):
+    '''
+        toggleAttributesDOM - Toggle if the old DOM tag.attributes NamedNodeMap model should be used for the .attributes method, versus
+
+           a more sane direct dict implementation.
+
+            The DOM version is always accessable as AdvancedTag.attributesDOM
+            The dict version is always accessable as AdvancedTag.attributesDict
+
+            Default for AdvancedTag.attributes is to be attributesDict implementation.
+
+          @param isEnabled <bool> - If True, .attributes will be changed to use the DOM-provider. Otherwise, it will use the dict provider.
+    '''
+
+    if isEnabled:
+        AdvancedTag.attributes = AdvancedTag.attributesDOM
+    else:
+        AdvancedTag.attributes = AdvancedTag.attributesDict
 
 class AdvancedTag(object):
     '''
@@ -287,15 +306,36 @@ class AdvancedTag(object):
         return 1
 
     @property
-    def attributes(self):
+    def attributesDOM(self):
         '''
             attributes - Return a NamedNodeMap of the attributes on this object.
 
-              This is a horrible method and is not used in practice anywhere. Please use setAttribute, getAttribute, hasAttribute methods instead.
+              This is a horrible method and is not used in practice anywhere sane.
+              
+              Please use setAttribute, getAttribute, hasAttribute methods instead.
+
+              @see SpecialAttributes.NamedNodeMap
+
+              This is NOT the default provider of the "attributes" property. Can be toggled to use the DOM-matching version, see @toggleAttributesDOM
         
             @return AttributeNodeMap
         '''
         return AttributeNodeMap(self._attributes, self, ownerDocument=self.ownerDocument)
+
+    @property
+    def attributesDict(self):
+        '''
+            attributesDict - Returns the internal dict mapped to attributes on this object.
+
+              Modifications made here WILL affect this tag, use getAttributesDict to get a copy.
+
+              This is the default provider of the "attributes" property. Can be toggled to use the DOM-matching version, see @toggleAttributesDOM
+
+              @return <dict> - Internal attributes
+        '''
+        return self._attributes
+
+    attributes = attributesDict
 
 
     @property
@@ -1085,6 +1125,9 @@ class AdvancedTag(object):
 
         return ret
 
+    def __hash__(self):
+        return hash(self.uid)
+
 
 class TagCollection(list):
     '''
@@ -1498,6 +1541,7 @@ class TagCollection(list):
 
     def __repr__(self):
         return "%s(%s)" %(self.__class__.__name__, list.__repr__(self))
+
 
 
 global canFilterTags

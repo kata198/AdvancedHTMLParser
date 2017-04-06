@@ -280,7 +280,7 @@ class TestAttributes(object):
 
         assert someDivEm , 'Failed to get element by id="someDiv"'
 
-        attributes = someDivEm.attributes
+        attributes = someDivEm.attributesDOM
 
         assert attributes['id'].value == 'someDiv' , 'Expected attributes["id"].value to be equal to "someDiv"'
 
