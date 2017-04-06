@@ -1,4 +1,4 @@
-* 7.0.0 ??? ?? ????
+* 7.0.0 Apr 6 2017
 - Add "filter"-style functions (think ORM-style filtering, like
 name__contains='abc' or name='abc' or name__ne='something'). Supports all filter operations provided by QueryableList
   * These have been added to AdvancedHTMLParser.AdvancedHTMLParser (as
