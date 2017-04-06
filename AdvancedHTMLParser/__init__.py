@@ -10,9 +10,9 @@ from .Validator import ValidatingAdvancedHTMLParser
 from .exceptions import InvalidCloseException, MissedCloseException, HTMLValidationException
 from .SpecialAttributes import StyleAttribute
 
-__version__ = '6.7.0'
-__version_tuple__ = ('6', '7', '0')
-__int_version_tuple__ = (6, 7, 0)
+__version__ = '7.0.0'
+__version_tuple__ = ('7', '0', '0')
+__int_version_tuple__ = (7, 0, 0)
 
 __all__ = ( 'AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection',
     'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'StyleAttribute', 'toggleAttributesDOM' )
