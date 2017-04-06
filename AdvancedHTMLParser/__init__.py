@@ -14,7 +14,7 @@ __version__ = '6.7.0'
 __version_tuple__ = ('6', '7', '0')
 __int_version_tuple__ = (6, 7, 0)
 
-__all__ = ['AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection'
-    'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'StyleAttribute' ]
+__all__ = ( 'AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection',
+    'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'StyleAttribute' )
 
 #vim: set ts=4 sw=4 expandtab

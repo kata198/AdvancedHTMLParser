@@ -9,6 +9,8 @@ from collections import OrderedDict
 
 from .utils import escapeQuotes
 
+__all__ = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute' )
+
 
 class SpecialAttributesDict(dict):
     '''

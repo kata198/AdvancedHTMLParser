@@ -1,6 +1,10 @@
-# Copyright (c) 2015 Tim Savannah  under terms of LGPLv3
+# Copyright (c) 2015, 2017 Tim Savannah  under terms of LGPLv3
+#  Some misc utils and regular expressions
 
 import re
+
+__all__ = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 
+    'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes')
 
 IE_CONDITIONAL_PATTERN = re.compile('[<][!][-][-][ \t\r\n]*[\[][ \t\r\n]*if.*-->', re.MULTILINE)
 
