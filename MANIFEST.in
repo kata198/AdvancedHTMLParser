@@ -2,7 +2,7 @@ recursive-include doc *.html
 recursive-include tests runTests.py
 recursive-include tests/AdvancedHTMLParserTests *.py
 recursive-include AdvancedHTMLParser *.py .vimrc
-include Changelog
+include ChangeLog
 include example.py
 include indexed_example.py
 include README.md
