@@ -1,4 +1,4 @@
-# Copyright (c) 2015 Tim Savannah under LGPLv3. 
+# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3. 
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #   HTML formatting (HTML->XHTML conversion as well)
 
@@ -26,6 +26,8 @@ from .utils import addStartTag, stripIEConditionals
 
 import codecs
 
+
+__all__ = ('AdvancedHTMLFormatter', )
 
 class AdvancedHTMLFormatter(HTMLParser):
     '''
@@ -167,7 +169,7 @@ class AdvancedHTMLFormatter(HTMLParser):
             raise MultipleRootNodeException()
 
         if self.inPreformatted is 0:
-            newTag.indent = self._getIndent()
+            newTag._indent = self._getIndent()
 
         if tagName in PREFORMATTED_TAGS:
             self.inPreformatted += 1

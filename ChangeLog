@@ -1,3 +1,84 @@
+* 7.0.0 Apr 6 2017
+- Add "filter"-style functions (think ORM-style filtering, like
+name__contains='abc' or name='abc' or name__ne='something'). Supports all filter operations provided by QueryableList
+  * These have been added to AdvancedHTMLParser.AdvancedHTMLParser (as
+  filter/filterAnd and filterOr) to work on all nodes in the parser
+  * These have been added to AdvancedTag (as filter/filterAnd and filterOr)
+  which work on the tag itself and all children (and their children, and so
+  on)
+  * These have been added to TagCollection (as filter/filterAnd and filterOr)
+  that work directly on the elements contained only
+  * Also, TagCollection has filterAll/filterAllAnd and filterAllOr that work
+  directly on the containing elements, and all children of those elements (and
+  their children)
+
+ This adds QueryableList as a dependency, but setup.py can be passed "--no-deps" to skip that installation (and the filter methods will be unavailable)
+
+- Add "find" function on AdvancedHTMLParser, which supports a very very small subset of QueryableList (only equals, contains, and icontains) and can be used for "similar" functionality but without the QueryableList dependency, and only usable from the document level (AdvancedHTMLParser.AdvancedHTMLParser)
+
+- Support javascript-style assignment and access on a handful of tags (The older ones, name, id, align, etc).
+  You can now do things like:   myTag.name = 'hello'    to set the name, and    myTag.name   to access it 
+  (previously you had to use setAttribute and getAttribute for everything)
+  The names used here match what are used in HTML, and include the javascript events
+
+
+- Fix where "className" could get out of sync with "classList"/"classNames"
+- No longer treat "classname" and "class" as the same attribute, they are in fact distinct on the attribute dict, but
+  className maps to class on object-access
+
+- Support binary-style attribute set/access, (like for "hidden" property, or "checked")
+- Support attributes conditional on tag name, like "checked" on an input
+
+- Change so accessing an attribute on an AdvancedTag which is not set returns None (undefined/null), instead of raising an AttributeError
+
+- Implement "cloneNode" function from JS DOM
+- Fix TagCollection __add__ and __sub__ were working on the inline element. Moved these to __iadd__ and __isub__ (for += and -=)
+  and implemented add and subtract to work on copies
+- Add "isEqualNode" JS DOM method as equivilant to the '==' operator on AdvancedTag
+- Add "contains" JS DOM method to both AdvancedTag, TagCollection, and AdvancedHTMLParser
+- Implemented "in" operator on Parser to check if an element ( or uuid if passed) is contained
+
+- Implements "hasChild" method to see if an element is a direct child of another element
+- Implement "remove" method on an AdvancedTag, to remove it from the parent.
+
+- Some other minor DOM methods, (childElementCount)
+- Rename on AdvancedTag "attributes" to "_attributes" in preparation of implementing DOM-style named node map
+
+- Add ownerDocument to Tags which point to the document (parser), if associated with one
+
+- Added some functions for accessing the whole of uids
+
+- Proper quote-escaping within attribute values. \" isn't understood across the board, but &quot; is, so switch from former to latter.
+
+- Add DOM-style "attributes" to every AdvancedTag. This follows the horrible antiquated interface that DOM
+  uses for "attributes", created before getAttribute/setAttribute were standardized.
+  This is always available as .attributesDOM , and the dict impl always available as .attributesDict
+
+  By default, we will retain the "dict" impl, as the NamedNodeMap impl is deprecated.
+  There's a new function, toggleAttributesDOM which will change the global .attributes property to be the DOM (official) or Dict (sane and prior) impl.
+
+- Some minor cleanups, doc updates, test updates, etc
+
+
+* 6.8.0 
+- Add "getAllChildNodes" to tags, which return all the children (and all their
+children, on and so forth) of the given tag
+
+- Add "getAllNodes" to AdvancedHTMLParser.AdvancedHTMLParser - which gets the
+root nodes, all children of them, and all children all the way to the end
+
+- Add "getAllNodes" to TagCollection, which returns those nodes contained
+within, and all of their children (on and so forth)
+
+- Add "find" method to AdvancedHTMLParser.AdvancedHTMLParser, which supports filtering by attr=value style, supporting
+either single values or list of values (for ANY aka or), and some specials
+( __contains and __icontains suffixes on keys for "value contains" or
+"case-insensitive value contains") This method is only available in one place.
+7.0.0 will have a full filter implementation on the parser, tags, and tag
+collections, but will require QueryableList to be installed. This will be
+optional, and this method will remain as an incomplete version.
+
+
 * 6.7.0 Mar 14 2017
 - Fix camel-case vs dash names when using style attributes (like so em.style.paddingTop translates to 'padding-top')
 -  Implement __repr__ on AdvancedTag

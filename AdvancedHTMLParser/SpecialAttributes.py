@@ -3,13 +3,20 @@
 #
 # These are various helpers for "special" attributes
 
+import copy
+
 from collections import OrderedDict
+
+from .utils import escapeQuotes
+
+__all__ = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute' )
 
 
 class SpecialAttributesDict(dict):
     '''
         SpecialAttributesDict - A dictionary that supports the various special members, to allow javascript-like syntax
     '''
+
     # A dict that supports returning special members
     def __init__(self, tag):
         dict.__init__(self)
@@ -18,8 +25,8 @@ class SpecialAttributesDict(dict):
     def __getitem__(self, key):
         if key == 'style':
             return self.tag.style
-        elif key in {'class', 'className'}:
-            return self.tag.className
+        elif key == 'class':
+            return dict.get(self, 'class', '')
 
         try:
             return dict.__getitem__(self, key)
@@ -27,7 +34,7 @@ class SpecialAttributesDict(dict):
             return None #  TODO: support undefined?
 
     def get(self, key, default=None):
-        if key in {'style', 'class', 'className'} or key in self.keys():
+        if key in {'style', 'class'} or key in self.keys():
             return self[key]
         return default
 
@@ -38,8 +45,9 @@ class SpecialAttributesDict(dict):
     def __setitem__(self, key, value):
         if key == 'style':
             self.tag.style = StyleAttribute(value)
-        elif key in {'class', 'className'}:
-            self.tag.className = value
+        elif key == 'class':
+
+            # Ensure when we update the "class" attribute, that we update the list as well.
             self.tag.classNames = [x for x in value.split(' ') if x]
             dict.__setitem__(self, 'class',  value)
             return value
@@ -47,6 +55,164 @@ class SpecialAttributesDict(dict):
         dict.__setitem__(self, key,  value)
 
         return value
+
+
+class AttributeNode(object):
+    '''
+        AttributeNode - A basic NamedNode implementing Attribute Node, mostly.
+    '''
+
+    def __init__(self, name, value, ownerElement, ownerDocument=None):
+        self.name = name
+        self._value = value
+        self.ownerElement = ownerElement
+        self.ownerDocument = ownerDocument
+
+
+    @property
+    def specified(self):
+        return True
+
+    @property
+    def localName(self):
+        return self.name
+
+    nodeName = localName
+
+    @property
+    def prefix(self):
+        return None
+
+    @property
+    def namespaceURI(self):
+        # Not supported..
+        return None
+
+    def __getattribute__(self, name):
+        if name == 'value':
+            return self._value
+        return object.__getattribute__(self, name)
+
+    def __getitem__(self, name):
+        if name == 'value':
+            return self._value
+
+        return object.__getattribute__(self, name)
+
+    def __setattr__(self, name, value):
+        if name in ('name', '_value', 'ownerElement', 'ownerDocument'):
+            return object.__setattr__(self, name, value)
+
+        if name == 'value':
+            self._value = value
+            if self.ownerElement:
+                self.ownerElement.setAttribute(self.name, value)
+        else:
+            raise ValueError('Cannot change the value of "%s". Only "value" is mutable.' %(name, ))
+
+    @property
+    def nodeType(self):
+        '''
+            nodeType - Return this node type (ATTRIBUTE_NODE)
+        '''
+        return 2
+
+    @property
+    def nodeValue(self):
+        '''
+            nodeValue - value of this node.
+        '''
+        return self._value
+
+    def cloneNode(self):
+        '''
+            cloneNode - Make a copy of this node, but not associated with the ownerElement
+
+            @return AttributeNode
+        '''
+        return AttributeNode(self.name, self._value, None, self.ownerDocument)
+
+    def __str__(self):
+        return '%s="%s"' %(self.name, escapeQuotes(self._value))
+
+    def __repr__(self):
+        return "%s(%s, %s, %s, %s)" %(self.__class__.__name__, repr(self.name), repr(self._value), repr(self.ownerElement), repr(self.ownerDocument))
+
+    def __hash__(self):
+        return hash( "%d_%d_%d_%d" %(hash(self.name), hash(self._value), hash(self.ownerElement), hash(self.ownerDocument)) )
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+
+        return hash(self) == hash(other)
+
+    def __ne__(self, other):
+        return not self.__eq__(self, other)
+
+
+class AttributeNodeMap(object):
+    '''
+        AttributeNodeMap - A map of AttributeNode associated with an element.
+
+            Not very useful, I've never actually seen the "Node" interface used in practice,
+            but here just incase...
+
+            You probably want to just use the normal getAttribute and setAttribute on nodes... that way makes sense.
+             This way really doesn't make a whole lot of sense.
+    '''
+
+
+    def __init__(self, attributesDict, ownerElement, ownerDocument=None):
+
+        self._attributesDict = attributesDict
+        self._ownerElement = ownerElement
+        self._ownerDocument = ownerDocument
+
+        self.__setitem__ = self.X__setitem__
+        self.__setattr__ = self.X__setitem__
+
+    def getNamedItem(self, name):
+        name = name.lower()
+
+        if name in self._attributesDict:
+            return AttributeNode(name, self._attributesDict[name], self._ownerElement, self._ownerDocument)
+
+        return None
+
+    def __getattribute__(self, name):
+        try:
+            return object.__getattribute__(self, name)
+        except:
+            pass
+
+        return self.getNamedItem(name)
+
+    def __getitem__(self, name):
+        if isinstance(name, int):
+            return self.getNamedItem(self._attributesDict.keys()[name])
+        
+        return self.getNamedItem(name)
+
+    def __iter__(self):
+        keys = list(self._attributesDict.keys())
+
+        for key in keys:
+            if key in self._attributesDict:
+                yield key
+
+    item = getNamedItem
+
+    def setNamedItem(self, *args, **kwargs):
+        raise NotImplementedError("I can't figure out the constructor to Attr(), which seems to be the type this takes as a parameter. No documentation to be found either. Don't use this method, or figure it out and submit a patch!'")
+
+    def X__setitem__(self, name, value):
+        raise NotImplementedError('setitem and setattr are not implemented on an AttributeNodeMap. Maybe you mean setAttribute on the node itself? Actually setting a value in a real JS DOM does nothing. You can also access an element on this map and set the .value attribute to change the value on the parent node.')
+
+
+    def __str__(self):
+        return '[ %s ]' %(' '.join([str(self.getNamedItem(name)) for name in self._attributesDict.keys()]))
+
 
 
 class StyleAttribute(object):
@@ -293,5 +459,6 @@ class StyleAttribute(object):
 
     def __deepcopy__(self, memo):
         return self.__class__(self._asStr())
+
 
 #vim: set ts=4 sw=4 expandtab :

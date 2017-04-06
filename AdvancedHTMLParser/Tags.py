@@ -7,8 +7,13 @@ from collections import OrderedDict
 import uuid
 import copy
 
-from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS
-from .SpecialAttributes import SpecialAttributesDict, StyleAttribute
+from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES, COMMON_JAVASCRIPT_ATTRIBUTES, ALL_JAVASCRIPT_EVENT_ATTRIBUTES, TAG_ITEM_BINARY_ATTRIBUTES, TAG_ITEM_ATTRIBUTE_LINKS, TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES, TAG_ITEM_CHANGE_NAME_FROM_ATTR, TAG_ITEM_CHANGE_NAME_FROM_ITEM
+from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeNodeMap
+
+from .utils import escapeQuotes
+
+__all__ = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection', 'toggleAttributesDOM')
+
 
 def uniqueTags(tagList):
     '''
@@ -25,230 +30,24 @@ def uniqueTags(tagList):
         ret.append(tag)
     return TagCollection(ret) # Convert to a TagCollection here for performance reasons.
 
-class TagCollection(list):
+def toggleAttributesDOM(isEnabled):
     '''
-        A collection of AdvancedTags. You may use this like a normal list, or you can use the various getElements* functions within to operate on the results.
-        Generally, this is the return of all get* functions.
+        toggleAttributesDOM - Toggle if the old DOM tag.attributes NamedNodeMap model should be used for the .attributes method, versus
 
-        All the get* functions called on a TagCollection search all contained elements and their childrens. If you need to check ONLY the elements in the tag collection, and not their children,
-        either provide your own list comprehension to do so, or use the "filterCollection" method, which takes an arbitrary function/lambda expression and filters just the immediate tags.
+           a more sane direct dict implementation.
+
+            The DOM version is always accessable as AdvancedTag.attributesDOM
+            The dict version is always accessable as AdvancedTag.attributesDict
+
+            Default for AdvancedTag.attributes is to be attributesDict implementation.
+
+          @param isEnabled <bool> - If True, .attributes will be changed to use the DOM-provider. Otherwise, it will use the dict provider.
     '''
 
-    def __init__(self, values=None):
-        '''
-            Create this object.
-
-            @param values - Initial values, or None for empty
-        '''
-        list.__init__(self)
-        self.uids = set()
-        if values is not None:
-            self.__add__(values)
-
-    @staticmethod
-    def _subset(ret, cmpFunc, tag):
-        if cmpFunc(tag) is True and ret._hasTag(tag) is False:
-            ret.append(tag)
-
-        for subtag in tag.getChildren():
-            TagCollection._subset(ret, cmpFunc, subtag)
-
-        return ret
-
-    def __add__(self, others):
-        # Maybe this can be optimized by changing self.uids to a dictionary, and using appending the set difference
-        for other in others:
-            if self._hasTag(other) is False:
-                self.append(other)
-
-    def __sub__(self, others):
-        for other in others:
-            if self._hasTag(other) is True:
-                self.remove(other)
-
-    def _hasTag(self, tag):
-        return tag.uid in self.uids
-
-    def append(self, tag):
-        '''
-            append - Append an item to this tag collection
-
-            @param tag - an AdvancedTag
-        '''
-        list.append(self, tag)
-        self.uids.add(tag.uid)
-
-    def remove(self, toRemove):
-        '''
-            remove - Remove an item from this tag collection
-
-            @param toRemove - an AdvancedTag
-        '''
-        list.remove(self, toRemove)
-        self.uids.remove(toRemove.uid)
-
-    def all(self):
-        '''
-            all - A plain list of these elements
-
-            @return - List of these elements
-        '''
-        return list(self)
-
-    def filterCollection(self, filterFunc):
-        '''
-            filterCollection - Filters only the immediate objects contained within this Collection against a function, not including any children
-
-            @param filterFunc <function> - A function or lambda expression that returns True to have that element match
-
-            @return TagCollection of tags that met the given criteria
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-
-        for tag in self:
-            if filterFunc(tag) is True:
-                ret.append(tag)
-
-        return ret
-
-    def getElementsByTagName(self, tagName):
-        '''
-            getElementsByTagName - Gets elements within this collection having a specific tag name
-
-            @param tagName - String of tag name
-
-            @return - TagCollection of unique elements within this collection with given tag name
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-
-        tagName = tagName.lower()
-        _cmpFunc = lambda tag : bool(tag.tagName == tagName)
-        
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-
-        return ret
-
-            
-    def getElementsByName(self, name):
-        '''
-            getElementsByName - Get elements within this collection having a specific name
-
-            @param name - String of "name" attribute
-
-            @return - TagCollection of unique elements within this collection with given "name"
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-        _cmpFunc = lambda tag : bool(tag.name == name)
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-
-        return ret
-
-    def getElementsByClassName(self, className):
-        '''
-            getElementsByClassName - Get elements within this collection containing a specific class name
-
-            @param className - A single class name
-
-            @return - TagCollection of unique elements within this collection tagged with a specific class name
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-        _cmpFunc = lambda tag : tag.hasClass(className)
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-        
-        return ret
-
-    def getElementById(self, _id):
-        '''
-            getElementById - Gets an element within this collection by id
-
-            @param _id - string of "id" attribute
-
-            @return - a single tag matching the id, or None if none found
-        '''
-        for tag in self:
-            if tag.id == _id:
-                return tag
-            for subtag in tag.children:
-                tmp = subtag.getElementById(_id)
-                if tmp is not None:
-                    return tmp
-        return None
-
-    def getElementsByAttr(self, attr, value):
-        '''
-            getElementsByAttr - Get elements within this collection posessing a given attribute/value pair
-
-            @param attr - Attribute name (lowercase)
-            @param value - Matching value
-
-            @return - TagCollection of all elements matching name/value
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-
-        attr = attr.lower()
-        _cmpFunc = lambda tag : tag.getAttribute(attr) == value
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-        
-        return ret
-
-    def getElementsWithAttrValues(self, attr, values):
-        '''
-            getElementsWithAttrValues - Get elements within this collection possessing an attribute name matching one of several values
-
-            @param attr <lowercase str> - Attribute name (lowerase)
-            @param values set<str> - Set of possible matching values
-
-            @return - TagCollection of all elements matching criteria
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-
-        if type(values) != set:
-            values = set(values)
-
-        attr = attr.lower()
-        _cmpFunc = lambda tag : tag.getAttribute(attr) in values
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-        
-        return ret
-
-    def getElementsCustomFilter(self, filterFunc):
-        '''
-            getElementsCustomFilter - Get elements within this collection that match a user-provided function.
-
-            @param filterFunc <function> - A function that returns True if the element matches criteria
-
-            @return - TagCollection of all elements that matched criteria
-        '''
-        ret = TagCollection()
-        if len(self) == 0:
-            return ret
-
-        _cmpFunc = lambda tag : filterFunc(tag) is True
-        for tag in self:
-            TagCollection._subset(ret, _cmpFunc, tag)
-
-        return ret
-
-    def __repr__(self):
-        return "%s(%s)" %(self.__class__.__name__, list.__repr__(self))
-        
+    if isEnabled:
+        AdvancedTag.attributes = AdvancedTag.attributesDOM
+    else:
+        AdvancedTag.attributes = AdvancedTag.attributesDict
 
 class AdvancedTag(object):
     '''
@@ -258,13 +57,14 @@ class AdvancedTag(object):
 
         Use the getters and setters instead of attributes directly, or you may lose accounting.
     '''
-    def __init__(self, tagName, attrList=None, isSelfClosing=False, uid=None):
+    def __init__(self, tagName, attrList=None, isSelfClosing=False, ownerDocument=None):
         '''
             __init__ - Construct
 
                 @param tagName - String of tag name. This will be lowercased!
                 @param attrList - A list of tuples (key, value)
                 @param isSelfClosing - True if self-closing tag ( <tagName attrs /> ) will be set to False if text or children are added.
+                @param ownerDocument <None/AdvancedHTMLParser> - The parser (document) associated with this tag, or None for no association
         '''
                 
         self.tagName = tagName.lower()
@@ -272,11 +72,10 @@ class AdvancedTag(object):
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
             isSelfClosing = True
 
-        self.attributes = SpecialAttributesDict(self)
+        self._attributes = SpecialAttributesDict(self)
         self.text = ''
         self.blocks = ['']
         self.classNames = []
-        self.className = ''
         self.style = StyleAttribute('')
 
         self.isSelfClosing = isSelfClosing
@@ -284,22 +83,84 @@ class AdvancedTag(object):
         if attrList is not None:
             for key, value in attrList:
                 key = key.lower()
-                self.attributes[key] = value
+                self._attributes[key] = value
 
         self.children = []
 
         self.parentNode = None
+        self.ownerDocument = ownerDocument
         self.uid = uuid.uuid4()
 
-        self.indent = ''
+        self._indent = ''
 
     def __setattr__(self, name, value):
+
+        if name == 'tagName':
+            # Anything we access within this function must go first
+            return object.__setattr__(self, 'tagName', value)
+
+        # Check if this is one of the special (old) items which map directly to attributes
+        if name in TAG_ITEM_ATTRIBUTE_LINKS or name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
+            if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
+                name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
+            elif name in TAG_ITEM_BINARY_ATTRIBUTES:
+                if bool(value) is False:
+                    self.removeAttribute(name)
+                else:
+                    self.setAttribute(name, "")
+                return value
+
+            self.setAttribute(name, str(value))
+            return value
+
         if name == 'style' and not isinstance(value, StyleAttribute):
             value = StyleAttribute(value)
+
         try:
             return object.__setattr__(self, name,  value)
         except AttributeError:
             raise AttributeError('Cannot set property %s. Use setAttribute?' %(name,))
+
+    def __getattribute__(self, name):
+
+        if name == 'tagName':
+            return object.__getattribute__(self, 'tagName')
+        
+        if name in TAG_ITEM_ATTRIBUTE_LINKS or name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
+            if name in TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES:
+                return TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES[name](self)
+
+            if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
+                name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
+            elif name in TAG_ITEM_BINARY_ATTRIBUTES:
+                val = self.getAttribute(name, False)
+                if val is not False:
+                    return True
+
+                return False
+
+            if name in ALL_JAVASCRIPT_EVENT_ATTRIBUTES:
+                default = None
+            else:
+                default = ''
+
+            return self.getAttribute(name, default)
+
+        try:
+            return object.__getattribute__(self, name)
+        except AttributeError:
+            # Ensure any access that is a "miss" returns None (null/undefined)
+            return None
+
+
+    def cloneNode(self):
+        '''
+            cloneNode - Clone this node (tag name and attributes). Does not clone children.
+
+            Tags will be equal according to isTagEqual method, but will contain a different internal
+            unique id such tag origTag != origTag.cloneNode() , as is the case in JS DOM.
+        '''
+        return self.__class__(self.tagName, self.getAttributesList(), self.isSelfClosing)
 
     def appendText(self, text):
         '''
@@ -328,6 +189,22 @@ class AdvancedTag(object):
 
         self.text = ''.join([block for block in self.blocks if not isinstance(block, AdvancedTag)])
 
+    def remove(self):
+        '''
+            remove - Will remove this node from its parent, if it has a parent (thus taking it out of the HTML tree)
+
+                NOTE: If you are using an IndexedAdvancedHTMLParser, calling this will NOT update the index. You MUST call
+                  reindex method manually.
+
+            @return <bool> - While JS DOM defines no return for this function, this function will return True if a
+               remove did happen, or False if no parent was set.
+        '''
+        if self.parentNode:
+            self.parentNode.removeChild(self)
+            # self.parentNode will now be None by 'removeChild' method
+            return True
+        return False
+
     def appendChild(self, child):
         '''
             appendChild - Append a child to this element.
@@ -336,6 +213,9 @@ class AdvancedTag(object):
         '''
     
         child.parentNode = self
+        child.ownerDocument = self.ownerDocument
+        for subChild in child.getAllChildNodes():
+            subChild.ownerDocument = self.ownerDocument
         self.isSelfClosing = False
         self.children.append(child)
         self.blocks.append(child)
@@ -354,6 +234,9 @@ class AdvancedTag(object):
             self.children.remove(child)
             self.blocks.remove(child)
             child.parentNode = None
+            child.ownerDocument = None
+            for subChild in child.getAllChildNodes():
+                subChild.ownerDocument = None
             return child
         except ValueError:
             return None
@@ -397,6 +280,63 @@ class AdvancedTag(object):
             self.blocks = self.blocks[:blocksIdx+1] + [child] + self.blocks[blocksIdx+1:]
         except ValueError:
             raise ValueError('Provided "afterChild" is not a child of element, cannot insert.')
+
+
+    # Maybe we want to do a more full implementation of the Node stuff.... but I don't think anyone really
+    #   uses this stuff
+    @property
+    def nodeName(self):
+        '''
+            nodeName - Return the name of this name (tag name)
+        '''
+        return self.tagName
+
+    @property
+    def nodeValue(self):
+        '''
+            nodeValue - Return the value of this node (None)
+        '''
+        return None
+
+    @property
+    def nodeType(self):
+        '''
+            nodeType - Return the type of this node (1 - ELEMENT_NODE)
+        '''
+        return 1
+
+    @property
+    def attributesDOM(self):
+        '''
+            attributes - Return a NamedNodeMap of the attributes on this object.
+
+              This is a horrible method and is not used in practice anywhere sane.
+              
+              Please use setAttribute, getAttribute, hasAttribute methods instead.
+
+              @see SpecialAttributes.NamedNodeMap
+
+              This is NOT the default provider of the "attributes" property. Can be toggled to use the DOM-matching version, see @toggleAttributesDOM
+        
+            @return AttributeNodeMap
+        '''
+        return AttributeNodeMap(self._attributes, self, ownerDocument=self.ownerDocument)
+
+    @property
+    def attributesDict(self):
+        '''
+            attributesDict - Returns the internal dict mapped to attributes on this object.
+
+              Modifications made here WILL affect this tag, use getAttributesDict to get a copy.
+
+              This is the default provider of the "attributes" property. Can be toggled to use the DOM-matching version, see @toggleAttributesDOM
+
+              @return <dict> - Internal attributes
+        '''
+        return self._attributes
+
+    attributes = attributesDict
+
 
     @property
     def nextSibling(self):
@@ -455,13 +395,110 @@ class AdvancedTag(object):
         '''
         return TagCollection(self.children)
 
-    def getChildren(self):
+    def hasChild(self, child):
         '''
-            getChildren - returns child nodes as a searchable TagCollection.
+            hasChild - Returns if #child is a DIRECT child of this node.
 
-                @return - TagCollection of the immediate children to this tag.
+            @param child <AdvancedTag> - The tag to check
+
+            @return <bool> - If #child is a direct child of this node, True. Otherwise, False.
         '''
-        return TagCollection(self.children)
+        return bool(child in self.children)
+
+    
+    def hasChildNodes(self):
+        '''
+            hasChildNodes - Checks if this node has any children.
+
+            @return <bool> - True if this child has any children, otherwise False.
+        '''
+        return bool(len(self.children) != 0)
+
+    def contains(self, other):
+        '''
+            contains - Check if a provided tag appears anywhere as a sub to this node, or is this node itself.
+
+                @param other <AdvancedTag> - Tag to check
+
+            @return <bool> - True if #other appears anywhere beneath or is this tag, otherwise False
+        '''
+        return self.containsUid(other.uid)
+
+    def containsUid(self, uid):
+        '''
+            containsUid - Check if the uid (unique internal ID) appears anywhere as a sub to this node, or the node itself.
+
+                @param uid <uuid.UUID> - uuid to check
+
+            @return <bool> - True if #uid is this node's uid, or is the uid of any children at any level down
+        '''
+        if self.uid == uid:
+            return True
+
+        for child in self.children:
+            if child.containsUid(uid):
+                return True
+
+        return False
+
+    def getAllChildNodes(self):
+        '''
+            getAllChildNodes - Gets all the children, and their children, 
+               and their children, and so on, all the way to the end
+
+            @return TagCollection<AdvancedTag>
+        '''
+
+        ret = TagCollection()
+
+        for child in self.children:
+            ret.append(child)
+
+            ret += child.getAllChildNodes()
+
+        return ret
+
+    def getAllNodes(self):
+        '''
+            getAllNodes - Returns this node, all children, and all their children and so on till the end
+
+            @return TagCollection<AdvancedTag>
+        '''
+        ret = TagCollection([self])
+        ret += self.getAllChildNodes()
+
+        return ret
+
+
+    def getAllChildNodeUids(self):
+        '''
+            getAllChildNodeUids - Returns all the unique internal IDs for all children, and there children, 
+              so on and so forth until the end.
+
+              For performing "contains node" kind of logic, this is more efficent than copying the entire nodeset
+
+            @return set<uuid.UUID> A set of uuid objects
+        '''
+        ret = set()
+
+        for child in self.children:
+            ret.add(child.uid)
+            ret.update(child.getAllChildNodeUids())
+
+        return ret
+
+    def getAllNodeUids(self):
+        '''
+            getAllNodeUids - Returns all the unique internal IDs from getAllChildNodeUids, but also includes this tag's uid
+
+            @return set<uuid.UUID> A set of uuid objects
+        '''
+        ret = { self.uid }
+
+        ret.update(self.getAllChildNodeUids())
+
+        return ret
+
 
     def getPeers(self):
         '''
@@ -492,6 +529,15 @@ class AdvancedTag(object):
         return TagCollection(self.children)
 
     @property
+    def childElementCount(self):
+        '''
+            childElementCount - Returns the number of direct children to this node
+
+            @return <int> - The number of direct children to this node
+        '''
+        return len(self.children)
+
+    @property
     def parentElement(self):
         '''
             parentElement - get the parent element
@@ -504,14 +550,6 @@ class AdvancedTag(object):
             classList - get the list of class names
         '''
         return self.classNames
-
-    @property
-    def name(self):
-        return self.attributes.get('name', '')
-
-    @property
-    def id(self):
-        return self.attributes.get('id', '')
 
     def getUid(self):
         return self.uid
@@ -531,9 +569,9 @@ class AdvancedTag(object):
             @return - String of start tag with attributes
         '''
         attributeString = []
-        for name, val in self.attributes.items():
+        for name, val in self._attributes.items():
             if val:
-                val = val.replace('"', '\\"')
+                val = escapeQuotes(val)
                 attributeString.append('%s="%s"' %(name, val) )
             else:
                 attributeString.append(name)
@@ -544,9 +582,9 @@ class AdvancedTag(object):
             attributeString = ''
 
         if self.isSelfClosing is False:
-            return "%s<%s%s >" %(self.indent, self.tagName, attributeString)
+            return "%s<%s%s >" %(self._indent, self.tagName, attributeString)
         else:
-            return "%s<%s%s />" %(self.indent, self.tagName, attributeString)
+            return "%s<%s%s />" %(self._indent, self.tagName, attributeString)
     
     def getEndTag(self):
         '''
@@ -558,10 +596,10 @@ class AdvancedTag(object):
             return ''
 
         # Do not add any indentation to the end of preformatted tags.
-        if self.indent and self.tagName in PREFORMATTED_TAGS:
+        if self._indent and self.tagName in PREFORMATTED_TAGS:
             return "</%s>" %(self.tagName)
 
-        return "%s</%s>" %(self.indent, self.tagName)
+        return "%s</%s>" %(self._indent, self.tagName)
 
     @property
     def innerHTML(self):
@@ -590,19 +628,12 @@ class AdvancedTag(object):
         '''
         return self.getStartTag() + self.innerHTML + self.getEndTag()
 
-    @property
-    def value(self):
-        '''
-            value - The "value" attribute of this element
-        '''
-        return self.getAttribute('value', '')
-
     def getAttribute(self, attrName, defaultValue=None):
         '''
             getAttribute - Gets an attribute on this tag. Be wary using this for classname, maybe use addClass/removeClass. Attribute names are all lowercase.
                 @return - The attribute value, or None if none exists.
            '''
-        return self.attributes.get(attrName, defaultValue)
+        return self._attributes.get(attrName, defaultValue)
 
     def getAttributesList(self):
         '''
@@ -615,7 +646,7 @@ class AdvancedTag(object):
 
                 This is suitable for passing back into AdvancedTag when creating a new tag.
         '''
-        return [ (str(name)[:], str(value)[:]) for name, value in self.attributes.items() ]
+        return [ (str(name)[:], str(value)[:]) for name, value in self._attributes.items() ]
 
     def getAttributesDict(self):
         '''
@@ -627,7 +658,7 @@ class AdvancedTag(object):
               @return <dict ( str(name), str(value) )> - A dict of attrName to attrValue , all as strings and copies.
         '''
             
-        return { str(name)[:] : str(value)[:] for name, value in self.attributes.items() }
+        return { str(name)[:] : str(value)[:] for name, value in self._attributes.items() }
 
     def setAttribute(self, attrName, attrValue):
         '''
@@ -636,7 +667,7 @@ class AdvancedTag(object):
             @param attrName <str> - The name of the attribute
             @param attrValue <str> - The value of the attribute
         '''
-        self.attributes[attrName] = attrValue
+        self._attributes[attrName] = attrValue
 
     def setAttributes(self, attributesDict):
         '''
@@ -644,7 +675,7 @@ class AdvancedTag(object):
 
             @param  attributesDict - <str:str> - New attribute names -> values
         '''
-        self.attributes.update(attributesDict)
+        self._attributes.update(attributesDict)
 
     def hasAttribute(self, attrName):
         '''
@@ -655,7 +686,7 @@ class AdvancedTag(object):
                 @return <bool> - True or False if attribute exists by that name
         '''
         attrName = attrName.lower()
-        return bool(attrName in self.attributes)
+        return bool(attrName in self._attributes)
 
     def removeAttribute(self, attrName):
         '''
@@ -666,7 +697,7 @@ class AdvancedTag(object):
         '''
         attrName = attrName.lower()
         try:
-            del self.attributes[attrName]
+            del self._attributes[attrName]
         except KeyError:
             pass
 
@@ -686,7 +717,7 @@ class AdvancedTag(object):
             return
         self.classNames.append(className)
         self.className = ' '.join(self.classNames)
-        self.attributes._direct_set('class', self.className)
+        self._attributes._direct_set('class', self.className)
 
         return None
 
@@ -697,7 +728,7 @@ class AdvancedTag(object):
         if className in self.classNames:
             self.classNames.remove(className)
             self.className = ' '.join(self.classNames)
-            self.attributes._direct_set('class', self.className)
+            self._attributes._direct_set('class', self.className)
             return className
 
         return None
@@ -962,8 +993,8 @@ class AdvancedTag(object):
             if self.tagName != other.tagName:
                 return False
 
-            attributeKeysSelf = list(self.attributes.keys())
-            attributeKeysOther = list(other.attributes.keys())
+            attributeKeysSelf = list(self._attributes.keys())
+            attributeKeysOther = list(other._attributes.keys())
         except:
             return False
 
@@ -973,20 +1004,64 @@ class AdvancedTag(object):
 
         for key in attributeKeysSelf:
 
-#            if key == 'class':
-#                # Class can be in any order and still be equal
-#                classNames1 = self.classNames[:]
-#                classNames2 = other.classNames[:]
-#                classNames1.sort()
-#                classNames2.sort()
-#
-#                if classNames1 != classNames2:
-#                    return False
-#
-            if self.attributes.get(key) != other.attributes.get(key):
+            if self._attributes.get(key) != other._attributes.get(key):
                 return False
 
         return True
+
+
+    def filter(self, **kwargs):
+        '''
+            filter aka filterAnd - Perform a filter operation on this node and all children (and all their children, onto the end)
+
+            Results must match ALL the filter criteria. for ANY, use the *Or methods
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        allNodes = self.getAllNodes()
+
+        filterableNodes = FilterableTagCollection(allNodes)
+
+        return filterableNodes.filterAnd(**kwargs)
+
+    filterAnd = filter
+
+    def filterOr(self, **kwargs):
+        '''
+            filterOr - Perform a filter operation on this node and all children (and their children, onto the end)
+
+            Results must match ANY the filter criteria. for ALL, use the *AND methods
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        allNodes = self.getAllNodes()
+
+        filterableNodes = FilterableTagCollection(allNodes)
+
+        return filterableNodes.filterOr(**kwargs)
+
 
 
     def __eq__(self, other):
@@ -1007,6 +1082,11 @@ class AdvancedTag(object):
         if type(other) != type(self):
             return False
         return self.uid == other.uid
+
+    '''
+        isEqualNode - Compares the internal ID of a node (same as == operator). A node will only equal itself.
+    '''
+    isEqualNode = __eq__
 
     def __ne__(self, other):
         '''
@@ -1044,7 +1124,468 @@ class AdvancedTag(object):
         ret = self.__class__(self.tagName, self.getAttributesList(), self.isSelfClosing)
 
         return ret
+
+    def __hash__(self):
+        return hash(self.uid)
+
+
+class TagCollection(list):
+    '''
+        A collection of AdvancedTags. You may use this like a normal list, or you can use the various getElements* functions within to operate on the results.
+        Generally, this is the return of all get* functions.
+
+        All the get* functions called on a TagCollection search all contained elements and their childrens. If you need to check ONLY the elements in the tag collection, and not their children,
+        either provide your own list comprehension to do so, or use the "filterCollection" method, which takes an arbitrary function/lambda expression and filters just the immediate tags.
+    '''
+
+    def __init__(self, values=None):
+        '''
+            Create this object.
+
+            @param values - Initial values, or None for empty
+        '''
+        list.__init__(self)
+        self.uids = set()
+        if values is not None:
+            self.__iadd__(values)
+
+    @staticmethod
+    def _subset(ret, cmpFunc, tag):
+        if cmpFunc(tag) is True and ret._hasTag(tag) is False:
+            ret.append(tag)
+
+        for subtag in tag.getChildren():
+            TagCollection._subset(ret, cmpFunc, subtag)
+
+        return ret
+
+    def __add__(self, others):
+        # Maybe this can be optimized by changing self.uids to a dictionary, and using appending the set difference
+        ret = TagCollection(self[:])
+        for other in others:
+            if self._hasTag(other) is False:
+                ret.append(other)
+        return ret
+
+    def __iadd__(self, others):
+        for other in others:
+            if self._hasTag(other) is False:
+                self.append(other)
+        return self
+
+        return self
+
+
+    def __sub__(self, others):
+        ret = TagCollection(self[:])
+
+        for other in others:
+            if self._hasTag(other) is True:
+                ret.remove(other)
+        return ret
+
+    def __isub__(self, others):
+        for other in others:
+            if self._hasTag(other) is True:
+                self.remove(other)
+        return self
+            
+
+    def _hasTag(self, tag):
+        return tag.uid in self.uids
+
+    def append(self, tag):
+        '''
+            append - Append an item to this tag collection
+
+            @param tag - an AdvancedTag
+        '''
+        list.append(self, tag)
+        self.uids.add(tag.uid)
+
+    def remove(self, toRemove):
+        '''
+            remove - Remove an item from this tag collection
+
+            @param toRemove - an AdvancedTag
+        '''
+        list.remove(self, toRemove)
+        self.uids.remove(toRemove.uid)
+
+    def all(self):
+        '''
+            all - A plain list of these elements
+
+            @return - List of these elements
+        '''
+        return list(self)
+
+    def filterCollection(self, filterFunc):
+        '''
+            filterCollection - Filters only the immediate objects contained within this Collection against a function, not including any children
+
+            @param filterFunc <function> - A function or lambda expression that returns True to have that element match
+
+            @return TagCollection<AdvancedTag>
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        for tag in self:
+            if filterFunc(tag) is True:
+                ret.append(tag)
+
+        return ret
+
+    def getElementsByTagName(self, tagName):
+        '''
+            getElementsByTagName - Gets elements within this collection having a specific tag name
+
+            @param tagName - String of tag name
+
+            @return - TagCollection of unique elements within this collection with given tag name
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        tagName = tagName.lower()
+        _cmpFunc = lambda tag : bool(tag.tagName == tagName)
         
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+
+        return ret
+
+            
+    def getElementsByName(self, name):
+        '''
+            getElementsByName - Get elements within this collection having a specific name
+
+            @param name - String of "name" attribute
+
+            @return - TagCollection of unique elements within this collection with given "name"
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+        _cmpFunc = lambda tag : bool(tag.name == name)
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+
+        return ret
+
+    def getElementsByClassName(self, className):
+        '''
+            getElementsByClassName - Get elements within this collection containing a specific class name
+
+            @param className - A single class name
+
+            @return - TagCollection of unique elements within this collection tagged with a specific class name
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+        _cmpFunc = lambda tag : tag.hasClass(className)
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+        
+        return ret
+
+    def getElementById(self, _id):
+        '''
+            getElementById - Gets an element within this collection by id
+
+            @param _id - string of "id" attribute
+
+            @return - a single tag matching the id, or None if none found
+        '''
+        for tag in self:
+            if tag.id == _id:
+                return tag
+            for subtag in tag.children:
+                tmp = subtag.getElementById(_id)
+                if tmp is not None:
+                    return tmp
+        return None
+
+    def getElementsByAttr(self, attr, value):
+        '''
+            getElementsByAttr - Get elements within this collection posessing a given attribute/value pair
+
+            @param attr - Attribute name (lowercase)
+            @param value - Matching value
+
+            @return - TagCollection of all elements matching name/value
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        attr = attr.lower()
+        _cmpFunc = lambda tag : tag.getAttribute(attr) == value
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+        
+        return ret
+
+    def getElementsWithAttrValues(self, attr, values):
+        '''
+            getElementsWithAttrValues - Get elements within this collection possessing an attribute name matching one of several values
+
+            @param attr <lowercase str> - Attribute name (lowerase)
+            @param values set<str> - Set of possible matching values
+
+            @return - TagCollection of all elements matching criteria
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        if type(values) != set:
+            values = set(values)
+
+        attr = attr.lower()
+        _cmpFunc = lambda tag : tag.getAttribute(attr) in values
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+        
+        return ret
+
+    def getElementsCustomFilter(self, filterFunc):
+        '''
+            getElementsCustomFilter - Get elements within this collection that match a user-provided function.
+
+            @param filterFunc <function> - A function that returns True if the element matches criteria
+
+            @return - TagCollection of all elements that matched criteria
+        '''
+        ret = TagCollection()
+        if len(self) == 0:
+            return ret
+
+        _cmpFunc = lambda tag : filterFunc(tag) is True
+        for tag in self:
+            TagCollection._subset(ret, _cmpFunc, tag)
+
+        return ret
+
+    def getAllNodes(self):
+        '''
+            getAllNodes - Gets all the nodes, and all their children for every node within this collection
+        '''
+        ret = TagCollection()
+
+        for tag in self:
+            ret.append(tag)
+            ret += tag.getAllChildNodes()
+
+        return ret
+
+    def getAllNodeUids(self):
+        '''
+            getAllNodeUids - Gets all the internal uids of all nodes, their children, and all their children so on..
+
+              @return set<uuid.UUID>
+        '''
+        ret = set()
+
+        for child in self:
+            ret.update(child.getAllNodeUids())
+
+        return ret
+
+    def contains(self, em):
+        '''
+            contains - Check if #em occurs within any of the elements within this list, as themselves or as a child, any
+               number of levels down.
+
+               To check if JUST an element is contained within this list directly, use the "in" operator.
+            
+            @param em <AdvancedTag> - Element of interest
+
+            @return <bool> - True if contained, otherwise False
+        '''
+
+        for node in self:
+            if node.contains(em):
+                return True
+
+        return False
+
+    def containsUid(self, uid):
+        '''
+            containsUid - Check if #uid is the uid (unique internal identifier) of any of the elements within this list,
+              as themselves or as a child, any number of levels down.
+
+           
+            @param uid <uuid.UUID> - uuid of interest
+
+            @return <bool> - True if contained, otherwise False
+        '''
+        for node in self:
+            if node.containsUid(uid):
+                return True
+
+        return False
+
+
+    def filterAll(self, **kwargs):
+        '''
+            filterAll aka filterAllAnd - Perform a filter operation on ALL nodes in this collection and all their children.
+
+            Results must match ALL the filter criteria. for ANY, use the *Or methods
+
+            For just the nodes in this collection, use "filter" or "filterAnd" on a TagCollection
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        allNodes = self.getAllNodes()
+
+        filterableNodes = FilterableTagCollection(allNodes)
+
+        return filterableNodes.filterAnd(**kwargs)
+
+    filterAllAnd = filter
+
+    def filterAllOr(self, **kwargs):
+        '''
+            filterAllOr - Perform a filter operation on ALL nodes in this collection and all their children.
+
+            Results must match ANY the filter criteria. for ALL, use the *And methods
+
+            For just the nodes in this collection, use "filterOr" on a TagCollection
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        allNodes = self.getAllNodes()
+
+        filterableNodes = FilterableTagCollection(allNodes)
+
+        return filterableNodes.filterOr(**kwargs)
+
+    def filter(self, **kwargs):
+        '''
+            filter aka filterAnd - Perform a filter operation on ALL nodes in this collection (NOT including children, see #filterAnd for that)
+
+            Results must match ALL the filter criteria. for ANY, use the *Or methods
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        filterableNodes = FilterableTagCollection(self)
+
+        return filterableNodes.filterAnd(**kwargs)
+
+    filterAnd = filter
+
+    def filterOr(self, **kwargs):
+        '''
+            filterOr - Perform a filter operation on the nodes in this collection (NOT including children, see #filterAllOr for that)
+
+            Results must match ANY the filter criteria. for ALL, use the *And methods
+
+            For special filter keys, @see #AdvancedHTMLParser.AdvancedHTMLParser.filter
+
+            Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
+              without '--no-deps' flag.)
+            
+            For alternative without QueryableList,
+              consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
+
+
+            @return TagCollection<AdvancedTag>
+        '''
+        if canFilterTags is False:
+            raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
+
+        filterableNodes = FilterableTagCollection(self)
+
+        return filterableNodes.filterOr(**kwargs)
+
+
+    def __repr__(self):
+        return "%s(%s)" %(self.__class__.__name__, list.__repr__(self))
+
+
+
+global canFilterTags
+
+try:
+    import QueryableList
+    from QueryableList.Base import QueryableListBase
+
+    class FilterableTagCollection(QueryableListBase):
+
+        @staticmethod
+        def _get_item_value(item, fieldName):
+            fieldName = fieldName.lower()
+
+            if fieldName == 'tagname':
+                return item.tagName
+            elif fieldName == 'text':
+                return item.text
+            else:
+                return item.getAttribute(fieldName)
+
+        def filterAnd(self, **kwargs):
+            ret = QueryableListBase.filterAnd(self, **kwargs)
+
+            return TagCollection(ret)
+
+        filter = filterAnd
+
+        def filterOr(self, **kwargs):
+            ret = QueryableListBase.filterOr(self, **kwargs)
+
+            return TagCollection(ret)
+
+    canFilterTags = True
+
+except ImportError:
+    class FilterableTagCollection(object):
+
+        def __init__(self, *args, **kwargs):
+            raise ImportError('QueryableList is not installed, you cannot use tag filters. Please install QueryableList or use one of the getElement* methods.')
+
+    canFilterTags = False
+
+
 
 
 # Uncomment this line to display the HTML in lists
