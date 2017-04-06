@@ -1,6 +1,6 @@
 * 7.0.0 ??? ?? ????
 - Add "filter"-style functions (think ORM-style filtering, like
-name__contains='abc' or name='abc' or name__ne='something').
+name__contains='abc' or name='abc' or name__ne='something'). Supports all filter operations provided by QueryableList
   * These have been added to AdvancedHTMLParser.AdvancedHTMLParser (as
   filter/filterAnd and filterOr) to work on all nodes in the parser
   * These have been added to AdvancedTag (as filter/filterAnd and filterOr)
@@ -12,9 +12,14 @@ name__contains='abc' or name='abc' or name__ne='something').
   directly on the containing elements, and all children of those elements (and
   their children)
 
+ This adds QueryableList as a dependency, but setup.py can be passed "--no-deps" to skip that installation (and the filter methods will be unavailable)
+
+- Add "find" function on AdvancedHTMLParser, which supports a very very small subset of QueryableList (only equals, contains, and icontains) and can be used for "similar" functionality but without the QueryableList dependency, and only usable from the document level (AdvancedHTMLParser.AdvancedHTMLParser)
+
 - Support javascript-style assignment and access on a handful of tags (The older ones, name, id, align, etc).
   You can now do things like:   myTag.name = 'hello'    to set the name, and    myTag.name   to access it 
-  (previously you had to use setAttribute and getAttribute)
+  (previously you had to use setAttribute and getAttribute for everything)
+  The names used here match what are used in HTML, and include the javascript events
 
 
 - Fix where "className" could get out of sync with "classList"/"classNames"
@@ -47,6 +52,12 @@ name__contains='abc' or name='abc' or name__ne='something').
 
 - Add DOM-style "attributes" to every AdvancedTag. This follows the horrible antiquated interface that DOM
   uses for "attributes", created before getAttribute/setAttribute were standardized.
+  This is always available as .attributesDOM , and the dict impl always available as .attributesDict
+
+  By default, we will retain the "dict" impl, as the NamedNodeMap impl is deprecated.
+  There's a new function, toggleAttributesDOM which will change the global .attributes property to be the DOM (official) or Dict (sane and prior) impl.
+
+- Some minor cleanups, doc updates, test updates, etc
 
 
 * 6.8.0 
