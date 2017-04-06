@@ -43,7 +43,10 @@ name__contains='abc' or name='abc' or name__ne='something').
 
 - Added some functions for accessing the whole of uids
 
+- Proper quote-escaping within attribute values. \" isn't understood across the board, but &quot; is, so switch from former to latter.
 
+- Add DOM-style "attributes" to every AdvancedTag. This follows the horrible antiquated interface that DOM
+  uses for "attributes", created before getAttribute/setAttribute were standardized.
 
 
 * 6.8.0 
