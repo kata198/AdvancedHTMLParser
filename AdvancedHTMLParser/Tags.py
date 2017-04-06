@@ -36,7 +36,7 @@ class AdvancedTag(object):
 
         Use the getters and setters instead of attributes directly, or you may lose accounting.
     '''
-    def __init__(self, tagName, attrList=None, isSelfClosing=False, ownerDocument=None, uid=None):
+    def __init__(self, tagName, attrList=None, isSelfClosing=False, ownerDocument=None):
         '''
             __init__ - Construct
 
