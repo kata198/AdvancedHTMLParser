@@ -9,7 +9,8 @@
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="AdvancedHTMLParser.html"><font color="#ffffff">AdvancedHTMLParser</font></a>.utils</strong></big></big></font></td
 ><td align=right valign=bottom
 ><font color="#ffffff" face="helvetica, arial"><a href="AdvancedHTMLParser.html">index</a></font></td></tr></table>
-    <p><tt>#&nbsp;Copyright&nbsp;(c)&nbsp;2015&nbsp;Tim&nbsp;Savannah&nbsp;&nbsp;under&nbsp;terms&nbsp;of&nbsp;LGPLv3</tt></p>
+    <p><tt>#&nbsp;Copyright&nbsp;(c)&nbsp;2015,&nbsp;2017&nbsp;Tim&nbsp;Savannah&nbsp;&nbsp;under&nbsp;terms&nbsp;of&nbsp;LGPLv3<br>
+#&nbsp;&nbsp;Some&nbsp;misc&nbsp;utils&nbsp;and&nbsp;regular&nbsp;expressions</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#aa55cc">
@@ -29,10 +30,20 @@
 &nbsp;<br>
 @param&nbsp;contents&nbsp;&lt;str&gt;&nbsp;-&nbsp;Contents<br>
 @param&nbsp;startTag&nbsp;&lt;str&gt;&nbsp;-&nbsp;Fully&nbsp;formed&nbsp;tag,&nbsp;i.e.&nbsp;&lt;html&gt;</tt></dd></dl>
+ <dl><dt><a name="-escapeQuotes"><strong>escapeQuotes</strong></a>(value)</dt><dd><tt>escapeQuotes&nbsp;-&nbsp;Escape&nbsp;quotes&nbsp;within&nbsp;a&nbsp;value&nbsp;(replaces&nbsp;"&nbsp;with&nbsp;&amp;quot;)<br>
+&nbsp;<br>
+@param&nbsp;value&nbsp;&lt;str&gt;<br>
+&nbsp;<br>
+@return&nbsp;&lt;str&gt;&nbsp;-&nbsp;Escaped&nbsp;value</tt></dd></dl>
  <dl><dt><a name="-stripIEConditionals"><strong>stripIEConditionals</strong></a>(contents, addHtmlIfMissing=True)</dt><dd><tt>stripIEConditionals&nbsp;-&nbsp;Strips&nbsp;Internet&nbsp;Explorer&nbsp;conditional&nbsp;statements.<br>
 &nbsp;<br>
 @param&nbsp;contents&nbsp;&lt;str&gt;&nbsp;-&nbsp;Contents&nbsp;String<br>
 @param&nbsp;addHtmlIfMissing&nbsp;&lt;bool&gt;&nbsp;-&nbsp;Since&nbsp;these&nbsp;normally&nbsp;encompass&nbsp;the&nbsp;"html"&nbsp;element,&nbsp;optionally&nbsp;add&nbsp;it&nbsp;back&nbsp;if&nbsp;missing.</tt></dd></dl>
+ <dl><dt><a name="-unescapeQuotes"><strong>unescapeQuotes</strong></a>(value)</dt><dd><tt>unescapeQuotes&nbsp;-&nbsp;Unescapes&nbsp;quotes&nbsp;within&nbsp;a&nbsp;value&nbsp;(replaces&nbsp;&amp;quot;&nbsp;with&nbsp;")<br>
+&nbsp;<br>
+@param&nbsp;value&nbsp;&lt;str&gt;<br>
+&nbsp;<br>
+@return&nbsp;&lt;str&gt;&nbsp;-&nbsp;Escaped&nbsp;value</tt></dd></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
@@ -43,5 +54,6 @@
 <td width="100%"><strong>DOCTYPE_MATCH</strong> = re.compile('[\n]*[ \t]*(?P&lt;tag&gt;&lt;[!][ \t]*[dD][oO][cC][tT][yY][pP][eE].*[&gt;])')<br>
 <strong>END_HTML</strong> = re.compile('.*&lt;/[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br>
 <strong>IE_CONDITIONAL_PATTERN</strong> = re.compile('[&lt;][!][-][-][ \t\r\n]*[\\[][ \t\r\n]*if.*--&gt;', re.MULTILINE)<br>
-<strong>START_HTML</strong> = re.compile('.*&lt;[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)</td></tr></table>
+<strong>START_HTML</strong> = re.compile('.*&lt;[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br>
+<strong>__all__</strong> = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes')</td></tr></table>
 </body></html>
