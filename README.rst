@@ -26,6 +26,8 @@ Short Doc
 
 The AdvancedHTMLParser can read in a file (or string) of HTML, and will create a modifiable DOM tree from it. It can also be constructed manually from AdvancedHTMLParser.AdvancedTag objects.
 
+Think of this like "document" in a browser.
+
 The parser then exposes many "standard" functions as you'd find on the web for accessing the data:
 
     getElementsByTagName   - Returns a list of all elements matching a tag name
@@ -46,6 +48,8 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 
     getRootNodes            - Get a list of nodes at root level (0)
 
+    getAllNodes             - Get all the nodes contained within this document
+
     getFormattedHTML        - Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to two spaces)
 
 
@@ -60,12 +64,20 @@ The naming conventions are the same as in javascript, like "element.style.paddin
 
 **TagCollection**
 
-A TagCollection can be used like a list. It also exposes the various get\* functions which operate on the elements within the list (and their children). To operate just on items in the list, you can use filterCollection which takes a lambda/function and returns True to retain that tag in the return.
+A TagCollection can be used like a list.
+
+It also exposes the various getElement\* functions which operate on the elements within the list (and their children).
+
+
+To operate just on items in the list, you can use filterCollection which takes a lambda/function and returns True to retain that tag in the return.
 
 **AdvancedTag**
 
-the AdvancedTag represents a single tag and its inner text. It exposes many of the functions and properties you would expect to be present if using javascript.
-each AdvancedTag also supports the same getElementsBy\* functions as the parser. It adds several additional that are not found in javascript, such as peers and arbitrary attribute searching.
+The AdvancedTag represents a single tag and its inner text. It exposes many of the functions and properties you would expect to be present if using javascript.
+each AdvancedTag also supports the same getElementsBy\* functions as the parser.
+
+It adds several additional that are not found in javascript, such as peers and arbitrary attribute searching.
+
 
 some of these include:
 
@@ -103,13 +115,27 @@ some of these include:
 
     previousSiblingElement     - Get previous sibling, that is an element
 
-    {get,set,has}Attribute  - get/set/test for an attribute
+    {get,set,has,remove}Attribute  - get/set/test/remove an attribute
 
     {add,remove}Class       - Add/remove a class from the list of classes
 
+    setStyle                - Set a specific style property [like: setStyle("font-weight", "bold") ]
+
+    isTagEqual              - Compare if two tags have the same attributes. Using the == operator will compare if they are the same exact tag (by uuid)
+
     getUid                  - Get a unique ID for this tag (internal)
 
+    getAllChildNodes        - Gets all nodes beneath this node in the document (its children, its children's children, etc)
+
+    getAllNodes             - Same as getAllChildNodes, but also includes this node
+
+    contains                - Check if a provided node appears anywhere beneath this node (as child, child-of-child, etc)
+
+    remove                  - Remove this node from its parent element, and disassociates this and all sub-nodes from the associated document
+
     __str__                 - str(tag) will show start tag with attributes, inner text, and end tag
+
+    __repr__                - Shows a reconstructable representation of this tag
 
     __getitem__             - Can be indexed like tag[2] to access second child.
 
@@ -128,6 +154,94 @@ And some properties:
 
     tagName                - The tag name
 
+    ownerDocument          - The document associated with this node, if any
+
+
+And many others. See the pydocs for a full list, and associated docstrings.
+
+
+Advanced Filtering
+------------------
+
+AdvancedHTMLParser contains two kinds of "Advanced Filtering":
+
+**find**
+
+The most basic unified-search, AdvancedHTMLParser has a "find" method on it. This will search all nodes with a single, simple query.
+
+This is not as robust as the "filter" method (which can also be used on any tag or TagCollection), but does not require any dependency packages.
+
+	find - Perform a search of elements using attributes as keys and potential values as values
+
+
+	   (i.e.  parser.find(name='blah', tagname='span')  will return all elements in this document
+
+		 with the name "blah" of the tag type "span" )
+
+
+	Arguments are key = value, or key can equal a tuple/list of values to match ANY of those values.
+
+
+	Append a key with __contains to test if some strs (or several possible strs) are within an element
+
+	Append a key with __icontains to perform the same __contains op, but ignoring case
+
+
+	Special keys:
+
+	   tagname    - The tag name of the element
+
+	   text       - The text within an element
+
+
+	NOTE: Empty string means both "not set" and "no value" in this implementation.
+
+
+
+Example:
+
+    cheddarElements = parser.find(name='items', text__icontains='cheddar')
+
+
+**filter**
+
+If you have QueryableList installed (a default dependency since 7.0.0 to AdvancedHTMLParser, but can be skipped with '\-\-no\-deps' passed to setup.py)
+
+then you can take advantage of the advanced "filter" methods, on either the parser (entire document), any tag (that tag and nodes beneath), or tag collection (any of those tags, or any tags beneath them).
+
+A full explanation of the various filter modes that QueryableList supports can be found at https://github.com/kata198/QueryableList
+
+Special keys are: "tagname" for the tag name, and "text" for the inner text of a node.
+
+An attribute that is unset has a value of None, which is different than a set attribute with an empty value ''. 
+
+
+The AdvancedHTMLParser has:
+
+	filter / filterAnd      - Perform a filter query on all nodes in this document, returning a TagCollection of elements matching ALL criteria
+
+	filterOr                - Perform a filter query on all nodes in this document, returning a TagCollection of elements matching ANY criteria
+
+
+Every AdvancedTag has:
+
+	filter / filterAnd      - Perform a filter query on this nodes and all sub-nodes, returning a TagCollection of elements matching ALL criteria
+
+	filterOr                - Perform a filter query on this nodes and all sub-nodes, returning a TagCollection of elements matching ANY criteria
+
+
+Every TagCollection has:
+
+
+	filter / filterAnd      - Perform a filter query on JUST the nodes contained within this list (no children), returning a TagCollection of elements matching ALL criteria
+
+	filterOr                - Perform a filter query on JUST the nodes contained within this list (no children), returning a TagCollection of elements matching ANY criteria
+
+	filterAll / filterAllAnd - Perform a filter query on the nodes contained within this list, and all of their sub-nodes, returning a TagCollection of elements matching ALL criteria
+
+	filterAllOr              - Perform a filter query on the nodes contained within this list, and all of their sub-nodes, returning a TagCollection of elements matching ANY criteria
+
+
 
 Validation
 ----------
@@ -144,7 +258,9 @@ MissedCloseException  - Missed a non-optional close of a tag that would lead to 
 IndexedAdvancedHTMLParser
 -------------------------
 
-IndexedAdvancedHTMLParser provides the ability to use indexing for faster search. If you are just parsing and not modifying, this is your best bet. If you are modifying the DOM tree, make sure you call IndexedAdvancedHTMLParser.reindex() before relying on them. Each of the get* functions above takes an additional "useIndex" function, which can also be set to False to skip index. See constructor for more information, and "Performance and Indexing" section below.
+IndexedAdvancedHTMLParser provides the ability to use indexing for faster search. If you are just parsing and not modifying, this is your best bet. If you are modifying the DOM tree, make sure you call IndexedAdvancedHTMLParser.reindex() before relying on them.
+
+Each of the get\* functions above takes an additional "useIndex" function, which can also be set to False to skip index. See constructor for more information, and "Performance and Indexing" section below.
 
 AdvancedHTMLFormatter and formatHTML
 ------------------------------------
@@ -191,6 +307,15 @@ If an index is used, parsing time slightly goes up, but searches become O(1) (fr
 By default, IDs, Names, Tag Names, Class Names are indexed.
 
 You can add an index for any arbitrary field (used in getElementByAttr) via IndexedAdvancedHTMLParser.addIndexOnAttribute('src'), for example, to index the 'src' attribute. This index can be removed via removeIndexOnAttribute.
+
+
+Dependencies
+------------
+
+AdvancedHTMLParser can be installed without dependencies (pass '\-\-no\-deps' to setup.py), and everything will function EXCEPT filter\* methods.
+
+By default, https://github.com/kata198/QueryableList will be installed, which will enable support for those additional filter methods.
+
 
 Example Usage
 -------------
