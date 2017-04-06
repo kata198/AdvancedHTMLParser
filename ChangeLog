@@ -39,6 +39,8 @@ name__contains='abc' or name='abc' or name__ne='something').
 - Some other minor DOM methods, (childElementCount)
 - Rename on AdvancedTag "attributes" to "_attributes" in preparation of implementing DOM-style named node map
 
+- Add ownerDocument to Tags which point to the document (parser), if associated with one
+
 - Added some functions for accessing the whole of uids
 
 
