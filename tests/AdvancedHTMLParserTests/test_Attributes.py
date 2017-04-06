@@ -262,6 +262,73 @@ class TestAttributes(object):
 
         assert 'tabindex="5"' in tag.outerHTML , 'Expected setting the tabIndex to set tabindex attribute on html'
 
+    def test_domAttributes(self):
+
+        parser = AdvancedHTMLParser()
+
+        parser.parseStr(''''<html>
+        <body>
+            <div id="someDiv" class="one two" align="left">
+                <span>Some Child</span>
+            </div>
+
+        </body>
+    </html>
+        ''')
+
+        someDivEm = parser.getElementById('someDiv')
+
+        assert someDivEm , 'Failed to get element by id="someDiv"'
+
+        attributes = someDivEm.attributes
+
+        assert attributes['id'].value == 'someDiv' , 'Expected attributes["id"].value to be equal to "someDiv"'
+
+        assert attributes['class'].value == 'one two', "Expected attributes['class'].value to be equal to 'one two'"
+        assert attributes['align'].value == 'left' , "Expected attributes['align'].value to be equal to 'left'"
+
+        assert attributes['notset'] is None, 'Expected attributes["notset"] to be None'
+
+        assert attributes['id'].ownerElement == someDivEm , 'Expected ownerElement to be "someDivEm"'
+
+        assert attributes['id'].ownerDocument == parser , 'Expected ownerDocument to be parser'
+
+        assert str(attributes['id']) == 'id="someDiv"' , 'Expected str of attribute to be \'id="someDiv"\' but got: %s' %(str(attributes['id']), )
+
+        attributes['align'].value = 'right'
+
+        assert attributes['align'].value == 'right' , 'Expected to be able to change attribute value by assigning .value. Failed on "align".'
+
+        assert someDivEm.getAttribute('align') == 'right' , 'Expected that changing a property in the attributes map would change the value in parent element'
+
+        attrNames = []
+        for attrName in attributes:
+            attrNames.append(attrName)
+
+        assert 'id' in attrNames , 'Expected "id" to be returned from iter on attributes'
+        assert 'class' in attrNames , 'Expected "class" to be returned from iter on attributes'
+        assert 'align' in attrNames , 'Expected "align" to be returned from iter on attributes'
+
+        clonedAttributes = {attrName : attributes[attrName].cloneNode() for attrName in attrNames}
+
+        for attrName in ('id', 'class', 'align'):
+            attrValue = clonedAttributes[attrName].value
+            origValue = attributes[attrName].value
+
+            assert attrValue == origValue , 'Expected cloned attribute %s to match original, but did not. (clone) %s != %s (orig)' %(attrName, attrValue, origValue)
+
+        assert clonedAttributes['id'].ownerElement is None, 'Expected clone to clear ownerElement'
+        assert clonedAttributes['id'].ownerDocument == parser , 'Expected clone to retain same ownerDocument'
+
+        clonedAttributes['align'].value = 'middle'
+
+        assert clonedAttributes['align'].value == 'middle' , 'Expected to be able to change value on cloned attribute'
+        assert attributes['align'].value == 'right' , 'Expected change on clone to not affect original'
+
+        assert someDivEm.getAttribute('align') == 'right' , 'Expected change on clone to not affect element'
+
+        assert attributes.getNamedItem('id') == attributes['id'], 'Expected getNamedItem("id") to be the same as attributes["id"]'
+
 
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
