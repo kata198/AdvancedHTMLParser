@@ -1,6 +1,8 @@
-* 7.0.1 Apr 28 2017
+* 7.0.2 Apr 28 2017
 
 - Fix two typos which would result in exceptions
+- Add "href" as a standard property name for anchors (so em.href = 'abc' sets
+the href attribute)
 
 * 7.0.0 Apr 6 2017
 - Add "filter"-style functions (think ORM-style filtering, like
