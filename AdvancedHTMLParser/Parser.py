@@ -407,7 +407,7 @@ class AdvancedHTMLParser(HTMLParser):
             @return <bool> - If #uid is found within this tree
         '''
         for rootNode in self.getRootNodes():
-            if rootNode.containsUid(em):
+            if rootNode.containsUid(uid):
                 return True
 
         return False
@@ -443,7 +443,7 @@ class AdvancedHTMLParser(HTMLParser):
         if canFilterTags is False:
             raise NotImplementedError('filter methods requires QueryableList installed, it is not. Either install QueryableList, or try the less-robust "find" method, or the getElement* methods.')
 
-        allNodes = self.getAllChildNodes() + [self]
+        allNodes = self.getAllNodes()
 
         filterableNodes = FilterableTagCollection(allNodes)
 
