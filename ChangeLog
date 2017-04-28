@@ -1,3 +1,7 @@
+* 7.0.1 Apr 28 2017
+
+- Fix two typos which would result in exceptions
+
 * 7.0.0 Apr 6 2017
 - Add "filter"-style functions (think ORM-style filtering, like
 name__contains='abc' or name='abc' or name__ne='something'). Supports all filter operations provided by QueryableList
