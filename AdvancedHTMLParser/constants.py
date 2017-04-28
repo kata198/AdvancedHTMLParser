@@ -27,6 +27,7 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
                 'onoffline', 'ononline', 'onpagehide', 'onpageshow', 'onpopstate', 'onresize', 'onstorage', 'onunload'},
     'form'  : {'onblur', 'onchange', 'oncontextmenu', 'onfocus', 'oninput', 'oninvalid', 'onreset', 'onsearch', 'onselect', 'onsubmit'},
     'menu'  : {'onshow', },
+    'a'     : {'href', },
     'details' : {'ontoggle', },
 }
 
