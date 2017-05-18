@@ -6,7 +6,7 @@ import sys
 
 # Python 2/3 compatibility:
 try:
-    from html.parser import HTMLParser
+    from HTMLParser import HTMLParser
     pyver = 2
 except ImportError:
     from html.parser import HTMLParser

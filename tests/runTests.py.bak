@@ -102,7 +102,7 @@ def download_goodTests(GOODTESTS_URL=None):
                 sys.stderr.write('Failed to install GoodTests with pip ordirect download. aborting.\n')
                 return 1
     try:
-        response = urllib.request.urlopen(GOODTESTS_URL)
+        response = urllib.urlopen(GOODTESTS_URL)
         contents = response.read()
         if str != bytes:
             contents = contents.decode('ascii')

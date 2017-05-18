@@ -569,7 +569,7 @@ class AdvancedTag(object):
             @return - String of start tag with attributes
         '''
         attributeString = []
-        for name, val in list(self._attributes.items()):
+        for name, val in self._attributes.items():
             if val:
                 val = escapeQuotes(val)
                 attributeString.append('%s="%s"' %(name, val) )
@@ -646,7 +646,7 @@ class AdvancedTag(object):
 
                 This is suitable for passing back into AdvancedTag when creating a new tag.
         '''
-        return [ (str(name)[:], str(value)[:]) for name, value in list(self._attributes.items()) ]
+        return [ (str(name)[:], str(value)[:]) for name, value in self._attributes.items() ]
 
     def getAttributesDict(self):
         '''
@@ -658,7 +658,7 @@ class AdvancedTag(object):
               @return <dict ( str(name), str(value) )> - A dict of attrName to attrValue , all as strings and copies.
         '''
             
-        return { str(name)[:] : str(value)[:] for name, value in list(self._attributes.items()) }
+        return { str(name)[:] : str(value)[:] for name, value in self._attributes.items() }
 
     def setAttribute(self, attrName, attrValue):
         '''
@@ -794,7 +794,7 @@ class AdvancedTag(object):
 
             @return - String of current value of "style" after change is made.
         '''
-        for newName, newValue in list(styleUpdatesDict.items()):
+        for newName, newValue in styleUpdatesDict.items():
             setattr(self.style, newName, newValue)
 
         return self.style
