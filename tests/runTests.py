@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-#  Copyright (c) 2015 Tim Savannah under following terms:
+#  Copyright (c) 2015, 2016, 2017 Tim Savannah under following terms:
 #   You may modify and redistribe this script with your project
 #
 # It will download the latest GoodTests.py and use it to execute the tests.
@@ -33,8 +33,8 @@ ALLOW_SITE_INSTALL = False
 # This is the test directory that should contain all your tests. This should be a directory in your "tests" folder
 MY_TEST_DIRECTORY = 'AdvancedHTMLParserTests'
 
-__version__ = '1.2.3'
-__version_tuple__ = (1, 2, 3)
+__version__ = '2.1.1'
+__version_tuple__ = (2, 1, 1)
 
 def findGoodTests():
     '''
@@ -66,6 +66,12 @@ def findGoodTests():
         "success" : success 
     }
 
+def try_pip_install():
+    pipe = subprocess.Popen('pip install GoodTests', shell=True)
+    res = pipe.wait()
+    
+    return res
+
 def download_goodTests(GOODTESTS_URL=None):
     '''
         download_goodTests - Attempts to download GoodTests, using the default global url (or one provided).
@@ -95,11 +101,9 @@ def download_goodTests(GOODTESTS_URL=None):
             import urllib.request as urllib
         except:
             sys.stderr.write('Failed to import urllib. Trying pip.\n')
-            import subprocess
-            pipe = subprocess.Popen('pip install GoodTests', shell=True)
-            res = pipe.wait()
+            res = try_pip_install()
             if res != 0:
-                sys.stderr.write('Failed to install GoodTests with pip ordirect download. aborting.\n')
+                sys.stderr.write('Failed to install GoodTests with pip or direct download. aborting.\n')
                 return 1
     try:
         response = urllib.urlopen(GOODTESTS_URL)
@@ -108,7 +112,11 @@ def download_goodTests(GOODTESTS_URL=None):
             contents = contents.decode('ascii')
     except Exception as e:
         sys.stderr.write('Failed to download GoodTests.py from "%s"\n%s\n' %(GOODTESTS_URL, str(e)))
-        return 1
+        sys.stderr.write('\nTrying pip.\n')
+        res = try_pip_install()
+        if res != 0:
+            sys.stderr.write('Failed to install GoodTests with pip or direct download. aborting.\n')
+            return 1
     try:
         with open('GoodTests.py', 'w') as f:
             f.write(contents)
@@ -230,7 +238,7 @@ def main(thisDir=None, additionalArgs=[], MY_PACKAGE_MODULE=None, ALLOW_SITE_INS
         __import__(baseName)
     except ImportError as e:
         if baseName.endswith(('.py', '.pyc', '.pyo')):
-            MY_PACKAGE_MODULE = baseName[baseName.rindex('.')]
+            MY_PACKAGE_MODULE = baseName[ : baseName.rindex('.')]
 
         if e.name != MY_PACKAGE_MODULE:
             sys.stderr.write('Error while importing %s: %s\n Likely this is another dependency that needs to be installed\nPerhaps run "pip install %s" or install the providing package.\n\n' %(e.name, str(e), e.name))
@@ -248,8 +256,22 @@ def main(thisDir=None, additionalArgs=[], MY_PACKAGE_MODULE=None, ALLOW_SITE_INS
     sys.stdout.write('Starting test..\n')
     sys.stdout.flush()
     sys.stderr.flush()
+
+
+    didTerminate = False
+
     pipe = subprocess.Popen([goodTestsInfo['path']] + additionalArgs + [MY_TEST_DIRECTORY], env=os.environ, shell=False)
-    pipe.wait()
+    while True:
+        try:
+            pipe.wait()
+            break
+        except KeyboardInterrupt:
+            if not didTerminate:
+                pipe.terminate()
+                didTerminate = True
+            else:
+                pipe.kill()
+                break
 
     return 0
 
