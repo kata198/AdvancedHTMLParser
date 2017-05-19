@@ -60,7 +60,7 @@ for item in items:
     if priceValue < 4.00:
         name = priceEm.getPeersByName('itemName')[0].innerHTML.strip()
 
-        print(( "%s - $%.2f" %(name, priceValue) ))
+        print ( "%s - $%.2f" %(name, priceValue) )
 
 
 # OUTPUT:

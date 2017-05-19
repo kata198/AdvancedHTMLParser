@@ -11,7 +11,7 @@ import uuid
 
 # Python 2/3 compatibility:
 try:
-    from html.parser import HTMLParser
+    from HTMLParser import HTMLParser
     pyver = 2
 except ImportError:
     from html.parser import HTMLParser
@@ -580,7 +580,7 @@ class AdvancedHTMLParser(HTMLParser):
         matchFunctions = []
 
         # Iterate over all the filter portions, and build a filter.
-        for key, value in list(kwargs.items()):
+        for key, value in kwargs.items():
             key = key.lower()
 
             endsIContains = key.endswith('__icontains')
@@ -818,7 +818,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         for indexFunction in self.indexFunctions:
             indexFunction(tag)
 
-        for attributeIndexFunction in list(self.otherAttributeIndexFunctions.values()):
+        for attributeIndexFunction in self.otherAttributeIndexFunctions.values():
             attributeIndexFunction(self, tag)
 
     def _indexTagRecursive(self, tag):

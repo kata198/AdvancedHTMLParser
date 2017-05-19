@@ -34,7 +34,7 @@ class SpecialAttributesDict(dict):
             return None #  TODO: support undefined?
 
     def get(self, key, default=None):
-        if key in {'style', 'class'} or key in list(self.keys()):
+        if key in {'style', 'class'} or key in self.keys():
             return self[key]
         return default
 
@@ -190,7 +190,7 @@ class AttributeNodeMap(object):
 
     def __getitem__(self, name):
         if isinstance(name, int):
-            return self.getNamedItem(list(self._attributesDict.keys())[name])
+            return self.getNamedItem(self._attributesDict.keys()[name])
         
         return self.getNamedItem(name)
 
@@ -211,7 +211,7 @@ class AttributeNodeMap(object):
 
 
     def __str__(self):
-        return '[ %s ]' %(' '.join([str(self.getNamedItem(name)) for name in list(self._attributesDict.keys())]))
+        return '[ %s ]' %(' '.join([str(self.getNamedItem(name)) for name in self._attributesDict.keys()]))
 
 
 
@@ -404,7 +404,7 @@ class StyleAttribute(object):
         '''
         styleDict = self.getStyleDict()
 
-        for newName, newValue in list(styleUpdatesDict.items()):
+        for newName, newValue in styleUpdatesDict.items():
             if newValue:
                 # If replacing, just set/override it
                 styleDict[newName] = newValue
@@ -414,7 +414,7 @@ class StyleAttribute(object):
 
         if styleDict:
             # If anything left, build a str
-            styleStr = '; '.join([name + ': ' + value for name, value in list(styleDict.items())])
+            styleStr = '; '.join([name + ': ' + value for name, value in styleDict.items()])
             self.setAttribute('style', styleStr)
             return styleStr
         else:
@@ -425,7 +425,7 @@ class StyleAttribute(object):
     def _asStr(self):
         styleDict = self._styleDict
         if styleDict:
-            return '; '.join([name + ': ' + value for name, value in list(styleDict.items())])
+            return '; '.join([name + ': ' + value for name, value in styleDict.items()])
         return ''
 
 

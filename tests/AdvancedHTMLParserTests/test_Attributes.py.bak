@@ -136,7 +136,7 @@ class TestAttributes(object):
         assert 'class' in attributesDict , 'Did not find "class" in the attributes dict copy'
         assert 'data' in attributesDict , 'Did not find "data" in the attributes dict copy'
 
-        assert len(list(attributesDict.keys())) == 4 , 'Got unexpected keys in attributesDict. Only expected "id" "style" "class" and "data", got: "%s"' %(repr(attributesDict),)
+        assert len(attributesDict.keys()) == 4 , 'Got unexpected keys in attributesDict. Only expected "id" "style" "class" and "data", got: "%s"' %(repr(attributesDict),)
 
         assert attributesDict['id'] == 'hello' , 'Attribute "id" did not have expected value "hello", got "%s"' %(attributesDict['id'],)
 
