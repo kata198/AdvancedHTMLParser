@@ -169,5 +169,14 @@ class TestBuilding(object):
 
         assert item1Em.ownerDocument is None , 'Expected owner document to be unset upon removal'
 
+
+    def test_createElement(self):
+        parser = AdvancedHTMLParser()
+
+        divEm = parser.createElement('div')
+
+        assert isinstance(divEm, AdvancedTag) , 'Expected createElement to create an AdvancedTag element.'
+        assert divEm.tagName == 'div' , 'Expected createElement to set tag name properly'
+
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()

@@ -731,6 +731,17 @@ class AdvancedHTMLParser(HTMLParser):
             self.feed(html)
 
 
+    def createElement(self, tagName):
+        '''
+            createElement - Create an unattached tag with the given tag name
+
+            @param tagName <str> - Name of tag
+
+            @return <AdvancedTag> - A tag with the given tag name
+        '''
+        return AdvancedTag(tagName=tagName.lower())
+
+
 class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     '''
         An AdvancedHTMLParser that indexes for much much faster searching. If you are doing searching/validation, this is your bet.
