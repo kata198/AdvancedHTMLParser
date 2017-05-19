@@ -28,6 +28,23 @@ The AdvancedHTMLParser can read in a file (or string) of HTML, and will create a
 
 Think of this like "document" in a browser.
 
+
+To populate an AdvancedHTMLParser from existing HTML:
+
+	parser = AdvancedHTMLParser.AdvancedHTMLParser()
+
+
+	# Parse an HTML string into the document
+
+	parser.parseStr(htmlStr)
+
+
+	# Parse an HTML file into the document
+
+	parser.parseFile(filename)
+
+
+
 The parser then exposes many "standard" functions as you'd find on the web for accessing the data:
 
     getElementsByTagName   - Returns a list of all elements matching a tag name
