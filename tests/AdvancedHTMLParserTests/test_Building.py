@@ -8,6 +8,7 @@ import sys
 
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser
 from AdvancedHTMLParser.Tags import AdvancedTag
+from AdvancedHTMLParser import MultipleRootNodeException
 
 class TestBuilding(object):
 
@@ -177,6 +178,73 @@ class TestBuilding(object):
 
         assert isinstance(divEm, AdvancedTag) , 'Expected createElement to create an AdvancedTag element.'
         assert divEm.tagName == 'div' , 'Expected createElement to set tag name properly'
+
+    def test_createElementFromHtml(self):
+        
+        divEm = AdvancedHTMLParser.createElementFromHTML('<div class="hello world" id="xdiv"> <span id="subSpan1"> Sub element </span> <span id="subSpan2"> Sub element2 </span> </div>')
+
+        assert isinstance(divEm, AdvancedTag) , 'Expected createElementFromHtml to return an AdvancedTag element'
+        assert divEm.tagName == 'div', 'Expected tagName to be set from parsed html'
+
+        assert len(divEm.children) == 2 , 'Expected two children on div'
+
+        assert divEm.getAttribute('id') == 'xdiv' , 'Expected id attribute to be set'
+        assert divEm.className == 'hello world' , 'Expected className attribute to be set'
+
+        assert divEm.children[0].id == 'subSpan1' , 'Expected child to be parsed and have id set'
+
+        assert divEm.children[0].innerHTML.strip() == 'Sub element' , 'Expected text to be parsed'
+
+        assert divEm.documentElement is None , 'Expected documentElement to not be set on standalone element'
+        assert divEm.children[1].documentElement is None , 'Expected documentElement to not be set on standalone element, in sub.'
+
+        gotException = False
+
+        try:
+            divEm = AdvancedHTMLParser.createElementFromHTML('<div id="oneDiv"> <span> Sub</span> </div><div id="twoDiv"></div>')
+        except MultipleRootNodeException:
+            gotException = True
+
+        assert gotException is True , 'Expected to get MultipleRootNodeException when trying to pass several top-level elements to createElementFromHTML'
+
+    def test_createElementsFromHtml(self):
+        
+        divEms = AdvancedHTMLParser.createElementsFromHTML('<div class="hello world" id="xdiv"> <span id="subSpan1"> Sub element </span> <span id="subSpan2"> Sub element2 </span> </div>')
+
+        assert issubclass(divEms.__class__, (list, tuple)) , 'Expected to get a list returned from createElementsFromHTML'
+        assert len(divEms) == 1 , 'Expected one element when one root element passed'
+
+        divEm = divEms[0]
+
+        assert isinstance(divEm, AdvancedTag) , 'Expected createElementFromHtml to return an AdvancedTag element'
+        assert divEm.tagName == 'div', 'Expected tagName to be set from parsed html'
+
+        assert len(divEm.children) == 2 , 'Expected two children on div'
+
+        assert divEm.getAttribute('id') == 'xdiv' , 'Expected id attribute to be set'
+        assert divEm.className == 'hello world' , 'Expected className attribute to be set'
+
+        assert divEm.children[0].id == 'subSpan1' , 'Expected child to be parsed and have id set'
+
+        assert divEm.children[0].innerHTML.strip() == 'Sub element' , 'Expected text to be parsed'
+
+        assert divEm.documentElement is None , 'Expected documentElement to not be set on standalone element'
+        assert divEm.children[1].documentElement is None , 'Expected documentElement to not be set on standalone element, in sub.'
+
+        gotException = False
+
+        try:
+            divEms = AdvancedHTMLParser.createElementsFromHTML('<div id="oneDiv"> <span> Sub</span> </div><div id="twoDiv"></div>')
+        except MultipleRootNodeException:
+            gotException = True
+
+        assert gotException is False , 'Expected NOT to get MultipleRootNodeException when trying to pass several top-level elements to createElementsFromHTML'
+
+        assert len(divEms) == 2 , 'Expected to get two elements'
+
+        assert divEms[0].id == 'oneDiv' , 'Got wrong ID on first element'
+
+        assert divEms[1].id == 'twoDiv' , 'Got wrong ID on second element'
 
 if __name__ == '__main__':
     pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()

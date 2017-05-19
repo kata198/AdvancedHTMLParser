@@ -34,6 +34,16 @@ from .utils import stripIEConditionals, addStartTag
 
 __all__ = ('AdvancedHTMLParser', 'IndexedAdvancedHTMLParser')
 
+def isInvisibleRootTag(tag):
+    '''
+        isInvisibleRootTag - Check if #tag is a the special root tag when there are multiple root elements.
+
+        @param tag <AdvancedTag> - A tag
+
+        @return <bool> - True if tag is the "fake" root tag used when multiple elements are at root level, otherwise False.
+    '''
+    return bool(tag.tagName == INVISIBLE_ROOT_TAG)
+
 class AdvancedHTMLParser(HTMLParser):
     '''
         AdvancedHTMLParser - This class parses and allows searching of  documents
@@ -741,6 +751,63 @@ class AdvancedHTMLParser(HTMLParser):
         '''
         return AdvancedTag(tagName=tagName.lower())
 
+
+    @classmethod
+    def createElementFromHTML(cls, html, encoding='utf-8'):
+        '''
+            createElementFromHTML - Creates an element from a string of HTML.
+
+                If this could create multiple root-level elements (children are okay),
+                  you must use #createElementsFromHTML which returns a list of elements created.
+
+            @param html <str> - Some html data
+
+            @param encoding <str> - Encoding to use for document
+
+            @raises MultipleRootNodeException - If given html would produce multiple root-level elements (use #createElementsFromHTML instead)
+
+            @return AdvancedTag - A single AdvancedTag
+        '''
+        
+        parser = cls(encoding=encoding)
+
+        html = stripIEConditionals(html)
+        try:
+            HTMLParser.feed(parser, html)
+        except MultipleRootNodeException:
+            raise MultipleRootNodeException('Multiple nodes passed to createElementFromHTML method. Use #createElementsFromHTML instead to get a list of AdvancedTag elements.')
+
+        rootNode = parser.getRoot()
+        rootNode.remove()
+
+        return rootNode
+
+
+    @classmethod
+    def createElementsFromHTML(cls, html, encoding='utf-8'):
+        '''
+            createElementsFromHTML - Creates elements from provided html, and returns a list of the root-level elements
+                children of these root-level nodes are accessable via the usual means.
+
+            @param html <str> - Some html data
+
+            @param encoding <str> - Encoding to use for document
+
+            @return list<AdvancedTag> - The root (top-level) tags from parsed html.
+        '''
+
+        parser = cls(encoding=encoding)
+
+        parser.parseStr(html)
+
+        rootNode = parser.getRoot()
+
+        rootNode.remove() # Detatch from temp document
+
+        if isInvisibleRootTag(rootNode):
+            return rootNode.children
+
+        return [rootNode]
 
 class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     '''
