@@ -1,3 +1,24 @@
+* 7.1.0 ??? ?? ????
+
+- Add createElement function on AdvancedHTMLParser, to work like
+document.createElement. Creates an element with the given tag name.
+
+- Add createElementFromHTML function to parser which returns an AdvancedTag from given HTML
+
+- Add createElementsFromHTML function to parser which supports and returns a list of parsed
+AdvancedTags (one or more).
+
+- Add createBlocksFromHTML function to parser which parses HTML and returns a
+list of blocks (either AdvancedTag objects, or text nodes (str).
+
+- Add appendInnerHTML function to AdvancedTag which works like in javascript
+	tag.innerHTML += 'someOtherHTML'
+and will parse and append any tags and/or text nodes
+
+- Significant improvements in performance on creating tags ( On average, 125%
+reduction in time to create an AdvancedTag. ) Use is also improved.
+
+
 * 7.0.2 Apr 28 2017
 
 - Fix two typos which would result in exceptions
