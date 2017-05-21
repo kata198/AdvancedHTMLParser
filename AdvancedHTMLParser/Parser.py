@@ -767,6 +767,11 @@ class AdvancedHTMLParser(HTMLParser):
             @raises MultipleRootNodeException - If given html would produce multiple root-level elements (use #createElementsFromHTML instead)
 
             @return AdvancedTag - A single AdvancedTag
+
+            NOTE: If there is text outside the tag, they will be lost in this.
+              Use createBlocksFromHTML instead if you need to retain both text and tags.
+
+              Also, if you are just appending to an existing tag, use AdvancedTag.appendInnerHTML
         '''
         
         parser = cls(encoding=encoding)
@@ -794,6 +799,11 @@ class AdvancedHTMLParser(HTMLParser):
             @param encoding <str> - Encoding to use for document
 
             @return list<AdvancedTag> - The root (top-level) tags from parsed html.
+
+            NOTE: If there is text outside the tags, they will be lost in this.
+              Use createBlocksFromHTML instead if you need to retain both text and tags.
+
+              Also, if you are just appending to an existing tag, use AdvancedTag.appendInnerHTML
         '''
         # TODO: If text is present outside a tag, it will be lost.
 
@@ -811,13 +821,19 @@ class AdvancedHTMLParser(HTMLParser):
         return [rootNode]
 
     @classmethod
-    def getBlocksFromHTML(cls, html, encoding='utf-8'):
+    def createBlocksFromHTML(cls, html, encoding='utf-8'):
         '''
-            getBlocksFromHTML - Returns the root level node (unless multiple nodes), and 
+            createBlocksFromHTML - Returns the root level node (unless multiple nodes), and 
                 a list of "blocks" added (text and nodes).
 
-                TODO: This is a temp function for now, probably only needed internal,
-                  without a major refactor.
+            @return list< str/AdvancedTag > - List of blocks created. May be strings (text nodes) or AdvancedTag (tags)
+
+            NOTE:
+                Results may be checked by:
+
+                    issubclass(block.__class__, AdvancedTag)
+
+                If True, block is a tag, otherwise, it is a text node
         '''
         
         parser = cls(encoding=encoding)
@@ -828,12 +844,7 @@ class AdvancedHTMLParser(HTMLParser):
 
         rootNode.remove()
 
-        if isInvisibleRootTag(rootNode):
-            retNode = None
-        else:
-            retNode = rootNode
-
-        return { 'node' : retNode, 'blocks' : rootNode.blocks }
+        return rootNode.blocks
 
 
 class IndexedAdvancedHTMLParser(AdvancedHTMLParser):

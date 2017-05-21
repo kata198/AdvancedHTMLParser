@@ -241,14 +241,13 @@ class AdvancedTag(object):
         if self.ownerDocument:
             encoding = self.ownerDocument.encoding
 
-        blocks = AdvancedHTMLParser.getBlocksFromHTML(html, encoding)
+        blocks = AdvancedHTMLParser.createBlocksFromHTML(html, encoding)
 
-        newNode = blocks['node']
-        if newNode:
-            self.appendNode(newNode)
-        else:
-            self.blocks += blocks['blocks']
-            self.children += [block for block in blocks['blocks'] if issubclass(block.__class__, AdvancedTag)]
+        for block in blocks:
+            if isinstance(block, AdvancedTag):
+                self.appendNode(block)
+            else:
+                self.appendText(block)
 
     def removeChild(self, child):
         '''
