@@ -1,4 +1,4 @@
-* 7.1.0 ??? ?? ????
+* 7.1.0 May 21 2017
 
 - Add createElement function on AdvancedHTMLParser, to work like
 document.createElement. Creates an element with the given tag name.
@@ -17,6 +17,17 @@ and will parse and append any tags and/or text nodes
 
 - Significant improvements in performance on creating tags ( On average, 125%
 reduction in time to create an AdvancedTag. ) Use is also improved.
+
+- Add "body" and "head" properties to Parser.AdvancedHTMLParser - to act same
+as document.body and document.head
+
+- Add method to both Parser and AdvancedTag, "getFirstElementCustomFilter",
+which will apply a lambda/function on each tag, starting with first child and
+all children, then second child and all children, etc.
+
+This is used for finding things like "body" and "head" without needing to walk
+through the whole document. It's also desgined to find them the quickest, as
+they are very likely to be early and high-level objects in the tree.
 
 
 * 7.0.2 Apr 28 2017
