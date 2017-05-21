@@ -328,6 +328,14 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 @return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements</tt></dd></dl>
 
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getFirstElementCustomFilter" ><strong >getFirstElementCustomFilter</strong></a>(self, filterFunc, root='root')</dt><dd ><tt >getFirstElementCustomFilter&nbsp;-&nbsp;Scan&nbsp;elements&nbsp;using&nbsp;a&nbsp;provided&nbsp;function,&nbsp;stop&nbsp;and&nbsp;return&nbsp;the&nbsp;first&nbsp;match.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getElementsCustomFilter&nbsp;to&nbsp;match&nbsp;multiple&nbsp;elements<br />
+&nbsp;<br />
+@param&nbsp;filterFunc&nbsp;&lt;function&gt;(node)&nbsp;-&nbsp;A&nbsp;function&nbsp;that&nbsp;takes&nbsp;an&nbsp;AdvancedTag&nbsp;as&nbsp;an&nbsp;argument,&nbsp;and&nbsp;returns&nbsp;True&nbsp;if&nbsp;some&nbsp;arbitrary&nbsp;criteria&nbsp;is&nbsp;met<br />
+&nbsp;<br />
+@return&nbsp;-&nbsp;An&nbsp;AdvancedTag&nbsp;of&nbsp;the&nbsp;node&nbsp;that&nbsp;matched,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;match.</tt></dd></dl>
+
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br />
 &nbsp;<br />
 @param&nbsp;indent&nbsp;-&nbsp;space/tab/newline&nbsp;of&nbsp;each&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;integer&nbsp;for&nbsp;how&nbsp;many&nbsp;spaces&nbsp;per&nbsp;level<br />
@@ -425,6 +433,12 @@ NOTE:&nbsp;If&nbsp;there&nbsp;is&nbsp;text&nbsp;outside&nbsp;the&nbsp;tags,&nbsp
 &nbsp;<br />
 &nbsp;&nbsp;Also,&nbsp;if&nbsp;you&nbsp;are&nbsp;just&nbsp;appending&nbsp;to&nbsp;an&nbsp;existing&nbsp;tag,&nbsp;use&nbsp;AdvancedTag.appendInnerHTML</tt></dd></dl>
 
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser" >AdvancedHTMLParser.Parser.AdvancedHTMLParser</a>:<br />
+<dl ><dt ><strong >body</strong></dt>
+</dl>
+<dl ><dt ><strong >head</strong></dt>
+</dl>
 <hr />
 Methods inherited from <a href="html.parser.html#HTMLParser" >html.parser.HTMLParser</a>:<br />
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-check_for_whole_start_tag" ><strong >check_for_whole_start_tag</strong></a>(self, i)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;check&nbsp;to&nbsp;see&nbsp;if&nbsp;we&nbsp;have&nbsp;a&nbsp;complete&nbsp;starttag;&nbsp;return&nbsp;end<br />
