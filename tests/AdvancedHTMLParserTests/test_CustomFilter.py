@@ -126,6 +126,27 @@ class TestCustomFilter(object):
         assert len(results) == 1
         assert results[0].id == 'item4'
 
+    def test_oneElementCustomFilter(self):
+
+        parser = self.parser
+
+        def searchFunc(node):
+            return bool(node.hasClass('three'))
+
+
+        firstThreeNode = parser.getFirstElementCustomFilter(searchFunc)
+
+        assert firstThreeNode , 'Expected to get a node with class="three" on AdvancedHTMLParser.getFirstElementCustomFilter'
+        assert firstThreeNode.id == 'item4' , 'Expected to get id="item4"'
+
+        bodyNode = parser.getElementsByTagName('body')[0]
+        assert bodyNode , 'Failed to find body node'
+
+        firstThreeNode = bodyNode.getFirstElementCustomFilter(searchFunc)
+
+        assert firstThreeNode , 'Expected to get a node with class="three" on AdvancedTag.getFirstElementCustomFilter'
+        assert firstThreeNode.id == 'item4' , 'Expected to get id="item4"'
+
 
 
 if __name__ == '__main__':
