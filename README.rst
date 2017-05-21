@@ -2,16 +2,25 @@
 AdvancedHTMLParser
 ==================
 
-AdvancedHTMLParser is an Advanced HTML Parser (with optional indexing), writer, and formatter, and html->xhtml formtter written in python, and compatible and tested in Python 2.7 and Python 3.4.
+AdvancedHTMLParser is an Advanced HTML Parser, with support for adding, removing, modifying, and formatting HTML. 
+
+It aims to provide the same interface as you would find in a compliant browser through javascript ( i.e. all the getElement methods, appendChild, etc), as well as many more complex and sophisticated features not available through a browser. And most importantly, it's in python!
+
 
 There are many potential applications, not limited to:
  * Webpage Scraping / Data Extraction
  * Testing and Validation
  * HTML Modification/Insertion
+ * Outputting your website
  * Debugging
  * HTML Document generation
  * Web Crawling
  * Formatting HTML documents or web pages
+
+
+It is especially good for servlets/webpages. It is quick to take an expertly crafted page in raw HTML / css, and have your servlet's ingest with AdvancedHTMLParser and create/insert data elements into the existing view using a simple and well-known interface ( javascript-like + HTML DOM ).
+
+Another useful scenario is creating automated testing suites which can operate much more quickly and reliably (and at a deeper function-level), unlike in-browser testing suites.
 
 
 Full API
@@ -19,7 +28,9 @@ Full API
 
 Can be found  `Here <http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html>`_ .
 
-Various examples  can be found in the "tests" directory, check github.
+or http://pythonhosted.org/AdvancedHTMLParser
+
+Various examples can be found in the "tests" directory.
 
 Short Doc
 ---------
@@ -71,6 +82,21 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 
 
 The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
+
+
+**General Attributes**
+
+In general, attributes can be accessed with dot-syntax, i.e.
+
+	tagEm.id = "Hello"
+
+will set the "id" attribute. If it works in HTML javascript on a tag element, it should work on an AdvancedTag element with python.
+
+setAttribute, getAttribute, and removeAttribute are more explicit and recommended ways of getting/setting/deleting attributes on elements.
+
+The same names are used in python as in the javascript/DOM, such as 'className' corrosponding to a space-separated string of the 'class' attribute, 'classList' corrosponding to a list of classes, etc.
+
+
 
 **Style Attribute**
 
@@ -175,6 +201,32 @@ And some properties:
 
 
 And many others. See the pydocs for a full list, and associated docstrings.
+
+
+**Appending raw HTML**
+
+You can append raw HTML to a tag by calling:
+
+	tagEm.appendInnerHTML('<div id="Some sample HTML"> <span> Yes </span> </div>')
+
+which acts like, in javascript:
+
+	tagEm.innerHTML += '<div id="Some sample HTML"> <span> Yes </span> </div>
+
+
+**Creating Tags from HTML**
+
+Tags can be created from HTML strings outside of AdvancedHTMLParser.parseStr (which parses an entire document) by:
+
+
+* Parser.AdvancedHTMLParser.createElement - Like document.createElement, creates a tag with a given tag name. Not associated with any document.
+
+* Parser.AdvancedHTMLParser.createElementFromHTML - Creates a single tag from HTML.
+
+* Parser.AdvancedHTMLParser.createElementsFromHTML - Creates and returns a list of one or more tags from HTML.
+
+* Parser.AdvancedHTMLParser.createBlocksFromHTML - Creates and returns a list of blocks. These can be AdvancedTag objects (A tag), or a str object (if raw text outside of tags). This is recommended for parsing arbitrary HTML outside of parsing the entire document. The createElement{,s}FromHTML functions will discard any text outside of the tags passed in.
+
 
 
 Advanced Filtering
