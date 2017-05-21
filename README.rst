@@ -35,9 +35,13 @@ Various examples can be found in the "tests" directory.
 Short Doc
 ---------
 
-The AdvancedHTMLParser can read in a file (or string) of HTML, and will create a modifiable DOM tree from it. It can also be constructed manually from AdvancedHTMLParser.AdvancedTag objects.
+
+**AdvancedHTMLParser**
+
 
 Think of this like "document" in a browser.
+
+The AdvancedHTMLParser can read in a file (or string) of HTML, and will create a modifiable DOM tree from it. It can also be constructed manually from AdvancedHTMLParser.AdvancedTag objects.
 
 
 To populate an AdvancedHTMLParser from existing HTML:
@@ -82,6 +86,14 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 
 
 The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
+
+
+The parser also contains some expected properties, like
+
+
+	head                    - The "head" tag associated with this document, or None
+
+	body                    - The "body" tag associated with this document, or None
 
 
 **General Attributes**

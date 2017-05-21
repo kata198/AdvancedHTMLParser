@@ -187,6 +187,21 @@ class TestGeneral(object):
         assert bodyEm , 'Expected ".body" property to fetch an element'
         assert bodyEm.tagName == 'body' , 'Got wrong body element'
 
+        parser = AdvancedHTMLParser.AdvancedHTMLParser()
+        parser.parseStr('<div id="hello"> <span> One </span> </div>')
+        
+        bodyEm = parser.body
+        
+        assert not bodyEm , 'Expected to find no "body" when no <body> tag is present.'
+        
+        parser = AdvancedHTMLParser.AdvancedHTMLParser()
+        parser.parseStr('<div id="hello"> <span> One </span> </div> <div id="other">Cheese</div>')
+
+        bodyEm = parser.body
+
+        assert not bodyEm , 'Expected to find no "body" when no <body> tag is present.'
+
+
     def test_getHead(self):
         parser = AdvancedHTMLParser.AdvancedHTMLParser()
         parser.parseStr(self.testHTML)
@@ -196,6 +211,19 @@ class TestGeneral(object):
         assert headEm , 'Expected ".head" property to fetch an element'
         assert headEm.tagName == 'head' , 'Got wrong head element'
 
+        parser = AdvancedHTMLParser.AdvancedHTMLParser()
+        parser.parseStr('<div id="hello"> <span> One </span> </div>')
+        
+        headEm = parser.head
+        
+        assert not headEm , 'Expected to find no "head" when no <head> tag is present.'
+        
+        parser = AdvancedHTMLParser.AdvancedHTMLParser()
+        parser.parseStr('<div id="hello"> <span> One </span> </div> <div id="other">Cheese</div>')
+
+        headEm = parser.head
+
+        assert not headEm , 'Expected to find no "head" when no <head> tag is present.'
 
 if __name__ == '__main__':
     subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
