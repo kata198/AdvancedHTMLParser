@@ -223,6 +223,33 @@ class AdvancedTag(object):
 
     appendNode = appendChild
 
+    def appendInnerHTML(self, html):
+        '''
+            appendInnerHTML - Appends nodes from arbitrary HTML as if doing element.innerHTML += 'someHTML' in javascript.
+
+            @param html <str> - Some HTML
+
+            NOTE: If associated with a document ( AdvancedHTMLParser ), the html will use the encoding associated with
+                    that document.
+
+            @return - None. A browser would return innerHTML, but that's somewhat expensive on a high-level node.
+              So just call .innerHTML explicitly if you need that
+        '''
+        from .Parser import AdvancedHTMLParser
+
+        encoding = None
+        if self.ownerDocument:
+            encoding = self.ownerDocument.encoding
+
+        blocks = AdvancedHTMLParser.getBlocksFromHTML(html, encoding)
+
+        newNode = blocks['node']
+        if newNode:
+            self.appendNode(newNode)
+        else:
+            self.blocks += blocks['blocks']
+            self.children += [block for block in blocks['blocks'] if issubclass(block.__class__, AdvancedTag)]
+
     def removeChild(self, child):
         '''
             removeChild - Remove a child, if present.

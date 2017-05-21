@@ -207,6 +207,13 @@ class TestBuilding(object):
 
         assert gotException is True , 'Expected to get MultipleRootNodeException when trying to pass several top-level elements to createElementFromHTML'
 
+        divEm.appendInnerHTML('Hello World <div id="addedSubDiv">Yay</div>')
+
+        print ( "Inner is:\n\n%s\n" %(divEm.innerHTML,))
+
+        assert divEm.getElementById('addedSubDiv') , 'Expected to add a child element'
+        assert 'Hello World' in divEm.innerHTML , 'Expected text to be added to innerHTML'
+
     def test_createElementsFromHtml(self):
         
         divEms = AdvancedHTMLParser.createElementsFromHTML('<div class="hello world" id="xdiv"> <span id="subSpan1"> Sub element </span> <span id="subSpan2"> Sub element2 </span> </div>')

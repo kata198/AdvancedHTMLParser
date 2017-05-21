@@ -795,6 +795,7 @@ class AdvancedHTMLParser(HTMLParser):
 
             @return list<AdvancedTag> - The root (top-level) tags from parsed html.
         '''
+        # TODO: If text is present outside a tag, it will be lost.
 
         parser = cls(encoding=encoding)
 
@@ -808,6 +809,32 @@ class AdvancedHTMLParser(HTMLParser):
             return rootNode.children
 
         return [rootNode]
+
+    @classmethod
+    def getBlocksFromHTML(cls, html, encoding='utf-8'):
+        '''
+            getBlocksFromHTML - Returns the root level node (unless multiple nodes), and 
+                a list of "blocks" added (text and nodes).
+
+                TODO: This is a temp function for now, probably only needed internal,
+                  without a major refactor.
+        '''
+        
+        parser = cls(encoding=encoding)
+
+        parser.parseStr(html)
+
+        rootNode = parser.getRoot()
+
+        rootNode.remove()
+
+        if isInvisibleRootTag(rootNode):
+            retNode = None
+        else:
+            retNode = rootNode
+
+        return { 'node' : retNode, 'blocks' : rootNode.blocks }
+
 
 class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     '''
