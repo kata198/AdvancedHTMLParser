@@ -178,6 +178,24 @@ class TestGeneral(object):
 
         assert 'onclick="alert(&quot;hi&quot;);"' in tag.outerHTML , 'Expected to escape quotes in attribute. Got: %s' %(tag.outerHTML, )
 
+    def test_getBody(self):
+        parser = AdvancedHTMLParser.AdvancedHTMLParser()
+        parser.parseStr(self.testHTML)
+
+        bodyEm = parser.body
+
+        assert bodyEm , 'Expected ".body" property to fetch an element'
+        assert bodyEm.tagName == 'body' , 'Got wrong body element'
+
+    def test_getHead(self):
+        parser = AdvancedHTMLParser.AdvancedHTMLParser()
+        parser.parseStr(self.testHTML)
+
+        headEm = parser.head
+
+        assert headEm , 'Expected ".head" property to fetch an element'
+        assert headEm.tagName == 'head' , 'Got wrong head element'
+
 
 if __name__ == '__main__':
     subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()

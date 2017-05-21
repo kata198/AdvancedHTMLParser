@@ -419,6 +419,14 @@ class AdvancedHTMLParser(HTMLParser):
 
         return None
 
+    @property
+    def body(self):
+        return self.getFirstElementCustomFilter(lambda em : em.tagName == 'body')
+
+    @property
+    def head(self):
+        return self.getFirstElementCustomFilter(lambda em : em.tagName == 'head')
+
     def contains(self, em):
         '''
             Checks if #em is found anywhere within this element tree
