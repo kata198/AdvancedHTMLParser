@@ -49,6 +49,12 @@ def toggleAttributesDOM(isEnabled):
     else:
         AdvancedTag.attributes = AdvancedTag.attributesDict
 
+# ADVANCED_TAG_RAW_ATTRIBUTES - These are tags which are just raw attributes on AdvancedTag
+#   Used to optimize access
+ADVANCED_TAG_RAW_ATTRIBUTES = set( ['tagName', '_attributes', 'text', 'blocks', 'classNames', 'isSelfClosing',
+                                    'children', 'parentNode', 'ownerDocument', 'uid', '_indent']
+)
+
 class AdvancedTag(object):
     '''
         AdvancedTag - Represents a Tag. Used with AdvancedHTMLParser to create a DOM-model
@@ -57,6 +63,8 @@ class AdvancedTag(object):
 
         Use the getters and setters instead of attributes directly, or you may lose accounting.
     '''
+
+
     def __init__(self, tagName, attrList=None, isSelfClosing=False, ownerDocument=None):
         '''
             __init__ - Construct
@@ -66,38 +74,40 @@ class AdvancedTag(object):
                 @param isSelfClosing - True if self-closing tag ( <tagName attrs /> ) will be set to False if text or children are added.
                 @param ownerDocument <None/AdvancedHTMLParser> - The parser (document) associated with this tag, or None for no association
         '''
-                
         self.tagName = tagName.lower()
+
+        # Using this rawSet instead of __setattr__ (which is almost always an external-only interface)
+        #   greatly increases performance
+        rawSet = self.__rawSet
 
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
             isSelfClosing = True
 
-        self._attributes = SpecialAttributesDict(self)
-        self.text = ''
-        self.blocks = ['']
-        self.classNames = []
-        self.style = StyleAttribute('')
+        rawSet('_attributes', SpecialAttributesDict(self))
+        rawSet('text', '')
+        rawSet('blocks', [''])
+        rawSet('classNames', [])
+        rawSet('style', StyleAttribute(''))
 
-        self.isSelfClosing = isSelfClosing
+        rawSet('isSelfClosing', isSelfClosing)
 
         if attrList is not None:
             for key, value in attrList:
                 key = key.lower()
                 self._attributes[key] = value
 
-        self.children = []
+        rawSet('children', [])
 
-        self.parentNode = None
-        self.ownerDocument = ownerDocument
-        self.uid = uuid.uuid4()
+        rawSet('parentNode', None)
+        rawSet('ownerDocument', ownerDocument)
+        rawSet('uid', uuid.uuid4())
 
-        self._indent = ''
+        rawSet('_indent', '')
 
     def __setattr__(self, name, value):
 
-        if name == 'tagName':
-            # Anything we access within this function must go first
-            return object.__setattr__(self, 'tagName', value)
+        if name in ADVANCED_TAG_RAW_ATTRIBUTES:
+            return object.__setattr__(self, name, value)
 
         # Check if this is one of the special (old) items which map directly to attributes
         if name in TAG_ITEM_ATTRIBUTE_LINKS or name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
@@ -123,8 +133,14 @@ class AdvancedTag(object):
 
     def __getattribute__(self, name):
 
-        if name == 'tagName':
-            return object.__getattribute__(self, 'tagName')
+#        if name == 'tagName':
+#            return object.__getattribute__(self, 'tagName')
+
+        # Short-circuit for performance
+        try:
+            return object.__getattribute__(self, name)
+        except:
+            pass
         
         if name in TAG_ITEM_ATTRIBUTE_LINKS or name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
             if name in TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES:
@@ -151,6 +167,12 @@ class AdvancedTag(object):
         except AttributeError:
             # Ensure any access that is a "miss" returns None (null/undefined)
             return None
+
+    def __rawGet(self, name):
+        return object.__getattribute__(self, name)
+
+    def __rawSet(self, name, value):
+        return object.__setattr__(self, name, value)
 
 
     def cloneNode(self):
