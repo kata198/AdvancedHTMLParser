@@ -225,5 +225,39 @@ class TestGeneral(object):
 
         assert not headEm , 'Expected to find no "head" when no <head> tag is present.'
 
+    def test_getForms(self):
+        document = AdvancedHTMLParser.AdvancedHTMLParser()
+        document.parseStr('''<html>
+        <head> <title>Hello</title></head>
+        <body>
+            <div id="mainDiv">
+                <form id="form1" method="PUT" action="putItem.py">
+                    <input id="input1" />
+                </form>
+                <div>
+                    <form id="form2" method="GET" action="getItem.py">
+                        <input id="input2" />
+                    </form>
+                </div>
+            </div>
+        </body>
+</html>
+''')
+        formEms = document.forms
+
+        assert len(formEms) == 2 , 'Expected to find 2 form elements'
+
+        assert formEms[0].id == 'form1' , 'Expected to find form1 first'
+        assert formEms[1].id == 'form2' , 'Expected to find form2 second'
+
+        assert issubclass(formEms.__class__, AdvancedHTMLParser.TagCollection) , 'Expected result of document.forms to be a TagCollection'
+
+        try:
+            assert formEms.filter(id='form1').all() == [formEms[0]] , 'Expected filtering to work on TagCollection returned from document.forms'
+        except ImportError:
+            sys.stderr.write('WARNING: .filter is disabled via ImportError. QueryableList not installed?\n\n')
+
+
+
 if __name__ == '__main__':
     subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
