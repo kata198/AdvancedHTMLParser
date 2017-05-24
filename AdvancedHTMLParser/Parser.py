@@ -421,10 +421,20 @@ class AdvancedHTMLParser(HTMLParser):
 
     @property
     def body(self):
+        '''
+            body - Get the body element
+
+            @return <AdvancedTag> - The body tag, or None if no body tag present
+        '''
         return self.getFirstElementCustomFilter(lambda em : em.tagName == 'body')
 
     @property
     def head(self):
+        '''
+            head - Get the head element
+
+            @return <AdvancedTag> - The head tag, or None if no head tag present
+        '''
         return self.getFirstElementCustomFilter(lambda em : em.tagName == 'head')
 
     @property
