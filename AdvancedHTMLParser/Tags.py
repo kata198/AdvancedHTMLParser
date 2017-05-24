@@ -734,8 +734,27 @@ class AdvancedTag(object):
             childNodes - returns immediate child nodes as a TagCollection
 
             @return - TagCollection of child nodes
+
+            NOTE: Unlike JS DOM, this returns ONLY tags, not text blocks.
+                   Changing this would be a fairly-major backwards-incompatible change,
+                   and will likely be made in a future version.
+
+                   For now, use @see childBlocks method to get both text AND tags
         '''
         return TagCollection(self.children)
+
+    @property
+    def childBlocks(self):
+        '''
+            childBlocks - Return immediate child blocks, both text and tags.
+
+            @return list<AdvancedTag/str> - List of blocks associated with this node
+
+            NOTE: This does what #childNodes does in JS DOM. Because for many years childNodes has returned
+              ONLY tags on AdvancedHTMLParser, it would be a major change to match. Likely will be made in a future
+              version.
+        '''
+        return self.blocks
 
     @property
     def childElementCount(self):
