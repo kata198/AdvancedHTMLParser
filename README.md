@@ -93,6 +93,8 @@ The parser also contains some expected properties, like
 
 	body                    - The "body" tag associated with this document, or None
 
+	forms                   - All "forms" on this document as a TagCollection
+
 
 **General Attributes**
 
@@ -137,6 +139,10 @@ some of these include:
     appendChild             -  Append a child to this element
 
     removeChild             -  Removes a child
+
+	removeText              -  Removes first occurance of some text from any text nodes
+
+	removeTextAll           -  Removes ALL occurances of some text from any text nodes
 
     insertBefore            - Inserts a child before an existing child
 
@@ -193,7 +199,9 @@ some of these include:
 
 And some properties:
 
-    children/childNodes     - The children as a list
+    children/childNodes     - The children (tags) as a list NOTE: This returns only AdvancedTag objects, not text.
+
+    childBlocks             - All direct child blocks. This includes both AdvnacedTag objects and text nodes (str)
 
     innerHTML               - The innerHTML including the html of all children
 
