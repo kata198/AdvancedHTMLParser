@@ -113,6 +113,24 @@ Note:&nbsp;this&nbsp;does&nbsp;NOT&nbsp;test&nbsp;if&nbsp;the&nbsp;tags&nbsp;hav
 
 <dl ><dt ><a name="AdvancedTag-addClass" ><strong >addClass</strong></a>(self, className)</dt><dd ><tt >addClass&nbsp;-&nbsp;append&nbsp;a&nbsp;class&nbsp;name&nbsp;if&nbsp;not&nbsp;present</tt></dd></dl>
 
+<dl ><dt ><a name="AdvancedTag-appendBlock" ><strong >appendBlock</strong></a>(self, block)</dt><dd ><tt >appendBlock&nbsp;-&nbsp;Append&nbsp;a&nbsp;block&nbsp;to&nbsp;this&nbsp;element.&nbsp;A&nbsp;block&nbsp;can&nbsp;be&nbsp;a&nbsp;string&nbsp;(text&nbsp;node),&nbsp;or&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;(tag&nbsp;node)<br />
+&nbsp;<br />
+@param&nbsp;&lt;str/<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;block&nbsp;to&nbsp;add<br />
+&nbsp;<br />
+@return&nbsp;-&nbsp;#block<br />
+&nbsp;<br />
+NOTE:&nbsp;To&nbsp;add&nbsp;multiple&nbsp;blocks,&nbsp;@see&nbsp;appendBlocks<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;know&nbsp;the&nbsp;type,&nbsp;use&nbsp;either&nbsp;@see&nbsp;appendChild&nbsp;for&nbsp;tags&nbsp;or&nbsp;@see&nbsp;appendText&nbsp;for&nbsp;text</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedTag-appendBlocks" ><strong >appendBlocks</strong></a>(self, blocks)</dt><dd ><tt >appendBlocks&nbsp;-&nbsp;Append&nbsp;blocks&nbsp;to&nbsp;this&nbsp;element.&nbsp;A&nbsp;block&nbsp;can&nbsp;be&nbsp;a&nbsp;string&nbsp;(text&nbsp;node),&nbsp;or&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;(tag&nbsp;node)<br />
+&nbsp;<br />
+@param&nbsp;blocks&nbsp;<a href="builtins.html#list" >list</a>&lt;str/<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;A&nbsp;<a href="builtins.html#list" >list</a>,&nbsp;in&nbsp;order&nbsp;to&nbsp;append,&nbsp;of&nbsp;blocks&nbsp;to&nbsp;add.<br />
+&nbsp;<br />
+@return&nbsp;-&nbsp;#blocks<br />
+&nbsp;<br />
+NOTE:&nbsp;To&nbsp;add&nbsp;a&nbsp;single&nbsp;block,&nbsp;@see&nbsp;appendBlock<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;know&nbsp;the&nbsp;type,&nbsp;use&nbsp;either&nbsp;@see&nbsp;appendChild&nbsp;for&nbsp;tags&nbsp;or&nbsp;@see&nbsp;appendText&nbsp;for&nbsp;text</tt></dd></dl>
+
 <dl ><dt ><a name="AdvancedTag-appendChild" ><strong >appendChild</strong></a>(self, child)</dt><dd ><tt >appendChild&nbsp;-&nbsp;Append&nbsp;a&nbsp;child&nbsp;to&nbsp;this&nbsp;element.<br />
 &nbsp;<br />
 @param&nbsp;child&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;Append&nbsp;a&nbsp;child&nbsp;element&nbsp;to&nbsp;this&nbsp;element</tt></dd></dl>
@@ -386,16 +404,70 @@ beforeChild&nbsp;-&nbsp;Child&nbsp;&nbsp;to&nbsp;insert&nbsp;before.&nbsp;if&nbs
 &nbsp;<br />
 @param&nbsp;attrName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;attribute&nbsp;name</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-removeChild" ><strong >removeChild</strong></a>(self, child)</dt><dd ><tt >removeChild&nbsp;-&nbsp;Remove&nbsp;a&nbsp;child,&nbsp;if&nbsp;present.<br />
+<dl ><dt ><a name="AdvancedTag-removeBlock" ><strong >removeBlock</strong></a>(self, block)</dt><dd ><tt >removeBlock&nbsp;-&nbsp;Removes&nbsp;a&nbsp;single&nbsp;block&nbsp;(text&nbsp;node&nbsp;or&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>)&nbsp;which&nbsp;is&nbsp;a&nbsp;child&nbsp;of&nbsp;this&nbsp;<a href="builtins.html#object" >object</a>.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;child&nbsp;-&nbsp;The&nbsp;child&nbsp;to&nbsp;remove<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;The&nbsp;child&nbsp;[with&nbsp;parentNode&nbsp;cleared]&nbsp;if&nbsp;removed,&nbsp;otherwise&nbsp;None.</tt></dd></dl>
+@param&nbsp;block&nbsp;&lt;str/<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;The&nbsp;block&nbsp;(text&nbsp;node&nbsp;or&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>)&nbsp;to&nbsp;remove.<br />
+&nbsp;<br />
+@return&nbsp;Returns&nbsp;the&nbsp;removed&nbsp;block&nbsp;if&nbsp;one&nbsp;was&nbsp;removed,&nbsp;or&nbsp;None&nbsp;if&nbsp;requested&nbsp;block&nbsp;is&nbsp;not&nbsp;a&nbsp;child&nbsp;of&nbsp;this&nbsp;node.<br />
+&nbsp;<br />
+NOTE:&nbsp;If&nbsp;you&nbsp;know&nbsp;you&nbsp;are&nbsp;going&nbsp;to&nbsp;remove&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>,&nbsp;@see&nbsp;removeChild<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;know&nbsp;you&nbsp;are&nbsp;going&nbsp;to&nbsp;remove&nbsp;a&nbsp;text&nbsp;node,&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;removeText<br />
+&nbsp;<br />
+If&nbsp;removing&nbsp;multiple&nbsp;blocks,&nbsp;@see&nbsp;removeBlocks</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedTag-removeBlocks" ><strong >removeBlocks</strong></a>(self, blocks)</dt><dd ><tt >removeBlock&nbsp;-&nbsp;Removes&nbsp;a&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;blocks&nbsp;(the&nbsp;first&nbsp;occurance&nbsp;of&nbsp;each)&nbsp;from&nbsp;the&nbsp;direct&nbsp;children&nbsp;of&nbsp;this&nbsp;node.<br />
+&nbsp;<br />
+@param&nbsp;blocks&nbsp;&nbsp;<a href="builtins.html#list" >list</a>&lt;str/<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;List&nbsp;of&nbsp;AdvancedTags&nbsp;for&nbsp;tag&nbsp;nodes,&nbsp;else&nbsp;strings&nbsp;for&nbsp;text&nbsp;nodes<br />
+&nbsp;<br />
+@return&nbsp;The&nbsp;removed&nbsp;blocks&nbsp;in&nbsp;each&nbsp;slot,&nbsp;or&nbsp;None&nbsp;if&nbsp;None&nbsp;removed.<br />
+&nbsp;<br />
+@see&nbsp;removeChild<br />
+@see&nbsp;removeText<br />
+&nbsp;<br />
+For&nbsp;multiple,&nbsp;@see&nbsp;removeBlocks</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedTag-removeChild" ><strong >removeChild</strong></a>(self, child)</dt><dd ><tt >removeChild&nbsp;-&nbsp;Remove&nbsp;a&nbsp;child&nbsp;tag,&nbsp;if&nbsp;present.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;child&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;The&nbsp;child&nbsp;to&nbsp;remove<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;The&nbsp;child&nbsp;[with&nbsp;parentNode&nbsp;cleared]&nbsp;if&nbsp;removed,&nbsp;otherwise&nbsp;None.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;NOTE:&nbsp;This&nbsp;removes&nbsp;a&nbsp;tag.&nbsp;If&nbsp;removing&nbsp;a&nbsp;text&nbsp;block,&nbsp;use&nbsp;#removeText&nbsp;function.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;need&nbsp;to&nbsp;remove&nbsp;an&nbsp;arbitrary&nbsp;block&nbsp;(text&nbsp;or&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>),&nbsp;@see&nbsp;removeBlock<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Removing&nbsp;multiple&nbsp;children?&nbsp;@see&nbsp;removeChildren</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedTag-removeChildren" ><strong >removeChildren</strong></a>(self, children)</dt><dd ><tt >removeChildren&nbsp;-&nbsp;Remove&nbsp;multiple&nbsp;child&nbsp;AdvancedTags.<br />
+&nbsp;<br />
+@see&nbsp;removeChild<br />
+&nbsp;<br />
+@return&nbsp;<a href="builtins.html#list" >list</a>&lt;<a href="#AdvancedTag" >AdvancedTag</a>/None&gt;&nbsp;-&nbsp;A&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;all&nbsp;tags&nbsp;removed&nbsp;in&nbsp;same&nbsp;order&nbsp;as&nbsp;passed.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Item&nbsp;is&nbsp;"None"&nbsp;if&nbsp;it&nbsp;was&nbsp;not&nbsp;attached&nbsp;to&nbsp;this&nbsp;node,&nbsp;and&nbsp;thus&nbsp;was&nbsp;not&nbsp;removed.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-removeClass" ><strong >removeClass</strong></a>(self, className)</dt><dd ><tt >removeClass&nbsp;-&nbsp;remove&nbsp;a&nbsp;class&nbsp;name&nbsp;if&nbsp;present.&nbsp;Returns&nbsp;the&nbsp;class&nbsp;name&nbsp;if&nbsp;&nbsp;removed,&nbsp;otherwise&nbsp;None.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-removeNode" ><strong >removeNode</strong></a> = <a href="#AdvancedTag-removeChild" >removeChild</a>(self, child)</dt></dl>
 
-<dl ><dt ><a name="AdvancedTag-removeText" ><strong >removeText</strong></a>(self, text)</dt><dd ><tt >removeText&nbsp;-&nbsp;Removes&nbsp;some&nbsp;inner&nbsp;text</tt></dd></dl>
+<dl ><dt ><a name="AdvancedTag-removeText" ><strong >removeText</strong></a>(self, text)</dt><dd ><tt >removeText&nbsp;-&nbsp;Removes&nbsp;the&nbsp;first&nbsp;occurace&nbsp;of&nbsp;given&nbsp;text&nbsp;in&nbsp;a&nbsp;text&nbsp;node&nbsp;(i.e.&nbsp;not&nbsp;part&nbsp;of&nbsp;a&nbsp;tag)<br />
+&nbsp;<br />
+@param&nbsp;text&nbsp;&lt;str&gt;&nbsp;-&nbsp;text&nbsp;to&nbsp;remove<br />
+&nbsp;<br />
+@return&nbsp;text&nbsp;&lt;str/None&gt;&nbsp;-&nbsp;The&nbsp;text&nbsp;in&nbsp;that&nbsp;block&nbsp;(text&nbsp;node)&nbsp;after&nbsp;remove,&nbsp;or&nbsp;None&nbsp;if&nbsp;not&nbsp;found<br />
+&nbsp;<br />
+NOTE:&nbsp;To&nbsp;remove&nbsp;a&nbsp;node,&nbsp;@see&nbsp;removeChild<br />
+NOTE:&nbsp;To&nbsp;remove&nbsp;a&nbsp;block&nbsp;(maybe&nbsp;a&nbsp;node,&nbsp;maybe&nbsp;text),&nbsp;@see&nbsp;removeBlock<br />
+NOTE:&nbsp;To&nbsp;remove&nbsp;ALL&nbsp;occuraces&nbsp;of&nbsp;text,&nbsp;@see&nbsp;removeTextAll</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedTag-removeTextAll" ><strong >removeTextAll</strong></a>(self, text)</dt><dd ><tt >removeTextAll&nbsp;-&nbsp;Removes&nbsp;ALL&nbsp;occuraces&nbsp;of&nbsp;given&nbsp;text&nbsp;in&nbsp;a&nbsp;text&nbsp;node&nbsp;(i.e.&nbsp;not&nbsp;part&nbsp;of&nbsp;a&nbsp;tag)<br />
+&nbsp;<br />
+@param&nbsp;text&nbsp;&lt;str&gt;&nbsp;-&nbsp;text&nbsp;to&nbsp;remove<br />
+&nbsp;<br />
+@return&nbsp;<a href="builtins.html#list" >list</a>&nbsp;&lt;str&gt;&nbsp;-&nbsp;All&nbsp;text&nbsp;node&nbsp;containing&nbsp;#text&nbsp;BEFORE&nbsp;the&nbsp;text&nbsp;was&nbsp;removed.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Empty&nbsp;<a href="builtins.html#list" >list</a>&nbsp;if&nbsp;no&nbsp;text&nbsp;removed<br />
+&nbsp;<br />
+NOTE:&nbsp;To&nbsp;remove&nbsp;a&nbsp;node,&nbsp;@see&nbsp;removeChild<br />
+NOTE:&nbsp;To&nbsp;remove&nbsp;a&nbsp;block&nbsp;(maybe&nbsp;a&nbsp;node,&nbsp;maybe&nbsp;text),&nbsp;@see&nbsp;removeBlock<br />
+NOTE:&nbsp;To&nbsp;remove&nbsp;a&nbsp;single&nbsp;occurace&nbsp;of&nbsp;text,&nbsp;@see&nbsp;removeText</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-setAttribute" ><strong >setAttribute</strong></a>(self, attrName, attrValue)</dt><dd ><tt >setAttribute&nbsp;-&nbsp;Sets&nbsp;an&nbsp;attribute.&nbsp;Be&nbsp;wary&nbsp;using&nbsp;this&nbsp;for&nbsp;classname,&nbsp;maybe&nbsp;use&nbsp;addClass/removeClass.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br />
 &nbsp;<br />
@@ -468,6 +540,15 @@ Data descriptors defined here:<br />
 &nbsp;<br />
 &nbsp;&nbsp;@return&nbsp;&lt;dict&gt;&nbsp;-&nbsp;Internal&nbsp;attributes</tt></dd>
 </dl>
+<dl ><dt ><strong >childBlocks</strong></dt>
+<dd ><tt >childBlocks&nbsp;-&nbsp;Return&nbsp;immediate&nbsp;child&nbsp;blocks,&nbsp;both&nbsp;text&nbsp;and&nbsp;tags.<br />
+&nbsp;<br />
+@return&nbsp;list&lt;AdvancedTag/str&gt;&nbsp;-&nbsp;List&nbsp;of&nbsp;blocks&nbsp;associated&nbsp;with&nbsp;this&nbsp;node<br />
+&nbsp;<br />
+NOTE:&nbsp;This&nbsp;does&nbsp;what&nbsp;#childNodes&nbsp;does&nbsp;in&nbsp;JS&nbsp;DOM.&nbsp;Because&nbsp;for&nbsp;many&nbsp;years&nbsp;childNodes&nbsp;has&nbsp;returned<br />
+&nbsp;&nbsp;ONLY&nbsp;tags&nbsp;on&nbsp;AdvancedHTMLParser,&nbsp;it&nbsp;would&nbsp;be&nbsp;a&nbsp;major&nbsp;change&nbsp;to&nbsp;match.&nbsp;Likely&nbsp;will&nbsp;be&nbsp;made&nbsp;in&nbsp;a&nbsp;future<br />
+&nbsp;&nbsp;version.</tt></dd>
+</dl>
 <dl ><dt ><strong >childElementCount</strong></dt>
 <dd ><tt >childElementCount&nbsp;-&nbsp;Returns&nbsp;the&nbsp;number&nbsp;of&nbsp;direct&nbsp;children&nbsp;to&nbsp;this&nbsp;node<br />
 &nbsp;<br />
@@ -476,7 +557,13 @@ Data descriptors defined here:<br />
 <dl ><dt ><strong >childNodes</strong></dt>
 <dd ><tt >childNodes&nbsp;-&nbsp;returns&nbsp;immediate&nbsp;child&nbsp;nodes&nbsp;as&nbsp;a&nbsp;TagCollection<br />
 &nbsp;<br />
-@return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;child&nbsp;nodes</tt></dd>
+@return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;child&nbsp;nodes<br />
+&nbsp;<br />
+NOTE:&nbsp;Unlike&nbsp;JS&nbsp;DOM,&nbsp;this&nbsp;returns&nbsp;ONLY&nbsp;tags,&nbsp;not&nbsp;text&nbsp;blocks.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Changing&nbsp;this&nbsp;would&nbsp;be&nbsp;a&nbsp;fairly-major&nbsp;backwards-incompatible&nbsp;change,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;will&nbsp;likely&nbsp;be&nbsp;made&nbsp;in&nbsp;a&nbsp;future&nbsp;version.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;now,&nbsp;use&nbsp;@see&nbsp;childBlocks&nbsp;method&nbsp;to&nbsp;get&nbsp;both&nbsp;text&nbsp;AND&nbsp;tags</tt></dd>
 </dl>
 <dl ><dt ><strong >classList</strong></dt>
 <dd ><tt >classList&nbsp;-&nbsp;get&nbsp;the&nbsp;list&nbsp;of&nbsp;class&nbsp;names</tt></dd>
@@ -988,7 +1075,17 @@ Data and other attributes inherited from <a href="builtins.html#list" >builtins.
 <font color="#ffffff" face="helvetica, arial" ><big ><strong >Functions</strong></big></font></td></tr>
     
 <tr ><td bgcolor="#eeaa77" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
-<td width="100%" ><dl ><dt ><a name="-toggleAttributesDOM" ><strong >toggleAttributesDOM</strong></a>(isEnabled)</dt><dd ><tt >toggleAttributesDOM&nbsp;-&nbsp;Toggle&nbsp;if&nbsp;the&nbsp;old&nbsp;DOM&nbsp;tag.attributes&nbsp;NamedNodeMap&nbsp;model&nbsp;should&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;.attributes&nbsp;method,&nbsp;versus<br />
+<td width="100%" ><dl ><dt ><a name="-isTagNode" ><strong >isTagNode</strong></a>(node)</dt><dd ><tt >isTagNode&nbsp;-&nbsp;Test&nbsp;if&nbsp;given&nbsp;node&nbsp;is&nbsp;a&nbsp;tag&nbsp;node&nbsp;(<a href="#AdvancedTag" >AdvancedTag</a>)<br />
+&nbsp;<br />
+@param&nbsp;node&nbsp;-&nbsp;Node&nbsp;to&nbsp;test<br />
+&nbsp;<br />
+@return&nbsp;bool</tt></dd></dl>
+ <dl ><dt ><a name="-isTextNode" ><strong >isTextNode</strong></a>(node)</dt><dd ><tt >isTextNode&nbsp;-&nbsp;Test&nbsp;if&nbsp;given&nbsp;node&nbsp;is&nbsp;a&nbsp;text&nbsp;node&nbsp;(Not&nbsp;a&nbsp;tag)<br />
+&nbsp;<br />
+@param&nbsp;node&nbsp;-&nbsp;Node&nbsp;to&nbsp;test<br />
+&nbsp;<br />
+@return&nbsp;bool</tt></dd></dl>
+ <dl ><dt ><a name="-toggleAttributesDOM" ><strong >toggleAttributesDOM</strong></a>(isEnabled)</dt><dd ><tt >toggleAttributesDOM&nbsp;-&nbsp;Toggle&nbsp;if&nbsp;the&nbsp;old&nbsp;DOM&nbsp;tag.attributes&nbsp;NamedNodeMap&nbsp;model&nbsp;should&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;.attributes&nbsp;method,&nbsp;versus<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;a&nbsp;more&nbsp;sane&nbsp;direct&nbsp;dict&nbsp;implementation.<br />
 &nbsp;<br />
@@ -1008,5 +1105,5 @@ Data and other attributes inherited from <a href="builtins.html#list" >builtins.
 <font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
-<td width="100%" ><strong >__all__</strong> = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection', 'toggleAttributesDOM')</td></tr></table>
+<td width="100%" ><strong >__all__</strong> = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection', 'toggleAttributesDOM', 'isTextNode', 'isTagNode')</td></tr></table>
 </p></p></p></p></body></html>
