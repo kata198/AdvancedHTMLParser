@@ -12,7 +12,28 @@ from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeN
 
 from .utils import escapeQuotes
 
-__all__ = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection', 'toggleAttributesDOM')
+__all__ = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection', 'toggleAttributesDOM', 'isTextNode', 'isTagNode')
+
+
+def isTextNode(node):
+    '''
+        isTextNode - Test if given node is a text node (Not a tag)
+
+        @param node - Node to test
+
+        @return bool
+    '''
+    return not issubclass(node.__class__, AdvancedTag)
+
+def isTagNode(node):
+    '''
+        isTagNode - Test if given node is a tag node (AdvancedTag)
+
+        @param node - Node to test
+
+        @return bool
+    '''
+    return issubclass(node.__class__, AdvancedTag)
 
 
 def uniqueTags(tagList):

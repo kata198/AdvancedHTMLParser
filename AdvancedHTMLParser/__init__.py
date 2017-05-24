@@ -4,7 +4,7 @@
 # In general below, all "tag names" (body, div, etc) should be lowercase. The parser will lowercase internally. All attribute names (like `id` in id="123") provided to search functions should be lowercase. Values are not lowercase. This is because doing tons of searches, lowercasing every search can quickly build up. Lowercase it once in your code, not every time you call a function.
 
 from .Parser import AdvancedHTMLParser, IndexedAdvancedHTMLParser
-from .Tags import AdvancedTag, TagCollection, toggleAttributesDOM
+from .Tags import AdvancedTag, TagCollection, toggleAttributesDOM, isTextNode, isTagNode
 from .Formatter import AdvancedHTMLFormatter
 from .Validator import ValidatingAdvancedHTMLParser
 from .exceptions import InvalidCloseException, MissedCloseException, HTMLValidationException, MultipleRootNodeException
@@ -16,6 +16,6 @@ __int_version_tuple__ = (7, 1, 0)
 
 __all__ = ( 'AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection',
     'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'MultipleRootNodeException',
-    'StyleAttribute', 'toggleAttributesDOM' )
+    'StyleAttribute', 'toggleAttributesDOM', 'isTextNode', 'isTagNode' )
 
 #vim: set ts=4 sw=4 expandtab
