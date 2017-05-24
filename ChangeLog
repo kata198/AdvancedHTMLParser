@@ -3,6 +3,35 @@
 - Add ".forms" to AdvancedHTMLParser to emulate "document.forms" - returns all
 "form" elements in a tag collection
 
+- Update removeText to only remove the FIRST occurace of text (inline
+with other javascript DOM functions). For old behaviour, see
+removeTextAll which will remove all occurances of the text.
+
+^^^ ^^^  ^^^   ^^^^ ^^^^ ^^
+**MAYBE BACKWARDS INCOMPATIBLE** - depending on usage
+
+- Add removeTextAll function to remove all occuracnes of text from text
+nodes on an element.
+
+- Change removeText to return the old block (text in that node prior to
+replace). removeTextAll returns a list of all old blocks.
+
+- Add addBlock / addBlocks functions which take generic blocks (may be a
+str, may be an AdvancedTag ). Returns the added block.
+
+- Add removeBlock / removeBlocks functions which take generic blocks
+(may be str, may be AdvancedTag). Returns the removed tag or the block
+of text prior to remove. None on removeBlock if none found, or None in
+the corrosponding element in the list return of removeBlocks
+
+- Add removeChildren function as a helper to remove multiple children.
+  Returns the children removed in a list, with a "None" if that child
+  was not present.
+
+- Add childBlocks method, to return both text nodes and tag nodes. This matches
+what childNodes does in JS DOM (childNodes in AdvancedHTMLParser only returns
+tags. Probably will be changed in a future version, such that .children
+returns a TagCollection and childNodes returns all blocks.)
 
 * 7.1.0 May 21 2017
 
