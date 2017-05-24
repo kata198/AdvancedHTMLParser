@@ -427,6 +427,16 @@ class AdvancedHTMLParser(HTMLParser):
     def head(self):
         return self.getFirstElementCustomFilter(lambda em : em.tagName == 'head')
 
+    @property
+    def forms(self):
+        '''
+            forms - Return all forms associated with this document
+
+            @return <TagCollection> - All "form" elements
+        '''
+
+        return self.getElementsByTagName('form')
+
     def contains(self, em):
         '''
             Checks if #em is found anywhere within this element tree
