@@ -194,22 +194,64 @@ class AdvancedTag(object):
 
     def removeText(self, text):
         '''
-            removeText - Removes some inner text
+            removeText - Removes the first occurace of given text in a text node (i.e. not part of a tag)
+
+            @param text <str> - text to remove
+
+            @return text <str/None> - The text in that block (text node) after remove, or None if not found
+
+            NOTE: To remove a node, @see removeChild
+            NOTE: To remove a block (maybe a node, maybe text), @see removeBlock
+            NOTE: To remove ALL occuraces of text, @see removeTextAll
         '''
-        newBlocks = []
-        for block in self.blocks:
-            if isinstance(block, AdvancedTag):
-                newBlocks.append(block)
+        removedBlock = None
+
+        blocks = self.blocks
+        for i in range(len(blocks)):
+            block = blocks[i]
+            if issubclass(block.__class__, AdvancedTag):
                 continue
+
             if text in block:
-                block = block.replace(text, '')
-            if block:
-                newBlocks.append(block)
+                removedBlock = block[:]
+                self.blocks[i] = block.replace(text, '')
+                break # remove should only remove FIRST occurace, per other methods
 
-        del block # pyflakes warning
-        self.blocks = newBlocks
+        self.text = ''.join([thisBlock for thisBlock in blocks if not issubclass(thisBlock.__class__, AdvancedTag)])
 
-        self.text = ''.join([block for block in self.blocks if not isinstance(block, AdvancedTag)])
+        return removedBlock
+
+
+    def removeTextAll(self, text):
+        '''
+            removeTextAll - Removes ALL occuraces of given text in a text node (i.e. not part of a tag)
+
+            @param text <str> - text to remove
+
+            @return list <str> - All text node containing #text BEFORE the text was removed.
+                Empty list if no text removed
+
+            NOTE: To remove a node, @see removeChild
+            NOTE: To remove a block (maybe a node, maybe text), @see removeBlock
+            NOTE: To remove a single occurace of text, @see removeText
+        '''
+        removedBlocks = []
+
+        blocks = self.blocks
+        for i in range(len(blocks)):
+            block = blocks[i]
+            if issubclass(block.__class__, AdvancedTag):
+                continue
+
+            if text in block:
+                removedBlocks.append( block[:] )
+                self.blocks[i] = block.replace(text, '')
+
+
+        self.text = ''.join([thisBlock for thisBlock in blocks if not issubclass(thisBlock.__class__, AdvancedTag)])
+
+        return removedBlocks
+
 
     def remove(self):
         '''
@@ -226,6 +268,46 @@ class AdvancedTag(object):
             # self.parentNode will now be None by 'removeChild' method
             return True
         return False
+
+    def removeBlock(self, block):
+        '''
+            removeBlock - Removes a block (the first occurance) from the direct children of this node.
+
+            @param block <str/AdvancedTag> - An AdvancedTag for a tag node, else a string for a text node
+
+            @return The removed block, or None if None removed.
+
+            @see removeChild
+            @see removeText
+
+            For multiple, @see removeBlocks
+        '''
+        if issubclass(block.__class__, AdvancedTag):
+            return self.removeChild(block)
+        else:
+            return self.removeText(block)
+
+    def removeBlocks(self, blocks):
+        '''
+            removeBlock - Removes a list of blocks (the first occurance of each) from the direct children of this node.
+
+            @param blocks  list<str/AdvancedTag> - List of AdvancedTags for tag nodes, else strings for text nodes
+
+            @return The removed blocks in each slot, or None if None removed.
+
+            @see removeChild
+            @see removeText
+
+            For multiple, @see removeBlocks
+        '''
+        ret = []
+        for block in blocks:
+            if issubclass(block.__class__, AdvancedTag):
+                ret.append( self.removeChild(block) )
+            else:
+                ret.append( self.removeText(block) )
+
+        return ret
 
     def appendChild(self, child):
         '''
@@ -244,6 +326,45 @@ class AdvancedTag(object):
         return child
 
     appendNode = appendChild
+
+    def appendBlock(self, block):
+        '''
+            appendBlock - Append a block to this element. A block can be a string (text node), or an AdvancedTag (tag node)
+
+            @param <str/AdvancedTag> - block to add
+
+            @return - #block
+
+            NOTE: To add multiple blocks, @see appendBlocks
+                  If you know the type, use either @see appendChild for tags or @see appendText for text
+        '''
+        if isinstance(block, AdvancedTag):
+            self.appendNode(block)
+        else:
+            self.appendText(block)
+        
+        return block
+
+
+    def appendBlocks(self, blocks):
+        '''
+            appendBlocks - Append blocks to this element. A block can be a string (text node), or an AdvancedTag (tag node)
+
+            @param blocks list<str/AdvancedTag> - A list, in order to append, of blocks to add.
+
+            @return - #blocks
+
+            NOTE: To add a single block, @see appendBlock
+                  If you know the type, use either @see appendChild for tags or @see appendText for text
+        '''
+        for block in blocks:
+            if isinstance(block, AdvancedTag):
+                self.appendNode(block)
+            else:
+                self.appendText(block)
+
+        return blocks
+
 
     def appendInnerHTML(self, html):
         '''
@@ -265,18 +386,21 @@ class AdvancedTag(object):
 
         blocks = AdvancedHTMLParser.createBlocksFromHTML(html, encoding)
 
-        for block in blocks:
-            if isinstance(block, AdvancedTag):
-                self.appendNode(block)
-            else:
-                self.appendText(block)
+        self.appendBlocks(blocks)
+
 
     def removeChild(self, child):
         '''
-            removeChild - Remove a child, if present.
+            removeChild - Remove a child tag, if present.
 
-                @param child - The child to remove
+                @param child <AdvancedTag> - The child to remove
+
                 @return - The child [with parentNode cleared] if removed, otherwise None.
+
+                NOTE: This removes a tag. If removing a text block, use #removeText function.
+                  If you need to remove an arbitrary block (text or AdvancedTag), @see removeBlock
+
+                Removing multiple children? @see removeChildren
         '''
         try:
             self.children.remove(child)
@@ -290,6 +414,43 @@ class AdvancedTag(object):
             return None
 
     removeNode = removeChild
+
+    def removeChildren(self, children):
+        '''
+            removeChildren - Remove multiple child AdvancedTags.
+
+            @see removeChild
+
+            @return list<AdvancedTag/None> - A list of all tags removed in same order as passed.
+                Item is "None" if it was not attached to this node, and thus was not removed.
+        '''
+        ret = []
+
+        for child in children:
+            ret.append( self.removeChild(child) )
+
+        return ret
+            
+
+    def removeBlock(self, block):
+        '''
+            removeBlock - Removes a single block (text node or AdvancedTag) which is a child of this object.
+
+            @param block <str/AdvancedTag> - The block (text node or AdvancedTag) to remove.
+            
+            @return Returns the removed block if one was removed, or None if requested block is not a child of this node.
+
+            NOTE: If you know you are going to remove an AdvancedTag, @see removeChild
+                  If you know you are going to remove a text node,    @see removeText
+
+            If removing multiple blocks, @see removeBlocks
+        '''
+        if issubclass(block.__class__, AdvancedTag):
+            return self.removeChild(block)
+        else:
+            return self.removeText(block)
+
+            
 
     def insertBefore(self, child, beforeChild):
         '''
