@@ -33,6 +33,9 @@ what childNodes does in JS DOM (childNodes in AdvancedHTMLParser only returns
 tags. Probably will be changed in a future version, such that .children
 returns a TagCollection and childNodes returns all blocks.)
 
+- Add isTextNode and isTagNode functions, to test if a block is a text node
+(str) or a tag node (AdvancedTag)
+
 * 7.1.0 May 21 2017
 
 - Add createElement function on AdvancedHTMLParser, to work like
