@@ -777,6 +777,14 @@ class AdvancedTag(object):
         '''
         return self.blocks
 
+    def getChildBlocks(self):
+        '''
+            getChildBlocks - Gets the child blocks. 
+
+            @see childBlocks
+        '''
+        return self.childBlocks
+
     @property
     def childElementCount(self):
         '''
