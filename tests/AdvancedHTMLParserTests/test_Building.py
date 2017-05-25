@@ -254,4 +254,4 @@ class TestBuilding(object):
         assert divEms[1].id == 'twoDiv' , 'Got wrong ID on second element'
 
 if __name__ == '__main__':
-    pipe  = subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
+    sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())

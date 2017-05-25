@@ -150,4 +150,4 @@ class TestCustomFilter(object):
 
 
 if __name__ == '__main__':
-    subprocess.Popen('GoodTests.py "%s"' %(sys.argv[0],), shell=True).wait()
+    sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
