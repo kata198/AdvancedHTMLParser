@@ -306,7 +306,11 @@ class AdvancedTag(object):
         if issubclass(block.__class__, AdvancedTag):
             return self.removeChild(block)
         else:
-            return self.removeText(block)
+            try:
+                return self.blocks.pop(block)
+            except:
+                return None
+
 
     def removeBlocks(self, blocks):
         '''
@@ -326,7 +330,7 @@ class AdvancedTag(object):
             if issubclass(block.__class__, AdvancedTag):
                 ret.append( self.removeChild(block) )
             else:
-                ret.append( self.removeText(block) )
+                ret.append( self.removeBlock(block) )
 
         return ret
 
