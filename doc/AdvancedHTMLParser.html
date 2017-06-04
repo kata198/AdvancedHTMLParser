@@ -734,6 +734,10 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;suitable&nbsp;for&nbsp;passing&nbsp;back&nbsp;into&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;when&nbsp;creating&nbsp;a&nbsp;new&nbsp;tag.</tt></dd></dl>
 
+<dl ><dt ><a name="AdvancedTag-getChildBlocks" ><strong >getChildBlocks</strong></a>(self)</dt><dd ><tt >getChildBlocks&nbsp;-&nbsp;Gets&nbsp;the&nbsp;child&nbsp;blocks.&nbsp;<br />
+&nbsp;<br />
+@see&nbsp;childBlocks</tt></dd></dl>
+
 <dl ><dt ><a name="AdvancedTag-getChildren" ><strong >getChildren</strong></a>(self)</dt><dd ><tt >getChildren&nbsp;-&nbsp;returns&nbsp;child&nbsp;nodes&nbsp;as&nbsp;a&nbsp;searchable&nbsp;<a href="#TagCollection" >TagCollection</a>.<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;the&nbsp;immediate&nbsp;children&nbsp;to&nbsp;this&nbsp;tag.</tt></dd></dl>
@@ -863,15 +867,23 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;<br />
 @param&nbsp;className&nbsp;-&nbsp;A&nbsp;class&nbsp;to&nbsp;search</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-insertAfter" ><strong >insertAfter</strong></a>(self, child, afterChild)</dt><dd ><tt >insertAfter&nbsp;-&nbsp;Inserts&nbsp;a&nbsp;child&nbsp;after&nbsp;@afterChild<br />
+<dl ><dt ><a name="AdvancedTag-insertAfter" ><strong >insertAfter</strong></a>(self, child, afterChild)</dt><dd ><tt >insertAfter&nbsp;-&nbsp;Inserts&nbsp;a&nbsp;child&nbsp;after&nbsp;#afterChild<br />
 &nbsp;<br />
-child&nbsp;-&nbsp;Child&nbsp;to&nbsp;insert<br />
-afterChild&nbsp;-&nbsp;Child&nbsp;&nbsp;to&nbsp;insert&nbsp;after.&nbsp;if&nbsp;None,&nbsp;will&nbsp;&nbsp;be&nbsp;appended</tt></dd></dl>
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;child&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>/str&gt;&nbsp;-&nbsp;Child&nbsp;block&nbsp;to&nbsp;insert<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;afterChild&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>/str&gt;&nbsp;-&nbsp;Child&nbsp;block&nbsp;to&nbsp;insert&nbsp;after.&nbsp;if&nbsp;None,&nbsp;will&nbsp;&nbsp;be&nbsp;appended<br />
+&nbsp;<br />
+@return&nbsp;-&nbsp;The&nbsp;added&nbsp;child.&nbsp;Note,&nbsp;if&nbsp;it&nbsp;is&nbsp;a&nbsp;text&nbsp;block&nbsp;(str),&nbsp;the&nbsp;return&nbsp;isl&nbsp;NOT&nbsp;be&nbsp;linked&nbsp;by&nbsp;reference.</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-insertBefore" ><strong >insertBefore</strong></a>(self, child, beforeChild)</dt><dd ><tt >insertBefore&nbsp;-&nbsp;Inserts&nbsp;a&nbsp;child&nbsp;before&nbsp;@beforeChild<br />
+<dl ><dt ><a name="AdvancedTag-insertBefore" ><strong >insertBefore</strong></a>(self, child, beforeChild)</dt><dd ><tt >insertBefore&nbsp;-&nbsp;Inserts&nbsp;a&nbsp;child&nbsp;before&nbsp;#beforeChild<br />
 &nbsp;<br />
-child&nbsp;-&nbsp;Child&nbsp;to&nbsp;insert<br />
-beforeChild&nbsp;-&nbsp;Child&nbsp;&nbsp;to&nbsp;insert&nbsp;before.&nbsp;if&nbsp;None,&nbsp;will&nbsp;&nbsp;be&nbsp;appended</tt></dd></dl>
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;child&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>/str&gt;&nbsp;-&nbsp;Child&nbsp;block&nbsp;to&nbsp;insert<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;beforeChild&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>/str&gt;&nbsp;-&nbsp;Child&nbsp;block&nbsp;to&nbsp;insert&nbsp;before.&nbsp;if&nbsp;None,&nbsp;will&nbsp;&nbsp;be&nbsp;appended<br />
+&nbsp;<br />
+@return&nbsp;-&nbsp;The&nbsp;added&nbsp;child.&nbsp;Note,&nbsp;if&nbsp;it&nbsp;is&nbsp;a&nbsp;text&nbsp;block&nbsp;(str),&nbsp;the&nbsp;return&nbsp;isl&nbsp;NOT&nbsp;be&nbsp;linked&nbsp;by&nbsp;reference.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-isEqualNode" ><strong >isEqualNode</strong></a> = <a href="#AdvancedTag-__eq__" >__eq__</a>(self, other)</dt></dl>
 
