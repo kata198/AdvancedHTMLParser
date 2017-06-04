@@ -479,41 +479,63 @@ class AdvancedTag(object):
 
     def insertBefore(self, child, beforeChild):
         '''
-            insertBefore - Inserts a child before @beforeChild
+            insertBefore - Inserts a child before #beforeChild
 
-            child - Child to insert
-            beforeChild - Child  to insert before. if None, will  be appended
+
+                @param child <AdvancedTag/str> - Child block to insert
+
+                @param beforeChild <AdvancedTag/str> - Child block to insert before. if None, will  be appended
+
+            @return - The added child. Note, if it is a text block (str), the return isl NOT be linked by reference.
 
         '''
         if beforeChild is None:
-            return self.appendChild(child)
+            return self.appendBlock(child)
+
+        isChildTag = isTagNode(child)
 
         try:
-            childrenIdx = self.children.index(beforeChild)
             blocksIdx =  self.blocks.index(beforeChild)
-            self.children = self.children[:childrenIdx] + [child] + self.children[childrenIdx:]
-            self.blocks = self.blocks[:blocksIdx] + [child] + self.blocks[blocksIdx:]
+            if isChildTag:
+                childrenIdx = self.children.index(beforeChild)
         except ValueError:
             raise ValueError('Provided "beforeChild" is not a child of element, cannot insert.')
+        
+        self.blocks = self.blocks[:blocksIdx] + [child] + self.blocks[blocksIdx:]
+        if isChildTag: 
+            self.children = self.children[:childrenIdx] + [child] + self.children[childrenIdx:]
+        
+        return child
 
     def insertAfter(self, child, afterChild):
         '''
-            insertAfter - Inserts a child after @afterChild
+            insertAfter - Inserts a child after #afterChild
 
-            child - Child to insert
-            afterChild - Child  to insert after. if None, will  be appended
 
+                @param child <AdvancedTag/str> - Child block to insert
+
+                @param afterChild <AdvancedTag/str> - Child block to insert after. if None, will  be appended
+
+            @return - The added child. Note, if it is a text block (str), the return isl NOT be linked by reference.
         '''
         if afterChild is None:
-            return self.appendChild(child)
+            return self.appendBlock(child)
+
+        isChildTag = isTagNode(child)
 
         try:
-            childrenIdx = self.children.index(afterChild)
             blocksIdx =  self.blocks.index(afterChild)
-            self.children = self.children[:childrenIdx+1] + [child] + self.children[childrenIdx+1:]
-            self.blocks = self.blocks[:blocksIdx+1] + [child] + self.blocks[blocksIdx+1:]
+            if isChildTag:
+                childrenIdx = self.children.index(afterChild)
         except ValueError:
             raise ValueError('Provided "afterChild" is not a child of element, cannot insert.')
+
+
+        self.blocks = self.blocks[:blocksIdx+1] + [child] + self.blocks[blocksIdx+1:]
+        if isChildTag:
+            self.children = self.children[:childrenIdx+1] + [child] + self.children[childrenIdx+1:]
+
+        return child
 
 
     # Maybe we want to do a more full implementation of the Node stuff.... but I don't think anyone really

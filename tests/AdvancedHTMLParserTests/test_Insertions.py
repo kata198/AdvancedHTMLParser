@@ -3,8 +3,10 @@
     Test inserting data and tags
 '''
 
+import copy
 import subprocess
 import sys
+import traceback
 
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser
 from AdvancedHTMLParser.Tags import AdvancedTag
@@ -22,7 +24,7 @@ class TestInsertions(object):
         parser = self.getItemsParser()
 
         itemsEm = parser.getElementById('items')
-        assert itemsEm , 'Expected  to get <div id="outer" '
+        assert itemsEm , 'Failed to get <div id="items" '
 
         newItem =  AdvancedTag('div')
         newItem.setAttributes( {
@@ -31,7 +33,29 @@ class TestInsertions(object):
             }
         )
 
-        itemsEm.insertBefore(newItem, itemsEm.getElementById('item2'))
+        blocksBefore = copy.copy(itemsEm.blocks)
+        childrenBefore = copy.copy(itemsEm.children)
+
+        gotException = False
+        try:
+            itemsEm.insertBefore(newItem, parser.getElementById('outer'))
+        except ValueError:
+            gotException = True
+        except Exception as otherExc:
+            exc_info = sys.exc_info()
+            traceback.print_exception(*exc_info)
+
+            raise AssertionError('Expected insertBefore to raise ValueError if I try to insert before an item that does not exist.')
+
+        assert gotException , 'Expected to get ValueError trying to insert before an element not contained within the node'
+
+        assert blocksBefore == itemsEm.blocks , 'Expected blocks to NOT be changed on insertBefore error case'
+        assert childrenBefore == itemsEm.children , 'Expected children to NOT be changed on insertBefore error case'
+            
+
+        ret = itemsEm.insertBefore(newItem, itemsEm.getElementById('item2'))
+        assert ret == newItem , 'Expected insertBefore to return the added element'
+
         childIds = [x.id for x in itemsEm.getElementsByName('item')]
 
         assert childIds == ['item1', 'item1point5', 'item2'] , 'Expected items to be ordered. Got: %s' %(str(childIds,))
@@ -50,13 +74,63 @@ class TestInsertions(object):
 
         assert childIds == ['item1', 'item1point5', 'item2', 'item3'] , 'Expected items to be ordered. Got: %s' %(str(childIds,))
         newItem =  AdvancedTag('div')
+
+
+    def test_insertBeforeWithText(self):
+        '''
+            test_insertBeforeWithText - Tests that insertBefore works with a text node, as well as an AdvancedTag
+        '''
+        parser = self.getItemsParser()
+
+        itemsEm = parser.getElementById('items')
+        item2Em = parser.getElementById('item2')
+
+        assert itemsEm , 'Failed to get id="items"'
         
+        childBlockText = 'BlArGie Buff$$'
+
+        blocksBefore = copy.copy(itemsEm.blocks)
+        childrenBefore = copy.copy(itemsEm.children)
+
+        ret = itemsEm.insertBefore(childBlockText, item2Em)
+
+        assert ret == childBlockText , 'Expected return to be the text added'
+
+        assert itemsEm.children == childrenBefore , 'Expected child nodes to not be modified when text is inserted'
+        assert itemsEm.blocks   != blocksBefore , 'Expected blocks to change'
+
+        assert ret in itemsEm.blocks , 'Expected added text to be in the blocks'
+
+        idxNewBlock = itemsEm.blocks.index(childBlockText)
+        idxItems2 =   itemsEm.blocks.index(item2Em)
+
+        assert idxNewBlock < idxItems2 , 'Expected insertBefore to add BEFORE.\n%s should have been added after id=items2.\nGot: %s'  %(repr(childBlockText), repr(itemsEm.innerHTML))
+
+        blocksBefore = copy.copy(itemsEm.blocks)
+        childrenBefore = copy.copy(itemsEm.children)
+
+        childBlockText2 = 'Wh00ptie Whap'
+
+        ret = itemsEm.insertBefore(childBlockText2, None)
+
+        assert ret == childBlockText2 , 'Expected return to be the text added'
+
+        assert itemsEm.children == childrenBefore , 'Expected child nodes to not be modified when text is inserted'
+        assert itemsEm.blocks   != blocksBefore , 'Expected blocks to change'
+
+        assert itemsEm.blocks[-1] == childBlockText2 , 'Expected last block to be added text when "afterChild" is None'
+
+
 
     def test_insertAfter(self):
         parser = self.getItemsParser()
 
         itemsEm = parser.getElementById('items')
-        assert itemsEm , 'Expected  to get <div id="outer" '
+        assert itemsEm , 'Failed to get <div id="items" '
+
+        blocksBefore = copy.copy(itemsEm.blocks)
+        childrenBefore = copy.copy(itemsEm.children)
+
 
         newItem =  AdvancedTag('div')
         newItem.setAttributes( {
@@ -64,7 +138,27 @@ class TestInsertions(object):
             'id' : 'item1point5' }
         )
 
-        itemsEm.insertAfter(newItem,  itemsEm.getElementById('item1'))
+        gotException = False
+        try:
+            itemsEm.insertBefore(newItem, parser.getElementById('outer'))
+        except ValueError:
+            gotException = True
+        except Exception as otherExc:
+            exc_info = sys.exc_info()
+            traceback.print_exception(*exc_info)
+
+            raise AssertionError('Expected insertBefore to raise ValueError if I try to insert before an item that does not exist.')
+
+        assert gotException , 'Expected to get ValueError trying to insert before an element not contained within the node'
+
+        assert blocksBefore == itemsEm.blocks , 'Expected blocks to NOT be changed on insertBefore error case'
+        assert childrenBefore == itemsEm.children , 'Expected children to NOT be changed on insertBefore error case'
+            
+
+
+        ret = itemsEm.insertAfter(newItem,  itemsEm.getElementById('item1'))
+        assert ret == newItem , 'Expected insertAfter to return element added'
+
         childIds = [x.id for x in itemsEm.getElementsByName('item')]
 
         assert childIds == ['item1', 'item1point5', 'item2'] , 'Expected items to be ordered. Got: %s' %(str(childIds,))
@@ -82,7 +176,54 @@ class TestInsertions(object):
 
         assert childIds == ['item1', 'item1point5', 'item2','item3'] , 'Expected items to be ordered. Got: %s' %(str(childIds,))
         newItem =  AdvancedTag('div')
+     
+
+    def test_insertAfterWithText(self):
+        '''
+            test_insertAfterWithText - Tests that insertAfter works with a text node, as well as an AdvancedTag
+        '''
+        parser = self.getItemsParser()
+
+        itemsEm = parser.getElementById('items')
+
+        item2Em = parser.getElementById('item2')
+
+        assert itemsEm , 'Failed to get id="items"'
         
+        childBlockText = 'BlArGie Buff$$'
+
+        blocksBefore = copy.copy(itemsEm.blocks)
+        childrenBefore = copy.copy(itemsEm.children)
+
+        ret = itemsEm.insertAfter(childBlockText, item2Em)
+
+        assert ret == childBlockText , 'Expected return to be the text added'
+
+        assert itemsEm.children == childrenBefore , 'Expected child nodes to not be modified when text is inserted'
+        assert itemsEm.blocks   != blocksBefore , 'Expected blocks to change'
+
+        assert ret in itemsEm.blocks , 'Expected added text to be in the blocks'
+
+        idxNewBlock = itemsEm.blocks.index(childBlockText)
+        idxItems2 =   itemsEm.blocks.index(item2Em)
+
+        assert idxNewBlock > idxItems2 , 'Expected insertAfter to add AFTER.\n%s should have been added after id=items2.\nGot: %s'  %(repr(childBlockText), repr(itemsEm.innerHTML))
+
+        blocksBefore = copy.copy(itemsEm.blocks)
+        childrenBefore = copy.copy(itemsEm.children)
+
+        childBlockText2 = 'Wh00ptie Whap'
+
+        ret = itemsEm.insertAfter(childBlockText2, None)
+
+        assert ret == childBlockText2 , 'Expected return to be the text added'
+
+        assert itemsEm.children == childrenBefore , 'Expected child nodes to not be modified when text is inserted'
+        assert itemsEm.blocks   != blocksBefore , 'Expected blocks to change'
+
+        assert itemsEm.blocks[-1] == childBlockText2 , 'Expected last block to be added text when "afterChild" is None'
+
+
     def testPreviousSibling(self):
         parser = AdvancedHTMLParser()
         parser.parseStr('<div>Head Text<div id="one">An item</div><div id="two">Another item</div>More Text<div id="three">Last  item</div></div>')
