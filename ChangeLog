@@ -36,6 +36,19 @@ returns a TagCollection and childNodes returns all blocks.)
 - Add isTextNode and isTagNode functions, to test if a block is a text node
 (str) or a tag node (AdvancedTag)
 
+- add "getChildBlocks" method which returns child blocks (same as childBlocks
+property, but not a property)
+
+- Update "insertAfter" and "insertBefore" methods:
+	1. Now support blocks (text, or node)
+	2. Now always return the child, not just when insertBefore/insertAfter was
+	NULL
+	3. Remove the actual insertion outside of the try/catch, as that error
+	should be raised (and should NEVER happen)
+	4. Cleanup documentation
+
+
+
 * 7.1.0 May 21 2017
 
 - Add createElement function on AdvancedHTMLParser, to work like
