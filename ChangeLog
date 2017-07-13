@@ -1,3 +1,8 @@
+* 7.2.1 Jul 13 2017
+
+- Fix some issues where style would not show up on tag, after being set
+
+
 * 7.2.0 Jun 4 2017
 
 - Add ".forms" to AdvancedHTMLParser to emulate "document.forms" - returns all
