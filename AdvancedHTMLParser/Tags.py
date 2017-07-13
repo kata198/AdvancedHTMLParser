@@ -104,11 +104,13 @@ class AdvancedTag(object):
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
             isSelfClosing = True
 
+        styleAttr = StyleAttribute('', self)
+
         rawSet('_attributes', SpecialAttributesDict(self))
         rawSet('text', '')
         rawSet('blocks', [''])
         rawSet('classNames', [])
-        rawSet('style', StyleAttribute(''))
+        rawSet('style', styleAttr)
 
         rawSet('isSelfClosing', isSelfClosing)
 
@@ -145,7 +147,7 @@ class AdvancedTag(object):
             return value
 
         if name == 'style' and not isinstance(value, StyleAttribute):
-            value = StyleAttribute(value)
+            value = StyleAttribute(value, self)
 
         try:
             return object.__setattr__(self, name,  value)
@@ -853,6 +855,7 @@ class AdvancedTag(object):
         '''
         attributeString = []
         for name, val in self._attributes.items():
+            val = str(val)
             if val:
                 val = escapeQuotes(val)
                 attributeString.append('%s="%s"' %(name, val) )
@@ -1063,7 +1066,11 @@ class AdvancedTag(object):
 
             @return - String of current value of "style" after change is made.
         '''
-        setattr(self.style, styleName, styleValue)
+        if 'style' not in self._attributes:
+            self._attributes['style'] = "%s: %s" %(styleName, styleValue)
+        else:
+            setattr(self._attributes['style'], styleName, styleValue)
+#        setattr(self.style, styleName, styleValue)
 
     def setStyles(self, styleUpdatesDict):
         '''
@@ -1078,7 +1085,7 @@ class AdvancedTag(object):
             @return - String of current value of "style" after change is made.
         '''
         for newName, newValue in styleUpdatesDict.items():
-            setattr(self.style, newName, newValue)
+            self.setStyle(newName, newValue)
 
         return self.style
 

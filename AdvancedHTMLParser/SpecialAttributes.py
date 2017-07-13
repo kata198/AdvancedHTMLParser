@@ -44,7 +44,10 @@ class SpecialAttributesDict(dict):
 
     def __setitem__(self, key, value):
         if key == 'style':
-            self.tag.style = StyleAttribute(value)
+            if not isinstance(value, StyleAttribute):
+                self.tag.style = StyleAttribute(value, self.tag)
+            else:
+                self.tag.style = value
         elif key == 'class':
 
             # Ensure when we update the "class" attribute, that we update the list as well.
@@ -220,9 +223,9 @@ class StyleAttribute(object):
         StyleAttribute - Represents the "style" field on a tag.
     '''
 
-    RESERVED_ATTRIBUTES = ('_styleValue', '_styleDict', '_asStr')
+    RESERVED_ATTRIBUTES = ('_styleValue', '_styleDict', '_asStr', 'tag')
 
-    def __init__(self, styleValue):
+    def __init__(self, styleValue, tag=None):
         '''
             __init__ - Create a StyleAttribute object.
 
@@ -233,6 +236,7 @@ class StyleAttribute(object):
 
         self._styleValue = styleValue
         self._styleDict = StyleAttribute.styleToDict(styleValue)
+        self.tag = tag
 
     def __getattribute__(self, name):
         '''
@@ -280,6 +284,9 @@ class StyleAttribute(object):
                 del self._styleDict[name]
         else:
             self._styleDict[name] = val
+
+        if self.tag and self._styleDict:
+            self.tag.setAttribute('style', self)
 
         return val
 
@@ -452,7 +459,7 @@ class StyleAttribute(object):
         return self._asStr()
 
     def __repr__(self):
-        return "%s(%s)" %(self.__class__.__name__, repr(self._asStr()))
+        return "%s(%s)" %(type(self).__name__, repr(self._asStr()))
 
     def __copy__(self):
         return self.__class__(self._asStr())
