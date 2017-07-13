@@ -108,6 +108,33 @@ class TestStyle(object):
 
         assert item.style.paddingLeft != '11px', 'Expected changes to the copy do not affect the original.'
 
+    def test_setStyleMethod(self):
+        tag = AdvancedHTMLParser.AdvancedTag('div')
+
+        tag.setStyle('font-weight', 'bold')
+
+        assert tag.getStyle('font-weight') == 'bold' , 'Expected setStyle to set style attribute (on tag.getStyle)'
+
+        assert tag.style.fontWeight == 'bold' , 'Expected setStyle to set style attribute (on tag.style)'
+
+        html = tag.outerHTML
+
+        assert 'font-weight: bold' in html , 'Expected style attribute to be set on tag in html'
+
+    def test_setStyleAttr(self):
+        tag = AdvancedHTMLParser.AdvancedTag('div')
+
+        tag.style.fontWeight = 'bold'
+
+        assert tag.getStyle('font-weight') == 'bold' , 'Expected setStyle to set style attribute (on tag.getStyle)'
+
+        assert tag.style.fontWeight == 'bold' , 'Expected setStyle to set style attribute (on tag.style)'
+
+        html = tag.outerHTML
+
+        assert 'font-weight: bold' in html , 'Expected style attribute to be set on tag in html'
+
+
 
 
 
