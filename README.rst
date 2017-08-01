@@ -9,12 +9,19 @@ It aims to provide the same interface as you would find in a compliant browser t
 
 There are many potential applications, not limited to:
  * Webpage Scraping / Data Extraction
+
  * Testing and Validation
+
  * HTML Modification/Insertion
+
  * Outputting your website
+
  * Debugging
+
  * HTML Document generation
+
  * Web Crawling
+
  * Formatting HTML documents or web pages
 
 
@@ -23,14 +30,16 @@ It is especially good for servlets/webpages. It is quick to take an expertly cra
 Another useful scenario is creating automated testing suites which can operate much more quickly and reliably (and at a deeper function-level), unlike in-browser testing suites.
 
 
+
 Full API
 --------
 
-Can be found  `Here <http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html>`_ .
+Can be found  http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html .
 
 or http://pythonhosted.org/AdvancedHTMLParser
 
 Various examples can be found in the "tests" directory.
+
 
 Short Doc
 ---------
@@ -38,8 +47,8 @@ Short Doc
 
 **AdvancedHTMLParser**
 
-
 Think of this like "document" in a browser.
+
 
 The AdvancedHTMLParser can read in a file (or string) of HTML, and will create a modifiable DOM tree from it. It can also be constructed manually from AdvancedHTMLParser.AdvancedTag objects.
 
@@ -48,11 +57,9 @@ To populate an AdvancedHTMLParser from existing HTML:
 
 	parser = AdvancedHTMLParser.AdvancedHTMLParser()
 
-
 	# Parse an HTML string into the document
 
 	parser.parseStr(htmlStr)
-
 
 	# Parse an HTML file into the document
 
@@ -60,7 +67,7 @@ To populate an AdvancedHTMLParser from existing HTML:
 
 
 
-The parser then exposes many "standard" functions as you'd find on the web for accessing the data:
+The parser then exposes many "standard" functions as you'd find on the web for accessing the data, and some others:
 
     getElementsByTagName   - Returns a list of all elements matching a tag name
 
@@ -111,7 +118,6 @@ setAttribute, getAttribute, and removeAttribute are more explicit and recommende
 The same names are used in python as in the javascript/DOM, such as 'className' corrosponding to a space-separated string of the 'class' attribute, 'classList' corrosponding to a list of classes, etc.
 
 
-
 **Style Attribute**
 
 Style attributes can be manipulated just like in javascript, so element.style.position = 'relative' for setting, or element.style.position for access. There are also helper methods, getStyle(name) and setStyle(name, value) which will set the  correct values.
@@ -131,10 +137,10 @@ To operate just on items in the list, you can use filterCollection which takes a
 **AdvancedTag**
 
 The AdvancedTag represents a single tag and its inner text. It exposes many of the functions and properties you would expect to be present if using javascript.
+
 each AdvancedTag also supports the same getElementsBy\* functions as the parser.
 
 It adds several additional that are not found in javascript, such as peers and arbitrary attribute searching.
-
 
 some of these include:
 
@@ -142,15 +148,15 @@ some of these include:
 
     appendChild             -  Append a child to this element
 
-    insertBefore            -  Inserts a child before an existing child
-
-    insertAfter             - Inserts a child after an existing child
+    removeChild             -  Removes a child
 
 	removeText              -  Removes first occurance of some text from any text nodes
 
 	removeTextAll           -  Removes ALL occurances of some text from any text nodes
 
-    removeChild             -  Removes a child
+    insertBefore            - Inserts a child before an existing child
+
+    insertAfter             - Inserts a child after an existing child
 
     getChildren             - Returns the children as a list
 
@@ -194,16 +200,16 @@ some of these include:
 
     remove                  - Remove this node from its parent element, and disassociates this and all sub-nodes from the associated document
 
-    __str__                 - str(tag) will show start tag with attributes, inner text, and end tag
+    **str**                 - str(tag) will show start tag with attributes, inner text, and end tag
 
-    __repr__                - Shows a reconstructable representation of this tag
+    **repr**                - Shows a reconstructable representation of this tag
 
-    __getitem__             - Can be indexed like tag[2] to access second child.
+    **getitem**             - Can be indexed like tag[2] to access second child.
 
 
 And some properties:
 
-    children/childNodes     - The children as a list
+    children/childNodes     - The children (tags) as a list NOTE: This returns only AdvancedTag objects, not text.
 
     childBlocks             - All direct child blocks. This includes both AdvnacedTag objects and text nodes (str)
 
@@ -238,7 +244,6 @@ which acts like, in javascript:
 
 Tags can be created from HTML strings outside of AdvancedHTMLParser.parseStr (which parses an entire document) by:
 
-
 * Parser.AdvancedHTMLParser.createElement - Like document.createElement, creates a tag with a given tag name. Not associated with any document.
 
 * Parser.AdvancedHTMLParser.createElementFromHTML - Creates a single tag from HTML.
@@ -262,19 +267,15 @@ This is not as robust as the "filter" method (which can also be used on any tag 
 
 	find - Perform a search of elements using attributes as keys and potential values as values
 
-
 	   (i.e.  parser.find(name='blah', tagname='span')  will return all elements in this document
 
 		 with the name "blah" of the tag type "span" )
 
-
 	Arguments are key = value, or key can equal a tuple/list of values to match ANY of those values.
-
 
 	Append a key with __contains to test if some strs (or several possible strs) are within an element
 
 	Append a key with __icontains to perform the same __contains op, but ignoring case
-
 
 	Special keys:
 
@@ -282,9 +283,7 @@ This is not as robust as the "filter" method (which can also be used on any tag 
 
 	   text       - The text within an element
 
-
 	NOTE: Empty string means both "not set" and "no value" in this implementation.
-
 
 
 Example:
@@ -303,7 +302,6 @@ A full explanation of the various filter modes that QueryableList supports can b
 Special keys are: "tagname" for the tag name, and "text" for the inner text of a node.
 
 An attribute that is unset has a value of None, which is different than a set attribute with an empty value ''. 
-
 
 The AdvancedHTMLParser has:
 
@@ -336,18 +334,14 @@ Validation
 ----------
 Validation can be performed by using ValidatingAdvancedHTMLParser. It will raise an exception if an assumption would have to be made to continue parsing (i.e. something important).
 
-
 InvalidCloseException - Tried to close a tag that shouldn't have been closed
 
-
 MissedCloseException  - Missed a non-optional close of a tag that would lead to causing an assumption during parsing.
-
-
 
 IndexedAdvancedHTMLParser
 -------------------------
 
-IndexedAdvancedHTMLParser provides the ability to use indexing for faster search. If you are just parsing and not modifying, this is your best bet. If you are modifying the DOM tree, make sure you call IndexedAdvancedHTMLParser.reindex() before relying on them.
+IndexedAdvancedHTMLParser provides the ability to use indexing for faster search. If you are just parsing and not modifying, this is your best bet. If you are modifying the DOM tree, make sure you call IndexedAdvancedHTMLParser.reindex() before relying on them. 
 
 Each of the get\* functions above takes an additional "useIndex" function, which can also be set to False to skip index. See constructor for more information, and "Performance and Indexing" section below.
 
@@ -359,6 +353,7 @@ The AdvancedHTMLFormatter formats HTML into a pretty layout. It can handle eleme
 The methods are:
 
    parseStr               - Parse a string of contents
+
    parseFile              - Parse a filename or file object
 
    getHTML                - Get the formatted html
@@ -366,7 +361,7 @@ The methods are:
 
 A script, formatHTML comes with this package and will perform formatting on an input file, and output to a file or stdout:
 
-    Usage: formatHTML (optional: /path/to/in.html) (optional: [/path/to/output.html])
+    Usage: formatHTML (Optional: [/path/to/in.html]) (optional: [/path/to/output.html])
 
       Formats HTML on input and writes to output file, or stdout if output file is omitted.
 
@@ -376,12 +371,16 @@ A script, formatHTML comes with this package and will perform formatting on an i
     If input filename is not specified or is empty string, input will be from stdin
 
 
+
 Notes
 -----
 
 * Each tag has a generated unique ID which is assigned at create time. The search functions use these to prevent duplicates in search results. There is a global function in the module, AdvancedHTMLParser.uniqueTags, which will filter a list of tags and remove any duplicates. TagCollections will only allow one instance of a tag (no duplicates)
+
 * In general, for tag names and attribute names, you should use lowercase values. During parsing, the parser will lowercase attribute names (like NAME="Abc" becomes name="Abc"). During searching, however, for performance reasons, it is assumed you are passing in already-lowercased strings. If you can't trust the input to be lowercase, then it is your responsibility to call .lower() before calling .getElementsBy\*
+
 * If you are using this to construct HTML and not search, I recommend either setting the index params to False in the constructor, or calling  AdvancedHTMLParser.disableIndexing()
+
 * There are additional functions and usages not documented here, check the file for more information.
 
 Performance and Indexing
@@ -409,7 +408,7 @@ By default, https://github.com/kata198/QueryableList will be installed, which wi
 Example Usage
 -------------
 
-See `This Example <https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/example.py>`_ for an example of parsing store data using this class.
+See https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/example.py for an example of parsing store data using this class.
 
 Changes
 -------
@@ -424,5 +423,6 @@ I am available by email to provide support, answer questions, or otherwise  prov
 Unit Tests
 ----------
 
-See "tests" directory available in github. Use "runTests.py" within that directory. Tests use my `GoodTests <https://github.com/kata198/GoodTests>`_ framework. It will download it to the current directory if not found in path, so you don't need to worry that it's a dependency.
+See "tests" directory available in github. Use "runTests.py" within that directory. Tests use my `GoodTests https://github.com/kata198/GoodTests`_ framework. It will download it to the current directory if not found in path, so you don't need to worry that it's a dependency.
+
 

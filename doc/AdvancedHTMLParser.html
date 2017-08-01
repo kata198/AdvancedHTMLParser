@@ -6,7 +6,7 @@
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="heading" >
 <tr bgcolor="#7799ee" >
 <td valign="bottom" >&nbsp;<br />
-<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong >AdvancedHTMLParser</strong></big></big> (version 7.2.0)</font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
+<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong >AdvancedHTMLParser</strong></big></big> (version 7.2.1)</font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
     <p ><tt >#&nbsp;Copyright&nbsp;(c)&nbsp;2015,&nbsp;2016,&nbsp;2017&nbsp;Tim&nbsp;Savannah&nbsp;All&nbsp;Rights&nbsp;Rserved&nbsp;under&nbsp;LGPLv3.&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
 #<br />
 #&nbsp;In&nbsp;general&nbsp;below,&nbsp;all&nbsp;"tag&nbsp;names"&nbsp;(body,&nbsp;div,&nbsp;etc)&nbsp;should&nbsp;be&nbsp;lowercase.&nbsp;The&nbsp;parser&nbsp;will&nbsp;lowercase&nbsp;internally.&nbsp;All&nbsp;attribute&nbsp;names&nbsp;(like&nbsp;`id`&nbsp;in&nbsp;id="123")&nbsp;provided&nbsp;to&nbsp;search&nbsp;functions&nbsp;should&nbsp;be&nbsp;lowercase.&nbsp;Values&nbsp;are&nbsp;not&nbsp;lowercase.&nbsp;This&nbsp;is&nbsp;because&nbsp;doing&nbsp;tons&nbsp;of&nbsp;searches,&nbsp;lowercasing&nbsp;every&nbsp;search&nbsp;can&nbsp;quickly&nbsp;build&nbsp;up.&nbsp;Lowercase&nbsp;it&nbsp;once&nbsp;in&nbsp;your&nbsp;code,&nbsp;not&nbsp;every&nbsp;time&nbsp;you&nbsp;call&nbsp;a&nbsp;function.</tt></p>
@@ -1795,7 +1795,7 @@ Data descriptors inherited from <a href="builtins.html#BaseException" >builtins.
 &nbsp;<br />
 @return&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;attribute&nbsp;value&nbsp;or&nbsp;empty&nbsp;string&nbsp;if&nbsp;not&nbsp;set</tt></dd></dl>
 
-<dl ><dt ><a name="StyleAttribute-__init__" ><strong >__init__</strong></a>(self, styleValue)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;a&nbsp;<a href="#StyleAttribute" >StyleAttribute</a>&nbsp;<a href="builtins.html#object" >object</a>.<br />
+<dl ><dt ><a name="StyleAttribute-__init__" ><strong >__init__</strong></a>(self, styleValue, tag=None)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;a&nbsp;<a href="#StyleAttribute" >StyleAttribute</a>&nbsp;<a href="builtins.html#object" >object</a>.<br />
 &nbsp;<br />
 @param&nbsp;styleValue&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;style&nbsp;string&nbsp;(&nbsp;like&nbsp;"display:&nbsp;none;&nbsp;padding-top:&nbsp;5px"&nbsp;)</tt></dd></dl>
 
@@ -1885,7 +1885,7 @@ Data descriptors defined here:<br />
 </dl>
 <hr />
 Data and other attributes defined here:<br />
-<dl ><dt ><strong >RESERVED_ATTRIBUTES</strong> = ('_styleValue', '_styleDict', '_asStr')</dt></dl>
+<dl ><dt ><strong >RESERVED_ATTRIBUTES</strong> = ('_styleValue', '_styleDict', '_asStr', 'tag')</dt></dl>
 
 <dl ><dt ><strong >__hash__</strong> = None</dt></dl>
 
@@ -2545,6 +2545,6 @@ Data descriptors inherited from <a href="_markupbase.html#ParserBase" >_markupba
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
 <td width="100%" ><strong >__all__</strong> = ('AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection', 'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'MultipleRootNodeException', 'StyleAttribute', 'toggleAttributesDOM', 'isTextNode', 'isTagNode')<br />
-<strong >__int_version_tuple__</strong> = (7, 2, 0)<br />
-<strong >__version_tuple__</strong> = ('7', '2', '0')</td></tr></table>
+<strong >__int_version_tuple__</strong> = (7, 2, 1)<br />
+<strong >__version_tuple__</strong> = ('7', '2', '1')</td></tr></table>
 </p></p></p></p></body></html>
