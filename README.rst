@@ -8,6 +8,7 @@ It aims to provide the same interface as you would find in a compliant browser t
 
 
 There are many potential applications, not limited to:
+
  * Webpage Scraping / Data Extraction
 
  * Testing and Validation
@@ -69,27 +70,27 @@ To populate an AdvancedHTMLParser from existing HTML:
 
 The parser then exposes many "standard" functions as you'd find on the web for accessing the data, and some others:
 
-    getElementsByTagName   - Returns a list of all elements matching a tag name
+	getElementsByTagName   \- Returns a list of all elements matching a tag name
 
-    getElementsByName      - Returns a list of all elements with a given name attribute
+	getElementsByName      \- Returns a list of all elements with a given name attribute
 
-    getElementById         - Returns a single AdvancedTag (or None) if found an element matching the provided ID
+	getElementById         \- Returns a single AdvancedTag (or None) if found an element matching the provided ID
 
-    getElementsByClassName - Returns a list of all elements containing a class name
+	getElementsByClassName \- Returns a list of all elements containing a class name
 
-    getElementsByAttr       - Returns a list of all elements matching a paticular attribute/value pair.
+	getElementsByAttr       \- Returns a list of all elements matching a paticular attribute/value pair.
 
-    getElementsWithAttrValues - Returns a list of all elements with a specific attribute name containing one of a list of values
+	getElementsWithAttrValues \- Returns a list of all elements with a specific attribute name containing one of a list of values
 
-    getElementsCustomFilter - Provide a function/lambda that takes a tag argument, and returns True to "match" it. Returns all matched objects
+	getElementsCustomFilter \- Provide a function/lambda that takes a tag argument, and returns True to "match" it. Returns all matched objects
 
-    getHTML                 - Returns string of HTML representing this DOM
+	getHTML                 \- Returns string of HTML representing this DOM
 
-    getRootNodes            - Get a list of nodes at root level (0)
+	getRootNodes            \- Get a list of nodes at root level (0)
 
-    getAllNodes             - Get all the nodes contained within this document
+	getAllNodes             \- Get all the nodes contained within this document
 
-    getFormattedHTML        - Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to two spaces)
+	getFormattedHTML        \- Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to two spaces)
 
 
 The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
@@ -98,11 +99,11 @@ The results of all of these getElement\* functions are TagCollection objects. Th
 The parser also contains some expected properties, like
 
 
-	head                    - The "head" tag associated with this document, or None
+	head                    \- The "head" tag associated with this document, or None
 
-	body                    - The "body" tag associated with this document, or None
+	body                    \- The "body" tag associated with this document, or None
 
-	forms                   - All "forms" on this document as a TagCollection
+	forms                   \- All "forms" on this document as a TagCollection
 
 
 **General Attributes**
@@ -144,86 +145,86 @@ It adds several additional that are not found in javascript, such as peers and a
 
 some of these include:
 
-    appendText              -  Append text to this element
+	appendText              \-  Append text to this element
 
-    appendChild             -  Append a child to this element
+	appendChild             \-  Append a child to this element
 
-    removeChild             -  Removes a child
+	removeChild             \-  Removes a child
 
-	removeText              -  Removes first occurance of some text from any text nodes
+	removeText              \-  Removes first occurance of some text from any text nodes
 
-	removeTextAll           -  Removes ALL occurances of some text from any text nodes
+	removeTextAll           \-  Removes ALL occurances of some text from any text nodes
 
-    insertBefore            - Inserts a child before an existing child
+	insertBefore            \- Inserts a child before an existing child
 
-    insertAfter             - Inserts a child after an existing child
+	insertAfter             \- Inserts a child after an existing child
 
-    getChildren             - Returns the children as a list
+	getChildren             \- Returns the children as a list
 
-    getStartTag             - Start Tag, with attributes
+	getStartTag             \- Start Tag, with attributes
 
-    getEndTag               - End Tag
+	getEndTag               \- End Tag
 
-    getPeersByName          - Gets "peers" (elements with same parent, at same level in tree) with a given name
+	getPeersByName          \- Gets "peers" (elements with same parent, at same level in tree) with a given name
 
-    getPeersByAttr          - Gets peers by an arbitrary attribute/value combination
+	getPeersByAttr          \- Gets peers by an arbitrary attribute/value combination
 
-    getPeersWithAttrValues  - Gets peers by an arbitrary attribute/values combination. 
+	getPeersWithAttrValues  \- Gets peers by an arbitrary attribute/values combination. 
 
-    getPeersByClassName   - Gets peers that contain a given class name
+	getPeersByClassName   \- Gets peers that contain a given class name
 
-    getElement\*            - Same as above, but act on the children of this element.
+	getElement\\\*            \- Same as above, but act on the children of this element.
 
-    nextSibling            - Get next sibling, be it text  or  an element
+	nextSibling            \- Get next sibling, be it text  or  an element
 
-    nextSiblingElement     - Get next sibling, that is an element
+	nextSiblingElement     \- Get next sibling, that is an element
 
-    previousSibling            - Get previous sibling, be it text  or  an element
+	previousSibling            \- Get previous sibling, be it text  or  an element
 
-    previousSiblingElement     - Get previous sibling, that is an element
+	previousSiblingElement     \- Get previous sibling, that is an element
 
-    {get,set,has,remove}Attribute  - get/set/test/remove an attribute
+	{get,set,has,remove}Attribute  \- get/set/test/remove an attribute
 
-    {add,remove}Class       - Add/remove a class from the list of classes
+	{add,remove}Class       \- Add/remove a class from the list of classes
 
-    setStyle                - Set a specific style property [like: setStyle("font-weight", "bold") ]
+	setStyle                \- Set a specific style property [like: setStyle("font\-weight", "bold") ]
 
-    isTagEqual              - Compare if two tags have the same attributes. Using the == operator will compare if they are the same exact tag (by uuid)
+	isTagEqual              \- Compare if two tags have the same attributes. Using the == operator will compare if they are the same exact tag (by uuid)
 
-    getUid                  - Get a unique ID for this tag (internal)
+	getUid                  \- Get a unique ID for this tag (internal)
 
-    getAllChildNodes        - Gets all nodes beneath this node in the document (its children, its children's children, etc)
+	getAllChildNodes        \- Gets all nodes beneath this node in the document (its children, its children's children, etc)
 
-    getAllNodes             - Same as getAllChildNodes, but also includes this node
+	getAllNodes             \- Same as getAllChildNodes, but also includes this node
 
-    contains                - Check if a provided node appears anywhere beneath this node (as child, child-of-child, etc)
+	contains                \- Check if a provided node appears anywhere beneath this node (as child, child\-of\-child, etc)
 
-    remove                  - Remove this node from its parent element, and disassociates this and all sub-nodes from the associated document
+	remove                  \- Remove this node from its parent element, and disassociates this and all sub\-nodes from the associated document
 
-    **str**                 - str(tag) will show start tag with attributes, inner text, and end tag
+	\_\_str\_\_                 \- str(tag) will show start tag with attributes, inner text, and end tag
 
-    **repr**                - Shows a reconstructable representation of this tag
+	\_\_repr\_\_                \- Shows a reconstructable representation of this tag
 
-    **getitem**             - Can be indexed like tag[2] to access second child.
+	\_\_getitem\_\_             \- Can be indexed like tag[2] to access second child.
 
 
 And some properties:
 
-    children/childNodes     - The children (tags) as a list NOTE: This returns only AdvancedTag objects, not text.
+	children/childNodes     \- The children (tags) as a list NOTE: This returns only AdvancedTag objects, not text.
 
-    childBlocks             - All direct child blocks. This includes both AdvnacedTag objects and text nodes (str)
+	childBlocks             \- All direct child blocks. This includes both AdvnacedTag objects and text nodes (str)
 
-    innerHTML               - The innerHTML including the html of all children
+	innerHTML               \- The innerHTML including the html of all children
 
-    outerHTML               - innerHTML wrapped in this tag
+	outerHTML               \- innerHTML wrapped in this tag
 
-    classNames/classList    - a list of the classes
+	classNames/classList    \- a list of the classes
 
-    parentNode/parentElement - The parent tag
+	parentNode/parentElement \- The parent tag
 
-    tagName                - The tag name
+	tagName                \- The tag name
 
-    ownerDocument          - The document associated with this node, if any
+	ownerDocument          \- The document associated with this node, if any
 
 
 And many others. See the pydocs for a full list, and associated docstrings.
@@ -265,7 +266,7 @@ The most basic unified-search, AdvancedHTMLParser has a "find" method on it. Thi
 
 This is not as robust as the "filter" method (which can also be used on any tag or TagCollection), but does not require any dependency packages.
 
-	find - Perform a search of elements using attributes as keys and potential values as values
+	find \- Perform a search of elements using attributes as keys and potential values as values
 
 	   (i.e.  parser.find(name='blah', tagname='span')  will return all elements in this document
 
@@ -273,22 +274,22 @@ This is not as robust as the "filter" method (which can also be used on any tag 
 
 	Arguments are key = value, or key can equal a tuple/list of values to match ANY of those values.
 
-	Append a key with __contains to test if some strs (or several possible strs) are within an element
+	Append a key with \_\_contains to test if some strs (or several possible strs) are within an element
 
-	Append a key with __icontains to perform the same __contains op, but ignoring case
+	Append a key with \_\_icontains to perform the same \_\_contains op, but ignoring case
 
 	Special keys:
 
-	   tagname    - The tag name of the element
+	   tagname    \- The tag name of the element
 
-	   text       - The text within an element
+	   text       \- The text within an element
 
 	NOTE: Empty string means both "not set" and "no value" in this implementation.
 
 
 Example:
 
-    cheddarElements = parser.find(name='items', text__icontains='cheddar')
+	cheddarElements = parser.find(name='items', text\_\_icontains='cheddar')
 
 
 **filter**
@@ -305,28 +306,28 @@ An attribute that is unset has a value of None, which is different than a set at
 
 The AdvancedHTMLParser has:
 
-	filter / filterAnd      - Perform a filter query on all nodes in this document, returning a TagCollection of elements matching ALL criteria
+	filter / filterAnd      \- Perform a filter query on all nodes in this document, returning a TagCollection of elements matching ALL criteria
 
-	filterOr                - Perform a filter query on all nodes in this document, returning a TagCollection of elements matching ANY criteria
+	filterOr                \- Perform a filter query on all nodes in this document, returning a TagCollection of elements matching ANY criteria
 
 
 Every AdvancedTag has:
 
-	filter / filterAnd      - Perform a filter query on this nodes and all sub-nodes, returning a TagCollection of elements matching ALL criteria
+	filter / filterAnd      \- Perform a filter query on this nodes and all sub\-nodes, returning a TagCollection of elements matching ALL criteria
 
-	filterOr                - Perform a filter query on this nodes and all sub-nodes, returning a TagCollection of elements matching ANY criteria
+	filterOr                \- Perform a filter query on this nodes and all sub\-nodes, returning a TagCollection of elements matching ANY criteria
 
 
 Every TagCollection has:
 
 
-	filter / filterAnd      - Perform a filter query on JUST the nodes contained within this list (no children), returning a TagCollection of elements matching ALL criteria
+	filter / filterAnd      \- Perform a filter query on JUST the nodes contained within this list (no children), returning a TagCollection of elements matching ALL criteria
 
-	filterOr                - Perform a filter query on JUST the nodes contained within this list (no children), returning a TagCollection of elements matching ANY criteria
+	filterOr                \- Perform a filter query on JUST the nodes contained within this list (no children), returning a TagCollection of elements matching ANY criteria
 
-	filterAll / filterAllAnd - Perform a filter query on the nodes contained within this list, and all of their sub-nodes, returning a TagCollection of elements matching ALL criteria
+	filterAll / filterAllAnd \- Perform a filter query on the nodes contained within this list, and all of their sub\-nodes, returning a TagCollection of elements matching ALL criteria
 
-	filterAllOr              - Perform a filter query on the nodes contained within this list, and all of their sub-nodes, returning a TagCollection of elements matching ANY criteria
+	filterAllOr              \- Perform a filter query on the nodes contained within this list, and all of their sub\-nodes, returning a TagCollection of elements matching ANY criteria
 
 
 
@@ -361,14 +362,14 @@ The methods are:
 
 A script, formatHTML comes with this package and will perform formatting on an input file, and output to a file or stdout:
 
-    Usage: formatHTML (Optional: [/path/to/in.html]) (optional: [/path/to/output.html])
+	Usage: formatHTML (Optional: [/path/to/in.html]) (optional: [/path/to/output.html])
 
-      Formats HTML on input and writes to output file, or stdout if output file is omitted.
+	  Formats HTML on input and writes to output file, or stdout if output file is omitted.
 
 
-    If output filename is not specified or is empty string, output will be to stdout.
+	If output filename is not specified or is empty string, output will be to stdout.
 
-    If input filename is not specified or is empty string, input will be from stdin
+	If input filename is not specified or is empty string, input will be from stdin
 
 
 
