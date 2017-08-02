@@ -60,27 +60,27 @@ To populate an AdvancedHTMLParser from existing HTML:
 
 The parser then exposes many "standard" functions as you'd find on the web for accessing the data, and some others:
 
-    getElementsByTagName   - Returns a list of all elements matching a tag name
+	getElementsByTagName   - Returns a list of all elements matching a tag name
 
-    getElementsByName      - Returns a list of all elements with a given name attribute
+	getElementsByName      - Returns a list of all elements with a given name attribute
 
-    getElementById         - Returns a single AdvancedTag (or None) if found an element matching the provided ID
+	getElementById         - Returns a single AdvancedTag (or None) if found an element matching the provided ID
 
-    getElementsByClassName - Returns a list of all elements containing a class name
+	getElementsByClassName - Returns a list of all elements containing a class name
 
-    getElementsByAttr       - Returns a list of all elements matching a paticular attribute/value pair.
+	getElementsByAttr       - Returns a list of all elements matching a paticular attribute/value pair.
 
-    getElementsWithAttrValues - Returns a list of all elements with a specific attribute name containing one of a list of values
+	getElementsWithAttrValues - Returns a list of all elements with a specific attribute name containing one of a list of values
 
-    getElementsCustomFilter - Provide a function/lambda that takes a tag argument, and returns True to "match" it. Returns all matched objects
+	getElementsCustomFilter - Provide a function/lambda that takes a tag argument, and returns True to "match" it. Returns all matched objects
 
-    getHTML                 - Returns string of HTML representing this DOM
+	getHTML                 - Returns string of HTML representing this DOM
 
-    getRootNodes            - Get a list of nodes at root level (0)
+	getRootNodes            - Get a list of nodes at root level (0)
 
-    getAllNodes             - Get all the nodes contained within this document
+	getAllNodes             - Get all the nodes contained within this document
 
-    getFormattedHTML        - Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to two spaces)
+	getFormattedHTML        - Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to two spaces)
 
 
 The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
@@ -134,86 +134,86 @@ It adds several additional that are not found in javascript, such as peers and a
 
 some of these include:
 
-    appendText              -  Append text to this element
+	appendText              -  Append text to this element
 
-    appendChild             -  Append a child to this element
+	appendChild             -  Append a child to this element
 
-    removeChild             -  Removes a child
+	removeChild             -  Removes a child
 
 	removeText              -  Removes first occurance of some text from any text nodes
 
 	removeTextAll           -  Removes ALL occurances of some text from any text nodes
 
-    insertBefore            - Inserts a child before an existing child
+	insertBefore            - Inserts a child before an existing child
 
-    insertAfter             - Inserts a child after an existing child
+	insertAfter             - Inserts a child after an existing child
 
-    getChildren             - Returns the children as a list
+	getChildren             - Returns the children as a list
 
-    getStartTag             - Start Tag, with attributes
+	getStartTag             - Start Tag, with attributes
 
-    getEndTag               - End Tag
+	getEndTag               - End Tag
 
-    getPeersByName          - Gets "peers" (elements with same parent, at same level in tree) with a given name
+	getPeersByName          - Gets "peers" (elements with same parent, at same level in tree) with a given name
 
-    getPeersByAttr          - Gets peers by an arbitrary attribute/value combination
+	getPeersByAttr          - Gets peers by an arbitrary attribute/value combination
 
-    getPeersWithAttrValues  - Gets peers by an arbitrary attribute/values combination. 
+	getPeersWithAttrValues  - Gets peers by an arbitrary attribute/values combination. 
 
-    getPeersByClassName   - Gets peers that contain a given class name
+	getPeersByClassName   - Gets peers that contain a given class name
 
-    getElement\*            - Same as above, but act on the children of this element.
+	getElement\*            - Same as above, but act on the children of this element.
 
-    nextSibling            - Get next sibling, be it text  or  an element
+	nextSibling            - Get next sibling, be it text  or  an element
 
-    nextSiblingElement     - Get next sibling, that is an element
+	nextSiblingElement     - Get next sibling, that is an element
 
-    previousSibling            - Get previous sibling, be it text  or  an element
+	previousSibling            - Get previous sibling, be it text  or  an element
 
-    previousSiblingElement     - Get previous sibling, that is an element
+	previousSiblingElement     - Get previous sibling, that is an element
 
-    {get,set,has,remove}Attribute  - get/set/test/remove an attribute
+	{get,set,has,remove}Attribute  - get/set/test/remove an attribute
 
-    {add,remove}Class       - Add/remove a class from the list of classes
+	{add,remove}Class       - Add/remove a class from the list of classes
 
-    setStyle                - Set a specific style property [like: setStyle("font-weight", "bold") ]
+	setStyle                - Set a specific style property [like: setStyle("font-weight", "bold") ]
 
-    isTagEqual              - Compare if two tags have the same attributes. Using the == operator will compare if they are the same exact tag (by uuid)
+	isTagEqual              - Compare if two tags have the same attributes. Using the == operator will compare if they are the same exact tag (by uuid)
 
-    getUid                  - Get a unique ID for this tag (internal)
+	getUid                  - Get a unique ID for this tag (internal)
 
-    getAllChildNodes        - Gets all nodes beneath this node in the document (its children, its children's children, etc)
+	getAllChildNodes        - Gets all nodes beneath this node in the document (its children, its children's children, etc)
 
-    getAllNodes             - Same as getAllChildNodes, but also includes this node
+	getAllNodes             - Same as getAllChildNodes, but also includes this node
 
-    contains                - Check if a provided node appears anywhere beneath this node (as child, child-of-child, etc)
+	contains                - Check if a provided node appears anywhere beneath this node (as child, child-of-child, etc)
 
-    remove                  - Remove this node from its parent element, and disassociates this and all sub-nodes from the associated document
+	remove                  - Remove this node from its parent element, and disassociates this and all sub-nodes from the associated document
 
-    __str__                 - str(tag) will show start tag with attributes, inner text, and end tag
+	__str__                 - str(tag) will show start tag with attributes, inner text, and end tag
 
-    __repr__                - Shows a reconstructable representation of this tag
+	__repr__                - Shows a reconstructable representation of this tag
 
-    __getitem__             - Can be indexed like tag[2] to access second child.
+	__getitem__             - Can be indexed like tag[2] to access second child.
 
 
 And some properties:
 
-    children/childNodes     - The children (tags) as a list NOTE: This returns only AdvancedTag objects, not text.
+	children/childNodes     - The children (tags) as a list NOTE: This returns only AdvancedTag objects, not text.
 
-    childBlocks             - All direct child blocks. This includes both AdvnacedTag objects and text nodes (str)
+	childBlocks             - All direct child blocks. This includes both AdvnacedTag objects and text nodes (str)
 
-    innerHTML               - The innerHTML including the html of all children
+	innerHTML               - The innerHTML including the html of all children
 
-    outerHTML               - innerHTML wrapped in this tag
+	outerHTML               - innerHTML wrapped in this tag
 
-    classNames/classList    - a list of the classes
+	classNames/classList    - a list of the classes
 
-    parentNode/parentElement - The parent tag
+	parentNode/parentElement - The parent tag
 
-    tagName                - The tag name
+	tagName                - The tag name
 
-    ownerDocument          - The document associated with this node, if any
+	ownerDocument          - The document associated with this node, if any
 
 
 And many others. See the pydocs for a full list, and associated docstrings.
@@ -275,7 +275,7 @@ This is not as robust as the "filter" method (which can also be used on any tag 
 
 Example:
 
-    cheddarElements = parser.find(name='items', text__icontains='cheddar')
+	cheddarElements = parser.find(name='items', text__icontains='cheddar')
 
 
 **filter**
@@ -339,22 +339,22 @@ The AdvancedHTMLFormatter formats HTML into a pretty layout. It can handle eleme
 
 The methods are:
 
-   parseStr               - Parse a string of contents
-   parseFile              - Parse a filename or file object
+	parseStr               - Parse a string of contents
+	parseFile              - Parse a filename or file object
 
-   getHTML                - Get the formatted html
+	getHTML                - Get the formatted html
 
 
 A script, formatHTML comes with this package and will perform formatting on an input file, and output to a file or stdout:
 
-    Usage: formatHTML (Optional: [/path/to/in.html]) (optional: [/path/to/output.html])
+	Usage: formatHTML (Optional: [/path/to/in.html]) (optional: [/path/to/output.html])
 
-      Formats HTML on input and writes to output file, or stdout if output file is omitted.
+		Formats HTML on input and writes to output file, or stdout if output file is omitted.
 
 
-    If output filename is not specified or is empty string, output will be to stdout.
+	If output filename is not specified or is empty string, output will be to stdout.
 
-    If input filename is not specified or is empty string, input will be from stdin
+	If input filename is not specified or is empty string, input will be from stdin
 
 
 
