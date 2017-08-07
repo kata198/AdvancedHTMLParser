@@ -66,7 +66,7 @@ TAG_ITEM_CHANGE_NAME_FROM_ITEM = {
 }
 
 # These attributes are binary (only accept true/false)
-TAG_ITEM_BINARY_ATTRIBUTES = { 'hidden', 'checked' }
+TAG_ITEM_BINARY_ATTRIBUTES = { 'hidden', 'checked', 'selected' }
 
 # The opposite of TAG_ITEM_CHANGE_NAME_FROM_ITEM, for going from the attribute name to the object-access name
 TAG_ITEM_CHANGE_NAME_FROM_ATTR = { val : key for key, val in TAG_ITEM_CHANGE_NAME_FROM_ITEM.items() }
