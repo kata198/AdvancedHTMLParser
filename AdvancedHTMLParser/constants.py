@@ -23,11 +23,12 @@ INVISIBLE_ROOT_TAG_END = '</%s>' %(INVISIBLE_ROOT_TAG,)
 # Tag names with attributes that are not common to all, but exist on certain elements
 TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = { 
     'input' : {'checked', 'onsearch', 'onchange', 'oncontextmenu', 'oninput', 'oninvalid', 'onreset', 'onselect'},
+    'option': {'selected', },
     'body'  : {'onafterprint', 'onbeforeprint', 'onbeforeunload', 'onerror', 'onhashchange', 'onload', 'onmessage', \
                 'onoffline', 'ononline', 'onpagehide', 'onpageshow', 'onpopstate', 'onresize', 'onstorage', 'onunload'},
     'form'  : {'onblur', 'onchange', 'oncontextmenu', 'onfocus', 'oninput', 'oninvalid', 'onreset', 'onsearch', 'onselect', 'onsubmit'},
     'menu'  : {'onshow', },
-    'a'     : {'href', },
+    'a'     : {'href', 'target', },
     'details' : {'ontoggle', },
 }
 
