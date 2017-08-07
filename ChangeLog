@@ -1,3 +1,26 @@
+* 7.2.2 - Aug 07 2017
+
+- Link through dot-access the "target" attribute on anchor "a" tags, and "selected" for option "option" tags.
+
+I.e. this code:
+
+ optionEm = document.createElement('option')
+
+ optionEm.selected = True
+
+Will mark the "selected" attribute of the option. And
+
+  someEm = document.getElementsByTagName('a')[0]
+
+  someEm.target = '_blank'
+
+Will set the "target" tag attribute on "someEm"
+
+- Make "selected" a binary attribute, so it can only hold True or False, and is just listed as "selected" on a tag, per proper html. This makes it handle the same was as "checked" attribute
+
+- Some minor cleanups to the RST readme
+
+
 * 7.2.1 Jul 13 2017
 
 - Fix some issues where style would not show up on tag, after being set
