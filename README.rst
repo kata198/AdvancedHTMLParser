@@ -415,7 +415,7 @@ If you are still getting UnicodeDecodeError or UnicodeEncodeError, there are a f
 
 * If the error happens when printing/writing to stdout ( default behaviour for apache / mod\_python is to open stdout with the ANSI/ASCII encoding ), ensure your streams are, in fact, set to utf\-8.
 
-	* Set the environment variable PYTHONIOENCODING to "utf\-8" before python is launched. In Apache, you can add the line "SetEnv PYTHONIOENCODING utf\-8" to achieve this.
+	* Set the environment variable PYTHONIOENCODING to "utf\-8" before python is launched. In Apache, you can add the line "SetEnv PYTHONIOENCODING utf\-8" to your httpd.conf in order to achieve this.
 
 * Ensure that the data you are passing to AdvancedHTMLParser has the correct encoding (matching the "encoding" parameter).
 
