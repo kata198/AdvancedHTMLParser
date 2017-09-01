@@ -406,6 +406,30 @@ AdvancedHTMLParser can be installed without dependencies (pass '\-\-no\-deps' to
 By default, https://github.com/kata198/QueryableList will be installed, which will enable support for those additional filter methods.
 
 
+Unicode
+-------
+
+AdvancedHTMLParser generally has very good support for unicode, and defaults to "utf\-8" (can be altered by the "encoding" argument to the AdvancedHTMLParser.AdvancedHTMLParser when parsing.)
+
+If you are still getting UnicodeDecodeError or UnicodeEncodeError, there are a few things you can try:
+
+* If the error happens when printing/writing to stdout ( default behaviour for apache / mod\_python is to open stdout with the ANSI/ASCII encoding ), ensure your streams are, in fact, set to utf\-8.
+
+	* Set the environment variable PYTHONIOENCODING to "utf\-8" before python is launched. In Apache, you can add the line "SetEnv PYTHONIOENCODING utf\-8" to achieve this.
+
+* Ensure that the data you are passing to AdvancedHTMLParser has the correct encoding (matching the "encoding" parameter).
+
+* Switch to python3 if at all possible \-\- python2 does have 'unicode' support and AdvancedHTMLParser uses it to the best of its ability, but python2 does still have some inherit flaws which may come up using standard library / output functions. You should ensure that these are set to use utf\-8 (as described above).
+
+
+AdvancedHTMLParser is tested against unicode ( even has a unit test ) which works in both python2 and python3 in the general case.
+
+If you are having an issue (even on python2) and you've checked the above "common configuration/usage" errors and think there is still an issue, please open a bug report on https://github.com/kata198/AdvancedHTMLParser with a test case, python version, and traceback.
+
+
+The library itself is considered unicode-safe, and almost always it's an issue outside of this library, or has a simple workaround.
+
+
 Example Usage
 -------------
 
