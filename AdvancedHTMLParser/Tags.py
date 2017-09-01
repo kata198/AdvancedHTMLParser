@@ -10,7 +10,7 @@ import copy
 from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES, COMMON_JAVASCRIPT_ATTRIBUTES, ALL_JAVASCRIPT_EVENT_ATTRIBUTES, TAG_ITEM_BINARY_ATTRIBUTES, TAG_ITEM_ATTRIBUTE_LINKS, TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES, TAG_ITEM_CHANGE_NAME_FROM_ATTR, TAG_ITEM_CHANGE_NAME_FROM_ITEM
 from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeNodeMap
 
-from .utils import escapeQuotes
+from .utils import escapeQuotes, tostr
 
 __all__ = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection', 'toggleAttributesDOM', 'isTextNode', 'isTagNode')
 
@@ -143,7 +143,7 @@ class AdvancedTag(object):
                     self.setAttribute(name, "")
                 return value
 
-            self.setAttribute(name, str(value))
+            self.setAttribute(name, tostr(value))
             return value
 
         if name == 'style' and not isinstance(value, StyleAttribute):
@@ -855,7 +855,7 @@ class AdvancedTag(object):
         '''
         attributeString = []
         for name, val in self._attributes.items():
-            val = str(val)
+            val = tostr(val)
             if val:
                 val = escapeQuotes(val)
                 attributeString.append('%s="%s"' %(name, val) )
@@ -932,7 +932,7 @@ class AdvancedTag(object):
 
                 This is suitable for passing back into AdvancedTag when creating a new tag.
         '''
-        return [ (str(name)[:], str(value)[:]) for name, value in self._attributes.items() ]
+        return [ (tostr(name)[:], tostr(value)[:]) for name, value in self._attributes.items() ]
 
     def getAttributesDict(self):
         '''
@@ -944,7 +944,7 @@ class AdvancedTag(object):
               @return <dict ( str(name), str(value) )> - A dict of attrName to attrValue , all as strings and copies.
         '''
             
-        return { str(name)[:] : str(value)[:] for name, value in self._attributes.items() }
+        return { tostr(name)[:] : tostr(value)[:] for name, value in self._attributes.items() }
 
     def setAttribute(self, attrName, attrValue):
         '''

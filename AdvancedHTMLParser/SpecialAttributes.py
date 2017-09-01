@@ -7,7 +7,7 @@ import copy
 
 from collections import OrderedDict
 
-from .utils import escapeQuotes
+from .utils import escapeQuotes, tostr
 
 __all__ = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute' )
 
@@ -214,7 +214,7 @@ class AttributeNodeMap(object):
 
 
     def __str__(self):
-        return '[ %s ]' %(' '.join([str(self.getNamedItem(name)) for name in self._attributesDict.keys()]))
+        return '[ %s ]' %(' '.join([tostr(self.getNamedItem(name)) for name in self._attributesDict.keys()]))
 
 
 
@@ -232,7 +232,7 @@ class StyleAttribute(object):
             @param styleValue <str> - A style string ( like "display: none; padding-top: 5px" )
         '''
         if isinstance(styleValue, StyleAttribute):
-            styleValue = str(styleValue)
+            styleValue = tostr(styleValue)
 
         self._styleValue = styleValue
         self._styleDict = StyleAttribute.styleToDict(styleValue)

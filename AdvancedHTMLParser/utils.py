@@ -1,10 +1,11 @@
 # Copyright (c) 2015, 2017 Tim Savannah  under terms of LGPLv3
 #  Some misc utils and regular expressions
 
+import sys
 import re
 
 __all__ = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 
-    'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes')
+    'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr')
 
 IE_CONDITIONAL_PATTERN = re.compile('[<][!][-][-][ \t\r\n]*[\[][ \t\r\n]*if.*-->', re.MULTILINE)
 
@@ -70,4 +71,12 @@ def unescapeQuotes(value):
     '''
     return value.replace('&quot;', '"')
 
-
+if sys.version_info.major < 3:
+    def tostr(value):
+        if not isinstance(value, (str, unicode)):
+            value = unicode(value)
+        return value
+else:
+    def tostr(value):
+        return str(value)
+ 
