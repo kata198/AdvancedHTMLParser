@@ -1,3 +1,7 @@
+* 7.2.3 - Sep 01 2017
+
+- Work around some issues in python2 due to its piss-poor unicode implementation ( can be seen, for example, by using &uarr; as a value in a tag ). For proper unicode support you should use python3, but this at least makes python2 more on-par with python3.
+
 * 7.2.2 - Aug 07 2017
 
 - Link through dot-access the "target" attribute on anchor "a" tags, and "selected" for option "option" tags.
