@@ -1,4 +1,3 @@
-
 AdvancedHTMLParser
 ==================
 
@@ -448,6 +447,6 @@ I am available by email to provide support, answer questions, or otherwise  prov
 Unit Tests
 ----------
 
-See "tests" directory available in github. Use "runTests.py" within that directory. Tests use my `GoodTests https://github.com/kata198/GoodTests`_ framework. It will download it to the current directory if not found in path, so you don't need to worry that it's a dependency.
+See "tests" directory available in github. Use "runTests.py" within that directory. Tests use my `GoodTests <https://github.com/kata198/GoodTests>`_ framework. It will download it to the current directory if not found in path, so you don't need to worry that it's a dependency.
 
 
