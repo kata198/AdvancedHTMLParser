@@ -838,7 +838,57 @@ class AdvancedTag(object):
 
         # Else, return previous element tag
         return self.parentNode.children[myElementIdx-1]
-        
+
+
+    @property
+    def tagBlocks(self):
+        '''
+            tagBlocks - Property. 
+                        Returns all the blocks which are direct children of this node, where that block is a tag (not text)
+
+                NOTE: This is similar to .children , and you should probably use .children instead except within this class itself
+
+                @return list<AdvancedTag> - A list of direct children which are tags.
+        '''
+        return [block for block in self.blocks if issubclass(block.__class__, AdvancedTag)]
+
+
+    def getBlocksTags(self):
+        '''
+            getBlocksTags - Returns a list of tuples referencing the blocks which are direct children of this node, and the block is an AdvancedTag.
+
+                The tuples are ( block, blockIdx ) where "blockIdx" is the index of self.blocks wherein the tag resides.
+
+                @return list< tuple(block, blockIdx) > - A list of tuples of child blocks which are tags and their index in the self.blocks list
+        '''
+        blocks = self.blocks
+
+        return [ (blocks[i], i) for i in range( len(self.blocks) ) if issubclass(blocks[i].__class__, AdvancedTag) ]
+
+
+    @property
+    def textBlocks(self):
+        '''
+            textBlocks - Property. 
+                        Returns all the blocks which are direct children of this node, where that block is a text (not a tag)
+
+                @return list<AdvancedTag> - A list of direct children which are text.
+        '''
+        return [block for block in self.blocks if not issubclass(block.__class__, AdvancedTag)]
+
+
+    def getBlocksText(self):
+        '''
+            getBlocksText - Returns a list of tuples referencing the blocks which are direct children of this node, and the block is a text node (not an AdvancedTag)
+
+                The tuples are ( block, blockIdx ) where "blockIdx" is the index of self.blocks wherein the text resides.
+
+                @return list< tuple(block, blockIdx) > - A list of tuples of child blocks which are not tags and their index in the self.blocks list
+        '''
+        blocks = self.blocks
+
+        return [ (blocks[i], i) for i in range( len(self.blocks) ) if not issubclass(blocks[i].__class__, AdvancedTag) ]
+
 
     def getChildren(self):
         '''
