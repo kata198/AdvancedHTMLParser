@@ -329,6 +329,66 @@ class TestAttributes(object):
 
         assert attributes.getNamedItem('id') == attributes['id'], 'Expected getNamedItem("id") to be the same as attributes["id"]'
 
+    def test_unknownStillAttribute(self):
+        '''
+            test_unknownStillAttribute - Test that setting an unknwon attribute still sets it in HTML
+        '''
+        tag = AdvancedTag('div')
+
+        tag.setAttribute('squiggle', 'wiggle')
+
+        htmlStr = str(tag)
+
+        assert 'squiggle="wiggle"' in htmlStr
+
+        squiggleAttrValue = tag.getAttribute('squiggle')
+
+        assert squiggleAttrValue == 'wiggle', "Expected 'squiggle' attribute from tag.getAttribute to return 'wiggle'. Got: " + repr(squiggleAttrValue)
+
+
+    def test_removeAttribute(self):
+        '''
+            test_removeAttribute - Test removing attributes
+        '''
+
+        tag = AdvancedTag('div')
+
+        tag.setAttribute('align', 'left')
+        tag.setAttribute('title', 'Hover text')
+
+        htmlStr = str(tag)
+
+        assert 'align="left"' in htmlStr , 'Expected setAttribute("align", "left") to result in align="left" in HTML representation. Got: ' + htmlStr
+
+        alignAttrValue = tag.getAttribute('align')
+
+        assert alignAttrValue == 'left' , 'Expected getAttribute("align") to return "left" after having set align to "left". Got: ' + repr(alignAttrValue)
+
+        tag.removeAttribute('align')
+
+        htmlStr = str(tag)
+
+        assert 'align="left"' not in htmlStr , 'Expected removeAttribute("align") to remove align="left" from HTML representation. Got: ' + htmlStr
+
+        alignAttrValue = tag.getAttribute('align')
+
+        assert alignAttrValue != 'left' , 'Expected removeAttribute("align") to remove align: left from attributes map. Got: ' + repr(alignAttrValue)
+
+
+        tag.removeAttribute('title')
+
+        htmlStr = str(tag)
+
+        assert 'align="left"' not in htmlStr , 'Expected after all attributes removed via removeAttribute that align="left" would not be present. Got: ' + htmlStr
+        assert 'title=' not in htmlStr , 'Expected after all attributes removed via removeAttribute that align="left" would not be present. Got: ' + htmlStr
+
+        attributes = tag.attributes
+
+        assert 'align' not in attributes , 'Expected to NOT find "align" within the attributes. Got: ' + repr(attributes)
+        assert 'title' not in attributes , 'Expected to NOT find "align" within the attributes. Got: ' + repr(attributes)
+
+        print ( tag )
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
