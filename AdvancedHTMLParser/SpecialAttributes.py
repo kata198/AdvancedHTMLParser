@@ -21,7 +21,41 @@ class SpecialAttributesDict(dict):
     # A dict that supports returning special members
     def __init__(self, tag):
         dict.__init__(self)
-        self.tag = tag
+
+        self._setTag(tag)
+
+
+    @property
+    def tag(self):
+        '''
+            tag - Property (dot-access) for the associated tag to this attributes dict
+
+                  Handles getting the value from a weak association
+
+                    @return <AdvancedTag/None> - The associated tag, or None if no association
+        '''
+
+        tagRef = self._tagRef
+        if tagRef:
+            return tagRef()
+        else:
+            return None
+
+    def _setTag(self, tag):
+        '''
+            _setTag - INTERNAL METHOD. Associated a given AdvancedTag to this attributes dict.
+
+                        If bool(#tag) is True, will set the weakref to that tag.
+
+                        Otherwise, will clear the reference
+
+                      @param tag <AdvancedTag/None> - Either the AdvancedTag to associate, or None to clear current association
+        '''
+        if tag:
+            self._tagRef = weakref.ref(tag)
+        else:
+            self._tagRef = None
+
 
     def __getitem__(self, key):
         if key == 'style':
