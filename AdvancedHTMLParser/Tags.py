@@ -108,8 +108,15 @@ class AdvancedTag(object):
         # Directly assign these attributes without running through the
         #   public __setattr__ code
         rawSet('_attributes', SpecialAttributesDict(self))
+
+        # TODO: Can probably just use a cached / invalidated model for 'text' instead of a distinct property.
+        #         This could improve performance and memory usage both
         rawSet('text', '')
+
+        # TODO: Perhaps we should have helper methods like "textBlocks" and "tagBlocks" which perform a comprehension.
         rawSet('blocks', [''])
+
+        # TODO: Maybe can refactor "children" into just being the "tagBlocks" from above?
         rawSet('children', [])
         rawSet('classNames', [])
         rawSet('isSelfClosing', isSelfClosing)
@@ -225,12 +232,25 @@ class AdvancedTag(object):
         except:
             pass
         
-        if name in TAG_ITEM_ATTRIBUTE_LINKS or name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
+        # Check if this is one of the special items which map directly to attributes
+        #    TAG_ITEM_ATTRIBUTE_LINKS - These attributes link directly to an html attribute, e.x. "id" or "name"
+        #    TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES - This is a map for specific dot-access attributes specific to
+        #                                           a tag name. For example, javascript events or for an anchor
+        #                                           the "href" or "target" attributes
+        if name in TAG_ITEM_ATTRIBUTE_LINKS \
+              or \
+            name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
+
+            # See if this attribute has a "special" representation, TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES
+            #   For example, tabIndex returns "-1" if not set rather than the standard empty string
             if name in TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES:
                 return TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES[name](self)
 
+            # Check if given attribute has a different name via dot-access and actual attribute ( e.x. "className" -> "class" )
             if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
                 name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
+
+            # Check if this is a binary/boolean attribute, i.e. the value is always either True or False ( e.x. "checked" )
             elif name in TAG_ITEM_BINARY_ATTRIBUTES:
                 val = self.getAttribute(name, False)
                 if val is not False:
@@ -238,13 +258,20 @@ class AdvancedTag(object):
 
                 return False
 
+            # Javascript attributes ( e.x. "onclick" ) have a default ( i.e. unset ) value of null rather than other html attributes
+            #   which default to empty string
             if name in ALL_JAVASCRIPT_EVENT_ATTRIBUTES:
                 default = None
             else:
                 default = ''
 
+            # Pull attribute value off the attribute dict
             return self.getAttribute(name, default)
 
+        # Access is not for a known attribute name. So try to pull directly off this object,
+        #   or return None.
+        # TODO: Since we start this method with this same call, we already know at this point
+        #        the attribute is not present. So should we just return None here instead of trying again?
         try:
             return object.__getattribute__(self, name)
         except AttributeError:
@@ -252,9 +279,30 @@ class AdvancedTag(object):
             return None
 
     def __rawGet(self, name):
+        '''
+            __rawGet - INTERNAL - Directly get an attribute on this object without running through
+                        the public interface of AdvancedTag.__getattribute__
+
+                  @param name <str> - The attribute name to attempt to fetch
+
+                  @return - The value of the attribute on this object denoted by #name
+
+
+                  @raises - AttributeError if no such attribute is found on this object
+        '''
         return object.__getattribute__(self, name)
 
     def __rawSet(self, name, value):
+        '''
+            __rawSet - INTERNAL - Directly set an attribute on this object without running through
+                        the public interface of AdvancedTag.__setattr__
+
+
+                  @param name <str> - The attribute name to set
+
+                  @param value - The value to assign to #name on this object
+
+        '''
         return object.__setattr__(self, name, value)
 
 
@@ -271,8 +319,10 @@ class AdvancedTag(object):
         '''
             appendText - append some inner text
         '''
+        # self.text is just raw string of the text
         self.text += text
         self.isSelfClosing = False # inner text means it can't self close anymo
+        # self.blocks is either text or tags, in order of appearance
         self.blocks.append(text)
 
     def removeText(self, text):
@@ -287,21 +337,31 @@ class AdvancedTag(object):
             NOTE: To remove a block (maybe a node, maybe text), @see removeBlock
             NOTE: To remove ALL occuraces of text, @see removeTextAll
         '''
+        # TODO: This would be a good candidate for the refactor of text blocks
         removedBlock = None
 
+        # Scan all text blocks for "text"
         blocks = self.blocks
         for i in range(len(blocks)):
             block = blocks[i]
+
+            # We only care about text blocks
             if issubclass(block.__class__, AdvancedTag):
                 continue
 
             if text in block:
+                # We have a block that matches.
+                
+                # Create a copy of the old text in this block for return
                 removedBlock = block[:]
+                # Remove first occurance of #text from matched block
                 self.blocks[i] = block.replace(text, '')
                 break # remove should only remove FIRST occurace, per other methods
 
+        # Regenerate the "text" property
         self.text = ''.join([thisBlock for thisBlock in blocks if not issubclass(thisBlock.__class__, AdvancedTag)])
 
+        # Return None if no match, otherwise the text previously within the block we removed #text from
         return removedBlock
 
 
@@ -318,19 +378,27 @@ class AdvancedTag(object):
             NOTE: To remove a block (maybe a node, maybe text), @see removeBlock
             NOTE: To remove a single occurace of text, @see removeText
         '''
+        # TODO: This would be a good candidate for the refactor of text blocks
         removedBlocks = []
 
         blocks = self.blocks
         for i in range(len(blocks)):
+
             block = blocks[i]
+
+            # We only care about text blocks
             if issubclass(block.__class__, AdvancedTag):
                 continue
 
             if text in block:
+                # Got a match, save a copy of the text block pre-replace for the return
                 removedBlocks.append( block[:] )
+                
+                # And replace the text within this matched block
                 self.blocks[i] = block.replace(text, '')
 
-
+        
+        # Regenerate self.text
         self.text = ''.join([thisBlock for thisBlock in blocks if not issubclass(thisBlock.__class__, AdvancedTag)])
 
         return removedBlocks
@@ -352,27 +420,6 @@ class AdvancedTag(object):
             return True
         return False
 
-    def removeBlock(self, block):
-        '''
-            removeBlock - Removes a block (the first occurance) from the direct children of this node.
-
-            @param block <str/AdvancedTag> - An AdvancedTag for a tag node, else a string for a text node
-
-            @return The removed block, or None if None removed.
-
-            @see removeChild
-            @see removeText
-
-            For multiple, @see removeBlocks
-        '''
-        if issubclass(block.__class__, AdvancedTag):
-            return self.removeChild(block)
-        else:
-            try:
-                return self.blocks.pop(block)
-            except:
-                return None
-
 
     def removeBlocks(self, blocks):
         '''
@@ -392,6 +439,7 @@ class AdvancedTag(object):
             if issubclass(block.__class__, AdvancedTag):
                 ret.append( self.removeChild(block) )
             else:
+                # TODO: Should this just forward to removeText?
                 ret.append( self.removeBlock(block) )
 
         return ret
@@ -402,17 +450,26 @@ class AdvancedTag(object):
 
             @param child <AdvancedTag> - Append a child element to this element
         '''
-    
+
+        # Associate parentNode of #child to this tag
         child.parentNode = self
+
+        # Associate owner document to child and all children recursive
         child.ownerDocument = self.ownerDocument
         for subChild in child.getAllChildNodes():
             subChild.ownerDocument = self.ownerDocument
+
+        # Our tag cannot be self-closing if we have a child tag
         self.isSelfClosing = False
+
+        # Append to both "children" and "blocks"
         self.children.append(child)
         self.blocks.append(child)
         return child
 
+    # appendNode - alias of appendChild
     appendNode = appendChild
+
 
     def appendBlock(self, block):
         '''
@@ -425,6 +482,7 @@ class AdvancedTag(object):
             NOTE: To add multiple blocks, @see appendBlocks
                   If you know the type, use either @see appendChild for tags or @see appendText for text
         '''
+        # Determine block type and call appropriate method
         if isinstance(block, AdvancedTag):
             self.appendNode(block)
         else:
@@ -465,14 +523,19 @@ class AdvancedTag(object):
             @return - None. A browser would return innerHTML, but that's somewhat expensive on a high-level node.
               So just call .innerHTML explicitly if you need that
         '''
+
+        # Late-binding to prevent circular import
         from .Parser import AdvancedHTMLParser
 
+        # Inherit encoding from the associated document, if any.
         encoding = None
         if self.ownerDocument:
             encoding = self.ownerDocument.encoding
 
+        # Generate blocks (text nodes and AdvancedTag's) from HTML
         blocks = AdvancedHTMLParser.createBlocksFromHTML(html, encoding)
 
+        # Throw them onto this node
         self.appendBlocks(blocks)
 
 
@@ -490,16 +553,25 @@ class AdvancedTag(object):
                 Removing multiple children? @see removeChildren
         '''
         try:
+            # Remove from children and blocks
             self.children.remove(child)
             self.blocks.remove(child)
+
+            # Clear parent node association on child
             child.parentNode = None
+
+            # Clear document reference on removed child and all children thereof
             child.ownerDocument = None
             for subChild in child.getAllChildNodes():
                 subChild.ownerDocument = None
             return child
         except ValueError:
+            # TODO: What circumstances cause this to be raised? Is it okay to have a partial remove?
+            #
+            #  Is it only when "child" is not found? Should that just be explicitly tested?
             return None
 
+    # removeNode - Alias of removeChild
     removeNode = removeChild
 
     def removeChildren(self, children):
@@ -550,20 +622,28 @@ class AdvancedTag(object):
 
             @return - The added child. Note, if it is a text block (str), the return isl NOT be linked by reference.
 
+            @raises ValueError - If #beforeChild is defined and is not a child of this node
+
         '''
+        # When the second arg is null/None, the node is appended. The argument is required per JS API, but null is acceptable..
         if beforeChild is None:
             return self.appendBlock(child)
 
+        # If #child is an AdvancedTag, we need to add it to both blocks and children.
         isChildTag = isTagNode(child)
 
+        # Find the index #beforeChild falls under current element
         try:
             blocksIdx =  self.blocks.index(beforeChild)
             if isChildTag:
                 childrenIdx = self.children.index(beforeChild)
         except ValueError:
+            # #beforeChild is not a child of this element. Raise error.
             raise ValueError('Provided "beforeChild" is not a child of element, cannot insert.')
         
+        # Add to blocks in the right spot
         self.blocks = self.blocks[:blocksIdx] + [child] + self.blocks[blocksIdx:]
+        # Add to child in the right spot
         if isChildTag: 
             self.children = self.children[:childrenIdx] + [child] + self.children[childrenIdx:]
         
@@ -580,11 +660,14 @@ class AdvancedTag(object):
 
             @return - The added child. Note, if it is a text block (str), the return isl NOT be linked by reference.
         '''
+
+        # If after child is null/None, just append
         if afterChild is None:
             return self.appendBlock(child)
 
         isChildTag = isTagNode(child)
 
+        # Determine where we need to insert this both in "blocks" and, if a tag, "children"
         try:
             blocksIdx =  self.blocks.index(afterChild)
             if isChildTag:
@@ -592,7 +675,7 @@ class AdvancedTag(object):
         except ValueError:
             raise ValueError('Provided "afterChild" is not a child of element, cannot insert.')
 
-
+        # Append child to requested spot
         self.blocks = self.blocks[:blocksIdx+1] + [child] + self.blocks[blocksIdx+1:]
         if isChildTag:
             self.children = self.children[:childrenIdx+1] + [child] + self.children[childrenIdx+1:]
@@ -653,55 +736,107 @@ class AdvancedTag(object):
         '''
         return self._attributes
 
+    # attributes - Alias of "attributesDict" property.
+    #                Can be changed to "attributesDOM" for a less-useful but more-strict adherance to JS API
     attributes = attributesDict
 
 
     @property
     def nextSibling(self):
         '''
-            nextSibling - Returns the next sibling.  This could be text or an element. use nextSiblingElement to ensure element
+            nextSibling - Returns the next sibling. This is the child following this node in the parent's list of children.
+
+                    This could be text or an element. use nextSiblingElement to ensure element
+
+                @return <None/str/AdvancedTag> - None if there are no nodes (text or tag) in the parent after this node,
+                                                    Otherwise the following node (text or tag)
         '''
+        # If no parent, no siblings.
         if not self.parentNode:
             return None
+
+        # Determine index in blocks
         myBlockIdx = self.parentNode.blocks.index(self)
+
+        # If we are the last, no next sibling
         if myBlockIdx == len(self.parentNode.blocks):
             return None
+
+        # Else, return the next block in parent
         return self.parentNode.blocks[myBlockIdx+1]
 
     @property
     def nextSiblingElement(self):
         '''
-            nextSiblingElement - Returns the next sibling  that is an element. 
+            nextSiblingElement - Returns the next sibling that is an element.
+                This is the tag node following this node in the parent's list of children
+
+                @return <None/AdvancedTag> - None if there are no children (tag) in the parent after this node,
+                                                    Otherwise the following element (tag)
         '''
+        # If no parent, no siblings
         if not self.parentNode:
             return None
+
+        # Determine the index in children
         myElementIdx = self.parentNode.children.index(self)
+
+        # If we are last child, no next sibling
         if myElementIdx == len(self.parentNode.children):
             return None
+
+        # Else, return the next child in parent
         return self.parentNode.children[myElementIdx+1]
         
     @property
     def previousSibling(self):
         '''
-            previousSibling - Returns the previous sibling.  This could be text or an element. use previousSiblingElement to ensure element
+            previousSibling - Returns the previous sibling. This would be the previous node (text or tag) in the parent's list
+            
+                This could be text or an element. use previousSiblingElement to ensure element
+
+
+                @return <None/str/AdvancedTag> - None if there are no nodes (text or tag) in the parent before this node,
+                                                    Otherwise the previous node (text or tag)
         '''
+        # If no parent, no previous sibling
         if not self.parentNode:
             return None
+
+        # Determine block index on parent of this node
         myBlockIdx = self.parentNode.blocks.index(self)
+        
+        # If we are the first, no previous sibling
         if myBlockIdx == 0:
             return None
+
+        # Else, return the previous block in parent
         return self.parentNode.blocks[myBlockIdx-1]
 
     @property
     def previousSiblingElement(self):
         '''
             previousSiblingElement - Returns the previous  sibling  that is an element. 
+
+                                        This is the previous tag node in the parent's list of children
+
+
+                @return <None/AdvancedTag> - None if there are no children (tag) in the parent before this node,
+                                                    Otherwise the previous element (tag)
+
         '''
+        # If no parent, no siblings
         if not self.parentNode:
             return None
+
+        # Determine this node's index in the children of parent
         myElementIdx = self.parentNode.children.index(self)
+        
+        # If we are the first child, no previous element
         if myElementIdx == 0:
             return None
+
+        # Else, return previous element tag
         return self.parentNode.children[myElementIdx-1]
         
 
@@ -709,13 +844,15 @@ class AdvancedTag(object):
         '''
             getChildren - returns child nodes as a searchable TagCollection.
 
+                For a plain list, use .children instead
+
                 @return - TagCollection of the immediate children to this tag.
         '''
         return TagCollection(self.children)
 
     def hasChild(self, child):
         '''
-            hasChild - Returns if #child is a DIRECT child of this node.
+            hasChild - Returns if #child is a DIRECT child (tag) of this node. 
 
             @param child <AdvancedTag> - The tag to check
 
@@ -726,15 +863,16 @@ class AdvancedTag(object):
     
     def hasChildNodes(self):
         '''
-            hasChildNodes - Checks if this node has any children.
+            hasChildNodes - Checks if this node has any children (tags).
 
             @return <bool> - True if this child has any children, otherwise False.
         '''
         return bool(len(self.children) != 0)
 
+
     def contains(self, other):
         '''
-            contains - Check if a provided tag appears anywhere as a sub to this node, or is this node itself.
+            contains - Check if a provided tag appears anywhere as a direct child to this node, or is this node itself.
 
                 @param other <AdvancedTag> - Tag to check
 
@@ -742,17 +880,20 @@ class AdvancedTag(object):
         '''
         return self.containsUid(other.uid)
 
+
     def containsUid(self, uid):
         '''
-            containsUid - Check if the uid (unique internal ID) appears anywhere as a sub to this node, or the node itself.
+            containsUid - Check if the uid (unique internal ID) appears anywhere as a direct child to this node, or the node itself.
 
                 @param uid <uuid.UUID> - uuid to check
 
             @return <bool> - True if #uid is this node's uid, or is the uid of any children at any level down
         '''
+        # Check if this node is the match
         if self.uid == uid:
             return True
 
+        # Scan all children
         for child in self.children:
             if child.containsUid(uid):
                 return True
@@ -762,16 +903,21 @@ class AdvancedTag(object):
     def getAllChildNodes(self):
         '''
             getAllChildNodes - Gets all the children, and their children, 
-               and their children, and so on, all the way to the end
+               and their children, and so on, all the way to the end as a TagCollection.
+               
+               Use .childNodes for a regular list
 
-            @return TagCollection<AdvancedTag>
+            @return TagCollection<AdvancedTag> - A TagCollection of all children (and their children recursive)
         '''
 
         ret = TagCollection()
 
+        # Scan all the children of this node
         for child in self.children:
+            # Append each child
             ret.append(child)
 
+            # Append children's children recursive
             ret += child.getAllChildNodes()
 
         return ret
@@ -782,7 +928,11 @@ class AdvancedTag(object):
 
             @return TagCollection<AdvancedTag>
         '''
+
+        # Start with a tag collection including this tag
         ret = TagCollection([self])
+
+        # And all children, and their children recursive
         ret += self.getAllChildNodes()
 
         return ret
@@ -799,8 +949,11 @@ class AdvancedTag(object):
         '''
         ret = set()
 
+        # Iterate through all children
         for child in self.children:
+            # Add child's uid
             ret.add(child.uid)
+            # Add child's children's uid and their children, recursive
             ret.update(child.getAllChildNodeUids())
 
         return ret
@@ -811,6 +964,7 @@ class AdvancedTag(object):
 
             @return set<uuid.UUID> A set of uuid objects
         '''
+        # Start with a set including this tag's uuid
         ret = { self.uid }
 
         ret.update(self.getAllChildNodeUids())
@@ -824,8 +978,11 @@ class AdvancedTag(object):
 
             @return - TagCollection of elements
         '''
+        # If no parent, no peers
         if not self.parentNode:
             return None
+
+        # Otherwise, get all children of parent excluding this node
         return TagCollection([peer for peer in self.parentNode.children if peer is not self])
 
     @property
@@ -867,7 +1024,7 @@ class AdvancedTag(object):
 
     def getChildBlocks(self):
         '''
-            getChildBlocks - Gets the child blocks. 
+            getChildBlocks - Gets the child blocks, both text and tags.
 
             @see childBlocks
         '''
@@ -885,48 +1042,74 @@ class AdvancedTag(object):
     @property
     def parentElement(self):
         '''
-            parentElement - get the parent element
+            parentElement - get the parent element of this node
+
+                @return <AdvancedTag/None> - The parent node, or None if no parent
         '''
         return self.parentNode
 
     @property
     def classList(self):
         '''
-            classList - get the list of class names
+            classList - get a list of the class names ( the "class" attribute ) for this element
+
+                @return list<str> - A list of the class names for this element
         '''
         return self.classNames
 
     def getUid(self):
+        '''
+            getUid - Get the AdvancedHTMLParser unique id for this tag.
+
+                Each tag is given a generated uuid at create time, and copies also get their own unique identifier.
+
+                This can be used to determine if two tags are the same tag, beyond just having equal attribute name/value pairs and children.
+
+                This is used internally to prevent duplicates, for example a TagCollection does not allow multiple tags with the same uid
+
+                @return - uuid.UUID object, representing a uuid as specified by RFC 4122, version 4.
+                   This object is optimized for comparison. For a string representation, str() the result, or use .hex or .variant
+        '''
         return self.uid
 
     def getTagName(self):
         '''
-            getTagName - Gets the tag name of this Tag.
+            getTagName - Gets the tag name of this Tag (lowercase).
 
-            @return - str
+            @return - str - name of tag
         '''
         return self.tagName
 
     def getStartTag(self):
         '''
-            getStartTag - Returns the start tag
+            getStartTag - Returns the start tag represented as HTML
 
             @return - String of start tag with attributes
         '''
-        attributeString = []
+        attributeStrings = []
+        # Get all attributes as a tuple (name<str>, value<str>)
         for name, val in self._attributes.items():
+            # Get all attributes
             val = tostr(val)
-            if val:
-                val = escapeQuotes(val)
-                attributeString.append('%s="%s"' %(name, val) )
-            else:
-                attributeString.append(name)
 
-        if attributeString:
-            attributeString = ' ' + ' '.join(attributeString)
+            if val:
+                # Escape any quotes found in the value
+                val = escapeQuotes(val)
+
+                # Add a name="value" to the resulting string
+                attributeStrings.append('%s="%s"' %(name, val) )
+            else:
+                # This is a binary attribute, and thus only includes the name ( e.x. checked )
+                attributeStrings.append(name)
+
+        # Join together all the attributes in @attributeStrings list into a string
+        if attributeStrings:
+            attributeString = ' ' + ' '.join(attributeStrings)
         else:
             attributeString = ''
 
+        # If this is a self-closing tag, generate like  <tag attr1="val" attr2="val2" />  with the close "/>"
+        # Include the indent prior to tag opening
         if self.isSelfClosing is False:
             return "%s<%s%s >" %(self._indent, self.tagName, attributeString)
         else:
@@ -934,10 +1117,11 @@ class AdvancedTag(object):
     
     def getEndTag(self):
         '''
-            getEndTag - returns the end tag
+            getEndTag - returns the end tag representation as HTML string
 
             @return - String of end tag
         '''
+        # If this is a self-closing tag, we have no end tag (opens and closes in the start)
         if self.isSelfClosing is True:
             return ''
 
@@ -945,19 +1129,30 @@ class AdvancedTag(object):
         if self._indent and self.tagName in PREFORMATTED_TAGS:
             return "</%s>" %(self.tagName)
 
+        # Otherwise, indent the end of this tag
         return "%s</%s>" %(self._indent, self.tagName)
 
     @property
     def innerHTML(self):
         '''
-            innerHTML - Returns a string of the inner contents of this tag, including children.
+            innerHTML - Returns an HTML string of the inner contents of this tag, including children.
 
-            @return - String of inner contents 
+            @return - String of inner contents HTML
         '''
+
+        # If a self-closing tag, there are no contents
         if self.isSelfClosing is True:
             return ''
+
+        # Assemble all the blocks.
         ret = []
+
+        # Iterate through blocks
         for block in self.blocks:
+            # For each block:
+            #   If a tag, append the outer html (start tag, contents, and end tag)
+            #   Else, append the text node directly
+
             if isinstance(block, AdvancedTag):
                 ret.append(block.outerHTML)
             else:
@@ -968,11 +1163,12 @@ class AdvancedTag(object):
     @property
     def outerHTML(self):
         '''
-            outerHTML - Returns start tag, innerHTML, and end tag
+            outerHTML - Returns start tag, innerHTML, and end tag as HTML string
 
             @return - String of start tag, innerHTML, and end tag
         '''
         return self.getStartTag() + self.innerHTML + self.getEndTag()
+
 
     def getAttribute(self, attrName, defaultValue=None):
         '''
@@ -980,6 +1176,7 @@ class AdvancedTag(object):
                 @return - The attribute value, or None if none exists.
            '''
         return self._attributes.get(attrName, defaultValue)
+
 
     def getAttributesList(self):
         '''
@@ -994,6 +1191,7 @@ class AdvancedTag(object):
         '''
         return [ (tostr(name)[:], tostr(value)[:]) for name, value in self._attributes.items() ]
 
+
     def getAttributesDict(self):
         '''
             getAttributesDict - Get a copy of all attributes as a dict map of name -> value
@@ -1006,6 +1204,7 @@ class AdvancedTag(object):
             
         return { tostr(name)[:] : tostr(value)[:] for name, value in self._attributes.items() }
 
+
     def setAttribute(self, attrName, attrValue):
         '''
             setAttribute - Sets an attribute. Be wary using this for classname, maybe use addClass/removeClass. Attribute names are all lowercase.
@@ -1015,6 +1214,7 @@ class AdvancedTag(object):
         '''
         self._attributes[attrName] = attrValue
 
+
     def setAttributes(self, attributesDict):
         '''
             setAttributes - Sets  several attributes at once, using a dictionary of attrName : attrValue
@@ -1022,6 +1222,7 @@ class AdvancedTag(object):
             @param  attributesDict - <str:str> - New attribute names -> values
         '''
         self._attributes.update(attributesDict)
+
 
     def hasAttribute(self, attrName):
         '''
@@ -1032,6 +1233,8 @@ class AdvancedTag(object):
                 @return <bool> - True or False if attribute exists by that name
         '''
         attrName = attrName.lower()
+
+        # Check if requested attribute is present on this node
         return bool(attrName in self._attributes)
 
     def removeAttribute(self, attrName):
@@ -1042,6 +1245,8 @@ class AdvancedTag(object):
 
         '''
         attrName = attrName.lower()
+
+        # Delete provided attribute name ( #attrName ) from attributes map
         try:
             del self._attributes[attrName]
         except KeyError:
@@ -1049,18 +1254,26 @@ class AdvancedTag(object):
 
     def hasClass(self, className):
         '''
-            hasClass - Test if this tag has a paticular class name
+            hasClass - Test if this tag has a paticular class name ( class attribute )
 
             @param className - A class to search
+
+            @return <bool> - True if provided class is present, otherwise False
         '''
         return bool(className in self.classNames)
      
     def addClass(self, className):
         '''
-            addClass - append a class name if not present
+            addClass - append a class name to the end of the "class" attribute, if not present
+
+                @param className <str> - The name of the class to add
         '''
+        # Do not allow duplicates
         if className in self.classNames:
             return
+
+        # Regenerate "classNames" and "class" attr.
+        #   TODO: Maybe those should be properties?
         self.classNames.append(className)
         self.className = ' '.join(self.classNames)
         self._attributes._direct_set('class', self.className)
@@ -1070,14 +1283,22 @@ class AdvancedTag(object):
     def removeClass(self, className):
         '''
             removeClass - remove a class name if present. Returns the class name if  removed, otherwise None.
-        '''
-        if className in self.classNames:
-            self.classNames.remove(className)
-            self.className = ' '.join(self.classNames)
-            self._attributes._direct_set('class', self.className)
-            return className
 
-        return None
+                @param className <str> - The name of the class to remove
+
+                @return <str> - The class name removed if one was removed, otherwise None if #className wasn't present
+        '''
+        # If not present, this is a no-op
+        if className not in self.classNames:
+            return None
+
+        self.classNames.remove(className)
+
+        # Regenerate "classNames" and "class" attr.
+        self.className = ' '.join(self.classNames)
+        self._attributes._direct_set('class', self.className)
+        return className
+
 
     def getStyleDict(self):
         '''
@@ -1085,6 +1306,9 @@ class AdvancedTag(object):
 
             @return - OrderedDict of "style" attribute.
         '''
+
+        # TODO: This method is not used and does not appear in any tests.
+
         styleStr = (self.getAttribute('style') or '').strip()
         styles = styleStr.split(';') # Won't work for strings containing semicolon..
         styleDict = OrderedDict()
