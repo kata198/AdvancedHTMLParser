@@ -1,3 +1,41 @@
+* 7.3.0 - ??? ?? ????
+
+- Lots of fixups to "style" property:
+
+     - Properly handle that "style" tag wouldn't show up in HTML if tag
+     created without one, and only the form "myTag.style.someProperty =
+     'value'" was used.
+     - Fix where empty style="" would be on HTML if all the values removed
+     via dot-access
+     - Fix where we weren't doing a copy with "tag1.style = tag2.style", and
+     thus any changes to either style would affect both tags
+     - Fix issue where setting style to empty string twice would cause it to
+     lose the special StyleAttribute type
+     - Some performance improvements when dealing with style
+     - Add "isEmpty" method to check if a style is empty (has no values
+     set). For now we do a dict comparison between the two styles (or
+     convert a string to a StyleAttribute map and then perform the test)
+     whereas Javascript does an identity comparison (so even the same style
+     on different tags don't equal eachother, and with tag1.style =
+     "font-weight:bold", tag1.style == "font-weight: bold" would be False in
+     javascript but we return True. This may change in the future
+     - Update the "equals" on a style to be able to compare against a string
+     (see note above how this differs from the javascript ABI), so
+     myTag.style == "display: block" will now work as expected.
+     - Fix issue where assigning a tag's style to itself would cause a
+     disconnect with the HTML attribute value, i.e.  myTag.style =
+     myTag.style
+     - Properly handle other misc. situations with style that were being
+     handled wrong before
+     - Ensure we always link the HTML-displayed attribute to the underlying
+     style object attribute
+     - Add several more tests to style, many of which fail on 7.2 but now
+     pass with these changes
+     - When removing a style from a tag ( like myTag.style = somethingElse ), make sure we remove the association
+       between the old style and the tag to prevent updates on the old style from affecting the former tag
+     - Add some comments to the style section
+
+
 * 7.2.3 - Sep 01 2017
 
 - Work around some issues in python2 due to its piss-poor unicode implementation ( can be seen, for example, by using &uarr; as a value in a tag ). For proper unicode support you should use python3, but this at least makes python2 more on-par with python3.
