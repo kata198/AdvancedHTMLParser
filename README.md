@@ -109,7 +109,32 @@ The same names are used in python as in the javascript/DOM, such as 'className' 
 
 **Style Attribute**
 
-Style attributes can be manipulated just like in javascript, so element.style.position = 'relative' for setting, or element.style.position for access. There are also helper methods, getStyle(name) and setStyle(name, value) which will set the  correct values.
+Style attributes can be manipulated just like in javascript, so element.style.position = 'relative' for setting, or element.style.position for access.
+
+You can also assign the tag.style as a string, like:
+
+	myTag.style = "display: block; float: right; font-weight: bold"
+
+in addition to individual properties:
+
+	myTag.style.display = 'block'
+	myTag.style.float = 'right'
+	myTag.style.fontWeight = 'bold'
+
+You can remove style properties by setting its value to an empty string.
+
+For example, to clear "display" property:
+
+	myTag.style.display = ''
+
+A standard method *setProperty* can also obe used to set or remove individual properties
+
+For example:
+
+	myTag.style.setProperty("display", "block") # Set display: block
+
+	myTag.style.setProperty("display", '') # Clear display: property
+
 
 The naming conventions are the same as in javascript, like "element.style.paddingTop" for "padding-top" attribute.
 
@@ -341,6 +366,10 @@ The methods are:
 	parseFile              - Parse a filename or file object
 
 	getHTML                - Get the formatted html
+
+	getRootNodes           - Get a list of the "root" nodes (most outer nodes, should be <html> on a valid document)
+	getRoot                - Gets the "root" node (on a valid document this should be <html>). For arbitrary HTML, you should use getRootNodes, as there may be several nodes at the same outermost level
+
 
 
 A script, formatHTML comes with this package and will perform formatting on an input file, and output to a file or stdout:
