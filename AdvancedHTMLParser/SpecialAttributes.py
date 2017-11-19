@@ -343,6 +343,7 @@ class StyleAttribute(object):
             styleDict = self._styleDict
             tagAttributes = self.tag._attributes
 
+            # If this is called before we have _attributes setup
             if not issubclass(tagAttributes.__class__, SpecialAttributesDict):
                 return
 

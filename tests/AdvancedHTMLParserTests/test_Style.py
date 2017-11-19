@@ -286,7 +286,29 @@ class TestStyle(object):
 
         assert tag1.style.display != 'inline', 'Expected tag1.style.display to not be "inline" after only set on tag2.'
 
+        tag1 = AdvancedHTMLParser.AdvancedTag('div')
+        tag2 = AdvancedHTMLParser.AdvancedTag('div')
+
+        tag1.style = 'display: block'
+
+        oldStyle = tag1.style
+
+        assert id(oldStyle) == id(tag1.style) , 'Expected assignment to retain identity. id(oldStyle)<%d> != id(tag1.style)<%s>' %( id(oldStyle), id(tag1.style))
+
+        tag1.style = 'display: block'
+
+        assert id(oldStyle) != id(tag1.style) , 'Expected assignment to equivilant string to udpate identity. id(oldStyle)<%d> == id(tag1.style)<%s>' %( id(oldStyle), id(tag1.style))
+
         
+        oldStyle.float = 'left'
+
+        assert 'float: left' in str(oldStyle) , 'Expected setting "float: left" would show up in style. Got: ' + str(oldStyle)
+
+        assert tag1.style.float != 'left' , 'Expected updating oldStyle to not affect new style. On new style got: ' + str(tag1.style)
+
+        assert 'float: left' not in str(tag1.style) , 'Expected update to oldStyle to not change html representation of tag with different style. str(tag1.style) = ' + str(tag1.style)
+        assert 'float: left' not in str(tag1) , 'Expected update to oldStyle to not change html representation of tag with different style. str(tag1) = ' + str(tag1)
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
