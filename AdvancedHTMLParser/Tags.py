@@ -104,45 +104,83 @@ class AdvancedTag(object):
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
             isSelfClosing = True
 
-        styleAttr = StyleAttribute('', self)
 
+        # Directly assign these attributes without running through the
+        #   public __setattr__ code
         rawSet('_attributes', SpecialAttributesDict(self))
         rawSet('text', '')
         rawSet('blocks', [''])
-        rawSet('classNames', [])
-        rawSet('style', styleAttr)
-
-        rawSet('isSelfClosing', isSelfClosing)
-
-        if attrList is not None:
-            for key, value in attrList:
-                key = key.lower()
-                self._attributes[key] = value
-
         rawSet('children', [])
-
+        rawSet('classNames', [])
+        rawSet('isSelfClosing', isSelfClosing)
         rawSet('parentNode', None)
         rawSet('ownerDocument', ownerDocument)
         rawSet('uid', uuid.uuid4())
 
         rawSet('_indent', '')
 
-    def __setattr__(self, name, value):
+        # Set up "style" attribute with special interactions
+        styleAttr = StyleAttribute('', self)
+        rawSet('style', styleAttr)
 
+        # If provided with a list of attributes as tuple(name, value)
+        #   then apply those.
+        if attrList is not None:
+            for key, value in attrList:
+                key = key.lower()
+                self._attributes[key] = value
+
+
+    def __setattr__(self, name, value):
+        '''
+            __setattr__ - Called with dot-access assignment, like:  myTag.attr = "value"
+
+                This method applies the special HTML/JS rules to dot-access,
+                  and allows setting several attributes directly, and conversion on special names
+                  such as myTag.className -> "class" attribute
+
+                @param name <str> - The name of the attribute after the dot
+
+                @param value <multiple types> - The value to assign
+
+                @return - The value assigned ( may not match the passed in #value, for example the attribute
+                             "style" takes a string value, but will return a special type StyleAttribute to support
+                             access with javascript-like behaviour
+        '''
+
+        # These are direct properties on the object itself, and maybe only have meaning as AdvancedHTMLParser-specific
+        #   properties.
+        #  NOTE: Investigate if we should intercept "classNames" here to modify "class" and "classList"
+        #         (Probably will remain as-is, as it is not a standard property but specific to AdvancedHTMLParser
         if name in ADVANCED_TAG_RAW_ATTRIBUTES:
             return object.__setattr__(self, name, value)
 
-        # Check if this is one of the special (old) items which map directly to attributes
-        if name in TAG_ITEM_ATTRIBUTE_LINKS or name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
-            if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
+        # Check if this is one of the special items which map directly to attributes
+        #    TAG_ITEM_ATTRIBUTE_LINKS - These attributes link directly to an html attribute, e.x. "id" or "name"
+        #    TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES - This is a map for specific dot-access attributes specific to
+        #                                           a tag name. For example, javascript events or for an anchor
+        #                                           the "href" or "target" attributes
+        if name in TAG_ITEM_ATTRIBUTE_LINKS \
+               or \
+             name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
+
+            # Check if we need to adjust the name fpr setting this html attribute - 
+            #   these javascript names differ from the html attribute name, e.x.  "className" -> "class"
+            if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM: 
                 name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
+
+            # Check if the value needs to be converted to a binary/boolean, e.x. "checked"
             elif name in TAG_ITEM_BINARY_ATTRIBUTES:
+                # If it is a boolean html attribute, it is denoted by the presence of the field at all (any value means "True"/set/yes)
                 if bool(value) is False:
+                    # False, so remove attribute
                     self.removeAttribute(name)
                 else:
+                    # True, so ensure attribute is present
                     self.setAttribute(name, "")
                 return value
 
+            # Just a plain ol' direct mapping of js name -> html attribute name
             self.setAttribute(name, tostr(value))
             return value
 
