@@ -34,6 +34,9 @@
      - When removing a style from a tag ( like myTag.style = somethingElse ), make sure we remove the association
        between the old style and the tag to prevent updates on the old style from affecting the former tag
      - Add some comments to the style section
+	 - Add "setProperty" method per JS api, which is a function call to set
+	 (name, value) for a style property, or provide value='' or value=null to
+	 remove that property
 
 - Addition of a lot of comments throughout code
 
@@ -43,6 +46,9 @@ reference, which removes a circular reference.
 - Change the "_attribute" ( SpecialAttributesDict ) attribute's backref on a tag to that tag into a weak
 reference, which removes a circular reference.
 
+- Additions and modification to pydoc documentation
+
+- Minor cleanups / improvements
 
 * 7.2.3 - Sep 01 2017
 
