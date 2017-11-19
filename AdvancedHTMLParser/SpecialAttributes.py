@@ -4,6 +4,7 @@
 # These are various helpers for "special" attributes
 
 import copy
+import weakref
 
 from collections import OrderedDict
 
@@ -257,7 +258,7 @@ class StyleAttribute(object):
         StyleAttribute - Represents the "style" field on a tag.
     '''
 
-    RESERVED_ATTRIBUTES = ('_styleValue', '_styleDict', '_asStr', 'tag', 'isEmpty', '_ensureHtmlAttribute')
+    RESERVED_ATTRIBUTES = ('_styleValue', '_styleDict', '_asStr', 'tag', '_tagRef', 'setTag', 'isEmpty', '_ensureHtmlAttribute')
 
     def __init__(self, styleValue, tag=None):
         '''
@@ -270,10 +271,49 @@ class StyleAttribute(object):
 
         self._styleValue = styleValue
         self._styleDict = StyleAttribute.styleToDict(styleValue)
-        self.tag = tag
+
+        self.setTag(tag)
 
         # Set the attribute in the tag html if necessary, or clear it.
         self._ensureHtmlAttribute()
+
+    @property
+    def tag(self):
+        '''
+            tag - Property (dot-access variable) which will return the associated tag, if any.
+            
+              This method should be used for access to handle the weakref.
+
+              @see setTag - Method to set or remove the tag association
+
+                @return <AdvancedTag/None> - If a tag is associated with this style, it will be returned.
+                                                Otherwise, None will be returned
+        '''
+        tagRef = object.__getattribute__(self, '_tagRef')
+        if tagRef:
+            return tagRef()
+
+        return None
+
+    def setTag(self, tag):
+        '''
+            setTag - Set the tag association for this style.
+            
+              This will handle the underlying weakref to the tag.
+
+              Call setTag(None) to clear the association, otherwise setTag(tag) to associate this style to that tag.
+
+
+                @param tag <AdvancedTag/None> - The new association. If None, the association is cleared, otherwise the passed tag
+                    becomes associated with this style.
+
+        '''
+                
+        if tag:
+            self._tagRef = weakref.ref(tag)
+        else:
+            self._tagRef = None
+
 
     def __getattribute__(self, name):
         '''
@@ -324,9 +364,6 @@ class StyleAttribute(object):
         else:
             styleDict[name] = val
 
-#        if self.tag and styleDict:
-#            self.tag.setAttribute('style', self)
-
         # Okay, since we don't want empty style="" on every tag, we have to attach and remove as properties change
         self._ensureHtmlAttribute()
                 
@@ -334,14 +371,17 @@ class StyleAttribute(object):
 
     def _ensureHtmlAttribute(self):
         '''
-            _ensureHtmlAttribute - Ensure the "style" attribute is present in the html attributes when
+            _ensureHtmlAttribute - INTERNAL METHOD. 
+                                    Ensure the "style" attribute is present in the html attributes when
                                         is has a value, and absent when it does not.
 
               This requires special linkage.
         '''
-        if self.tag:
+        tag = self.tag
+
+        if tag:
             styleDict = self._styleDict
-            tagAttributes = self.tag._attributes
+            tagAttributes = tag._attributes
 
             # If this is called before we have _attributes setup
             if not issubclass(tagAttributes.__class__, SpecialAttributesDict):

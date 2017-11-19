@@ -200,7 +200,7 @@ class AdvancedTag(object):
                 # Disassociate the old StyleAttribute from this tag
                 oldStyle = self.__rawGet('style')
                 if issubclass(oldStyle.__class__, StyleAttribute):
-                    oldStyle.tag = None
+                    oldStyle.setTag(None)
             
             ret = object.__setattr__(self, 'style', value)
 
