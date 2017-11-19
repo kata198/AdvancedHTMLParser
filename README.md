@@ -187,6 +187,8 @@ some of these include:
 
 	getElement\*            - Same as above, but act on the children of this element.
 
+	getHTML / toHTML / asHTML - Get the HTML representation using this node as a root (so start tag and attributes, innerText (text and child nodes), and end tag)
+
 	nextSibling            - Get next sibling, be it text  or  an element
 
 	nextSiblingElement     - Get next sibling, that is an element
