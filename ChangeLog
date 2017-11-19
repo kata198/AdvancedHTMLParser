@@ -1,3 +1,21 @@
+* 7.3.1 - ??? ?? ????
+
+- Update str(AdvancedTag) to give the real HTML representation (start tag,
+inner html, and end tag) versus the former implementation which was: <start
+tag> joined direct-child text nodes only </ end tag>
+
+  The old method is still available as _old__str__, and you can revert to old
+  behaviour (why would you want to?) by doing AdvancedTag.__str__ =
+  AdvancedTag._old__str__
+
+- Add toHTML/getHTML/asHTML methods to AdvancedTag which also return an HTML
+document starting at that node
+
+- Minor updates to READMEs
+
+- Some additional unit tests
+
+
 * 7.3.0 - Nov 19 2017
 
 - Lots of fixups to "style" property:
