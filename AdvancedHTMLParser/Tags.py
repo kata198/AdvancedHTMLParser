@@ -146,8 +146,21 @@ class AdvancedTag(object):
             self.setAttribute(name, tostr(value))
             return value
 
-        if name == 'style' and not isinstance(value, StyleAttribute):
-            value = StyleAttribute(value, self)
+        # Check if we are setting the "style" attribute, and if so,
+        #   either convert a string ( e.x. "float: left; display: block" ) into a StyleAttribute object,
+        #   or if already a StyleAttribute object, make a copy (e.x.  tag2.style = tag1.style )
+        #
+        if name == 'style':
+            
+            # Check that we aren't trying to assign our own style to ourself to prevent
+            #   a copy when we shouldn't and other bad stuff
+            if id(value) != id(self.style):
+                value = StyleAttribute(value, self)
+            
+            ret = object.__setattr__(self, 'style', value)
+
+            # Adjust the presence of the style="..." in the html attributes
+            self.style._ensureHtmlAttribute()
 
         try:
             return object.__setattr__(self, name,  value)

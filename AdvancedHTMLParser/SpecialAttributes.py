@@ -33,25 +33,59 @@ class SpecialAttributesDict(dict):
         except KeyError:
             return None #  TODO: support undefined?
 
+
+    # TODO: Implement __delitem__
+
     def get(self, key, default=None):
+        '''
+            get - Gets an attribute by key with the chance to provide a default value
+
+                @param key <str> - The key to query
+
+                @param default <Anything> Default None - The value to return if key is not found
+
+             @return - The value of attribute at #key, or #default if not present.
+        '''
+
         if key in {'style', 'class'} or key in self.keys():
             return self[key]
         return default
 
     def _direct_set(self, key, value):
+        '''
+            _direct_set - INTERNAL USE ONLY!!!!
+
+                Directly sets a value on the underlying dict, without running through the setitem logic
+
+        '''
         dict.__setitem__(self, key, value)
         return value
 
+    def _direct_del(self, key):
+        '''
+            _direct_set - INTERNAL USE ONLY!!!!
+
+                Directly deletes a value from the underlying dict, without running through logic
+
+        '''
+        try:
+            dict.__delitem__(self, key)
+        except:
+            pass
+
     def __setitem__(self, key, value):
+        
+        tag = self.tag
+
         if key == 'style':
             if not isinstance(value, StyleAttribute):
-                self.tag.style = StyleAttribute(value, self.tag)
+                tag.style = StyleAttribute(value, tag)
             else:
-                self.tag.style = value
+                tag.style = value
         elif key == 'class':
 
             # Ensure when we update the "class" attribute, that we update the list as well.
-            self.tag.classNames = [x for x in value.split(' ') if x]
+            tag.classNames = [x for x in value.split(' ') if x]
             dict.__setitem__(self, 'class',  value)
             return value
 
@@ -223,7 +257,7 @@ class StyleAttribute(object):
         StyleAttribute - Represents the "style" field on a tag.
     '''
 
-    RESERVED_ATTRIBUTES = ('_styleValue', '_styleDict', '_asStr', 'tag')
+    RESERVED_ATTRIBUTES = ('_styleValue', '_styleDict', '_asStr', 'tag', 'isEmpty', '_ensureHtmlAttribute')
 
     def __init__(self, styleValue, tag=None):
         '''
@@ -238,6 +272,9 @@ class StyleAttribute(object):
         self._styleDict = StyleAttribute.styleToDict(styleValue)
         self.tag = tag
 
+        # Set the attribute in the tag html if necessary, or clear it.
+        self._ensureHtmlAttribute()
+
     def __getattribute__(self, name):
         '''
             __getattribute__ - used on dot (.) access on a Style element.
@@ -248,7 +285,7 @@ class StyleAttribute(object):
 
             @return <str> - The attribute value or empty string if not set
         '''
-        if name in StyleAttribute.RESERVED_ATTRIBUTES:
+        if name in StyleAttribute.RESERVED_ATTRIBUTES or name.startswith('__'):
             return object.__getattribute__(self, name)
 
         dashName = StyleAttribute.camelCaseToDashName(name)
@@ -276,19 +313,54 @@ class StyleAttribute(object):
         
         attrName = StyleAttribute.camelCaseToDashName(name)
 
+        styleDict = self._styleDict
+
         if attrName != name:
             name = attrName
 
         if not val:
-            if name in self._styleDict:
-                del self._styleDict[name]
+            if name in styleDict:
+                del styleDict[name]
         else:
-            self._styleDict[name] = val
+            styleDict[name] = val
 
-        if self.tag and self._styleDict:
-            self.tag.setAttribute('style', self)
+#        if self.tag and styleDict:
+#            self.tag.setAttribute('style', self)
 
+        # Okay, since we don't want empty style="" on every tag, we have to attach and remove as properties change
+        self._ensureHtmlAttribute()
+                
         return val
+
+    def _ensureHtmlAttribute(self):
+        '''
+            _ensureHtmlAttribute - Ensure the "style" attribute is present in the html attributes when
+                                        is has a value, and absent when it does not.
+
+              This requires special linkage.
+        '''
+        if self.tag:
+            styleDict = self._styleDict
+            tagAttributes = self.tag._attributes
+
+            if not issubclass(tagAttributes.__class__, SpecialAttributesDict):
+                return
+
+            # If we have any styles set, ensure we have the style="whatever" in the HTML representation,
+            #   otherwise ensure we don't have style="" 
+            if not styleDict:
+                tagAttributes._direct_del('style')
+            else: #if 'style' not in tagAttributes.keys():
+                tagAttributes._direct_set('style', self)
+
+    def isEmpty(self):
+        '''
+            isEmpty - Check if this is an "empty" style (no attributes set)
+
+                @return <bool> - True if no attributes are set, otherwise False
+        '''
+
+        return bool( len(self._styleDict) == 0)
 
     @staticmethod
     def dashNameToCamelCase(dashName):
@@ -353,6 +425,8 @@ class StyleAttribute(object):
                 continue
 
         return styleDict
+
+    # NOTE: THE MAJORITY OF THESE BELOW ARE DISABLED (not in reserved attributes)
 
     def getStyleDict(self):
         '''
@@ -430,6 +504,12 @@ class StyleAttribute(object):
             return ''
 
     def _asStr(self):
+        '''
+            _asStr - Get the string representation of this style
+
+              @return <str> - A string representation of this style (semicolon separated, key: value format)
+        '''
+
         styleDict = self._styleDict
         if styleDict:
             return '; '.join([name + ': ' + value for name, value in styleDict.items()])
@@ -437,8 +517,28 @@ class StyleAttribute(object):
 
 
     def __eq__(self, other):
+        '''
+            __eq__ - Test if two "style" tag properties are equal.
+
+                NOTE: This differs from javascript. In javascript, no two styles equal eachother, it's
+                        an identity comparison not a value comparison.
+
+                      I don't understand how that is useful, but in a future version we may choose to adopt
+                        that "feature" and export comparison into a different "isSaneAs(otherStyle)" function
+                
+                @param other<StyleAttribute> - The other style attribute map.
+        '''
+
         selfDict = self._styleDict
-        otherDict = other._styleDict
+
+        # Check if "other" is a string and convert it to a StyleAttribute if so, for comparison
+        #   (this also allows any-order, i.e. 
+        #     StyleAttribute("float: left; font-weight: bold") == StyleAttribute("font-weight: bold; float: left")
+        try:
+            otherDict = other._styleDict
+        except:
+            otherStyle = StyleAttribute(other)
+            otherDict = otherStyle._styleDict
 
         selfDictKeys = list(selfDict.keys())
         otherDictKeys = list(otherDict.keys())

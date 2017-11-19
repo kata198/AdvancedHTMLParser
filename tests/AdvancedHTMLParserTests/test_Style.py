@@ -132,11 +132,161 @@ class TestStyle(object):
 
         html = tag.outerHTML
 
-        assert 'font-weight: bold' in html , 'Expected style attribute to be set on tag in html'
+        assert 'font-weight: bold' in html , 'Expected style attribute to be set on tag in html. Got: ' + html
+
+    def test_styleBools(self):
+        '''
+            test_styleBools - Assert that an empty style is not False (doesn't make sense, but that's how JS does it..
+        '''
+        tag1 = AdvancedHTMLParser.AdvancedTag('div')
+        tag2 = AdvancedHTMLParser.AdvancedTag('div')
+
+        assert bool(tag1.style) is True , 'Expected empty style to be True'
+
+        tag1.style.fontWeight = 'bold'
+
+        assert bool(tag1.style) is True , 'Expected style with a property set to be True'
+
+        tag1.style = ''
+
+        assert bool(tag1.style) is True , 'Expected style being set to empty string is still True'
+
+        tag1.style = ''
+        tag2.style = ''
+
+        # TODO: This is how javascript handles it, but I disagree.
+        try:
+            assert tag1.style != tag2.style , 'Expected identical styles to be False'
+        except AssertionError:
+            sys.stderr.write('\nDiffering from javascript standard, identical style attributes on different tags equal eachother (empty string test)\n')
+
+        tag1.style = 'float: left'
+        tag2.style = 'float: left'
+
+        # TODO: This is how javascript handles it, but I disagree.
+        try:
+            assert tag1.style != tag2.style , 'Expected identical styles to be False'
+        except AssertionError:
+            sys.stderr.write('\nDiffering from javascript standard, identical style attributes on different tags equal eachother (with property set test)\n')
+
+    def test_styleAttributeHTML(self):
+        
+        tag1 = AdvancedHTMLParser.AdvancedTag('div')
+
+        tag1.style = 'display: block'
+
+        tag1Html = str(tag1)
+
+        assert 'style=' in tag1Html , 'Expected "style=" to show up in html after being set by attribute. Got: ' + tag1Html
+
+        assert 'display: block' in str(tag1) , 'Expected "display: block" to show up in html after being set by attribute. Got: ' + tag1Html
+
+        tag1.style.fontWeight = 'bold'
+
+        tag1Html = str(tag1)
+
+        assert 'font-weight' in tag1Html , 'Expected "font-weight" to be in tag1Html after tag1.style.fontWeight = "bold". Got: ' + tag1Html
+
+        tag2 = AdvancedHTMLParser.AdvancedTag('div')
+
+        tag2.style.display = 'block'
+
+        tag2Html = str(tag2)
+
+        assert 'style=' in tag2Html , 'Expected just setting a property on style makes it show up as html attribute. Got: ' + tag2Html
+
+        assert 'display: block' in tag2Html , 'Expected "display: block" to be in tag2Html after tag2.style.display = "block". Got: ' + tag2Html
 
 
 
+        # Remove attributes and ensure style goes away
 
+        tag1.style.fontWeight = ''
+        tag1.style.display = ''
+
+        tag1Html = str(tag1)
+
+        assert 'style=' not in tag1Html , 'Expected after removing all style values that the style attribute will disappear from HTML. Got: ' + tag1Html
+
+    def test_styleCopy(self):
+        '''
+            test_styleCopy - Test if assigning a style from one tag to another creates a copy of the style attribute
+                               so changing on the assigned doesn't affect both.
+        '''
+
+        tag1 = AdvancedHTMLParser.AdvancedTag('div')
+        tag2 = AdvancedHTMLParser.AdvancedTag('div')
+
+        tag1.style = "font-weight: bold; float: left;"
+
+        assert tag1.style.fontWeight == 'bold' , 'Assigned style property "font-weight" to "bold", and style.fontWeight did not return "bold" '
+        assert tag1.style.float == 'left', 'Assigned style property "float" to "left", and style.float did not return "left" '
+
+        assert tag2.style.isEmpty(), "Expected before copy that tag2 has no style."
+
+        # Make the assignment
+        tag2.style = tag1.style
+
+        assert not tag2.style.isEmpty(), "Expected after copy that tag2 has a style"
+
+        assert tag1.style.fontWeight == 'bold' , 'After copy from tag1->tag2, on tag1 style.fontWeight did not return "bold" '
+        assert tag1.style.float == 'left', 'After copy from tag1->tag2, on tag1 style.fontWeight did not return "bold" '
+
+        assert tag2.style.fontWeight == 'bold' , 'After copy from tag1->tag2, on tag2 style.fontWeight did not return "bold" '
+        assert tag2.style.float == 'left', 'After copy from tag1->tag2, on tag2 style.fontWeight did not return "bold" '
+
+        assert tag2.style == "font-weight: bold; float: left"
+
+        # Change on second tag
+        tag2.style.float = 'right'
+
+        assert tag2.style.float == 'right' , 'Tried to change tag2.style.float to "right", but did not work. Value: ' + str(tag2.style.float)
+
+        assert tag1.style.float == 'left' , 'After changing tag2.style.float to "right", expected tag1.style.float to not change. It did.'
+
+        tag1 = AdvancedHTMLParser.AdvancedTag('div')
+        tag2 = AdvancedHTMLParser.AdvancedTag('div')
+
+        tag1.style = 'display: block'
+
+        tag2.style = 'float: left'
+
+        idStyle1 = id(tag1.style)
+
+        tag1.style = tag1.style
+
+        assert idStyle1 == id(tag1.style) , 'Expected a self-set of style not to change variable id'
+
+        del idStyle1
+
+        tag1.style = tag2.style
+
+        assert id(tag1.style) != id(tag2.style) , 'Expected style assignment from one tag to another to be a copy'
+
+        assert tag1.style == tag2.style , 'Expected same style after assignment'
+
+        tag1Html = str(tag1)
+        tag2Html = str(tag2)
+
+        assert 'float: left' in tag1Html , 'Expected new style to show up in tag1 (float: left). Got: ' + tag1Html
+        assert 'display: block' not in tag1Html , 'Expected after assignment old style to NOT be in html. Got: ' + tag1Html
+
+        assert tag1.style.float == 'left', 'Expected style to be copied'
+        assert tag1.style.display != 'block' , 'Expected old style to be gone'
+
+        tag2.style.display = 'inline'
+
+        assert tag2.style.display == 'inline', 'Expected to set display to inline on tag2. Got: ' + str(tag2.style)
+
+        tag1Html = str(tag1)
+        tag2Html = str(tag2)
+
+        assert 'display: inline' in tag2Html , 'Expected "display: inline" to be in tag2 after setting'
+        assert 'display: inline' not in tag1Html , 'Expected "display: inline" to not be on tag1 after setting on tag2.'
+
+        assert tag1.style.display != 'inline', 'Expected tag1.style.display to not be "inline" after only set on tag2.'
+
+        
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
