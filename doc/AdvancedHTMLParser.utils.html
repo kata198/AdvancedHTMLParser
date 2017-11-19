@@ -17,7 +17,8 @@
     
 <tr ><td bgcolor="#aa55cc" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
 <td width="100%" ><table width="100%" summary="list" ><tr ><td width="25%" valign="top" ><a href="re.html" >re</a><br />
-</td><td width="25%" valign="top" ></td><td width="25%" valign="top" ></td><td width="25%" valign="top" ></td></tr></table></td></tr></table><p >
+</td><td width="25%" valign="top" ><a href="sys.html" >sys</a><br />
+</td><td width="25%" valign="top" ></td><td width="25%" valign="top" ></td></tr></table></td></tr></table><p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
 <tr bgcolor="#eeaa77" >
 <td colspan="3" valign="bottom" >&nbsp;<br />
@@ -37,6 +38,7 @@
 &nbsp;<br />
 @param&nbsp;contents&nbsp;&lt;str&gt;&nbsp;-&nbsp;Contents&nbsp;String<br />
 @param&nbsp;addHtmlIfMissing&nbsp;&lt;bool&gt;&nbsp;-&nbsp;Since&nbsp;these&nbsp;normally&nbsp;encompass&nbsp;the&nbsp;"html"&nbsp;element,&nbsp;optionally&nbsp;add&nbsp;it&nbsp;back&nbsp;if&nbsp;missing.</tt></dd></dl>
+ <dl ><dt ><a name="-tostr" ><strong >tostr</strong></a>(value)</dt></dl>
  <dl ><dt ><a name="-unescapeQuotes" ><strong >unescapeQuotes</strong></a>(value)</dt><dd ><tt >unescapeQuotes&nbsp;-&nbsp;Unescapes&nbsp;quotes&nbsp;within&nbsp;a&nbsp;value&nbsp;(replaces&nbsp;&amp;quot;&nbsp;with&nbsp;")<br />
 &nbsp;<br />
 @param&nbsp;value&nbsp;&lt;str&gt;<br />
@@ -53,5 +55,5 @@
 <strong >END_HTML</strong> = re.compile('.*&lt;/[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br />
 <strong >IE_CONDITIONAL_PATTERN</strong> = re.compile('[&lt;][!][-][-][ \t\r\n]*[\\[][ \t\r\n]*if.*--&gt;', re.MULTILINE)<br />
 <strong >START_HTML</strong> = re.compile('.*&lt;[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br />
-<strong >__all__</strong> = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes')</td></tr></table>
+<strong >__all__</strong> = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr')</td></tr></table>
 </p></p></p></body></html>
