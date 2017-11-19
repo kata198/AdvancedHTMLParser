@@ -29,8 +29,6 @@ Full API
 
 Can be found  http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html .
 
-or http://pythonhosted.org/AdvancedHTMLParser
-
 Various examples can be found in the "tests" directory.
 
 
