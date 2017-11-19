@@ -208,6 +208,31 @@ class TestStyle(object):
 
         assert 'style=' not in tag1Html , 'Expected after removing all style values that the style attribute will disappear from HTML. Got: ' + tag1Html
 
+
+    def test_setProperty(self):
+        '''
+            test_setProperty - Test the "setProperty" method
+        '''
+        styleAttr = StyleAttribute('')
+
+        styleAttr.setProperty('float', 'left')
+
+        assert styleAttr.float == 'left' , 'Expected setProperty("float", "left") to work. It did not.'
+
+        styleAttr.setProperty('float', '')
+
+        assert styleAttr.float == '', 'Expected setProperty with value of empty string to remove the name.'
+
+        try:
+            styleAttr.setProperty('float', '')
+        except:
+            raise AssertionError('Expected to be able to clear a style property even if it was not present')
+
+        styleAttr.setProperty('font-weight', 'bold')
+
+        assert styleAttr.fontWeight == 'bold' , 'Expected to be able to use dash-name like "font-weight"'
+        
+
     def test_styleCopy(self):
         '''
             test_styleCopy - Test if assigning a style from one tag to another creates a copy of the style attribute

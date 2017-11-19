@@ -292,7 +292,7 @@ class StyleAttribute(object):
         StyleAttribute - Represents the "style" field on a tag.
     '''
 
-    RESERVED_ATTRIBUTES = ('_styleValue', '_styleDict', '_asStr', 'tag', '_tagRef', 'setTag', 'isEmpty', '_ensureHtmlAttribute')
+    RESERVED_ATTRIBUTES = ('_styleValue', '_styleDict', '_asStr', '_ensureHtmlAttribute', 'tag', '_tagRef', 'setTag', 'isEmpty', 'setProperty')
 
     def __init__(self, styleValue, tag=None):
         '''
@@ -437,6 +437,49 @@ class StyleAttribute(object):
 
         return bool( len(self._styleDict) == 0)
 
+
+    def setProperty(self, name, value):
+        '''
+            setProperty - Set a style property to a value.
+
+                NOTE: To remove a style, use a value of empty string, or None
+
+                 @param name <str> - The style name.
+
+                    NOTE: The dash names are expected here, whereas dot-access expects the camel case names.
+
+                      Example:  name="font-weight"  versus the dot-access  style.fontWeight
+
+                 @param value <str> - The style value, or empty string to remove property
+        '''
+        styleDict = self._styleDict
+
+        if value in ('', None):
+            try:
+                del styleDict[name]
+            except KeyError:
+                pass
+        else:
+            styleDict[name] = str(value)
+                
+
+#            if newValue:
+#                # If replacing, just set/override it
+#                styleDict[newName] = newValue
+#            elif newName in styleDict:
+#                # Delete if present and empty value passed
+#                del styleDict[newName]
+#
+#        if styleDict:
+#            # If anything left, build a str
+#            styleStr = '; '.join([name + ': ' + value for name, value in styleDict.items()])
+#            self.setAttribute('style', styleStr)
+#            return styleStr
+#        else:
+#            # Last item removed, so remove attribute.
+#            self.removeAttribute('style')
+#            return ''
+
     @staticmethod
     def dashNameToCamelCase(dashName):
         '''
@@ -503,80 +546,80 @@ class StyleAttribute(object):
 
     # NOTE: THE MAJORITY OF THESE BELOW ARE DISABLED (not in reserved attributes)
 
-    def getStyleDict(self):
-        '''
-            getStyleDict - Returns a dictionary of style attribute name:value. 
-
-            @return dict <str:str> style attribute names to values. Impl is OrderedDict and will match positioning in string value
-        '''
-        return self._styleDict
-
-    def getStyle(self, styleName):
-        '''
-            getStyle - Gets the value of a style paramater, part of the "style" attribute
-
-            @param styleName - The name of the style
-
-              NOTE: dash-names (like padding-top) are expected here
-
-            @return - String of the value of the style. '' is no value.
-        '''
-        return self.getStyleDict().get(styleName.lower()) or ''
-        
-
-    def setStyle(self, styleName, styleValue):
-        '''
-            setStyle - Sets a style param. Example: "display", "block"
-
-                If you need to set many styles on an element, use setStyles instead. 
-                It takes a dictionary of attribute, value pairs and applies it all in one go (faster)
-
-                To remove a style, set its value to empty string.
-                When all styles are removed, the "style" attribute will be nullified.
-
-            @param styleName - The name of the style element
-
-            @param styleValue - The value of which to assign the style element
-
-              NOTE: dash-names (like padding-top) are expected here
-
-            @return - String of current value of "style" after change is made.
-        '''
-        return self.setStyles( {styleName : styleValue} )
-
-    def setStyles(self, styleUpdatesDict):
-        '''
-            setStyles - Sets one or more style params. 
-                This all happens in one shot, so it is much much faster than calling setStyle for every value.
-
-                To remove a style, set its value to empty string.
-                When all styles are removed, the "style" attribute will be nullified.
-
-            @param styleUpdatesDict - Dictionary of attribute : value styles.
-
-              NOTE: dash-names (like padding-top) are expected here.
-
-            @return - String of current value of "style" after change is made.
-        '''
-        styleDict = self.getStyleDict()
-
-        for newName, newValue in styleUpdatesDict.items():
-            if newValue:
-                # If replacing, just set/override it
-                styleDict[newName] = newValue
-            elif newName in styleDict:
-                # Delete if present and empty value passed
-                del styleDict[newName]
-
-        if styleDict:
-            # If anything left, build a str
-            styleStr = '; '.join([name + ': ' + value for name, value in styleDict.items()])
-            self.setAttribute('style', styleStr)
-            return styleStr
-        else:
-            # Last item removed, so remove attribute.
-            self.removeAttribute('style')
-            return ''
+#    def getStyleDict(self):
+#        '''
+#            getStyleDict - Returns a dictionary of style attribute name:value. 
+#
+#            @return dict <str:str> style attribute names to values. Impl is OrderedDict and will match positioning in string value
+#        '''
+#        return self._styleDict
+#
+#    def getStyle(self, styleName):
+#        '''
+#            getStyle - Gets the value of a style paramater, part of the "style" attribute
+#
+#            @param styleName - The name of the style
+#
+#              NOTE: dash-names (like padding-top) are expected here
+#
+#            @return - String of the value of the style. '' is no value.
+#        '''
+#        return self.getStyleDict().get(styleName.lower()) or ''
+#        
+#
+#    def setStyle(self, styleName, styleValue):
+#        '''
+#            setStyle - Sets a style param. Example: "display", "block"
+#
+#                If you need to set many styles on an element, use setStyles instead. 
+#                It takes a dictionary of attribute, value pairs and applies it all in one go (faster)
+#
+#                To remove a style, set its value to empty string.
+#                When all styles are removed, the "style" attribute will be nullified.
+#
+#            @param styleName - The name of the style element
+#
+#            @param styleValue - The value of which to assign the style element
+#
+#              NOTE: dash-names (like padding-top) are expected here
+#
+#            @return - String of current value of "style" after change is made.
+#        '''
+#        return self.setStyles( {styleName : styleValue} )
+#
+#    def setStyles(self, styleUpdatesDict):
+#        '''
+#            setStyles - Sets one or more style params. 
+#                This all happens in one shot, so it is much much faster than calling setStyle for every value.
+#
+#                To remove a style, set its value to empty string.
+#                When all styles are removed, the "style" attribute will be nullified.
+#
+#            @param styleUpdatesDict - Dictionary of attribute : value styles.
+#
+#              NOTE: dash-names (like padding-top) are expected here.
+#
+#            @return - String of current value of "style" after change is made.
+#        '''
+#        styleDict = self.getStyleDict()
+#
+#        for newName, newValue in styleUpdatesDict.items():
+#            if newValue:
+#                # If replacing, just set/override it
+#                styleDict[newName] = newValue
+#            elif newName in styleDict:
+#                # Delete if present and empty value passed
+#                del styleDict[newName]
+#
+#        if styleDict:
+#            # If anything left, build a str
+#            styleStr = '; '.join([name + ': ' + value for name, value in styleDict.items()])
+#            self.setAttribute('style', styleStr)
+#            return styleStr
+#        else:
+#            # Last item removed, so remove attribute.
+#            self.removeAttribute('style')
+#            return ''
 
     def _asStr(self):
         '''
