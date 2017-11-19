@@ -730,6 +730,13 @@ class AdvancedHTMLParser(HTMLParser):
 #        return doctypeStr + ''.join([elem.outerHTML for elem in self.getRootNodes()])
 
 
+    # toHTML - Alias of getHTML
+    toHTML = getHTML
+
+    # asHTML - Alias of getHTML
+    asHTML = getHTML
+
+
     def getFormattedHTML(self, indent='  '):
         '''
             getFormattedHTML - Get formatted and xhtml of this document

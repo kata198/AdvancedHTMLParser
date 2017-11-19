@@ -1424,11 +1424,52 @@ class AdvancedTag(object):
         return self.style
 
 
-    def __str__(self):
+    def _old__str__(self):
         '''
-            __str__ - Returns start tag, inner text, and end tag
+            _old__str__ - The old impl for __str__ (before 7.3.1) which just contains the start tag, inner text, and end tag.
+
+                I think this can cause some unexpected results, especially with no "toHTML" methods etc.
+
+                @return <str> - Start tag, inner text, and end tag
         '''
         return self.getStartTag() + self.text + self.getEndTag()
+
+
+    def __str__(self):
+        '''
+            __str__ - Returns the HTML representation for this tag (including children).
+
+                NOTE: This changed in 7.3.1 to be equivilant to self.outerHTML (or to new getHTML method, which is the same).
+
+                The old method just included the start tag, the joined direct text node children, and the end tag.
+                    This compacts well for debug display, but doesn't give a clear picture of what's going on.
+
+                The old method is still available as AdvancedTag._old__str__
+
+                To revert str(myTag) back to the hold behaviour:
+
+                    from AdvancedHTMLParser.Tags import AdvancedTag
+
+                    AdvancedTag.__str__ = AdvancedTag._old__str__
+        '''
+        return self.outerHTML
+
+
+    def toHTML(self):
+        '''
+            toHTML - Get the HTML representation of this tag and all children
+
+              @return <str> - HTML with this tag as the root
+        '''
+        return self.outerHTML
+
+
+    # asHTML - Alias of toHTML
+    asHTML = toHTML
+
+    # getHTML - Alias of toHTML
+    getHTML = toHTML
+
 
     def __getitem__(self, key):
         return self.children[key]
