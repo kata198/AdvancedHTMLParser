@@ -35,6 +35,14 @@
        between the old style and the tag to prevent updates on the old style from affecting the former tag
      - Add some comments to the style section
 
+- Addition of a lot of comments throughout code
+
+- Change the "style" (StyleAttribute) attribute's backref on a tag to that tag into a weak
+reference, which removes a circular reference.
+
+- Change the "_attribute" ( SpecialAttributesDict ) attribute's backref on a tag to that tag into a weak
+reference, which removes a circular reference.
+
 
 * 7.2.3 - Sep 01 2017
 
