@@ -299,7 +299,6 @@ class TestStyle(object):
 
         assert id(oldStyle) != id(tag1.style) , 'Expected assignment to equivilant string to udpate identity. id(oldStyle)<%d> == id(tag1.style)<%s>' %( id(oldStyle), id(tag1.style))
 
-        
         oldStyle.float = 'left'
 
         assert 'float: left' in str(oldStyle) , 'Expected setting "float: left" would show up in style. Got: ' + str(oldStyle)

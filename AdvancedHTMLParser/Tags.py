@@ -193,7 +193,14 @@ class AdvancedTag(object):
             # Check that we aren't trying to assign our own style to ourself to prevent
             #   a copy when we shouldn't and other bad stuff
             if id(value) != id(self.style):
+                # This will perform a copy if we have a StyleAttribute already, else
+                #   convert a style string to a StyleAttribute object
                 value = StyleAttribute(value, self)
+
+                # Disassociate the old StyleAttribute from this tag
+                oldStyle = self.__rawGet('style')
+                if issubclass(oldStyle.__class__, StyleAttribute):
+                    oldStyle.tag = None
             
             ret = object.__setattr__(self, 'style', value)
 
