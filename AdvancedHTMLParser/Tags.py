@@ -200,6 +200,8 @@ class AdvancedTag(object):
             # Adjust the presence of the style="..." in the html attributes
             self.style._ensureHtmlAttribute()
 
+            return ret
+
         try:
             return object.__setattr__(self, name,  value)
         except AttributeError:
