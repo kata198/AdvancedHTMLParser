@@ -13,7 +13,14 @@ document starting at that node
 
 - Minor updates to READMEs
 
+- Measurable performance improvements, especially in parsing
+
+- Improve removeAttribute / del tag.attributes['whatever'] to perform the
+special handling / linkage required when dealing with the "style" or "class" attribute
+
 - Some additional unit tests
+
+- Merge in latest distrib/runTests.py from GoodTests, which among improvements for installation / ensuring GoodTests.py is present, now it is supported to easily test python2 vs python3 just by invoking runTests.py with one or the other (i.e. if you run "python2 ./runTests.py" you'll execute the test suite in python2, vs "python3 ./runTests.py" executes in python3). Previously to do this reliably you'd have to use virtualenvs.
 
 
 * 7.3.0 - Nov 19 2017
