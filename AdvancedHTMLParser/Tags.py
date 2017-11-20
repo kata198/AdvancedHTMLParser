@@ -357,7 +357,7 @@ class AdvancedTag(object):
                 # Create a copy of the old text in this block for return
                 removedBlock = block[:]
                 # Remove first occurance of #text from matched block
-                self.blocks[i] = block.replace(text, '')
+                blocks[i] = block.replace(text, '')
                 break # remove should only remove FIRST occurace, per other methods
 
         # Regenerate the "text" property
@@ -397,7 +397,7 @@ class AdvancedTag(object):
                 removedBlocks.append( block[:] )
                 
                 # And replace the text within this matched block
-                self.blocks[i] = block.replace(text, '')
+                blocks[i] = block.replace(text, '')
 
         
         # Regenerate self.text
@@ -457,9 +457,11 @@ class AdvancedTag(object):
         child.parentNode = self
 
         # Associate owner document to child and all children recursive
-        child.ownerDocument = self.ownerDocument
+        ownerDocument = self.ownerDocument
+
+        child.ownerDocument = ownerDocument
         for subChild in child.getAllChildNodes():
-            subChild.ownerDocument = self.ownerDocument
+            subChild.ownerDocument = ownerDocument
 
         # Our tag cannot be self-closing if we have a child tag
         self.isSelfClosing = False
@@ -634,20 +636,23 @@ class AdvancedTag(object):
         # If #child is an AdvancedTag, we need to add it to both blocks and children.
         isChildTag = isTagNode(child)
 
+        myBlocks = self.blocks
+        myChildren = self.children
+
         # Find the index #beforeChild falls under current element
         try:
-            blocksIdx =  self.blocks.index(beforeChild)
+            blocksIdx =  myBlocks.index(beforeChild)
             if isChildTag:
-                childrenIdx = self.children.index(beforeChild)
+                childrenIdx = myChildren.index(beforeChild)
         except ValueError:
             # #beforeChild is not a child of this element. Raise error.
             raise ValueError('Provided "beforeChild" is not a child of element, cannot insert.')
         
         # Add to blocks in the right spot
-        self.blocks = self.blocks[:blocksIdx] + [child] + self.blocks[blocksIdx:]
+        self.blocks = myBlocks[:blocksIdx] + [child] + myBlocks[blocksIdx:]
         # Add to child in the right spot
         if isChildTag: 
-            self.children = self.children[:childrenIdx] + [child] + self.children[childrenIdx:]
+            self.children = myChildren[:childrenIdx] + [child] + myChildren[childrenIdx:]
         
         return child
 
@@ -669,18 +674,21 @@ class AdvancedTag(object):
 
         isChildTag = isTagNode(child)
 
+        myBlocks = self.blocks
+        myChildren = self.children
+
         # Determine where we need to insert this both in "blocks" and, if a tag, "children"
         try:
-            blocksIdx =  self.blocks.index(afterChild)
+            blocksIdx =  myBlocks.index(afterChild)
             if isChildTag:
-                childrenIdx = self.children.index(afterChild)
+                childrenIdx = myChildren.index(afterChild)
         except ValueError:
             raise ValueError('Provided "afterChild" is not a child of element, cannot insert.')
 
         # Append child to requested spot
-        self.blocks = self.blocks[:blocksIdx+1] + [child] + self.blocks[blocksIdx+1:]
+        self.blocks = myBlocks[:blocksIdx+1] + [child] + myBlocks[blocksIdx+1:]
         if isChildTag:
-            self.children = self.children[:childrenIdx+1] + [child] + self.children[childrenIdx+1:]
+            self.children = myChildren[:childrenIdx+1] + [child] + myChildren[childrenIdx+1:]
 
         return child
 
@@ -753,19 +761,21 @@ class AdvancedTag(object):
                 @return <None/str/AdvancedTag> - None if there are no nodes (text or tag) in the parent after this node,
                                                     Otherwise the following node (text or tag)
         '''
+        parentNode = self.parentNode
+
         # If no parent, no siblings.
-        if not self.parentNode:
+        if not parentNode:
             return None
 
         # Determine index in blocks
-        myBlockIdx = self.parentNode.blocks.index(self)
+        myBlockIdx = parentNode.blocks.index(self)
 
         # If we are the last, no next sibling
-        if myBlockIdx == len(self.parentNode.blocks):
+        if myBlockIdx == len(parentNode.blocks):
             return None
 
         # Else, return the next block in parent
-        return self.parentNode.blocks[myBlockIdx+1]
+        return parentNode.blocks[ myBlockIdx + 1 ]
 
     @property
     def nextSiblingElement(self):
@@ -776,19 +786,21 @@ class AdvancedTag(object):
                 @return <None/AdvancedTag> - None if there are no children (tag) in the parent after this node,
                                                     Otherwise the following element (tag)
         '''
+        parentNode = self.parentNode
+
         # If no parent, no siblings
-        if not self.parentNode:
+        if not parentNode:
             return None
 
         # Determine the index in children
-        myElementIdx = self.parentNode.children.index(self)
+        myElementIdx = parentNode.children.index(self)
 
         # If we are last child, no next sibling
-        if myElementIdx == len(self.parentNode.children):
+        if myElementIdx == len(parentNode.children):
             return None
 
         # Else, return the next child in parent
-        return self.parentNode.children[myElementIdx+1]
+        return parentNode.children[myElementIdx+1]
         
     @property
     def previousSibling(self):
@@ -801,19 +813,21 @@ class AdvancedTag(object):
                 @return <None/str/AdvancedTag> - None if there are no nodes (text or tag) in the parent before this node,
                                                     Otherwise the previous node (text or tag)
         '''
+        parentNode = self.parentNode
+
         # If no parent, no previous sibling
-        if not self.parentNode:
+        if not parentNode:
             return None
 
         # Determine block index on parent of this node
-        myBlockIdx = self.parentNode.blocks.index(self)
+        myBlockIdx = parentNode.blocks.index(self)
         
         # If we are the first, no previous sibling
         if myBlockIdx == 0:
             return None
 
         # Else, return the previous block in parent
-        return self.parentNode.blocks[myBlockIdx-1]
+        return parentNode.blocks[myBlockIdx-1]
 
     @property
     def previousSiblingElement(self):
@@ -827,19 +841,21 @@ class AdvancedTag(object):
                                                     Otherwise the previous element (tag)
 
         '''
+        parentNode = self.parentNode
+
         # If no parent, no siblings
-        if not self.parentNode:
+        if not parentNode:
             return None
 
         # Determine this node's index in the children of parent
-        myElementIdx = self.parentNode.children.index(self)
+        myElementIdx = parentNode.children.index(self)
         
         # If we are the first child, no previous element
         if myElementIdx == 0:
             return None
 
         # Else, return previous element tag
-        return self.parentNode.children[myElementIdx-1]
+        return parentNode.children[myElementIdx-1]
 
 
     @property
@@ -852,7 +868,9 @@ class AdvancedTag(object):
 
                 @return list<AdvancedTag> - A list of direct children which are tags.
         '''
-        return [block for block in self.blocks if issubclass(block.__class__, AdvancedTag)]
+        myBlocks = self.blocks
+
+        return [block for block in myBlocks if issubclass(block.__class__, AdvancedTag)]
 
 
     def getBlocksTags(self):
@@ -863,9 +881,9 @@ class AdvancedTag(object):
 
                 @return list< tuple(block, blockIdx) > - A list of tuples of child blocks which are tags and their index in the self.blocks list
         '''
-        blocks = self.blocks
+        myBlocks = self.blocks
 
-        return [ (blocks[i], i) for i in range( len(self.blocks) ) if issubclass(blocks[i].__class__, AdvancedTag) ]
+        return [ (myBlocks[i], i) for i in range( len(myBlocks) ) if issubclass(myBlocks[i].__class__, AdvancedTag) ]
 
 
     @property
@@ -876,7 +894,9 @@ class AdvancedTag(object):
 
                 @return list<AdvancedTag> - A list of direct children which are text.
         '''
-        return [block for block in self.blocks if not issubclass(block.__class__, AdvancedTag)]
+        myBlocks = self.blocks
+
+        return [block for block in myBlocks if not issubclass(block.__class__, AdvancedTag)]
 
 
     def getBlocksText(self):
@@ -887,9 +907,9 @@ class AdvancedTag(object):
 
                 @return list< tuple(block, blockIdx) > - A list of tuples of child blocks which are not tags and their index in the self.blocks list
         '''
-        blocks = self.blocks
+        myBlocks = self.blocks
 
-        return [ (blocks[i], i) for i in range( len(self.blocks) ) if not issubclass(blocks[i].__class__, AdvancedTag) ]
+        return [ (myBlocks[i], i) for i in range( len(myBlocks) ) if not issubclass(myBlocks[i].__class__, AdvancedTag) ]
 
 
     def getChildren(self):
@@ -1030,12 +1050,15 @@ class AdvancedTag(object):
 
             @return - TagCollection of elements
         '''
+        parentNode = self.parentNode
         # If no parent, no peers
-        if not self.parentNode:
+        if not parentNode:
             return None
 
+        peers = parentNode.children
+
         # Otherwise, get all children of parent excluding this node
-        return TagCollection([peer for peer in self.parentNode.children if peer is not self])
+        return TagCollection([peer for peer in peers if peer is not self])
 
     @property
     def peers(self):
@@ -1177,12 +1200,14 @@ class AdvancedTag(object):
         if self.isSelfClosing is True:
             return ''
 
+        tagName = self.tagName
+
         # Do not add any indentation to the end of preformatted tags.
-        if self._indent and self.tagName in PREFORMATTED_TAGS:
-            return "</%s>" %(self.tagName)
+        if self._indent and tagName in PREFORMATTED_TAGS:
+            return "</%s>" %(tagName, )
 
         # Otherwise, indent the end of this tag
-        return "%s</%s>" %(self._indent, self.tagName)
+        return "%s</%s>" %(self._indent, tagName)
 
     @property
     def innerHTML(self):
@@ -1313,24 +1338,28 @@ class AdvancedTag(object):
             @return <bool> - True if provided class is present, otherwise False
         '''
         return bool(className in self.classNames)
-     
+
+
     def addClass(self, className):
         '''
             addClass - append a class name to the end of the "class" attribute, if not present
 
                 @param className <str> - The name of the class to add
         '''
+        myClassNames = self.classNames
+
         # Do not allow duplicates
-        if className in self.classNames:
+        if className in myClassNames:
             return
 
         # Regenerate "classNames" and "class" attr.
         #   TODO: Maybe those should be properties?
-        self.classNames.append(className)
-        self.className = ' '.join(self.classNames)
-        self._attributes._direct_set('class', self.className)
+        myClassNames.append(className)
+        myClassName = self.className = ' '.join(myClassNames)
+        self._attributes._direct_set('class', myClassName)
 
         return None
+
 
     def removeClass(self, className):
         '''
@@ -1340,15 +1369,17 @@ class AdvancedTag(object):
 
                 @return <str> - The class name removed if one was removed, otherwise None if #className wasn't present
         '''
+        myClassNames = self.classNames
+
         # If not present, this is a no-op
-        if className not in self.classNames:
+        if className not in myClassNames:
             return None
 
-        self.classNames.remove(className)
+        myClassNames.remove(className)
 
         # Regenerate "classNames" and "class" attr.
-        self.className = ' '.join(self.classNames)
-        self._attributes._direct_set('class', self.className)
+        myClassName = self.className = ' '.join(myClassNames)
+        self._attributes._direct_set('class', myClassName)
         return className
 
 
@@ -1402,10 +1433,12 @@ class AdvancedTag(object):
 
             @return - String of current value of "style" after change is made.
         '''
-        if 'style' not in self._attributes:
-            self._attributes['style'] = "%s: %s" %(styleName, styleValue)
+        myAttributes = self._attributes
+
+        if 'style' not in myAttributes:
+            myAttributes['style'] = "%s: %s" %(styleName, styleValue)
         else:
-            setattr(self._attributes['style'], styleName, styleValue)
+            setattr(myAttributes['style'], styleName, styleValue)
 #        setattr(self.style, styleName, styleValue)
 
     def setStyles(self, styleUpdatesDict):
@@ -1420,8 +1453,9 @@ class AdvancedTag(object):
 
             @return - String of current value of "style" after change is made.
         '''
+        setStyleMethod = self.setStyle
         for newName, newValue in styleUpdatesDict.items():
-            self.setStyle(newName, newValue)
+            setStyleMethod(newName, newValue)
 
         return self.style
 
@@ -1685,8 +1719,11 @@ class AdvancedTag(object):
             if self.tagName != other.tagName:
                 return False
 
-            attributeKeysSelf = list(self._attributes.keys())
-            attributeKeysOther = list(other._attributes.keys())
+            myAttributes = self._attributes
+            otherAttributes = other._attributes
+
+            attributeKeysSelf = list(myAttributes.keys())
+            attributeKeysOther = list(otherAttributes.keys())
         except:
             return False
 
@@ -1696,7 +1733,7 @@ class AdvancedTag(object):
 
         for key in attributeKeysSelf:
 
-            if self._attributes.get(key) != other._attributes.get(key):
+            if myAttributes.get(key) != otherAttributes.get(key):
                 return False
 
         return True
@@ -1853,15 +1890,19 @@ class TagCollection(list):
 
     def __add__(self, others):
         # Maybe this can be optimized by changing self.uids to a dictionary, and using appending the set difference
+        hasTag = self._hasTag
+
         ret = TagCollection(self[:])
         for other in others:
-            if self._hasTag(other) is False:
+            if hasTag(other) is False:
                 ret.append(other)
         return ret
 
     def __iadd__(self, others):
+        hasTag = self._hasTag
+
         for other in others:
-            if self._hasTag(other) is False:
+            if hasTag(other) is False:
                 self.append(other)
         return self
 
@@ -1869,16 +1910,20 @@ class TagCollection(list):
 
 
     def __sub__(self, others):
+        hasTag = self._hasTag
+
         ret = TagCollection(self[:])
 
         for other in others:
-            if self._hasTag(other) is True:
+            if hasTag(other) is True:
                 ret.remove(other)
         return ret
 
     def __isub__(self, others):
+        hasTag = self._hasTag
+
         for other in others:
-            if self._hasTag(other) is True:
+            if hasTag(other) is True:
                 self.remove(other)
         return self
             
