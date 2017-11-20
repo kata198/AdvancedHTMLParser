@@ -272,10 +272,14 @@ class AdvancedHTMLParser(HTMLParser):
         if isFromRoot is True and root.tagName == tagName:
             elements.append(root)
 
+        getElementsByTagName = self.getElementsByTagName
         for child in root.children:
+
             if child.tagName == tagName:
                 elements.append(child)
-            elements += self.getElementsByTagName(tagName, child)
+
+            elements += getElementsByTagName(tagName, child)
+
         return TagCollection(elements)
 
     def getElementsByName(self, name, root='root'):
@@ -292,10 +296,13 @@ class AdvancedHTMLParser(HTMLParser):
         if isFromRoot is True and root.name == name:
             elements.append(root)
 
+        getElementsByName = self.getElementsByName
         for child in root.children:
+
             if child.getAttribute('name') == name:
                 elements.append(child)
-            elements += self.getElementsByName(name, child)
+
+            elements += getElementsByName(name, child)
 
         return TagCollection(elements)
 
@@ -311,12 +318,16 @@ class AdvancedHTMLParser(HTMLParser):
         if isFromRoot is True and root.id == _id:
             return root
 
+        getElementById = self.getElementById
         for child in root.children:
+
             if child.getAttribute('id') == _id:
                 return child
-            potential = self.getElementById(_id, child)
+
+            potential = getElementById(_id, child)
             if potential is not None:
                 return potential
+
         return None
 
     def getElementsByClassName(self, className, root='root'):
@@ -333,10 +344,14 @@ class AdvancedHTMLParser(HTMLParser):
         if isFromRoot is True and className in root.classNames:
             elements.append(root)
 
+        getElementsByClassName = self.getElementsByClassName
         for child in root.children:
+
             if className in child.classNames:
                 elements.append(child)
-            elements += self.getElementsByClassName(className, child)
+
+            elements += getElementsByClassName(className, child)
+
         return TagCollection(elements)
 
     def getElementsByAttr(self, attrName, attrValue, root='root'):
@@ -354,10 +369,14 @@ class AdvancedHTMLParser(HTMLParser):
         if isFromRoot is True and root.getAttribute(attrName) == attrValue:
             elements.append(root)
 
+        getElementsByAttr = self.getElementsByAttr
         for child in root.children:
+
             if child.getAttribute(attrName) == attrValue:
                 elements.append(child)
-            elements += self.getElementsByAttr(attrName, attrValue, child)
+
+            elements += getElementsByAttr(attrName, attrValue, child)
+
         return TagCollection(elements)
 
     def getElementsWithAttrValues(self, attrName, attrValues, root='root'):
@@ -372,6 +391,7 @@ class AdvancedHTMLParser(HTMLParser):
 
         '''
         (root, isFromRoot) = self._handleRootArg(root)
+
         if type(attrValues) != set:
             attrValues = set(attrValues)
         
@@ -393,10 +413,14 @@ class AdvancedHTMLParser(HTMLParser):
         if isFromRoot is True and filterFunc(root) is True:
             elements.append(root)
 
+        getElementsCustomFilter = self.getElementsCustomFilter
         for child in root.children:
+
             if filterFunc(child) is True:
                 elements.append(child)
-            elements += self.getElementsCustomFilter(filterFunc, child)
+
+            elements += getElementsCustomFilter(filterFunc, child)
+
         return TagCollection(elements)
 
 
@@ -417,10 +441,15 @@ class AdvancedHTMLParser(HTMLParser):
         if isFromRoot is True and filterFunc(root) is True:
             return root
 
+        getFirstElementCustomFilter = self.getFirstElementCustomFilter
+
         for child in root.children:
+
             if filterFunc(child) is True:
                 return child
-            subRet = self.getFirstElementCustomFilter(filterFunc, child)
+
+            subRet = getFirstElementCustomFilter(filterFunc, child)
+
             if subRet:
                 return subRet
 
@@ -794,6 +823,7 @@ class AdvancedHTMLParser(HTMLParser):
         else:
             with codecs.open(filename, 'r', encoding=self.encoding) as f:
                 contents = f.read()
+
         self.feed(contents)
 
     def parseStr(self, html):
@@ -803,6 +833,7 @@ class AdvancedHTMLParser(HTMLParser):
                 @param html <str> - valid HTML
         '''
         self.reset()
+
         if isinstance(html, bytes):
             self.feed(html.decode(self.encoding))
         else:
@@ -1007,8 +1038,10 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
 
     def _indexTagRecursive(self, tag):
         self._indexTag(tag)
+
+        _indexTagRecursive = self._indexTagRecursive
         for child in tag.children:
-            self._indexTagRecursive(child)
+            _indexTagRecursive(child)
 
     ######## Parsing #########
 
@@ -1112,10 +1145,13 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         if useIndex is True and self.indexTagNames is True:
             elements = self._tagNameMap.get(tagName, []) # Use .get here as to not create a lot of extra indexes on the defaultdict for misses
             if isFromRoot is False:
-                elements = [x for x in elements if self._hasTagInParentLine(x, root)]
+                _hasTagInParentLine = self._hasTagInParentLine
+                elements = [x for x in elements if _hasTagInParentLine(x, root)]
+
             return TagCollection(elements)
 
         return AdvancedHTMLParser.getElementsByTagName(self, tagName, root)
+
 
     def getElementsByName(self, name, root='root', useIndex=True):
         '''
@@ -1129,12 +1165,17 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
 
         elements = []
         if useIndex is True and self.indexNames is True:
+
             elements = self._nameMap.get(name, [])
+
             if isFromRoot is False:
-                elements = [x for x in elements if self._hasTagInParentLine(x, root)]
+                _hasTagInParentLine = self._hasTagInParentLine
+                elements = [x for x in elements if _hasTagInParentLine(x, root)]
+
             return TagCollection(elements)
 
         return AdvancedHTMLParser.getElementsByName(self, name, root)
+
 
     def getElementById(self, _id, root='root', useIndex=True):
         '''
@@ -1147,8 +1188,11 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         (root, isFromRoot) = self._handleRootArg(root)
 
         if self.useIndex is True and self.indexIDs is True:
+
             element = self._idMap.get(_id, None)
+
             if isFromRoot is False and element is not None:
+
                 if self._hasTagInParentLine(element, root) is False:
                     element = None
                     
@@ -1169,9 +1213,12 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         (root, isFromRoot) = self._handleRootArg(root)
 
         if useIndex is True and self.indexClassNames is True:
+
             elements = self._classNameMap.get(className, [])
+
             if isFromRoot is False:
-                elements = [x for x in elements if self._hasTagInParentLine(x, root)]
+                _hasTagInParentLine = self._hasTagInParentLine
+                elements = [x for x in elements if _hasTagInParentLine(x, root)]
 
             return TagCollection(elements)
 
@@ -1191,9 +1238,13 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         (root, isFromRoot) = self._handleRootArg(root)
 
         if useIndex is True and attrName in self._otherAttributeIndexes:
+
             elements = self._otherAttributeIndexes[attrName].get(attrValue, [])
+
             if isFromRoot is False:
-                elements = [x for x in elements if self._hasTagInParentLine(x, root)]
+                _hasTagInParentLine = self._hasTagInParentLine
+                elements = [x for x in elements if _hasTagInParentLine(x, root)]
+
             return TagCollection(elements)
         
         return AdvancedHTMLParser.getElementsByAttr(self, attrName, attrValue, root)
@@ -1210,10 +1261,13 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         '''
         (root, isFromRoot) = self._handleRootArg(root)
 
-        if useIndex is True and attrName in self._otherAttributeIndexes:
+        _otherAttributeIndexes = self._otherAttributeIndexes
+        if useIndex is True and attrName in _otherAttributeIndexes:
+
             elements = TagCollection()
+
             for value in values:
-                elements += TagCollection(self._otherAttributeIndexes[attrName].get(value, []))
+                elements += TagCollection(_otherAttributeIndexes[attrName].get(value, []))
 
             return elements
 
