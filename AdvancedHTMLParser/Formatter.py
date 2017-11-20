@@ -58,7 +58,7 @@ class AdvancedHTMLFormatter(HTMLParser):
 
         self.root = None
 
-        self.inTag = []
+        self._inTag = []
         self.doctype = None
 
 
@@ -143,7 +143,7 @@ class AdvancedHTMLFormatter(HTMLParser):
         HTMLParser.reset(self)
         self.currentIndentLevel = 0
         self.parsedData = []
-        self.inTag = []
+        self._inTag = []
         self.root = None
         self.doctype = None
         self.inPreformatted = 0
@@ -156,6 +156,7 @@ class AdvancedHTMLFormatter(HTMLParser):
             handle_starttag - Internal for parsing
         '''
         tagName = tagName.lower()
+        inTag = self._inTag
 
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
             isSelfClosing = True
@@ -163,8 +164,8 @@ class AdvancedHTMLFormatter(HTMLParser):
         newTag = AdvancedTag(tagName, attributeList, isSelfClosing)
         if self.root is None:
             self.root = newTag
-        elif len(self.inTag) > 0:
-            self.inTag[-1].appendChild(newTag)
+        elif len(inTag) > 0:
+            inTag[-1].appendChild(newTag)
         else:
             raise MultipleRootNodeException()
 
@@ -175,7 +176,7 @@ class AdvancedHTMLFormatter(HTMLParser):
             self.inPreformatted += 1
 
         if isSelfClosing is False:
-            self.inTag.append(newTag)
+            inTag.append(newTag)
             if tagName != INVISIBLE_ROOT_TAG:
                 self.currentIndentLevel += 1
 
@@ -190,11 +191,12 @@ class AdvancedHTMLFormatter(HTMLParser):
         '''
             handle_endtag - Internal for parsing
         '''
+        inTag = self._inTag
         try:
             # Handle closing tags which should have been closed but weren't
             foundIt = False
-            for i in range(len(self.inTag)):
-                if self.inTag[i].tagName == tagName:
+            for i in range(len(inTag)):
+                if inTag[i].tagName == tagName:
                     foundIt = True
                     break
 
@@ -202,14 +204,14 @@ class AdvancedHTMLFormatter(HTMLParser):
                 sys.stderr.write('WARNING: found close tag with no matching start.\n')
                 return
                 
-            while self.inTag[-1].tagName != tagName:
-                oldTag = self.inTag.pop()
+            while inTag[-1].tagName != tagName:
+                oldTag = inTag.pop()
                 if oldTag.tagName in PREFORMATTED_TAGS:
                     self.inPreformatted -= 1
 
                 self.currentIndentLevel -= 1
 
-            self.inTag.pop()
+            inTag.pop()
             if tagName != INVISIBLE_ROOT_TAG:
                 self.currentIndentLevel -= 1
             if tagName in PREFORMATTED_TAGS:
@@ -222,14 +224,15 @@ class AdvancedHTMLFormatter(HTMLParser):
             handle_data - Internal for parsing
         '''
         if data:
-            if len(self.inTag) > 0:
-                if self.inTag[-1].tagName not in PRESERVE_CONTENTS_TAGS:
+            inTag = self._inTag
+            if len(inTag) > 0:
+                if inTag[-1].tagName not in PRESERVE_CONTENTS_TAGS:
                     data = data.replace('\t', ' ').strip('\r\n')
                     if data.startswith(' '):
                         data = ' ' + data.lstrip()
                     if data.endswith(' '):
                         data = data.rstrip() + ' '
-                self.inTag[-1].appendText(data)
+                inTag[-1].appendText(data)
             elif data.strip():
                 # Must be text prior to or after root node
                 raise MultipleRootNodeException()
@@ -238,8 +241,9 @@ class AdvancedHTMLFormatter(HTMLParser):
         '''
             Internal for parsing
         '''
-        if len(self.inTag) > 0:
-            self.inTag[-1].appendText('&%s;' %(entity,))
+        inTag = self._inTag
+        if len(inTag) > 0:
+            inTag[-1].appendText('&%s;' %(entity,))
         else:
             raise MultipleRootNodeException()
 
@@ -247,8 +251,9 @@ class AdvancedHTMLFormatter(HTMLParser):
         '''
             Internal for parsing
         '''
-        if len(self.inTag) > 0:
-            self.inTag[-1].appendText('&#%s;' %(charRef,))
+        inTag = self._inTag
+        if len(inTag) > 0:
+            inTag[-1].appendText('&#%s;' %(charRef,))
         else:
             raise MultipleRootNodeException()
 
@@ -256,8 +261,9 @@ class AdvancedHTMLFormatter(HTMLParser):
         '''
             Internal for parsing
         '''
-        if len(self.inTag) > 0:
-            self.inTag[-1].appendText('<!-- %s -->' %(comment,))
+        inTag = self._inTag
+        if len(inTag) > 0:
+            inTag[-1].appendText('<!-- %s -->' %(comment,))
         else:
             raise MultipleRootNodeException()
 

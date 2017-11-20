@@ -61,9 +61,10 @@ class AdvancedHTMLParser(HTMLParser):
         # Do not automatically convert charrefs in python3
         self.convert_charrefs = False
 
+        # Encoding to use for this document
         self.encoding = encoding
 
-        self.inTag = []
+        self._inTag = []
         self.root = None
         self.doctype = None
 
@@ -107,13 +108,13 @@ class AdvancedHTMLParser(HTMLParser):
         newTag = AdvancedTag(tagName, attributeList, isSelfClosing, ownerDocument=self)
         if self.root is None:
             self.root = newTag
-        elif len(self.inTag) > 0:
-            self.inTag[-1].appendChild(newTag)
+        elif len(self._inTag) > 0:
+            self._inTag[-1].appendChild(newTag)
         else:
             raise MultipleRootNodeException()
 
         if isSelfClosing is False:
-            self.inTag.append(newTag)
+            self._inTag.append(newTag)
 
         return newTag
 
@@ -129,18 +130,19 @@ class AdvancedHTMLParser(HTMLParser):
         '''
         try:
             foundIt = False
-            for i in range(len(self.inTag)):
-                if self.inTag[i].tagName == tagName:
+            inTag = self._inTag
+            for i in range(len(inTag)):
+                if inTag[i].tagName == tagName:
                     foundIt = True
                     break
 
             if not foundIt:
                 return
             # Handle closing tags which should have been closed but weren't
-            while self.inTag[-1].tagName != tagName:
-                self.inTag.pop()
+            while inTag[-1].tagName != tagName:
+                inTag.pop()
 
-            self.inTag.pop()
+            inTag.pop()
         except:
             pass
 
@@ -150,8 +152,9 @@ class AdvancedHTMLParser(HTMLParser):
             Internal for parsing
         '''
         if data:
-            if len(self.inTag) > 0:
-                self.inTag[-1].appendText(data)
+            inTag = self._inTag
+            if len(inTag) > 0:
+                inTag[-1].appendText(data)
             elif data.strip(): #and not self.getRoot():
                 # Must be text prior to or after root node
                 raise MultipleRootNodeException()
@@ -160,8 +163,9 @@ class AdvancedHTMLParser(HTMLParser):
         '''
             Internal for parsing
         '''
-        if len(self.inTag) > 0:
-            self.inTag[-1].appendText('&%s;' %(entity,))
+        inTag = self._inTag
+        if len(inTag) > 0:
+            inTag[-1].appendText('&%s;' %(entity,))
         else:
             raise MultipleRootNodeException()
 
@@ -169,8 +173,9 @@ class AdvancedHTMLParser(HTMLParser):
         '''
             Internal for parsing
         '''
-        if len(self.inTag) > 0:
-            self.inTag[-1].appendText('&#%s;' %(charRef,))
+        inTag = self._inTag
+        if len(inTag) > 0:
+            inTag[-1].appendText('&#%s;' %(charRef,))
         else:
             raise MultipleRootNodeException()
 
@@ -178,8 +183,9 @@ class AdvancedHTMLParser(HTMLParser):
         '''
             Internal for parsing
         '''
-        if len(self.inTag) > 0:
-            self.inTag[-1].appendText('<!-- %s -->' %(comment,))
+        inTag = self._inTag
+        if len(inTag) > 0:
+            inTag[-1].appendText('<!-- %s -->' %(comment,))
         else:
             raise MultipleRootNodeException()
 
@@ -760,7 +766,7 @@ class AdvancedHTMLParser(HTMLParser):
 
         self.root = None
         self.doctype = None
-        self.inTag = []
+        self._inTag = []
 
     def feed(self, contents):
         '''
