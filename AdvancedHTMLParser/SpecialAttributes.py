@@ -59,8 +59,11 @@ class SpecialAttributesDict(dict):
 
     def __getitem__(self, key):
         if key == 'style':
+            # TODO: If detatched from a tag, this will throw an error.
+            #         Need to handle detatch and reattach for this attribute
             return self.tag.style
         elif key == 'class':
+            # "Class" has a special value here, because unset it is empty string versus None
             return dict.get(self, 'class', '')
 
         try:
@@ -69,7 +72,23 @@ class SpecialAttributesDict(dict):
             return None #  TODO: support undefined?
 
 
-    # TODO: Implement __delitem__
+    def __delitem__(self, key):
+        '''
+            __delitem__ - Called when someone does del tag.attributes['key']
+
+                @param key <str> - The attribute key to delete
+        '''
+        if key == 'style':
+            self.tag.style = ''
+        elif key == 'class':
+            self.tag.classNames = []
+            dict.__delitem__(self, "class")
+        else:
+            try:
+                return dict.__delitem__(self, key)
+            except KeyError:
+                return None
+            
 
     def get(self, key, default=None):
         '''
@@ -82,7 +101,7 @@ class SpecialAttributesDict(dict):
              @return - The value of attribute at #key, or #default if not present.
         '''
 
-        if key in {'style', 'class'} or key in self.keys():
+        if key in ('style', 'class') or key in self.keys():
             return self[key]
         return default
 

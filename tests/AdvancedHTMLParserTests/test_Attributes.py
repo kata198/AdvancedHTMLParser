@@ -387,7 +387,74 @@ class TestAttributes(object):
         assert 'align' not in attributes , 'Expected to NOT find "align" within the attributes. Got: ' + repr(attributes)
         assert 'title' not in attributes , 'Expected to NOT find "align" within the attributes. Got: ' + repr(attributes)
 
-        print ( tag )
+
+    def test_delAttributes(self):
+        '''
+            test_delAttributes - Test deleting attributes
+        '''
+        tag = AdvancedTag('div')
+
+        tag.setAttribute('id', 'abc')
+
+        tag.style = 'display: block; float: left'
+
+        tagHTML = tag.toHTML()
+
+        assert 'id="abc"' in tagHTML , 'Expected id="abc" to be present in tag html. Got: ' + tagHTML
+        assert 'style=' in tagHTML , 'Expected style attribute to be present in tag html. Got: ' + tagHTML
+
+        assert tag.style.display == 'block' , 'Expected style.display to be "block". Style is: ' + str(tag.style)
+        assert tag.style.float == 'left' , 'Expected style.float to be "left". Style is: ' + str(tag.style)
+
+        del tag.attributes['id']
+
+        tagHTML = tag.toHTML()
+
+        assert not tag.id , "Expected id to be empty after deleting attribute. It is: " + repr(tag.id)
+        assert 'id="abc"' not in tagHTML , 'Expected id attribute to NOT be present in tagHTML after delete. Got: ' + tagHTML
+
+        del tag.attributes['style']
+
+        tagHTML = tag.toHTML()
+
+        assert 'style=' not in tagHTML , 'Expected style attribute to NOT be present in tagHTML after delete. Got: ' + tagHTML
+        assert str(tag.style) == '' , 'Expected str(tag.style) to be empty string after delete of style attribute. It was: ' + repr(str(tag.style))
+        assert tag.style.display == '' , 'Expected display style property to be cleared after delete of style attribute. Style is: ' + str(tag.style)
+        assert tag.style.float == '' , 'Expected float style property to be cleared after delete of style attribute. Style is: ' + str(tag.style)
+
+
+        tag.style = 'font-weight: bold; float: right'
+
+        tagHTML = tag.toHTML()
+
+        assert 'style=' in tagHTML , 'Expected after deleting style, then setting it again style shows up as HTML attr. Got: ' + tagHTML
+
+        assert 'font-weight: bold' in tagHTML , 'Expected after deleting style, then setting it again the properties show up in the HTML "style" attribute. Got: ' + tagHTML
+
+        assert id(tag.getAttribute('style', '')) == id(tag.style) , 'Expected after deleting style, then setting it again the attribute remains linked.'
+
+        assert tag.style.fontWeight == 'bold' , 'Expected after deleting style, then setting it again everything works as expected. Set style to "font-weight: bold; float: left" but on tag.style it is: ' + str(tag.style)
+
+        tag.addClass('bold-item')
+        tag.addClass('blue-font')
+
+        assert 'bold-item' in tag.classList , 'Did addClass("bold-item") but did not find it in classList. classList is: ' + repr(tag.classList)
+        assert 'blue-font' in tag.classList , 'Did addClass("blue-font") but did not find it in classList. classList is: ' + repr(tag.classList)
+
+        classes = tag.getAttribute('class')
+
+        assert 'bold-item' in classes and 'blue-font' in classes , 'Expected class attribute to contain both classes. Got: ' + str(classes)
+
+        # This should call del tag._attributes['class']
+        tag.removeAttribute('class')
+
+        assert 'bold-item' not in tag.classList , 'After removing class, expected to not find classes in tag.classList. classList is: ' + repr(tag.classList)
+
+        assert len(tag.classList) == 0 , 'Expected to have no classes in classList after delete. Got %d' %(len(tag.classList), )
+
+        assert tag.getAttribute('class') == '' , 'Expected after removing class it would be an empty string'
+
+        assert tag.getAttribute('clazz') is None , 'Expected default getAttribute on non-set attribute to be None'
 
 
 if __name__ == '__main__':

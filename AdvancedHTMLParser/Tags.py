@@ -118,6 +118,8 @@ class AdvancedTag(object):
 
         # TODO: Maybe can refactor "children" into just being the "tagBlocks" from above?
         rawSet('children', [])
+
+        # TODO: Refactor attribute="class", tag.className, tag.classList, and classNames to be a single-source item
         rawSet('classNames', [])
         rawSet('isSelfClosing', isSelfClosing)
         rawSet('parentNode', None)
