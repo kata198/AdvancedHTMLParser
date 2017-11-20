@@ -635,7 +635,6 @@ class AdvancedHTMLParser(HTMLParser):
                 _values = tuple([x.lower() for x in _values])
 
             def _testFunc(em):
-                import pdb; pdb.set_trace()
                 text = em.text
                 if icontains:
                     text = text.lower()
