@@ -101,6 +101,7 @@ class AdvancedHTMLParser(HTMLParser):
             Internal for parsing
         '''
         tagName = tagName.lower()
+        inTag = self._inTag
 
         if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
             isSelfClosing = True
@@ -108,13 +109,13 @@ class AdvancedHTMLParser(HTMLParser):
         newTag = AdvancedTag(tagName, attributeList, isSelfClosing, ownerDocument=self)
         if self.root is None:
             self.root = newTag
-        elif len(self._inTag) > 0:
-            self._inTag[-1].appendChild(newTag)
+        elif len(inTag) > 0:
+            inTag[-1].appendChild(newTag)
         else:
             raise MultipleRootNodeException()
 
         if isSelfClosing is False:
-            self._inTag.append(newTag)
+            inTag.append(newTag)
 
         return newTag
 
