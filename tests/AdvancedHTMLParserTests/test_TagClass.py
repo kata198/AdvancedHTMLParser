@@ -253,6 +253,59 @@ class TestTagClass(object):
 
         # TODO: Also test empty class attribute that it can be modified
 
+    def test_stripClassName(self):
+        '''
+            test_stripClassName - Ensure class names are properly stripped
+        '''
+        x = AdvancedTag('div')
+
+        x.addClass("  hello")
+
+        assert x.className == "hello" , "Expected className to be stripped after addClass. Got: " + repr(x.className)
+
+        assert x.classList == ["hello"] , "Expected 'class' to be stripped in 'classList' after addClass. Got: " + repr(x.classList)
+
+        
+        x = AdvancedTag('div')
+
+        x.className = "  hello   goodbye"
+
+        assert x.className == "hello goodbye" , "Expected className to be stripped after setting .className. Got: " + repr(x.className)
+
+        assert x.classList == ["hello", "goodbye"] , "Expected className to be stripped and empty strings removed on classList. Got: " + repr(x.classList)
+
+
+        x.addClass("hello  ")
+
+        assert x.className == "hello goodbye" , "Expected addClass to strip class name before trying to add so as to not duplicate. Got: " + repr(x.className)
+
+        assert x.classList == ["hello", "goodbye"] , "Expected addClass to strip class name before trying to add so as to not duplicate. Got: " + repr(x.classList)
+
+
+        x.addClass("")
+
+        assert x.className == "hello goodbye" , "Expected addClass on empty string to not affect className. Got: " + repr(x.className)
+
+        assert x.classList == ["hello", "goodbye"], "Expected addClass on empty string to not affect classList. Got: " + repr(x.classList)
+
+        x.addClass("  ")
+
+        assert x.className == "hello goodbye" , "Expected addClass on whitespace string to not affect className. Got: " + repr(x.className)
+
+        assert x.classList == ["hello", "goodbye"], "Expected addClass on whitespace string to not affect classList. Got: " + repr(x.classList)
+
+        x.removeClass("")
+
+        assert x.className == "hello goodbye" , "Expected removeClass on empty string to not affect className. Got: " + repr(x.className)
+
+        assert x.classList == ["hello", "goodbye"], "Expected removeClass on empty string to not affect classList. Got: " + repr(x.classList)
+
+        x.removeClass(" ")
+
+        assert x.className == "hello goodbye" , "Expected removeClass on whitespace string to not affect className. Got: " + repr(x.className)
+
+        assert x.classList == ["hello", "goodbye"], "Expected removeClass on whitespace string to not affect classList. Got: " + repr(x.classList)
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
