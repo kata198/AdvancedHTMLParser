@@ -1367,7 +1367,7 @@ class AdvancedTag(object):
         if ' ' in className:
             # Multiple class names passed, do one at a time
             for oneClassName in className.split(' '):
-                self.removeClass(oneClassName)
+                self.addClass(oneClassName)
             return
 
         myClassNames = self._classNames
