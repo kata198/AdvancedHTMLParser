@@ -5,7 +5,9 @@ import sys
 import re
 
 __all__ = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 
-    'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr')
+    'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr',
+    'stripWordsOnly', 
+)
 
 IE_CONDITIONAL_PATTERN = re.compile('[<][!][-][-][ \t\r\n]*[\[][ \t\r\n]*if.*-->', re.MULTILINE)
 
@@ -13,6 +15,11 @@ END_HTML = re.compile('.*</[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*>.*', re.DOTALL)
 START_HTML = re.compile('.*<[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*>.*', re.DOTALL)
 
 DOCTYPE_MATCH = re.compile('[\n]*[ \t]*(?P<tag><[!][ \t]*[dD][oO][cC][tT][yY][pP][eE].*[>])')
+
+WORDS_ONLY_RE = re.compile('[ ][ ]+')
+
+def stripWordsOnly(contents):
+    return WORDS_ONLY_RE.sub(' ', contents.strip())
 
 def stripIEConditionals(contents, addHtmlIfMissing=True):
     '''

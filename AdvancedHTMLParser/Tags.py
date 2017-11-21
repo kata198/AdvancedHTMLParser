@@ -11,7 +11,7 @@ import uuid
 from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES, COMMON_JAVASCRIPT_ATTRIBUTES, ALL_JAVASCRIPT_EVENT_ATTRIBUTES, TAG_ITEM_BINARY_ATTRIBUTES, TAG_ITEM_ATTRIBUTE_LINKS, TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES, TAG_ITEM_CHANGE_NAME_FROM_ATTR, TAG_ITEM_CHANGE_NAME_FROM_ITEM
 from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeNodeMap
 
-from .utils import escapeQuotes, tostr
+from .utils import escapeQuotes, tostr, stripWordsOnly
 
 __all__ = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection', 'toggleAttributesDOM', 'isTextNode', 'isTagNode')
 
@@ -157,7 +157,7 @@ class AdvancedTag(object):
         '''
 
         if name == "className":
-            value = tostr(value).strip()
+            value = stripWordsOnly( tostr(value) )
             object.__setattr__(self, '_classNames', [x for x in value.split(' ') if x])
             return value
         # These are direct properties on the object itself, and maybe only have meaning as AdvancedHTMLParser-specific
@@ -1359,12 +1359,10 @@ class AdvancedTag(object):
 
                 @param className <str> - The name of the class to add
         '''
-        className = className.strip()
+        className = stripWordsOnly(className)
 
         if not className:
             return None
-
-        className = re.sub('[ ][ ]+', ' ', className)
 
         if ' ' in className:
             # Multiple class names passed, do one at a time
@@ -1393,11 +1391,10 @@ class AdvancedTag(object):
 
                 @return <str> - The class name removed if one was removed, otherwise None if #className wasn't present
         '''
-        className = className.strip()
+        className = stripWordsOnly(className)
+
         if not className:
             return None
-
-        className = re.sub('[ ][ ]+', ' ', className)
 
         if ' ' in className:
             # Multiple class names passed, do one at a time
