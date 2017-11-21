@@ -306,6 +306,16 @@ class TestTagClass(object):
 
         assert x.classList == ["hello", "goodbye"], "Expected removeClass on whitespace string to not affect classList. Got: " + repr(x.classList)
 
+        x = AdvancedTag('div')
+
+        x.className = "hello   goodbye"
+
+        assert x.className == "hello goodbye" , "Expected setting class with extra whitespace to have extra whitespace stripped. className attribute not as expected. Got: " + repr(x.className)
+
+        assert x.classList == ["hello", "goodbye"], "Expected setting class with extra whitespace to have extra whitespace stripped. classList not as expected. Got: " + repr(x.className)
+
+        # TODO: add test for addClass / removeClass using multiple classes (contains a space not on the ends)
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
