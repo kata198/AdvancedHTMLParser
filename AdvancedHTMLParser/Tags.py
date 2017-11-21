@@ -113,13 +113,11 @@ class AdvancedTag(object):
         #         This could improve performance and memory usage both
         rawSet('text', '')
 
-        # TODO: Perhaps we should have helper methods like "textBlocks" and "tagBlocks" which perform a comprehension.
         rawSet('blocks', [''])
 
         # TODO: Maybe can refactor "children" into just being the "tagBlocks" from above?
         rawSet('children', [])
 
-        # TODO: Refactor attribute="class", tag.className, tag.classList, and classNames to be a single-source item
         rawSet('_classNames', [])
         rawSet('isSelfClosing', isSelfClosing)
         rawSet('parentNode', None)
@@ -157,12 +155,17 @@ class AdvancedTag(object):
                              access with javascript-like behaviour
         '''
 
+        if name == "className":
+            value = tostr(value).strip()
+            object.__setattr__(self, '_classNames', [x for x in value.split(' ') if x])
+            return value
         # These are direct properties on the object itself, and maybe only have meaning as AdvancedHTMLParser-specific
         #   properties.
         #  NOTE: Investigate if we should intercept "classNames" here to modify "class" and "classList"
         #         (Probably will remain as-is, as it is not a standard property but specific to AdvancedHTMLParser
         if name in ADVANCED_TAG_RAW_ATTRIBUTES:
             return object.__setattr__(self, name, value)
+
 
         # Check if this is one of the special items which map directly to attributes
         #    TAG_ITEM_ATTRIBUTE_LINKS - These attributes link directly to an html attribute, e.x. "id" or "name"
@@ -1124,6 +1127,15 @@ class AdvancedTag(object):
         return self.parentNode
 
     @property
+    def className(self):
+        '''
+            className - property, string of 'class' attribute
+
+            @return <str> - Class attribute, or empty string if not set
+        '''
+        return ' '.join(self.classList)
+
+    @property
     def classList(self):
         '''
             classList - get a copy of the list of the class names ( the "class" attribute ) for this element
@@ -1346,6 +1358,8 @@ class AdvancedTag(object):
 
                 @param className <str> - The name of the class to add
         '''
+        className = className.strip()
+
         myClassNames = self._classNames
 
         # Do not allow duplicates
@@ -1355,8 +1369,6 @@ class AdvancedTag(object):
         # Regenerate "classNames" and "class" attr.
         #   TODO: Maybe those should be properties?
         myClassNames.append(className)
-        myClassName = self.className = ' '.join(myClassNames)
-        self._attributes._direct_set('class', myClassName)
 
         return None
 
@@ -1369,6 +1381,8 @@ class AdvancedTag(object):
 
                 @return <str> - The class name removed if one was removed, otherwise None if #className wasn't present
         '''
+        className = className.strip()
+
         myClassNames = self._classNames
 
         # If not present, this is a no-op
@@ -1377,9 +1391,6 @@ class AdvancedTag(object):
 
         myClassNames.remove(className)
 
-        # Regenerate "classNames" and "class" attr.
-        myClassName = self.className = ' '.join(myClassNames)
-        self._attributes._direct_set('class', myClassName)
         return className
 
 

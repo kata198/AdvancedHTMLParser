@@ -63,8 +63,7 @@ class SpecialAttributesDict(dict):
             #         Need to handle detatch and reattach for this attribute
             return self.tag.style
         elif key == 'class':
-            # "Class" has a special value here, because unset it is empty string versus None
-            return dict.get(self, 'class', '')
+            return self.tag.className
 
         try:
             return dict.__getitem__(self, key)
@@ -81,6 +80,8 @@ class SpecialAttributesDict(dict):
         if key == 'style':
             self.tag.style = ''
         elif key == 'class':
+            self.tag.className = ''
+            return
             self.tag._classNames = []
             dict.__delitem__(self, "class")
         else:
@@ -89,6 +90,33 @@ class SpecialAttributesDict(dict):
             except KeyError:
                 return None
             
+
+    def _handleClassAttr(self):
+        '''
+            _handleClassAttr - Hack to ensure "class" shows up in attributes when classes are set,
+                and doesn't when no classes are present on associated tag.
+
+                TODO: I don't like this hack.
+        '''
+        if len(self.tag._classNames) > 0:
+            dict.__setitem__(self, "class", self.tag.className)
+        else:
+            try:
+                dict.__delitem__(self, "class")
+            except:
+                pass
+
+    def items(self):
+        # Intercept and apply the "class" attribute hack
+        self._handleClassAttr()
+
+        return dict.items(self)
+
+    def keys(self):
+        # Intercept and apply the "class" attribute hack
+        self._handleClassAttr()
+
+        return dict.keys(self)
 
     def get(self, key, default=None):
         '''
@@ -100,6 +128,8 @@ class SpecialAttributesDict(dict):
 
              @return - The value of attribute at #key, or #default if not present.
         '''
+        if key == 'class':
+            return self.tag.className
 
         if key in ('style', 'class') or key in self.keys():
             return self[key]
@@ -137,9 +167,10 @@ class SpecialAttributesDict(dict):
             else:
                 tag.style = value
         elif key == 'class':
+            tag._classNames = [x for x in value.split(' ') if x]
+            return
 
             # Ensure when we update the "class" attribute, that we update the list as well.
-            tag._classNames = [x for x in value.split(' ') if x]
             dict.__setitem__(self, 'class',  value)
             return value
 
