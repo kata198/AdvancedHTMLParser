@@ -18,8 +18,6 @@ document starting at that node
 - Improve removeAttribute / del tag.attributes['whatever'] to perform the
 special handling / linkage required when dealing with the "style" or "class" attribute
 
-- Some additional unit tests
-
 - Merge in latest distrib/runTests.py from GoodTests, which among improvements for installation / ensuring GoodTests.py is present, now it is supported to easily test python2 vs python3 just by invoking runTests.py with one or the other (i.e. if you run "python2 ./runTests.py" you'll execute the test suite in python2, vs "python3 ./runTests.py" executes in python3). Previously to do this reliably you'd have to use virtualenvs.
 
 - AdvancedTag.classList now returns a COPY, so changes don't flow back to the associated tag (just like in JS api).
@@ -29,6 +27,13 @@ special handling / linkage required when dealing with the "style" or "class" att
 - Fix nextSibling and nextSiblingElement which would throw an exception (instead of return None) when called on the last element in a set of peers. Also fix the typo in the tests which would have caught this but was preventing them from running.
 
 - Remove stray pdb.set_trace() which was live in the .find method (Alternative for ORM-style filtering without having QueryableList dependency installed)
+
+- Fixup addClass / removeClass and anywhere else the class/className attribute can be inserted or modified, and ensure we properly strip the value (all leading and tailing whitespace, and reduce any in-between-words whitespace to a single space)
+
+- Allow addClass/removeClass to handle adding and removing multiple, like tag.addClass('classOne classTwo') would add both classOne and classTwo
+
+- Many additional unit tests
+
 
 * 7.3.0 - Nov 19 2017
 
