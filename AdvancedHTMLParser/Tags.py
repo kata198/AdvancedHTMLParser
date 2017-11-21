@@ -1358,7 +1358,7 @@ class AdvancedTag(object):
 
                 @param className <str> - The name of the class to add
         '''
-        className = className.strip()
+        #className = className.strip()
 
         myClassNames = self._classNames
 
@@ -1381,7 +1381,7 @@ class AdvancedTag(object):
 
                 @return <str> - The class name removed if one was removed, otherwise None if #className wasn't present
         '''
-        className = className.strip()
+        #className = className.strip()
 
         myClassNames = self._classNames
 
