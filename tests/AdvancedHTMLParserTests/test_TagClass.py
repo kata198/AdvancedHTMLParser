@@ -308,13 +308,24 @@ class TestTagClass(object):
 
         x = AdvancedTag('div')
 
-        x.className = "hello   goodbye"
+        x.className = "hello   goodbye  "
 
         assert x.className == "hello goodbye" , "Expected setting class with extra whitespace to have extra whitespace stripped. className attribute not as expected. Got: " + repr(x.className)
 
         assert x.classList == ["hello", "goodbye"], "Expected setting class with extra whitespace to have extra whitespace stripped. classList not as expected. Got: " + repr(x.className)
 
-        # TODO: add test for addClass / removeClass using multiple classes (contains a space not on the ends)
+        x.addClass('cheddar butter')
+
+        assert x.className == 'hello goodbye cheddar butter' , 'Expected tag.addClass("cheddar butter") to add both "cheddar" and "butter" classes, but .className attribute only shows: ' + repr(x.className)
+
+        assert x.classList == ['hello', 'goodbye', 'cheddar', 'butter'] , 'Expected tag.addClass("cheddar butter") to add both "cheddar" and "butter" classes, but .classList attribute only shows: ' + repr(x.classList)
+
+
+        x.removeClass("   hello    cheddar ")
+
+        assert x.className == "goodbye butter" , "Expected tag.removeClass('   hello    cheddar ') to split and strip and remove both 'hello' and 'cheddar' classes. className only shows: " + repr(x.className)
+
+        assert x.classList == ["goodbye", "butter"] , "Expected tag.removeClass('   hello    cheddar ') to split and strip and remove both 'hello' and 'cheddar' classes. classList only shows: " + repr(x.classList)
 
 
 if __name__ == '__main__':
