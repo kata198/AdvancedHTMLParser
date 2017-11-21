@@ -224,7 +224,7 @@ class TestInsertions(object):
         assert itemsEm.blocks[-1] == childBlockText2 , 'Expected last block to be added text when "afterChild" is None'
 
 
-    def testPreviousSibling(self):
+    def test_previousSibling(self):
         parser = AdvancedHTMLParser()
         parser.parseStr('<div>Head Text<div id="one">An item</div><div id="two">Another item</div>More Text<div id="three">Last  item</div></div>')
         
@@ -236,7 +236,7 @@ class TestInsertions(object):
         assert root.getElementById('two').previousSibling.id == 'one' , 'Expected to get element  "one" prior to two'
         assert root.getElementById('two').previousSiblingElement.id == 'one' , 'Expected to get element  "one" prior to two'
 
-    def testNextSibling(self):
+    def test_nextSibling(self):
         parser = AdvancedHTMLParser()
         parser.parseStr('<div>Head Text<div id="one">An item</div><div id="two">Another item</div>More Text<div id="three">Last  item</div></div>')
         
@@ -245,7 +245,7 @@ class TestInsertions(object):
         assert root.getElementById('one').nextSibling.id == 'two' , 'Expected to get element with id "two"'
         assert root.getElementById('one').nextSiblingElement.id == 'two' , 'Expected to get element with id "two"'
 
-        assert root.getElementById('two').nextSibling == 'Another Item' , 'Expected to get text "Another Item" after item id=two'
+        assert root.getElementById('two').nextSibling == 'More Text' , 'Expected to get text "Another Item" after item id=two'
         assert root.getElementById('two').nextSiblingElement.id == 'three' , 'Expected to get element with id "three"'
 
         assert root.getElementById('three').nextSibling == None , 'Expected to get no element after id="three"'

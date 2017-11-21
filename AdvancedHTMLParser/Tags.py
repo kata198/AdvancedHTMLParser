@@ -771,7 +771,7 @@ class AdvancedTag(object):
         myBlockIdx = parentNode.blocks.index(self)
 
         # If we are the last, no next sibling
-        if myBlockIdx == len(parentNode.blocks):
+        if myBlockIdx == len(parentNode.blocks) - 1:
             return None
 
         # Else, return the next block in parent
@@ -796,7 +796,7 @@ class AdvancedTag(object):
         myElementIdx = parentNode.children.index(self)
 
         # If we are last child, no next sibling
-        if myElementIdx == len(parentNode.children):
+        if myElementIdx == len(parentNode.children) - 1:
             return None
 
         # Else, return the next child in parent
