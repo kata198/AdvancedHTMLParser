@@ -89,7 +89,15 @@ class SpecialAttributesDict(dict):
                 return dict.__delitem__(self, key)
             except KeyError:
                 return None
-            
+
+
+    def __contains__(self, key):
+        # Hack in 'class' here
+        if key == 'class':
+            return bool( len(self.tag._classNames) > 0 )
+
+        return dict.__contains__(self, key)
+
 
     def _handleClassAttr(self):
         '''

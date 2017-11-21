@@ -25,15 +25,22 @@ class TestTagClass(object):
 
         assert "class=" not in tag.getHTML() , "Expected to not find 'class=' when none is set. Got: " + tag.getHTML()
 
+        assert 'class' not in tag.attributes , 'Expected "class" to not be "in" attributes'
+
         # Try initial set
 
         tag.className = "cheese is good"
+
+        assert 'class' in tag.attributes , 'Expected "class" to be "in" attributes'
+
 
         assert tag.className == "cheese is good" , "Expected className to equal 'cheese is good' after assign on className attribute. Got: " + repr(tag.className)
 
         assert 'class="cheese is good"' in str(tag) , "Expected to find class=\"cheese is good\" after set on className attribute. Got: " + str(tag)
 
         assert tag.classList == ['cheese', 'is', 'good'] , "Expected classList to be set after setting on className attribute. Got: " + repr(tag.classList)
+
+        assert 'class' in tag.attributes.keys() ,  'Expected "class" to be in .keys()'
 
         # Try changing
 
@@ -54,6 +61,7 @@ class TestTagClass(object):
         assert "class=" not in str(tag) , "Expected class attribute to not be on HTML representation after clearing className. Got: " + str(tag)
 
         assert tag.classList == [] , "Expected to be able to clear className attribute, but did not update classList to empty list. Got: " + repr(tag.classList)
+
 
     def test_setClassNameSetAttribute(self):
         '''
