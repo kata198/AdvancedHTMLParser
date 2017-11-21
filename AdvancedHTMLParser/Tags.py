@@ -72,7 +72,7 @@ def toggleAttributesDOM(isEnabled):
 
 # ADVANCED_TAG_RAW_ATTRIBUTES - These are tags which are just raw attributes on AdvancedTag
 #   Used to optimize access
-ADVANCED_TAG_RAW_ATTRIBUTES = set( ['tagName', '_attributes', 'text', 'blocks', 'classNames', 'isSelfClosing',
+ADVANCED_TAG_RAW_ATTRIBUTES = set( ['tagName', '_attributes', 'text', 'blocks', '_classNames', 'isSelfClosing',
                                     'children', 'parentNode', 'ownerDocument', 'uid', '_indent']
 )
 
@@ -120,7 +120,7 @@ class AdvancedTag(object):
         rawSet('children', [])
 
         # TODO: Refactor attribute="class", tag.className, tag.classList, and classNames to be a single-source item
-        rawSet('classNames', [])
+        rawSet('_classNames', [])
         rawSet('isSelfClosing', isSelfClosing)
         rawSet('parentNode', None)
         rawSet('ownerDocument', ownerDocument)
@@ -1126,11 +1126,11 @@ class AdvancedTag(object):
     @property
     def classList(self):
         '''
-            classList - get a list of the class names ( the "class" attribute ) for this element
+            classList - get a copy of the list of the class names ( the "class" attribute ) for this element
 
                 @return list<str> - A list of the class names for this element
         '''
-        return self.classNames
+        return self._classNames[:]
 
     def getUid(self):
         '''
@@ -1337,7 +1337,7 @@ class AdvancedTag(object):
 
             @return <bool> - True if provided class is present, otherwise False
         '''
-        return bool(className in self.classNames)
+        return bool(className in self._classNames)
 
 
     def addClass(self, className):
@@ -1346,7 +1346,7 @@ class AdvancedTag(object):
 
                 @param className <str> - The name of the class to add
         '''
-        myClassNames = self.classNames
+        myClassNames = self._classNames
 
         # Do not allow duplicates
         if className in myClassNames:
@@ -1369,7 +1369,7 @@ class AdvancedTag(object):
 
                 @return <str> - The class name removed if one was removed, otherwise None if #className wasn't present
         '''
-        myClassNames = self.classNames
+        myClassNames = self._classNames
 
         # If not present, this is a no-op
         if className not in myClassNames:
