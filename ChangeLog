@@ -13,7 +13,7 @@ document starting at that node
 
 - Minor updates to READMEs
 
-- Measurable performance improvements, especially in parsing
+- Measurable performance improvements, especially in tags
 
 - Improve removeAttribute / del tag.attributes['whatever'] to perform the
 special handling / linkage required when dealing with the "style" or "class" attribute
@@ -22,6 +22,13 @@ special handling / linkage required when dealing with the "style" or "class" att
 
 - Merge in latest distrib/runTests.py from GoodTests, which among improvements for installation / ensuring GoodTests.py is present, now it is supported to easily test python2 vs python3 just by invoking runTests.py with one or the other (i.e. if you run "python2 ./runTests.py" you'll execute the test suite in python2, vs "python3 ./runTests.py" executes in python3). Previously to do this reliably you'd have to use virtualenvs.
 
+- AdvancedTag.classList now returns a COPY, so changes don't flow back to the associated tag (just like in JS api).
+
+- Unify tag classes to be stored in a single location ( private _classNames list), and wherever used it is generated from that. Prior it was stored as a string in the attributes dict, and in the _classNames list. This caused strangeness and opened the potential for disconnects. I don't much care for this hacked impl, as 'class' needs to show up or be absent from attributes, as well as work with setAttribute, removeAttribute, it is hacked on via interception. Also, digs a slightly deeper hole for attributes to be standalone (already requires a tag to work properly). Hopefully I can come up with a better impl soon, but this at least meets the goals.
+
+- Fix nextSibling and nextSiblingElement which would throw an exception (instead of return None) when called on the last element in a set of peers. Also fix the typo in the tests which would have caught this but was preventing them from running.
+
+- Remove stray pdb.set_trace() which was live in the .find method (Alternative for ORM-style filtering without having QueryableList dependency installed)
 
 * 7.3.0 - Nov 19 2017
 
