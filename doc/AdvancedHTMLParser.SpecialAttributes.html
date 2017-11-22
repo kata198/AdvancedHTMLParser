@@ -167,6 +167,10 @@ Methods defined here:<br />
 
 <dl ><dt ><a name="SpecialAttributesDict-__init__" ><strong >__init__</strong></a>(self, tag)</dt><dd ><tt >Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
+<dl ><dt ><a name="SpecialAttributesDict-__iter__" ><strong >__iter__</strong></a>(self)</dt><dd ><tt >Implement&nbsp;iter(self).</tt></dd></dl>
+
+<dl ><dt ><a name="SpecialAttributesDict-__repr__" ><strong >__repr__</strong></a>(self)</dt><dd ><tt >Return&nbsp;repr(self).</tt></dd></dl>
+
 <dl ><dt ><a name="SpecialAttributesDict-__setitem__" ><strong >__setitem__</strong></a>(self, key, value)</dt><dd ><tt >Set&nbsp;self[key]&nbsp;to&nbsp;value.</tt></dd></dl>
 
 <dl ><dt ><a name="SpecialAttributesDict-get" ><strong >get</strong></a>(self, key, default=None)</dt><dd ><tt >get&nbsp;-&nbsp;Gets&nbsp;an&nbsp;attribute&nbsp;by&nbsp;key&nbsp;with&nbsp;the&nbsp;chance&nbsp;to&nbsp;provide&nbsp;a&nbsp;default&nbsp;value<br />
@@ -180,6 +184,11 @@ Methods defined here:<br />
 <dl ><dt ><a name="SpecialAttributesDict-items" ><strong >items</strong></a>(self)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-items" >items</a>()&nbsp;-&gt;&nbsp;a&nbsp;set-like&nbsp;<a href="builtins.html#object" >object</a>&nbsp;providing&nbsp;a&nbsp;view&nbsp;on&nbsp;D's&nbsp;items</tt></dd></dl>
 
 <dl ><dt ><a name="SpecialAttributesDict-keys" ><strong >keys</strong></a>(self)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-keys" >keys</a>()&nbsp;-&gt;&nbsp;a&nbsp;set-like&nbsp;<a href="builtins.html#object" >object</a>&nbsp;providing&nbsp;a&nbsp;view&nbsp;on&nbsp;D's&nbsp;keys</tt></dd></dl>
+
+<dl ><dt ><a name="SpecialAttributesDict-pop" ><strong >pop</strong></a>(self, key)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-pop" >pop</a>(k[,d])&nbsp;-&gt;&nbsp;v,&nbsp;remove&nbsp;specified&nbsp;key&nbsp;and&nbsp;return&nbsp;the&nbsp;corresponding&nbsp;value.<br />
+If&nbsp;key&nbsp;is&nbsp;not&nbsp;found,&nbsp;d&nbsp;is&nbsp;returned&nbsp;if&nbsp;given,&nbsp;otherwise&nbsp;KeyError&nbsp;is&nbsp;raised</tt></dd></dl>
+
+<dl ><dt ><a name="SpecialAttributesDict-setdefault" ><strong >setdefault</strong></a>(self, *args, **kwargs)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-setdefault" >setdefault</a>(k[,d])&nbsp;-&gt;&nbsp;D.<a href="#SpecialAttributesDict-get" >get</a>(k,d),&nbsp;also&nbsp;set&nbsp;D[k]=d&nbsp;if&nbsp;k&nbsp;not&nbsp;in&nbsp;D</tt></dd></dl>
 
 <hr />
 Data descriptors defined here:<br />
@@ -206,8 +215,6 @@ Methods inherited from <a href="builtins.html#dict" >builtins.dict</a>:<br />
 
 <dl ><dt ><a name="SpecialAttributesDict-__gt__" ><strong >__gt__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&gt;value.</tt></dd></dl>
 
-<dl ><dt ><a name="SpecialAttributesDict-__iter__" ><strong >__iter__</strong></a>(self, /)</dt><dd ><tt >Implement&nbsp;iter(self).</tt></dd></dl>
-
 <dl ><dt ><a name="SpecialAttributesDict-__le__" ><strong >__le__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&lt;=value.</tt></dd></dl>
 
 <dl ><dt ><a name="SpecialAttributesDict-__len__" ><strong >__len__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;len(self).</tt></dd></dl>
@@ -218,8 +225,6 @@ Methods inherited from <a href="builtins.html#dict" >builtins.dict</a>:<br />
 
 <dl ><dt ><a name="SpecialAttributesDict-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object" >object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
-<dl ><dt ><a name="SpecialAttributesDict-__repr__" ><strong >__repr__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;repr(self).</tt></dd></dl>
-
 <dl ><dt ><a name="SpecialAttributesDict-__sizeof__" ><strong >__sizeof__</strong></a>(...)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-__sizeof__" >__sizeof__</a>()&nbsp;-&gt;&nbsp;size&nbsp;of&nbsp;D&nbsp;in&nbsp;memory,&nbsp;in&nbsp;bytes</tt></dd></dl>
 
 <dl ><dt ><a name="SpecialAttributesDict-clear" ><strong >clear</strong></a>(...)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-clear" >clear</a>()&nbsp;-&gt;&nbsp;None.&nbsp;&nbsp;Remove&nbsp;all&nbsp;items&nbsp;from&nbsp;D.</tt></dd></dl>
@@ -228,13 +233,8 @@ Methods inherited from <a href="builtins.html#dict" >builtins.dict</a>:<br />
 
 <dl ><dt ><a name="SpecialAttributesDict-fromkeys" ><strong >fromkeys</strong></a>(iterable, value=None, /)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Returns&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#dict" >dict</a>&nbsp;with&nbsp;keys&nbsp;from&nbsp;iterable&nbsp;and&nbsp;values&nbsp;equal&nbsp;to&nbsp;value.</tt></dd></dl>
 
-<dl ><dt ><a name="SpecialAttributesDict-pop" ><strong >pop</strong></a>(...)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-pop" >pop</a>(k[,d])&nbsp;-&gt;&nbsp;v,&nbsp;remove&nbsp;specified&nbsp;key&nbsp;and&nbsp;return&nbsp;the&nbsp;corresponding&nbsp;value.<br />
-If&nbsp;key&nbsp;is&nbsp;not&nbsp;found,&nbsp;d&nbsp;is&nbsp;returned&nbsp;if&nbsp;given,&nbsp;otherwise&nbsp;KeyError&nbsp;is&nbsp;raised</tt></dd></dl>
-
 <dl ><dt ><a name="SpecialAttributesDict-popitem" ><strong >popitem</strong></a>(...)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-popitem" >popitem</a>()&nbsp;-&gt;&nbsp;(k,&nbsp;v),&nbsp;remove&nbsp;and&nbsp;return&nbsp;some&nbsp;(key,&nbsp;value)&nbsp;pair&nbsp;as&nbsp;a<br />
 2-tuple;&nbsp;but&nbsp;raise&nbsp;KeyError&nbsp;if&nbsp;D&nbsp;is&nbsp;empty.</tt></dd></dl>
-
-<dl ><dt ><a name="SpecialAttributesDict-setdefault" ><strong >setdefault</strong></a>(...)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-setdefault" >setdefault</a>(k[,d])&nbsp;-&gt;&nbsp;D.<a href="#SpecialAttributesDict-get" >get</a>(k,d),&nbsp;also&nbsp;set&nbsp;D[k]=d&nbsp;if&nbsp;k&nbsp;not&nbsp;in&nbsp;D</tt></dd></dl>
 
 <dl ><dt ><a name="SpecialAttributesDict-update" ><strong >update</strong></a>(...)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-update" >update</a>([E,&nbsp;]**F)&nbsp;-&gt;&nbsp;None.&nbsp;&nbsp;Update&nbsp;D&nbsp;from&nbsp;<a href="builtins.html#dict" >dict</a>/iterable&nbsp;E&nbsp;and&nbsp;F.<br />
 If&nbsp;E&nbsp;is&nbsp;present&nbsp;and&nbsp;has&nbsp;a&nbsp;.<a href="#SpecialAttributesDict-keys" >keys</a>()&nbsp;method,&nbsp;then&nbsp;does:&nbsp;&nbsp;for&nbsp;k&nbsp;in&nbsp;E:&nbsp;D[k]&nbsp;=&nbsp;E[k]<br />
