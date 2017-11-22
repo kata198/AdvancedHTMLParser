@@ -65,6 +65,8 @@ Methods defined here:<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Optional&nbsp;filename&nbsp;to&nbsp;parse.&nbsp;Otherwise&nbsp;use&nbsp;parseFile&nbsp;or&nbsp;parseStr&nbsp;methods.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;encoding&nbsp;&lt;str&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Specifies&nbsp;the&nbsp;document&nbsp;encoding.&nbsp;Default&nbsp;utf-8</tt></dd></dl>
 
+<dl ><dt ><a name="AdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = <a href="#AdvancedHTMLParser-getHTML" >getHTML</a>(self)</dt></dl>
+
 <dl ><dt ><a name="AdvancedHTMLParser-contains" ><strong >contains</strong></a>(self, em)</dt><dd ><tt >Checks&nbsp;if&nbsp;#em&nbsp;is&nbsp;found&nbsp;anywhere&nbsp;within&nbsp;this&nbsp;element&nbsp;tree<br />
 &nbsp;<br />
 @param&nbsp;em&nbsp;&lt;AdvancedTag&gt;&nbsp;-&nbsp;Tag&nbsp;of&nbsp;interest<br />
@@ -245,6 +247,8 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-setRoot" ><strong >setRoot</strong></a>(self, root)</dt><dd ><tt >Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = <a href="#AdvancedHTMLParser-getHTML" >getHTML</a>(self)</dt></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-unknown_decl" ><strong >unknown_decl</strong></a>(self, decl)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
@@ -479,6 +483,9 @@ Methods defined here:<br />
 Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser" >AdvancedHTMLParser</a>:<br />
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-__contains__" ><strong >__contains__</strong></a>(self, other)</dt></dl>
 
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-contains" ><strong >contains</strong></a>(self, em)</dt><dd ><tt >Checks&nbsp;if&nbsp;#em&nbsp;is&nbsp;found&nbsp;anywhere&nbsp;within&nbsp;this&nbsp;element&nbsp;tree<br />
 &nbsp;<br />
 @param&nbsp;em&nbsp;&lt;AdvancedTag&gt;&nbsp;-&nbsp;Tag&nbsp;of&nbsp;interest<br />
@@ -636,6 +643,9 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-parseStr" ><strong >parseStr</strong></a>(self, html)</dt><dd ><tt >parseStr&nbsp;-&nbsp;Parses&nbsp;a&nbsp;string&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes.<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
+
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-unknown_decl" ><strong >unknown_decl</strong></a>(self, decl)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 

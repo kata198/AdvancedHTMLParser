@@ -157,6 +157,12 @@ Data descriptors defined here:<br />
 </dl>
 <hr />
 Methods defined here:<br />
+<dl ><dt ><a name="SpecialAttributesDict-__contains__" ><strong >__contains__</strong></a>(self, key)</dt><dd ><tt >True&nbsp;if&nbsp;D&nbsp;has&nbsp;a&nbsp;key&nbsp;k,&nbsp;else&nbsp;False.</tt></dd></dl>
+
+<dl ><dt ><a name="SpecialAttributesDict-__delitem__" ><strong >__delitem__</strong></a>(self, key)</dt><dd ><tt >__delitem__&nbsp;-&nbsp;Called&nbsp;when&nbsp;someone&nbsp;does&nbsp;del&nbsp;tag.attributes['key']<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;key&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;attribute&nbsp;key&nbsp;to&nbsp;delete</tt></dd></dl>
+
 <dl ><dt ><a name="SpecialAttributesDict-__getitem__" ><strong >__getitem__</strong></a>(self, key)</dt><dd ><tt >x.<a href="#SpecialAttributesDict-__getitem__" >__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
 
 <dl ><dt ><a name="SpecialAttributesDict-__init__" ><strong >__init__</strong></a>(self, tag)</dt><dd ><tt >Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
@@ -170,6 +176,10 @@ Methods defined here:<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;default&nbsp;&lt;Anything&gt;&nbsp;Default&nbsp;None&nbsp;-&nbsp;The&nbsp;value&nbsp;to&nbsp;return&nbsp;if&nbsp;key&nbsp;is&nbsp;not&nbsp;found<br />
 &nbsp;<br />
 &nbsp;@return&nbsp;-&nbsp;The&nbsp;value&nbsp;of&nbsp;attribute&nbsp;at&nbsp;#key,&nbsp;or&nbsp;#default&nbsp;if&nbsp;not&nbsp;present.</tt></dd></dl>
+
+<dl ><dt ><a name="SpecialAttributesDict-items" ><strong >items</strong></a>(self)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-items" >items</a>()&nbsp;-&gt;&nbsp;a&nbsp;set-like&nbsp;<a href="builtins.html#object" >object</a>&nbsp;providing&nbsp;a&nbsp;view&nbsp;on&nbsp;D's&nbsp;items</tt></dd></dl>
+
+<dl ><dt ><a name="SpecialAttributesDict-keys" ><strong >keys</strong></a>(self)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-keys" >keys</a>()&nbsp;-&gt;&nbsp;a&nbsp;set-like&nbsp;<a href="builtins.html#object" >object</a>&nbsp;providing&nbsp;a&nbsp;view&nbsp;on&nbsp;D's&nbsp;keys</tt></dd></dl>
 
 <hr />
 Data descriptors defined here:<br />
@@ -188,10 +198,6 @@ Data descriptors defined here:<br />
 </dl>
 <hr />
 Methods inherited from <a href="builtins.html#dict" >builtins.dict</a>:<br />
-<dl ><dt ><a name="SpecialAttributesDict-__contains__" ><strong >__contains__</strong></a>(self, key, /)</dt><dd ><tt >True&nbsp;if&nbsp;D&nbsp;has&nbsp;a&nbsp;key&nbsp;k,&nbsp;else&nbsp;False.</tt></dd></dl>
-
-<dl ><dt ><a name="SpecialAttributesDict-__delitem__" ><strong >__delitem__</strong></a>(self, key, /)</dt><dd ><tt >Delete&nbsp;self[key].</tt></dd></dl>
-
 <dl ><dt ><a name="SpecialAttributesDict-__eq__" ><strong >__eq__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self==value.</tt></dd></dl>
 
 <dl ><dt ><a name="SpecialAttributesDict-__ge__" ><strong >__ge__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&gt;=value.</tt></dd></dl>
@@ -221,10 +227,6 @@ Methods inherited from <a href="builtins.html#dict" >builtins.dict</a>:<br />
 <dl ><dt ><a name="SpecialAttributesDict-copy" ><strong >copy</strong></a>(...)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-copy" >copy</a>()&nbsp;-&gt;&nbsp;a&nbsp;shallow&nbsp;copy&nbsp;of&nbsp;D</tt></dd></dl>
 
 <dl ><dt ><a name="SpecialAttributesDict-fromkeys" ><strong >fromkeys</strong></a>(iterable, value=None, /)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Returns&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#dict" >dict</a>&nbsp;with&nbsp;keys&nbsp;from&nbsp;iterable&nbsp;and&nbsp;values&nbsp;equal&nbsp;to&nbsp;value.</tt></dd></dl>
-
-<dl ><dt ><a name="SpecialAttributesDict-items" ><strong >items</strong></a>(...)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-items" >items</a>()&nbsp;-&gt;&nbsp;a&nbsp;set-like&nbsp;<a href="builtins.html#object" >object</a>&nbsp;providing&nbsp;a&nbsp;view&nbsp;on&nbsp;D's&nbsp;items</tt></dd></dl>
-
-<dl ><dt ><a name="SpecialAttributesDict-keys" ><strong >keys</strong></a>(...)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-keys" >keys</a>()&nbsp;-&gt;&nbsp;a&nbsp;set-like&nbsp;<a href="builtins.html#object" >object</a>&nbsp;providing&nbsp;a&nbsp;view&nbsp;on&nbsp;D's&nbsp;keys</tt></dd></dl>
 
 <dl ><dt ><a name="SpecialAttributesDict-pop" ><strong >pop</strong></a>(...)</dt><dd ><tt >D.<a href="#SpecialAttributesDict-pop" >pop</a>(k[,d])&nbsp;-&gt;&nbsp;v,&nbsp;remove&nbsp;specified&nbsp;key&nbsp;and&nbsp;return&nbsp;the&nbsp;corresponding&nbsp;value.<br />
 If&nbsp;key&nbsp;is&nbsp;not&nbsp;found,&nbsp;d&nbsp;is&nbsp;returned&nbsp;if&nbsp;given,&nbsp;otherwise&nbsp;KeyError&nbsp;is&nbsp;raised</tt></dd></dl>

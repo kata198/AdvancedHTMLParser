@@ -38,6 +38,7 @@
 &nbsp;<br />
 @param&nbsp;contents&nbsp;&lt;str&gt;&nbsp;-&nbsp;Contents&nbsp;String<br />
 @param&nbsp;addHtmlIfMissing&nbsp;&lt;bool&gt;&nbsp;-&nbsp;Since&nbsp;these&nbsp;normally&nbsp;encompass&nbsp;the&nbsp;"html"&nbsp;element,&nbsp;optionally&nbsp;add&nbsp;it&nbsp;back&nbsp;if&nbsp;missing.</tt></dd></dl>
+ <dl ><dt ><a name="-stripWordsOnly" ><strong >stripWordsOnly</strong></a>(contents)</dt></dl>
  <dl ><dt ><a name="-tostr" ><strong >tostr</strong></a>(value)</dt></dl>
  <dl ><dt ><a name="-unescapeQuotes" ><strong >unescapeQuotes</strong></a>(value)</dt><dd ><tt >unescapeQuotes&nbsp;-&nbsp;Unescapes&nbsp;quotes&nbsp;within&nbsp;a&nbsp;value&nbsp;(replaces&nbsp;&amp;quot;&nbsp;with&nbsp;")<br />
 &nbsp;<br />
@@ -55,5 +56,5 @@
 <strong >END_HTML</strong> = re.compile('.*&lt;/[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br />
 <strong >IE_CONDITIONAL_PATTERN</strong> = re.compile('[&lt;][!][-][-][ \t\r\n]*[\\[][ \t\r\n]*if.*--&gt;', re.MULTILINE)<br />
 <strong >START_HTML</strong> = re.compile('.*&lt;[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br />
-<strong >__all__</strong> = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr')</td></tr></table>
+<strong >__all__</strong> = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr', 'stripWordsOnly')</td></tr></table>
 </p></p></p></body></html>
