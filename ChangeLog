@@ -32,6 +32,8 @@ special handling / linkage required when dealing with the "style" or "class" att
 
 - Allow addClass/removeClass to handle adding and removing multiple, like tag.addClass('classOne classTwo') would add both classOne and classTwo
 
+- Ensure that the "style" attribute is always linked between the tag and attributes, and that calling .setAttribute('style', '') for example doesn't leave an empty "style" attribute in html representation
+
 - Many additional unit tests
 
 
