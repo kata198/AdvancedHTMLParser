@@ -98,6 +98,12 @@ class SpecialAttributesDict(dict):
 
         return dict.__contains__(self, key)
 
+    def __iter__(self):
+        # Hack in 'class' here
+        self._handleClassAttr()
+
+        return dict.__iter__(self)
+
 
     def _handleClassAttr(self):
         '''
