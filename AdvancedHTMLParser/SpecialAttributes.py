@@ -79,11 +79,10 @@ class SpecialAttributesDict(dict):
         '''
         if key == 'style':
             self.tag.style = ''
+            return
         elif key == 'class':
             self.tag.className = ''
             return
-            self.tag._classNames = []
-            dict.__delitem__(self, "class")
         else:
             try:
                 return dict.__delitem__(self, key)
@@ -187,12 +186,9 @@ class SpecialAttributesDict(dict):
             else:
                 tag.style = value
         elif key == 'class':
-            tag._classNames = [x for x in value.split(' ') if x]
+            # The setter for className will perform necessary stripping
+            tag.className = value
             return
-
-            # Ensure when we update the "class" attribute, that we update the list as well.
-            dict.__setitem__(self, 'class',  value)
-            return value
 
         dict.__setitem__(self, key,  value)
 
