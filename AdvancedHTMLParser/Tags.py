@@ -754,6 +754,18 @@ class AdvancedTag(object):
     #                Can be changed to "attributesDOM" for a less-useful but more-strict adherance to JS API
     attributes = attributesDict
 
+    @property
+    def attributesList(self):
+        '''
+            attributesList - Returns a copy of internal attributes as a list. Same as getAttributesList method.
+
+                @return list<tuple> - List of (key, value) tuples representing each attribute on this node
+                
+
+              @see getAttributesList
+              @see attributesDict
+        '''
+        return self.getAttributesList()
 
     @property
     def nextSibling(self):
