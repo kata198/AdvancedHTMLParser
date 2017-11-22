@@ -334,5 +334,77 @@ class TestStyle(object):
         assert 'float: left' not in str(tag1) , 'Expected update to oldStyle to not change html representation of tag with different style. str(tag1) = ' + str(tag1)
 
 
+    def test_htmlAttrPresent(self):
+        '''
+            test_htmlAttrPresent - Test that html attribute is present when set, and not when not.
+        '''
+        tag = AdvancedHTMLParser.AdvancedTag('div')
+
+        assert "style=" not in str(tag) , 'Expected style to not be in tag html. Got: ' + str(tag)
+
+        assert 'style' not in tag.attributes , "Expected style to not be in tag attributes."
+
+        tagCopy = tag.cloneNode()
+
+        tag.style = 'display: block; float: left'
+
+        tagHTML = str(tag)
+
+        assert 'style="' in tagHTML and 'display: block' in tagHTML and 'float: left' in tagHTML , "Expected style to be set properly on tag, but was not. Got: " + tagHTML
+
+        tag.style = ''
+        tagHTML = str(tag)
+
+        assert "style" not in tagHTML , "Expected after clearing style via tag.style='' that the attribute was gone. Got: " + tagHTML
+
+        assert str(tag.getAttribute("style")) == "" , "Expected after clearing style via tag.style='' that attribute was gone."
+
+        tag = tagCopy
+
+        tagCopy = tag.cloneNode()
+
+        assert str(tag.style) == '' , 'Expected cloned node to not have linked style to its parent'
+
+        tag.setAttribute("style", "display: block; float: right")
+
+        tagHTML = str(tag)
+
+        assert 'style="' in tagHTML and 'display: block' in tagHTML and 'float: right' in tagHTML , "Expected style to be set properly on tag with setAttribute('style', ...) , but was not. Got: " + tagHTML
+
+        tag.setAttribute('style', 'display: block')
+        tagHTML = str(tag)
+        assert 'style="' in tagHTML and 'display: block' in tagHTML and 'float: right' not in tagHTML , "Expected style to be set properly on tag after modification by setAttribute('style', ...) , but was not. Got: " + tagHTML
+
+        tagCopy = tag.cloneNode()
+
+        tag.setAttribute('style', '')
+
+        tagHTML = str(tag)
+        
+        assert "style" not in tagHTML , "Expected setAttribute('style', '') to clear style from html, but did not. Got: " + tagHTML
+
+        tag = tagCopy
+        tagCopy = tag.cloneNode()
+        tagHTML = str(tag)
+
+        assert "style" in tagHTML , "Expected cloneNode to retain style, did not."
+
+        tag.removeAttribute('style')
+        tagHTML = str(tag)
+
+        assert "style" not in tagHTML , "Expected removeAttribute('style') to clear style from html, but did not. Got: " + tagHTML
+
+
+        tag = tagCopy
+
+
+        tag.attributes['style'] = ''
+        tagHTML = str(tag)
+
+        assert "style" not in tagHTML , "Expected tag.attributes['style'] = '' to clear stlye from html, but did not. Got: " + tagHTML
+
+        assert str(tag.style) == '' , 'Expected tag.attributes["style"] = '' to clear style attribute, but tag.style returned: ' + str(tag.style)
+
+
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())

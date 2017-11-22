@@ -112,7 +112,7 @@ class SpecialAttributesDict(dict):
 
     def _handleClassAttr(self):
         '''
-            _handleClassAttr - Hack to ensure "class" shows up in attributes when classes are set,
+            _handleClassAttr - Hack to ensure "class" and "style" show up in attributes when classes are set,
                 and doesn't when no classes are present on associated tag.
 
                 TODO: I don't like this hack.
@@ -122,6 +122,15 @@ class SpecialAttributesDict(dict):
         else:
             try:
                 dict.__delitem__(self, "class")
+            except:
+                pass
+
+        styleAttr = self.tag.style
+        if styleAttr.isEmpty() is False:
+            dict.__setitem__(self, "style", styleAttr)
+        else:
+            try:
+                dict.__delitem__(self, "style")
             except:
                 pass
 
@@ -507,6 +516,7 @@ class StyleAttribute(object):
                 tagAttributes._direct_del('style')
             else: #if 'style' not in tagAttributes.keys():
                 tagAttributes._direct_set('style', self)
+
 
     def isEmpty(self):
         '''
