@@ -105,6 +105,12 @@ class SpecialAttributesDict(dict):
         return dict.__iter__(self)
 
 
+    def pop(self, key):
+        raise TypeError('pop not supported on SpecialAttributesDict')
+
+    def setdefault(self, *args, **kwargs):
+        raise TypeError('setdefault not supported on SpecialAttributesDict')
+
     def _handleClassAttr(self):
         '''
             _handleClassAttr - Hack to ensure "class" shows up in attributes when classes are set,
@@ -191,6 +197,20 @@ class SpecialAttributesDict(dict):
         dict.__setitem__(self, key,  value)
 
         return value
+
+    def __repr__(self):
+        self._handleClassAttr()
+
+        reprStr = dict.__repr__(self)
+        
+        return 'SpecialAttributesDict( %s )' %(reprStr, )
+
+    # __str__ already calls __repr__
+    #def __str__(self):
+    #    self._handleClassAttr()
+    #
+    #    strStr = dict.__str__(self)
+    #    return 'SpecialAttributesDict( %s )' %(strStr, )
 
 
 class AttributeNode(object):
