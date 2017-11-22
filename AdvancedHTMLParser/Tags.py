@@ -156,10 +156,6 @@ class AdvancedTag(object):
                              access with javascript-like behaviour
         '''
 
-        if name == "className":
-            value = stripWordsOnly( tostr(value) )
-            object.__setattr__(self, '_classNames', [x for x in value.split(' ') if x])
-            return value
         # These are direct properties on the object itself, and maybe only have meaning as AdvancedHTMLParser-specific
         #   properties.
         #  NOTE: Investigate if we should intercept "classNames" here to modify "class" and "classList"
@@ -167,6 +163,11 @@ class AdvancedTag(object):
         if name in ADVANCED_TAG_RAW_ATTRIBUTES:
             return object.__setattr__(self, name, value)
 
+        # Check for special "className"
+        if name == "className":
+            value = stripWordsOnly( tostr(value) )
+            object.__setattr__(self, '_classNames', [x for x in value.split(' ') if x])
+            return value
 
         # Check if this is one of the special items which map directly to attributes
         #    TAG_ITEM_ATTRIBUTE_LINKS - These attributes link directly to an html attribute, e.x. "id" or "name"
