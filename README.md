@@ -29,7 +29,11 @@ Full API
 
 Can be found  http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html .
 
-Various examples can be found in the "tests" directory.
+
+Examples
+--------
+
+Various examples can be found in the "tests" directory. A very old, simple example can also be found as "example.py" in the root directory.
 
 
 Short Doc
@@ -351,7 +355,7 @@ InvalidCloseException - Tried to close a tag that shouldn't have been closed
 MissedCloseException  - Missed a non-optional close of a tag that would lead to causing an assumption during parsing.
 
 IndexedAdvancedHTMLParser
--------------------------
+=========================
 
 IndexedAdvancedHTMLParser provides the ability to use indexing for faster search. If you are just parsing and not modifying, this is your best bet. If you are modifying the DOM tree, make sure you call IndexedAdvancedHTMLParser.reindex() before relying on them. 
 
@@ -398,7 +402,7 @@ Notes
 Performance and Indexing
 ------------------------
 
-Performance is very good using this class. The performance can be further enhanced via several indexing tunables:
+Performance is very good using either AdvancedHTMLParser, and even better (for scraping) using IndexedAdvancedHTMLParser class. The performance can be further enhanced on IndexedAdvancedHTMLParser via several indexing tunables:
 
 Firstly, in the constructor of IndexedAdvancedHTMLParser and in the reindex method is a boolean to be set which determines if each field is indexed (e.x. indexIDs will make getElementByID use an index).
 
