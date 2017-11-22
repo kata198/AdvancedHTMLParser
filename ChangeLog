@@ -1,4 +1,4 @@
-* 7.3.1 - ??? ?? ????
+* 7.3.1 - Nov 21 2017
 
 - Update str(AdvancedTag) to give the real HTML representation (start tag,
 inner html, and end tag) versus the former implementation which was: <start
