@@ -133,10 +133,12 @@ class AdvancedTag(object):
 
         # If provided with a list of attributes as tuple(name, value)
         #   then apply those.
-        if attrList is not None:
+        if attrList:
+            myAttributes = self._attributes
+
             for key, value in attrList:
                 key = key.lower()
-                self._attributes[key] = value
+                myAttributes[key] = value
 
 
     def __setattr__(self, name, value):
