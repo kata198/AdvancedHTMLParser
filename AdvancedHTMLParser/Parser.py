@@ -77,31 +77,6 @@ class AdvancedHTMLParser(HTMLParser):
 #####        INTERNAL               #######
 ###########################################
 
-    def __getstate__(self):
-        '''
-            __getstate__ - Get state for pickling
-
-                @return <dict>
-        '''
-        state = self.__dict__
-
-        # Python2 compat
-        del state['reset']
-
-        return state
-
-    def __setstate__(self, state):
-        '''
-            __setstate - Restore state for loading pickle
-
-                @param state <dict> - The state
-        '''
-        for key, value in state.items():
-            setattr(self, key, value)
-
-        # Python2 compat
-        self.reset = self._reset
-
 
     def _hasTagInParentLine(self, tag, root):
         if tag == root or tag.parentNode == root:

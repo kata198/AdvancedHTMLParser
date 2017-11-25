@@ -324,59 +324,6 @@ class AdvancedTag(object):
         '''
         return self.__class__(self.tagName, self.getAttributesList(), self.isSelfClosing)
 
-    def __getstate__(self):
-        '''
-            __getstate__ - Get state for pickling
-
-                @return <dict>
-        '''
-        state = dict()
-
-        getSelfAttr = lambda key : object.__getattribute__(self, key)
-
-        state['tagName'] = getSelfAttr('tagName')
-        state['attributesList'] = getSelfAttr('getAttributesList')()
-        state['isSelfClosing'] = getSelfAttr('isSelfClosing')
-        state['uid'] = getSelfAttr('uid')
-        # TODO: Retain ownerDocument?
-        state['ownerDocument'] = getSelfAttr('ownerDocument')
-
-        # "blocks" attribute covers both text and children
-        state['blocks'] = getSelfAttr('blocks')
-
-        return state
-
-
-    def __setstate__(self, state):
-        '''
-            __setstate__ - Set state when loading pickle
-
-                @param state <dict>
-        '''
-        __init__ = object.__getattribute__(AdvancedTag, '__init__')
-        # Call init
-        __init__(self, tagName=state['tagName'], attrList=state['attributesList'], isSelfClosing=state['isSelfClosing'])
-        self.uid = state['uid']
-
-        # XXX: Clear current blocks? This is okay right? Don't want to double-up the initial block each time
-        self.blocks = []
-
-        # Append children
-        for block in state['blocks']:
-            self.appendBlock(block)
-
-
-        #myAttributes = object.__getattribute__(self, '_attributes')
-
-        #for key, value in state['attributesList']:
-        #    if key == 'style':
-        ##        self.style = value
-        #    elif key == 'class':
-        #        self.className = value
-        #    else:
-        #        myAttributes._direct_set(key, value)
-                
-
     def appendText(self, text):
         '''
             appendText - append some inner text
