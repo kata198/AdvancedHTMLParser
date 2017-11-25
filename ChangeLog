@@ -1,5 +1,4 @@
-* 7.3.3 - Nov 24 2017
-* 7.3.2 - Nov 24 2017
+* 7.4.0 - Nov 24 2017
 
 Combined release, was going to release 7.3.2 but has additional changes so created 7.3.3
 
@@ -30,6 +29,10 @@ Combined release, was going to release 7.3.2 but has additional changes so creat
 - Add "spellcheck" special attribute, which is a global (Valid for all tags).
 
 - Fixup a bug where if you do "myTag.tabIndex = 'blah'" or any non-integer, firefox sets tabIndex to "0", whereas we had an "invalid" value of -1. We now match and use 0.
+
+- Fix where "select" and "option" were not inheriting all the attribute links from "input" base
+
+- Add "spellcheck" global attribute on all tags
 
 
 * 7.3.1 - Nov 21 2017
