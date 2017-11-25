@@ -149,7 +149,9 @@ Note:&nbsp;this&nbsp;does&nbsp;NOT&nbsp;test&nbsp;if&nbsp;the&nbsp;tags&nbsp;hav
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;class&nbsp;to&nbsp;add</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-appendBlock" ><strong >appendBlock</strong></a>(self, block)</dt><dd ><tt >appendBlock&nbsp;-&nbsp;Append&nbsp;a&nbsp;block&nbsp;to&nbsp;this&nbsp;element.&nbsp;A&nbsp;block&nbsp;can&nbsp;be&nbsp;a&nbsp;string&nbsp;(text&nbsp;node),&nbsp;or&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;(tag&nbsp;node)<br />
+<dl ><dt ><a name="AdvancedTag-append" ><strong >append</strong></a> = <a href="#AdvancedTag-appendBlock" >appendBlock</a>(self, block)</dt></dl>
+
+<dl ><dt ><a name="AdvancedTag-appendBlock" ><strong >appendBlock</strong></a>(self, block)</dt><dd ><tt >append&nbsp;/&nbsp;appendBlock&nbsp;-&nbsp;Append&nbsp;a&nbsp;block&nbsp;to&nbsp;this&nbsp;element.&nbsp;A&nbsp;block&nbsp;can&nbsp;be&nbsp;a&nbsp;string&nbsp;(text&nbsp;node),&nbsp;or&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;(tag&nbsp;node)<br />
 &nbsp;<br />
 @param&nbsp;&lt;str/<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;block&nbsp;to&nbsp;add<br />
 &nbsp;<br />
@@ -688,6 +690,13 @@ NOTE:&nbsp;Unlike&nbsp;JS&nbsp;DOM,&nbsp;this&nbsp;returns&nbsp;ONLY&nbsp;tags,&
 &nbsp;<br />
 @return&nbsp;-&nbsp;String&nbsp;of&nbsp;inner&nbsp;contents&nbsp;HTML</tt></dd>
 </dl>
+<dl ><dt ><strong >innerText</strong></dt>
+<dd ><tt >innerText&nbsp;-&nbsp;property,&nbsp;gets&nbsp;the&nbsp;text&nbsp;of&nbsp;just&nbsp;this&nbsp;node.&nbsp;Use&nbsp;#textContent&nbsp;for&nbsp;this&nbsp;node&nbsp;and&nbsp;all&nbsp;children<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;an&nbsp;alias&nbsp;of&nbsp;the&nbsp;.text&nbsp;property<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;text&nbsp;of&nbsp;this&nbsp;node</tt></dd>
+</dl>
 <dl ><dt ><strong >lastChild</strong></dt>
 <dd ><tt >lastChild&nbsp;-&nbsp;property,&nbsp;Get&nbsp;the&nbsp;last&nbsp;child&nbsp;block,&nbsp;text&nbsp;or&nbsp;tag<br />
 &nbsp;<br />
@@ -784,6 +793,13 @@ NOTE:&nbsp;Unlike&nbsp;JS&nbsp;DOM,&nbsp;this&nbsp;returns&nbsp;ONLY&nbsp;tags,&
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;all&nbsp;the&nbsp;blocks&nbsp;which&nbsp;are&nbsp;direct&nbsp;children&nbsp;of&nbsp;this&nbsp;node,&nbsp;where&nbsp;that&nbsp;block&nbsp;is&nbsp;a&nbsp;text&nbsp;(not&nbsp;a&nbsp;tag)<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;direct&nbsp;children&nbsp;which&nbsp;are&nbsp;text.</tt></dd>
+</dl>
+<dl ><dt ><strong >textContent</strong></dt>
+<dd ><tt >textContent&nbsp;-&nbsp;property,&nbsp;gets&nbsp;the&nbsp;text&nbsp;of&nbsp;this&nbsp;node&nbsp;and&nbsp;all&nbsp;inner&nbsp;nodes.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Use&nbsp;.innerText&nbsp;for&nbsp;just&nbsp;this&nbsp;node's&nbsp;text<br />
+&nbsp;<br />
+&nbsp;&nbsp;@return&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;text&nbsp;of&nbsp;all&nbsp;nodes&nbsp;at&nbsp;this&nbsp;level&nbsp;or&nbsp;lower</tt></dd>
 </dl>
 </td></tr></table> <p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
