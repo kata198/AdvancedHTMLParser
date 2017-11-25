@@ -8,13 +8,7 @@ import copy
 import re
 import uuid
 
-from .constants import ( PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES,
-    COMMON_JAVASCRIPT_ATTRIBUTES, ALL_JAVASCRIPT_EVENT_ATTRIBUTES, TAG_ITEM_BINARY_ATTRIBUTES,
-    TAG_ITEM_ATTRIBUTE_LINKS, TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES, TAG_ITEM_CHANGE_NAME_FROM_ATTR,
-    TAG_ITEM_CHANGE_NAME_FROM_ITEM, TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR, _attr_value_boolean_string,
-    _bool_value_bool_attr_string,
-)
-
+from .constants import PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES, COMMON_JAVASCRIPT_ATTRIBUTES, ALL_JAVASCRIPT_EVENT_ATTRIBUTES, TAG_ITEM_BINARY_ATTRIBUTES, TAG_ITEM_ATTRIBUTE_LINKS, TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES, TAG_ITEM_CHANGE_NAME_FROM_ATTR, TAG_ITEM_CHANGE_NAME_FROM_ITEM
 from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeNodeMap
 
 from .utils import escapeQuotes, tostr, stripWordsOnly
@@ -190,13 +184,7 @@ class AdvancedTag(object):
             #   these javascript names differ from the html attribute name, e.x.  "className" -> "class"
             if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM: 
                 name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
-            elif name in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
-                # NOTE: These are binary attributes, but have a string representation within html (e.x. spellcheck)
-                #         Handle the value conversion etc. within the SpecialAttributesDict
-                self.setAttribute(name, value)
 
-                # Return the converted attribute
-                return self.getAttribute(name)
             # Check if the value needs to be converted to a binary/boolean, e.x. "checked"
             elif name in TAG_ITEM_BINARY_ATTRIBUTES:
                 # If it is a boolean html attribute, it is denoted by the presence of the field at all (any value means "True"/set/yes)
@@ -270,10 +258,6 @@ class AdvancedTag(object):
             # Check if given attribute has a different name via dot-access and actual attribute ( e.x. "className" -> "class" )
             if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
                 name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
-
-            # These have a binary representation in dot-access (this method), but a string value as an attribute.
-            elif name in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
-                return _bool_value_bool_attr_string( self.getAttribute(name) )
 
             # Check if this is a binary/boolean attribute, i.e. the value is always either True or False ( e.x. "checked" )
             elif name in TAG_ITEM_BINARY_ATTRIBUTES:

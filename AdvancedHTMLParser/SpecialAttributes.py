@@ -9,7 +9,6 @@ import weakref
 from collections import OrderedDict
 
 from .utils import escapeQuotes, tostr
-from .constants import TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR, _attr_value_boolean_string
 
 __all__ = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute' )
 
@@ -65,38 +64,12 @@ class SpecialAttributesDict(dict):
             return self.tag.style
         elif key == 'class':
             return self.tag.className
-        elif key in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
-            try:
-                val = dict.__getitem__(self, key)
-            except:
-                val = None
-
-            return _attr_value_boolean_string(val)
 
         try:
             return dict.__getitem__(self, key)
         except KeyError:
             return None #  TODO: support undefined?
 
-    def __setitem__(self, key, value):
-        
-        tag = self.tag
-
-        if key == 'style':
-            if not isinstance(value, StyleAttribute):
-                tag.style = StyleAttribute(value, tag)
-            else:
-                tag.style = value
-        elif key == 'class':
-            # The setter for className will perform necessary stripping
-            tag.className = value
-            return
-        elif key in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
-            value = _attr_value_boolean_string(value)
-
-        dict.__setitem__(self, key,  value)
-
-        return value
 
     def __delitem__(self, key):
         '''
@@ -212,6 +185,23 @@ class SpecialAttributesDict(dict):
         except:
             pass
 
+    def __setitem__(self, key, value):
+        
+        tag = self.tag
+
+        if key == 'style':
+            if not isinstance(value, StyleAttribute):
+                tag.style = StyleAttribute(value, tag)
+            else:
+                tag.style = value
+        elif key == 'class':
+            # The setter for className will perform necessary stripping
+            tag.className = value
+            return
+
+        dict.__setitem__(self, key,  value)
+
+        return value
 
     def __repr__(self):
         self._handleClassAttr()

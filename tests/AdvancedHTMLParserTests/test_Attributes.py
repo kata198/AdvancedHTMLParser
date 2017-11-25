@@ -456,37 +456,6 @@ class TestAttributes(object):
 
         assert tag.getAttribute('clazz') is None , 'Expected default getAttribute on non-set attribute to be None'
 
-    def test_specialAttributes(self):
-        tag = AdvancedTag('div')
-
-        assert tag.spellcheck is False , 'Expected default value of "spellcheck" field via dot-access to be False'
-        assert 'spellcheck' not in str(tag) , 'Expected "spellcheck" to not show up in HTML representation before set. Got: ' + str(tag)
-
-        tag.spellcheck = True
-
-        assert tag.spellcheck is True , 'Expected after setting spellcheck to True, dot-access returns True.'
-
-        tagHTML = str(tag)
-
-        assert 'spellcheck="true"' in tagHTML , "Expected spellcheck to have value of string 'true' in HTML representation. Got: " + tagHTML
-
-        tag.spellcheck = False
-        tagHTML = str(tag)
-
-        assert tag.spellcheck is False , 'Expected spellcheck to have dot-access value of False after being set to False. Got: ' + repr(tag.spellcheck)
-        assert 'spellcheck="false"' in tagHTML , "Expected spellcheck to have value of string 'false' in HTML representation after being set to False. Got: " + tagHTML
-        assert tag.getAttribute('spellcheck') == 'false' , 'Expected getAttribute("spellcheck") to return string "false" in HTML representation. Got: ' + repr(tag.getAttribute('spellcheck'))
-
-
-        tag.spellcheck = "yes"
-        
-        assert tag.spellcheck is True , 'Expected after setting spellcheck to "yes", dot-access reutrns True. Got: ' + repr(tag.spellcheck)
-        tagHTML = str(tag)
-
-        assert 'spellcheck="true"' in tagHTML , "Expected spellcheck to have value of string 'true' in HTML representation after being set to 'yes'. Got: " + tagHTML
-
-        assert tag.getAttribute('spellcheck') == "true" , "Expected getAttribute('spellcheck') to return string of True"
-
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
