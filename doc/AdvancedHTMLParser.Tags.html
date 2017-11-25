@@ -87,6 +87,10 @@ So&nbsp;for&nbsp;example:<br />
 
 <dl ><dt ><a name="AdvancedTag-__getitem__" ><strong >__getitem__</strong></a>(self, key)</dt></dl>
 
+<dl ><dt ><a name="AdvancedTag-__getstate__" ><strong >__getstate__</strong></a>(self)</dt><dd ><tt >__getstate__&nbsp;-&nbsp;Get&nbsp;state&nbsp;for&nbsp;pickling<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;dict&gt;</tt></dd></dl>
+
 <dl ><dt ><a name="AdvancedTag-__hash__" ><strong >__hash__</strong></a>(self)</dt><dd ><tt >Return&nbsp;hash(self).</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-__init__" ><strong >__init__</strong></a>(self, tagName, attrList=None, isSelfClosing=False, ownerDocument=None)</dt><dd ><tt >__init__&nbsp;-&nbsp;Construct<br />
@@ -121,6 +125,10 @@ Note:&nbsp;this&nbsp;does&nbsp;NOT&nbsp;test&nbsp;if&nbsp;the&nbsp;tags&nbsp;hav
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;The&nbsp;value&nbsp;assigned&nbsp;(&nbsp;may&nbsp;not&nbsp;match&nbsp;the&nbsp;passed&nbsp;in&nbsp;#value,&nbsp;for&nbsp;example&nbsp;the&nbsp;attribute<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"style"&nbsp;takes&nbsp;a&nbsp;string&nbsp;value,&nbsp;but&nbsp;will&nbsp;return&nbsp;a&nbsp;special&nbsp;type&nbsp;StyleAttribute&nbsp;to&nbsp;support<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;access&nbsp;with&nbsp;javascript-like&nbsp;behaviour</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedTag-__setstate__" ><strong >__setstate__</strong></a>(self, state)</dt><dd ><tt >__setstate__&nbsp;-&nbsp;Set&nbsp;state&nbsp;when&nbsp;loading&nbsp;pickle<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;state&nbsp;&lt;dict&gt;</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-__str__" ><strong >__str__</strong></a>(self)</dt><dd ><tt >__str__&nbsp;-&nbsp;Returns&nbsp;the&nbsp;HTML&nbsp;representation&nbsp;for&nbsp;this&nbsp;tag&nbsp;(including&nbsp;children).<br />
 &nbsp;<br />
@@ -665,10 +673,37 @@ NOTE:&nbsp;Unlike&nbsp;JS&nbsp;DOM,&nbsp;this&nbsp;returns&nbsp;ONLY&nbsp;tags,&
 &nbsp;<br />
 @return&nbsp;&lt;str&gt;&nbsp;-&nbsp;Class&nbsp;attribute,&nbsp;or&nbsp;empty&nbsp;string&nbsp;if&nbsp;not&nbsp;set</tt></dd>
 </dl>
+<dl ><dt ><strong >firstChild</strong></dt>
+<dd ><tt >firstChild&nbsp;-&nbsp;property,&nbsp;Get&nbsp;the&nbsp;first&nbsp;child&nbsp;block,&nbsp;text&nbsp;or&nbsp;tag.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;str/AdvancedTag/None&gt;&nbsp;-&nbsp;The&nbsp;first&nbsp;child&nbsp;block,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;child&nbsp;blocks</tt></dd>
+</dl>
+<dl ><dt ><strong >firstElementChild</strong></dt>
+<dd ><tt >firstElementChild&nbsp;-&nbsp;property,&nbsp;Get&nbsp;the&nbsp;first&nbsp;child&nbsp;which&nbsp;is&nbsp;an&nbsp;element&nbsp;(AdvancedTag)<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;AdvancedTag/None&gt;&nbsp;-&nbsp;The&nbsp;first&nbsp;element&nbsp;child,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;element&nbsp;child&nbsp;nodes</tt></dd>
+</dl>
 <dl ><dt ><strong >innerHTML</strong></dt>
 <dd ><tt >innerHTML&nbsp;-&nbsp;Returns&nbsp;an&nbsp;HTML&nbsp;string&nbsp;of&nbsp;the&nbsp;inner&nbsp;contents&nbsp;of&nbsp;this&nbsp;tag,&nbsp;including&nbsp;children.<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;String&nbsp;of&nbsp;inner&nbsp;contents&nbsp;HTML</tt></dd>
+</dl>
+<dl ><dt ><strong >lastChild</strong></dt>
+<dd ><tt >lastChild&nbsp;-&nbsp;property,&nbsp;Get&nbsp;the&nbsp;last&nbsp;child&nbsp;block,&nbsp;text&nbsp;or&nbsp;tag<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;str/AdvancedTag/None&gt;&nbsp;-&nbsp;The&nbsp;last&nbsp;child&nbsp;block,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;child&nbsp;blocks</tt></dd>
+</dl>
+<dl ><dt ><strong >lastElementChild</strong></dt>
+<dd ><tt >lastElementChild&nbsp;-&nbsp;property,&nbsp;Get&nbsp;the&nbsp;last&nbsp;child&nbsp;which&nbsp;is&nbsp;an&nbsp;element&nbsp;(AdvancedTag)<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;AdvancedTag/None&gt;&nbsp;-&nbsp;The&nbsp;last&nbsp;element&nbsp;child,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;element&nbsp;child&nbsp;nodes</tt></dd>
+</dl>
+<dl ><dt ><strong >nextElementSibling</strong></dt>
+<dd ><tt >nextElementSibling&nbsp;-&nbsp;Returns&nbsp;the&nbsp;next&nbsp;sibling&nbsp;that&nbsp;is&nbsp;an&nbsp;element.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;the&nbsp;tag&nbsp;node&nbsp;following&nbsp;this&nbsp;node&nbsp;in&nbsp;the&nbsp;parent's&nbsp;list&nbsp;of&nbsp;children<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;None/AdvancedTag&gt;&nbsp;-&nbsp;None&nbsp;if&nbsp;there&nbsp;are&nbsp;no&nbsp;children&nbsp;(tag)&nbsp;in&nbsp;the&nbsp;parent&nbsp;after&nbsp;this&nbsp;node,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise&nbsp;the&nbsp;following&nbsp;element&nbsp;(tag)</tt></dd>
 </dl>
 <dl ><dt ><strong >nextSibling</strong></dt>
 <dd ><tt >nextSibling&nbsp;-&nbsp;Returns&nbsp;the&nbsp;next&nbsp;sibling.&nbsp;This&nbsp;is&nbsp;the&nbsp;child&nbsp;following&nbsp;this&nbsp;node&nbsp;in&nbsp;the&nbsp;parent's&nbsp;list&nbsp;of&nbsp;children.<br />
@@ -679,7 +714,7 @@ NOTE:&nbsp;Unlike&nbsp;JS&nbsp;DOM,&nbsp;this&nbsp;returns&nbsp;ONLY&nbsp;tags,&
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise&nbsp;the&nbsp;following&nbsp;node&nbsp;(text&nbsp;or&nbsp;tag)</tt></dd>
 </dl>
 <dl ><dt ><strong >nextSiblingElement</strong></dt>
-<dd ><tt >nextSiblingElement&nbsp;-&nbsp;Returns&nbsp;the&nbsp;next&nbsp;sibling&nbsp;that&nbsp;is&nbsp;an&nbsp;element.<br />
+<dd ><tt >nextElementSibling&nbsp;-&nbsp;Returns&nbsp;the&nbsp;next&nbsp;sibling&nbsp;that&nbsp;is&nbsp;an&nbsp;element.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;the&nbsp;tag&nbsp;node&nbsp;following&nbsp;this&nbsp;node&nbsp;in&nbsp;the&nbsp;parent's&nbsp;list&nbsp;of&nbsp;children<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;None/AdvancedTag&gt;&nbsp;-&nbsp;None&nbsp;if&nbsp;there&nbsp;are&nbsp;no&nbsp;children&nbsp;(tag)&nbsp;in&nbsp;the&nbsp;parent&nbsp;after&nbsp;this&nbsp;node,<br />
@@ -709,6 +744,15 @@ NOTE:&nbsp;Unlike&nbsp;JS&nbsp;DOM,&nbsp;this&nbsp;returns&nbsp;ONLY&nbsp;tags,&
 &nbsp;<br />
 @return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;elements</tt></dd>
 </dl>
+<dl ><dt ><strong >previousElementSibling</strong></dt>
+<dd ><tt >previousElementSibling&nbsp;-&nbsp;Returns&nbsp;the&nbsp;previous&nbsp;&nbsp;sibling&nbsp;&nbsp;that&nbsp;is&nbsp;an&nbsp;element.&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;the&nbsp;previous&nbsp;tag&nbsp;node&nbsp;in&nbsp;the&nbsp;parent's&nbsp;list&nbsp;of&nbsp;children<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;None/AdvancedTag&gt;&nbsp;-&nbsp;None&nbsp;if&nbsp;there&nbsp;are&nbsp;no&nbsp;children&nbsp;(tag)&nbsp;in&nbsp;the&nbsp;parent&nbsp;before&nbsp;this&nbsp;node,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise&nbsp;the&nbsp;previous&nbsp;element&nbsp;(tag)</tt></dd>
+</dl>
 <dl ><dt ><strong >previousSibling</strong></dt>
 <dd ><tt >previousSibling&nbsp;-&nbsp;Returns&nbsp;the&nbsp;previous&nbsp;sibling.&nbsp;This&nbsp;would&nbsp;be&nbsp;the&nbsp;previous&nbsp;node&nbsp;(text&nbsp;or&nbsp;tag)&nbsp;in&nbsp;the&nbsp;parent's&nbsp;list<br />
 &nbsp;<br />
@@ -719,7 +763,7 @@ NOTE:&nbsp;Unlike&nbsp;JS&nbsp;DOM,&nbsp;this&nbsp;returns&nbsp;ONLY&nbsp;tags,&
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise&nbsp;the&nbsp;previous&nbsp;node&nbsp;(text&nbsp;or&nbsp;tag)</tt></dd>
 </dl>
 <dl ><dt ><strong >previousSiblingElement</strong></dt>
-<dd ><tt >previousSiblingElement&nbsp;-&nbsp;Returns&nbsp;the&nbsp;previous&nbsp;&nbsp;sibling&nbsp;&nbsp;that&nbsp;is&nbsp;an&nbsp;element.&nbsp;<br />
+<dd ><tt >previousElementSibling&nbsp;-&nbsp;Returns&nbsp;the&nbsp;previous&nbsp;&nbsp;sibling&nbsp;&nbsp;that&nbsp;is&nbsp;an&nbsp;element.&nbsp;<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;the&nbsp;previous&nbsp;tag&nbsp;node&nbsp;in&nbsp;the&nbsp;parent's&nbsp;list&nbsp;of&nbsp;children<br />
 &nbsp;<br />
