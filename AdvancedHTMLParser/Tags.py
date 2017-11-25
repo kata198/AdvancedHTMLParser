@@ -8,11 +8,12 @@ import copy
 import re
 import uuid
 
+from .conversions import convertBooleanStringToBoolean
+
 from .constants import ( PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES,
     COMMON_JAVASCRIPT_ATTRIBUTES, ALL_JAVASCRIPT_EVENT_ATTRIBUTES, TAG_ITEM_BINARY_ATTRIBUTES,
     TAG_ITEM_ATTRIBUTE_LINKS, TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES, TAG_ITEM_CHANGE_NAME_FROM_ATTR,
-    TAG_ITEM_CHANGE_NAME_FROM_ITEM, TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR, _attr_value_boolean_string,
-    _bool_value_bool_attr_string,
+    TAG_ITEM_CHANGE_NAME_FROM_ITEM, TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR,
 )
 
 from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeNodeMap
@@ -273,7 +274,7 @@ class AdvancedTag(object):
 
             # These have a binary representation in dot-access (this method), but a string value as an attribute.
             elif name in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
-                return _bool_value_bool_attr_string( self.getAttribute(name) )
+                return convertBooleanStringToBoolean( self.getAttribute(name) )
 
             # Check if this is a binary/boolean attribute, i.e. the value is always either True or False ( e.x. "checked" )
             elif name in TAG_ITEM_BINARY_ATTRIBUTES:

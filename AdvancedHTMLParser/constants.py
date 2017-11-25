@@ -2,6 +2,8 @@
 #  See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #   Constants in AdvancedHTMLParser
 
+from .conversions import convertToIntOrNegativeOneIfUnset
+
 # These tags are always self-closing, whether given that way or not.
 IMPLICIT_SELF_CLOSING_TAGS = set(['meta', 'link', 'input', 'img', 'hr', 'br'])
 
@@ -77,57 +79,6 @@ TAG_ITEM_CHANGE_NAME_FROM_ATTR = { val : key for key, val in TAG_ITEM_CHANGE_NAM
 
 # These attributes can have a special value
 TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
-    'tabIndex' : lambda em : _attr_value_int_or_negative_one_if_unset(em.getAttribute('tabindex', None)),
+    'tabIndex' : lambda em : convertToIntOrNegativeOneIfUnset(em.getAttribute('tabindex', None)),
 }
 
-# TODO: Move these into a special "values" conversion file
-
-def _attr_value_int_or_negative_one_if_unset(val):
-    '''
-        _attr_value_int_or_negative_one_if_unset - Converts a value
-        
-        @param val <int/str/None> - Value
-        
-        Takes a value, if not set or not an integer, returns -1
-    '''
-    if val in (None, ''):
-        return -1
-    try:
-        return int(val)
-    except:
-        return -1
-
-def _attr_value_boolean_string(val=None):
-    '''
-        _attr_value_boolean_string - Converts a value to either a string of "true" or "false"
-
-            @param val <int/str/bool> - Value
-    '''
-    if hasattr(val, 'lower'):
-        val = val.lower()
-
-        # Technically, if you set one of these attributes (like "spellcheck") to a string of 'false',
-        #   it gets set to true. But we will retain "false" here.
-        if val in ('false', '0'):
-            return 'false'
-        else:
-            return 'true'
-    
-    try:
-        if bool(val):
-            return "true"
-    except:
-        pass
-
-    return "false"
-
-def _bool_value_bool_attr_string(val=None):
-    '''
-        _bool_value_bool_attr_string - Convert from a boolean attribute (string "true" / "false" ) into a booelan
-    '''
-    if not val:
-        return False
-
-    if val == "false":
-        return False
-    return True
