@@ -206,13 +206,21 @@ some of these include:
 
 	getHTML / toHTML / asHTML \- Get the HTML representation using this node as a root (so start tag and attributes, innerText (text and child nodes), and end tag)
 
+	firstChild             \- Get the first child of this node, be it text or an element (AdvancedTag)
+
+	firstElementChild      \- Get the first child of this node that is an element
+
+	lastChild             \- Get the last child of this node, be it text or an element (AdvancedTag)
+
+	lastElementChild      \- Get the last child of this node that is an element
+
 	nextSibling            \- Get next sibling, be it text  or  an element
 
-	nextSiblingElement     \- Get next sibling, that is an element
+	nextElementSibling     \- Get next sibling, that is an element
 
 	previousSibling            \- Get previous sibling, be it text  or  an element
 
-	previousSiblingElement     \- Get previous sibling, that is an element
+	previousElementSibling     \- Get previous sibling, that is an element
 
 	{get,set,has,remove}Attribute  \- get/set/test/remove an attribute
 
