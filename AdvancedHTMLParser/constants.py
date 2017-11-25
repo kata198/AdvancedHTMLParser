@@ -37,7 +37,10 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
 
 # These all inherit the special attributes from input
 for otherInputName in ('button', 'select', 'option'):
-    TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES['button'] = TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES['input']
+    if otherInputName not in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES:
+        TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES[otherInputName] = TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES['input']
+    else:
+        TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES[otherInputName].update(TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES['input'])
 
 # Inherits special attributes from input plus onsubmit
 TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES['submit'] = TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES['input'].union('onsubmit')
