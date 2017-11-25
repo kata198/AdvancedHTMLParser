@@ -829,76 +829,6 @@ class AdvancedTag(object):
         '''
         return self.getAttributesList()
 
-
-    @property
-    def firstChild(self):
-        '''
-            firstChild - property, Get the first child block, text or tag.
-
-                @return <str/AdvancedTag/None> - The first child block, or None if no child blocks
-        '''
-        blocks = object.__getattribute__(self, 'blocks')
-        # First block is empty string for indent, but don't hardcode incase that changes
-        if blocks[0] == '':
-           firstIdx = 1
-        else:
-           firstIdx = 0
-
-        if len(blocks) == firstIdx:
-            # No first child
-            return None
-
-        return blocks[1]
-
-
-    @property
-    def firstElementChild(self):
-        '''
-            firstElementChild - property, Get the first child which is an element (AdvancedTag)
-
-                @return <AdvancedTag/None> - The first element child, or None if no element child nodes
-        '''
-        children = object.__getattribute__(self, 'children')
-
-        if len(children) == 0:
-            return None
-        return children[0]
-
-
-    @property
-    def lastChild(self):
-        '''
-            lastChild - property, Get the last child block, text or tag
-
-                @return <str/AdvancedTag/None> - The last child block, or None if no child blocks
-        '''
-        blocks = object.__getattribute__(self, 'blocks')
-        # First block is empty string for indent, but don't hardcode incase that changes
-        if blocks[0] == '':
-           firstIdx = 1
-        else:
-           firstIdx = 0
-
-        if len(blocks) <= firstIdx:
-            return None
-
-        return blocks[-1]
-
-
-    @property
-    def lastElementChild(self):
-        '''
-            lastElementChild - property, Get the last child which is an element (AdvancedTag)
-
-                @return <AdvancedTag/None> - The last element child, or None if no element child nodes
-        '''
-        children = object.__getattribute__(self, 'children')
-
-        if len(children) == 0:
-            return None
-        return children[-1]
-        
-
     @property
     def nextSibling(self):
         '''
@@ -926,9 +856,9 @@ class AdvancedTag(object):
         return parentNode.blocks[ myBlockIdx + 1 ]
 
     @property
-    def nextElementSibling(self):
+    def nextSiblingElement(self):
         '''
-            nextElementSibling - Returns the next sibling that is an element.
+            nextSiblingElement - Returns the next sibling that is an element.
                 This is the tag node following this node in the parent's list of children
 
                 @return <None/AdvancedTag> - None if there are no children (tag) in the parent after this node,
@@ -949,8 +879,6 @@ class AdvancedTag(object):
 
         # Else, return the next child in parent
         return parentNode.children[myElementIdx+1]
-        
-    nextSiblingElement = nextElementSibling
         
     @property
     def previousSibling(self):
@@ -980,9 +908,9 @@ class AdvancedTag(object):
         return parentNode.blocks[myBlockIdx-1]
 
     @property
-    def previousElementSibling(self):
+    def previousSiblingElement(self):
         '''
-            previousElementSibling - Returns the previous  sibling  that is an element. 
+            previousSiblingElement - Returns the previous  sibling  that is an element. 
 
                                         This is the previous tag node in the parent's list of children
 
@@ -1006,8 +934,6 @@ class AdvancedTag(object):
 
         # Else, return previous element tag
         return parentNode.children[myElementIdx-1]
-
-    previousSiblingElement = previousElementSibling
 
 
     @property
