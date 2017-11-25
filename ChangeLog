@@ -23,6 +23,14 @@ Combined release, was going to release 7.3.2 but has additional changes so creat
 
 - Add a lot more unit tests covering everything in this release, and some other minor tweaks/expansions of others. As of this release, there are 2 lines of unit test code for every 3 lines of library code (including extensive comments in library code)
 
+- Add attribute links to body tag for old (pre-HTML5) attributes on body, "link", "vlink", "alink". There is also "text" but that has a name conflict right now; another reason to use get/set Attribute methods instead.
+
+- Add support for attributes which have a binary-value through dot-access, but getAttribute and the HTML attribute is a string of "true" or "false" (versus standard boolean which are signified by present-vs-not, such as "checked"). Example is "spellcheck" which supports this.
+
+- Add "spellcheck" special attribute, which is a global (Valid for all tags).
+
+- Fixup a bug where if you do "myTag.tabIndex = 'blah'" or any non-integer, firefox sets tabIndex to "0", whereas we had an "invalid" value of -1. We now match and use 0.
+
 
 * 7.3.1 - Nov 21 2017
 
