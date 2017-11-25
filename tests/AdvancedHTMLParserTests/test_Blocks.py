@@ -5,7 +5,6 @@
 
 import subprocess
 import sys
-import re
 
 import AdvancedHTMLParser
 
@@ -189,44 +188,7 @@ class TestBlocks(object):
 
         assert len( missingTexts ) == 0  , "Could not find expected strings in the text nodes: %s" %( repr(missingTexts), )
 
-    
-    def test_text(self):
-        '''
-            test_text - Test innerText and textContent properties
-        '''
-
-        document = AdvancedHTMLParser.AdvancedHTMLParser()
-        document.parseStr('''<html><head></head>
-<body>
-    <div id="main">Hello world <span>this is cool </span><div>and the text just keeps going <span>and going</span> on and on forever.</div> Have a good night!</div>
-</body>
-</html>''')
         
-        def stripExtraWhitespace(text):
-            text = text.strip()
-
-            text = re.sub('[ ][ ]+', ' ', text)
-
-            return text
-
-        mainEm = document.getElementById('main')
-
-        assert mainEm and mainEm.tagName == 'div' and mainEm.id == 'main' , 'Unable to fetch div id="main" via getElementById. Got: ' + repr(mainEm)
-
-        innerText = mainEm.innerText
-
-        innerTextStripped = stripExtraWhitespace(innerText)
-
-        assert innerTextStripped == 'Hello world Have a good night!' , 'Expected innerText (stripped) to be "Hello world Have a good night!" but got: ' + repr(innerTextStripped)
-
-        textContent = mainEm.textContent
-
-        textContentStripped = stripExtraWhitespace(textContent)
-
-    
-        expectedStr = 'Hello world this is cool and the text just keeps going and going on and on forever. Have a good night!'
-
-        assert textContentStripped == expectedStr , 'Expected .textContent to collate ALL text, and have a stripped value of "%s" but got: %s' %(expectedStr, textContentStripped)
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
