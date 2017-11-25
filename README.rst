@@ -174,19 +174,15 @@ It adds several additional that are not found in javascript, such as peers and a
 
 some of these include:
 
-	appendText              \- Append text to this element
+	appendText              \-  Append text to this element
 
-	appendChild             \- Append a child to this element
+	appendChild             \-  Append a child to this element
 
-	appendBlock             \- Append a block (text or AdvancedTag) to this element
+	removeChild             \-  Removes a child
 
-	append                  \- alias of appendBlock
+	removeText              \-  Removes first occurance of some text from any text nodes
 
-	removeChild             \- Removes a child
-
-	removeText              \- Removes first occurance of some text from any text nodes
-
-	removeTextAll           \- Removes ALL occurances of some text from any text nodes
+	removeTextAll           \-  Removes ALL occurances of some text from any text nodes
 
 	insertBefore            \- Inserts a child before an existing child
 
@@ -208,7 +204,7 @@ some of these include:
 
 	getElement\\\*            \- Same as above, but act on the children of this element.
 
-	getHTML / toHTML / asHTML \- Get the HTML representation using this node as a root (so start tag and attributes, innerHTML (text and child nodes), and end tag)
+	getHTML / toHTML / asHTML \- Get the HTML representation using this node as a root (so start tag and attributes, innerText (text and child nodes), and end tag)
 
 	firstChild             \- Get the first child of this node, be it text or an element (AdvancedTag)
 
@@ -258,10 +254,6 @@ And some properties:
 	childBlocks             \- All direct child blocks. This includes both AdvnacedTag objects and text nodes (str)
 
 	innerHTML               \- The innerHTML including the html of all children
-
-	innerText               \- The text nodes, in order, as they appear as direct children to this node as a string
-
-	textContent             \- All the text nodes, in order, as they appear within this node or any children (or their children, etc.)
 
 	outerHTML               \- innerHTML wrapped in this tag
 
