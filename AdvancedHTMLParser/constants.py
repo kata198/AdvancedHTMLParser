@@ -24,7 +24,7 @@ INVISIBLE_ROOT_TAG_END = '</%s>' %(INVISIBLE_ROOT_TAG,)
 TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = { 
     'input' : {'checked', 'onsearch', 'onchange', 'oncontextmenu', 'oninput', 'oninvalid', 'onreset', 'onselect'},
     'option': {'selected', },
-    'body'  : {'bgcolor', 'background', 'vlink', 'alink', 'link', 'onafterprint', 'onbeforeprint', 'onbeforeunload', 'onerror', 'onhashchange', 'onload', 'onmessage', \
+    'body'  : {'bgcolor', 'background', 'onafterprint', 'onbeforeprint', 'onbeforeunload', 'onerror', 'onhashchange', 'onload', 'onmessage', \
                 'onoffline', 'ononline', 'onpagehide', 'onpageshow', 'onpopstate', 'onresize', 'onstorage', 'onunload'},
     'form'  : {'onblur', 'onchange', 'oncontextmenu', 'onfocus', 'oninput', 'oninvalid', 'onreset', 'onsearch', 'onselect', 'onsubmit'},
     'menu'  : {'onshow', },
