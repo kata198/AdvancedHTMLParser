@@ -236,6 +236,7 @@ class TestInsertions(object):
         assert root.getElementById('two').previousSibling.id == 'one' , 'Expected to get element  "one" prior to two'
         assert root.getElementById('two').previousSiblingElement.id == 'one' , 'Expected to get element  "one" prior to two'
 
+
     def test_nextSibling(self):
         parser = AdvancedHTMLParser()
         parser.parseStr('<div>Head Text<div id="one">An item</div><div id="two">Another item</div>More Text<div id="three">Last  item</div></div>')
@@ -243,14 +244,76 @@ class TestInsertions(object):
         root = parser.getRoot()
 
         assert root.getElementById('one').nextSibling.id == 'two' , 'Expected to get element with id "two"'
+        assert root.getElementById('one').nextElementSibling.id == 'two' , 'Expected to get element with id "two"'
         assert root.getElementById('one').nextSiblingElement.id == 'two' , 'Expected to get element with id "two"'
 
         assert root.getElementById('two').nextSibling == 'More Text' , 'Expected to get text "Another Item" after item id=two'
+        assert root.getElementById('two').nextElementSibling.id == 'three' , 'Expected to get element with id "three"'
         assert root.getElementById('two').nextSiblingElement.id == 'three' , 'Expected to get element with id "three"'
 
         assert root.getElementById('three').nextSibling == None , 'Expected to get no element after id="three"'
+        assert root.getElementById('three').nextElementSibling == None , 'Expected to get no element after id="three"'
         assert root.getElementById('three').nextSiblingElement == None , 'Expected to get no element after id="three"'
 
+
+    def test_firstLastChild(self):
+        '''
+            test_firstChild - test 
+                
+                AdvancedTag.firstChild and AdvancedTag.firstElementChild
+                AdvancedTag.lastChild and AdvancedTag.lastElementChild
+        '''
+        document = AdvancedHTMLParser()
+        document.parseStr('<div id="main">Hello<div id="two">Blah</div><div id="emptyDiv"></div><div id="three">Three</div>End Text</div>')
+        
+
+        mainEm = document.getElementById('main')
+
+        assert mainEm , "Failed to get element by id='main'"
+
+        assert mainEm.id == 'main' , 'Got wrong element for id="main"'
+
+        firstChild = mainEm.firstChild
+
+        assert firstChild == 'Hello' , 'Expected .firstChild to return the first block child, str("Hello") but got: %s(%s)' %( firstChild.__class__.__name__, repr(firstChild))
+
+        firstChildEm = mainEm.firstElementChild
+
+        assert issubclass(firstChildEm.__class__, AdvancedTag) , 'Expected firstElementChild to return an AdvancedTag object. Got: ' + firstChildEm.__class__.__name__
+        
+        assert firstChildEm.tagName == 'div' and firstChildEm.id == 'two' , 'Expected to get div id="two" as firstElementChild. Got: %s(%s)' %( firstChildEm.__class__.__name__, repr(firstChildEm))
+
+        lastChild = mainEm.lastChild
+
+        assert lastChild == "End Text" , 'Expected .lastChild to return the last block child, str("End Text") but got: %s(%s)' %( lastChild.__class__.__name__, repr(lastChild))
+
+        lastChildEm = mainEm.lastElementChild
+
+        assert issubclass(lastChildEm.__class__, AdvancedTag) , 'Expected lastElementChild to return an AdvancedTag object. Got: ' + lastChildEm.__class__.__name__
+
+        assert lastChildEm.tagName == 'div' and lastChildEm.id == 'three' , 'Expected to get div id="three" as lastElementChild. Got: %s(%s)' %( lastChildEm.__class__.__name__, repr(lastChildEm))
+
+
+        emptyDivEm = document.getElementById('emptyDiv')
+
+        assert emptyDivEm , 'Failed to get element by id="emptyDiv"'
+        assert emptyDivEm.id == 'emptyDiv' , 'Got wrong element for id="emptyDiv"'
+
+        firstChildEmpty = emptyDivEm.firstChild
+
+        assert firstChildEmpty is None , 'Expected empty div .firstChild to be None (null). Got: ' + repr(firstChildEmpty)
+
+        firstChildElementEmpty = emptyDivEm.firstElementChild
+
+        assert firstChildElementEmpty is None , 'Expected empty div .firstElementChild to be None (null). Got: ' + repr(firstChildElementEmpty)
+
+        lastChildEmpty = emptyDivEm.lastChild
+
+        assert lastChildEmpty is None , 'Expected empty div .lastChild to be None (null). Got: ' + repr(lastChildEmpty)
+
+        lastChildElementEmpty = emptyDivEm.lastElementChild
+
+        assert lastChildElementEmpty is None , 'Expected empty div .lastElementChild to be None (null). Got: ' + repr(lastChildElementEmpty)
 
 
 if __name__ == '__main__':
