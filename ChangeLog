@@ -1,29 +1,3 @@
-* 7.3.3 - Nov 24 2017
-* 7.3.2 - Nov 24 2017
-
-Combined release, was going to release 7.3.2 but has additional changes so created 7.3.3
-
-- Add "src", "height", and "width" as linked attributes for "img" tags (so imgEm.height = '60px' will set height='60px' on an img.) As a reminder, you can always use element.setAttribute('height', '60px') whether or not a dot-alias is setup.
-
-- Add "bgcolor" and "background" as linked attributes for "body" tag ( so bodyEm.bgcolor = 'black' will set bgcolor='black' on a body tag). Again, setAttribute/getAttribute/removeAttribute always work.
-
-- Fixed pickle with an AdvancedHTMLParser.AdvancedHTMLParser and AdvancedHTMLParser.AdvancedTag. These now work flawlessly.
-
-- Implement firstChild / firstElementChild and lastChild / lastElementChild to get the first/last child block [text or AdvancedTag] (firstChild/lastChild)  or first/last child AdvancedTag (firstElementChild/lastElementChild)
-
-- Fix name of nextElementSibling and previousElementSibling ( I had named them nextSiblingElement and previousSiblingElement, as those names make more sense, but don't match the official names found in the standard ). For now, we will retain the alternate names as aliases, but they may be marked deprecated in the future
-
-- Add AdvancedTag.append (official API name) as an alias for appendBlock. It allows you to pass either a string or an AdvancedTag and adds it as a child block.
-
-- Add "innerText" property (as an alias for .text) on AdvancedTag, which will return a string representing all the text nodes which are direct children of this node. This is read-only for now, but you can use .appendText to add a new child block of text
-
-- Add "textContent" property on AdvancedTag, which will return a string of all text nodes which appear at or beneath the given node, as they would appear in the document. Basically, this is the innerHTML without any of the markup
-
-- Update READMEs to list a few more methods and properties that are available. As always, the full documentation is available as pydoc at: http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html?vers=7.3.3 or the "doc" directory that comes with the distribution. Several usage examples can be found throughout the "tests" directory, available in the source distribution and also online at https://github.com/kata198/AdvancedHTMLParser/tree/master/tests/AdvancedHTMLParserTests
-
-- Add a lot more unit tests covering everything in this release, and some other minor tweaks/expansions of others. As of this release, there are 2 lines of unit test code for every 3 lines of library code (including extensive comments in library code)
-
-
 * 7.3.1 - Nov 21 2017
 
 - Update str(AdvancedTag) to give the real HTML representation (start tag,
