@@ -338,7 +338,6 @@ class AdvancedTag(object):
         state['attributesList'] = getSelfAttr('getAttributesList')()
         state['isSelfClosing'] = getSelfAttr('isSelfClosing')
         state['uid'] = getSelfAttr('uid')
-        # TODO: Retain ownerDocument?
         state['ownerDocument'] = getSelfAttr('ownerDocument')
 
         # "blocks" attribute covers both text and children
@@ -353,12 +352,18 @@ class AdvancedTag(object):
 
                 @param state <dict>
         '''
+        # Call init on newly unpickled object to ensure everything is set properly
         __init__ = object.__getattribute__(AdvancedTag, '__init__')
-        # Call init
         __init__(self, tagName=state['tagName'], attrList=state['attributesList'], isSelfClosing=state['isSelfClosing'])
+
+        # Copy the uid onto this object
         self.uid = state['uid']
 
-        # XXX: Clear current blocks? This is okay right? Don't want to double-up the initial block each time
+        # Set the ownerDocument
+        self.ownerDocument = state['ownerDocument']
+
+        # Clear current blocks, so that we don't end up with multiple of the initial,
+        #   empty-string block used for indents
         self.blocks = []
 
         # Append children
@@ -386,6 +391,7 @@ class AdvancedTag(object):
         self.isSelfClosing = False # inner text means it can't self close anymo
         # self.blocks is either text or tags, in order of appearance
         self.blocks.append(text)
+
 
     def removeText(self, text):
         '''

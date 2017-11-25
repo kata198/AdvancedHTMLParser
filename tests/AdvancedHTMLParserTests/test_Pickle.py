@@ -40,14 +40,17 @@ class TestPickle(object):
         assert loadedTag.tagName == 'div' , 'Pickle failed to retain tagName'
         assert loadedTag.uid == tag.uid , "Failed to retain uid after restore from pickle"
 
+        assert loadedTag.isTagEqual(tag) , 'isTagEqual returned False'
+
+
 
     def test_pickleTagComplex(self):
         '''
             test_pickleTagComplex - Test more complex variations on a tag
         '''
-        mainTag = AdvancedTag('div')
-        mainTag.id = 'mainDiv'
-        mainTag.setAttribute('x-cheese', 'cheddar')
+        mainDivTag = AdvancedTag('div')
+        mainDivTag.id = 'mainDiv'
+        mainDivTag.setAttribute('x-cheese', 'cheddar')
         
         subspan1 = AdvancedTag('span')
         subspan1.setAttribute('id', 'subspan1')
@@ -56,37 +59,37 @@ class TestPickle(object):
 
         subspan1.appendText("My Text")
 
-        mainTag.appendChild(subspan1)
+        mainDivTag.appendChild(subspan1)
 
         subspan2 = AdvancedTag('span')
         subspan2.setAttribute('id', 'subspan2')
         subspan2.name = 'subspans'
         subspan2.className = "heavy-text quoteblock"
 
-        img = AdvancedTag('img')
-        img.src = '/images/cheese.png'
-        img.style.width = '80px'
-        img.style.height = '60px'
+        imgTag = AdvancedTag('img')
+        imgTag.src = '/images/cheese.png'
+        imgTag.style.width = '80px'
+        imgTag.style.height = '60px'
 
-        subspan2.appendChild(img)
+        subspan2.appendChild(imgTag)
 
-        mainTag.appendChild(subspan2)
+        mainDivTag.appendChild(subspan2)
 
 
-        pickleStr = pickle.dumps(mainTag)
+        pickleStr = pickle.dumps(mainDivTag)
         
         assert pickleStr , "Was unable to get a pickle string from complex AdvancedTag"
 
-        loadedMainTag = pickle.loads(pickleStr)
+        loadedMainDivTag = pickle.loads(pickleStr)
 
-        assert issubclass(loadedMainTag.__class__, AdvancedTag) , "Loaded pickle string but did not get AdvancedTag back. Got: " + type(loadedMainTag).__name__
+        assert issubclass(loadedMainDivTag.__class__, AdvancedTag) , "Loaded pickle string but did not get AdvancedTag back. Got: " + type(loadedMainDivTag).__name__
 
-        assert loadedMainTag.id == "mainDiv" , "Loaded pickle did not retain id on mainDiv"
-        assert loadedMainTag.getAttribute("x-cheese") == "cheddar" , "Loaded pickle did not retain 'x-cheese' attribute."
+        assert loadedMainDivTag.id == "mainDiv" , "Loaded pickle did not retain id on mainDiv"
+        assert loadedMainDivTag.getAttribute("x-cheese") == "cheddar" , "Loaded pickle did not retain 'x-cheese' attribute."
         
-        assert len(loadedMainTag.children) == 2 , "Loaded pickle did not retain 2 children. children property is: " + repr(loadedMainTag.children)
+        assert len(loadedMainDivTag.children) == 2 , "Loaded pickle did not retain 2 children. children property is: " + repr(loadedMainDivTag.children)
 
-        loadedChild1 = loadedMainTag.children[0]
+        loadedChild1 = loadedMainDivTag.children[0]
         assert loadedChild1.tagName == 'span' , "Expected first child on loaded pickle to have tagName='span'. Got: " + repr(loadedChild1.tagName)
         assert loadedChild1.id == 'subspan1' , "Expected first child on loaded pickle to have id='subspan1'. Got: " + repr(loadedChild1.id)
         assert loadedChild1.name == 'subspans' , 'Expected first child on loaded pickle to have name="subspans". Got: ' + repr(loadedChild1.name)
@@ -104,7 +107,7 @@ class TestPickle(object):
 
         assert "My Text" in str(loadedChild1) , "Expected 'My Text' to appear in HTML reprsentation. Got: " + repr(str(loadedChild1))
 
-        loadedChild2 = loadedMainTag.children[1]
+        loadedChild2 = loadedMainDivTag.children[1]
 
         assert loadedChild2.tagName == 'span' , 'Expected tagName to be "span", but got: ' + repr(loadedChild2.tagName)
         assert loadedChild2.id == 'subspan2' , 'Expected id="subspan2" but got: ' + repr(loadedChild2.id)
@@ -128,7 +131,12 @@ class TestPickle(object):
         assert 'height: 60px' in str(loadedImgTagStyle) and 'width: 80px' in str(loadedImgTagStyle) , 'Expected style to contain both "width: 80px" and "height: 60px" but it was: ' + repr(str(loadedImgTagStyle))
 
         assert len(loadedImgTag.children) == 0 , 'Expected image tag to have no children'
-        assert loadedImgTag.uid == img.uid , 'Did not retain uid on img. Expected "%s" but got "%s"' %(str(img.uid), str(loadedImgTag.uid))
+        assert loadedImgTag.uid == imgTag.uid , 'Did not retain uid on img. Expected "%s" but got "%s"' %(str(imgTag.uid), str(loadedImgTag.uid))
+
+        assert mainDivTag.isTagEqual(loadedMainDivTag) , 'mainDivTag.isTagEqual(loadedMainDivTag) returned False'
+        assert subspan1.isTagEqual(loadedChild1) , 'subspan1.isTagEqual(loadedChild1) returned False'
+        assert subspan2.isTagEqual(loadedChild2) , 'subspan2.isTagEqual(loadedChild2) returned False'
+        assert imgTag.isTagEqual(loadedImgTag) , 'img.isTagEqual(loadedImgTag) returned False'
 
 
     def test_pickleParser(self):
@@ -164,6 +172,81 @@ class TestPickle(object):
 
         assert pickleStr , "Failed to get a pickle str for an AdvancedHTMLParser.AdvancedHTMLParser assembled with parseStr."
 
+        loadedDocument = pickle.loads(pickleStr)
+
+        assert issubclass(loadedDocument.__class__, AdvancedHTMLParser.AdvancedHTMLParser)
+
+        allOrigNodes = document.getAllNodes()
+        allLoadedNodes = loadedDocument.getAllNodes()
+
+        assert len(allOrigNodes) == len(allLoadedNodes) , 'Got different number of nodes after load. Orig %d != Loaded %d' %( len(allOrigNodes), len(allLoadedNodes))
+
+        bodyEm = document.body
+        loadedBodyEm = loadedDocument.body
+
+        assert bodyEm.isTagEqual(loadedBodyEm) , 'bodyEm.isTagEqual(loadedBodyEm) returned False'
+
+        assert bodyEm.ownerDocument == document , 'ownerDocument not correct on original body node'
+        assert loadedBodyEm.ownerDocument == loadedDocument , 'ownerDocument on unpickled body not set to unpickled document'
+
+        assert id(loadedBodyEm.ownerDocument) == id(loadedDocument) , 'ownerDocument does not share same identity as unpickled document'
+        assert id(loadedBodyEm.ownerDocument) != id(document) , "Expected the unpickled ownerDocument to not share identity with the original document"
+
+
+
+    def test_pickleThenModify(self):
+        '''
+            test_pickleThenModify - Ensure that unpickled tags can be modified,
+                
+                those modifications take hold, and do not affect the originals
+        '''
+        mainDivTag = AdvancedTag('div')
+        mainDivTag.id = 'mainDiv'
+        mainDivTag.className = 'firstClass second-class'
+        mainDivTag.setAttribute('x-cheese', 'cheddar')
+        
+        subspan1 = AdvancedTag('span')
+        subspan1.setAttribute('id', 'subspan1')
+        subspan1.name = 'subspans'
+        subspan1.style = 'display: block; float: left; clear: both;'
+
+        subspan1.appendText("My Text")
+
+        mainDivTag.appendChild(subspan1)
+
+        pickleStr = pickle.dumps(mainDivTag)
+
+        assert pickleStr , "Was unable to get a pickle string from complex AdvancedTag"
+
+        loadedMainDivTag = pickle.loads(pickleStr)
+
+        assert issubclass(loadedMainDivTag.__class__, AdvancedTag) , "Loaded pickle string but did not get AdvancedTag back. Got: " + type(loadedMainDivTag).__name__
+
+        assert loadedMainDivTag.id == "mainDiv" , "Loaded pickle did not retain id on mainDiv"
+
+        loadedMainDivTag.id = 'copyOfMainDiv'
+
+        assert loadedMainDivTag.getAttribute('id') == 'copyOfMainDiv' , 'Unable to change id attribute'
+        assert 'copyOfMainDiv' in loadedMainDivTag.getStartTag() , 'change to id attribute not reflected in generated HTML. Got: ' + repr(loadedMainDivTag.getStartTag())
+
+        loadedMainDivTag.addClass('cheese')
+
+        assert 'cheese' in loadedMainDivTag.classList , 'Expected .addClass to be able to add a class to the unpickled tag. Got: ' + repr(loadedMainDivTag.classList)
+
+        assert 'cheese' not in mainDivTag.classList , 'Expected .addClass to not affect the original tag.'
+
+        assert loadedMainDivTag.className == 'firstClass second-class cheese' , 'Expected .addClass to append to .className on unpickeld tag'
+        assert mainDivTag.className == 'firstClass second-class' , 'Expected .addClass to not affect original tag .className'
+
+        loadedSubspan1 = loadedMainDivTag.children[0]
+
+        assert loadedSubspan1.id == 'subspan1' , 'Got unexpected first child. Expected subspan1, got: ' + repr(str(loadedSubspan1))
+
+        loadedSubspan1.style.display = 'inline'
+
+        assert 'display: inline' in str(loadedSubspan1.style) , 'Expected to be able to change style, display -> inline, on unpickled tag. Got: ' + repr(str(loadedSubspan1.style))
+        
+        assert 'display: block' in str(subspan1.style) and 'display: inline' not in str(subspan1.style) , 'Expected to be able to change style, display -> inline, on unpickled tag without affecting original. Got: ' + repr(str(subspan1.style))
 
 
 
