@@ -30,7 +30,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'menu'  : {'onshow', },
     'a'     : {'href', 'target', },
     'details' : {'ontoggle', },
-    'img'   : {'src', 'height', 'width'}
 }
 
 # These all inherit the special attributes from input
