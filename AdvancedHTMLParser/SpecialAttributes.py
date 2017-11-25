@@ -9,8 +9,7 @@ import weakref
 from collections import OrderedDict
 
 from .utils import escapeQuotes, tostr
-from .conversions import convertToBooleanString
-from .constants import TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR
+from .constants import TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR, _attr_value_boolean_string
 
 __all__ = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute' )
 
@@ -72,7 +71,7 @@ class SpecialAttributesDict(dict):
             except:
                 val = None
 
-            return convertToBooleanString(val)
+            return _attr_value_boolean_string(val)
 
         try:
             return dict.__getitem__(self, key)
@@ -93,7 +92,7 @@ class SpecialAttributesDict(dict):
             tag.className = value
             return
         elif key in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
-            value = convertToBooleanString(value)
+            value = _attr_value_boolean_string(value)
 
         dict.__setitem__(self, key,  value)
 
