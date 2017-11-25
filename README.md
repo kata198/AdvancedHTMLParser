@@ -27,7 +27,7 @@ Another useful scenario is creating automated testing suites which can operate m
 Full API
 --------
 
-Can be found  http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html?vers=7.3.3 .
+Can be found  http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html .
 
 
 Examples
