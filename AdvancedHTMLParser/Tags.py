@@ -543,7 +543,7 @@ class AdvancedTag(object):
 
     def appendBlock(self, block):
         '''
-            append / appendBlock - Append a block to this element. A block can be a string (text node), or an AdvancedTag (tag node)
+            appendBlock - Append a block to this element. A block can be a string (text node), or an AdvancedTag (tag node)
 
             @param <str/AdvancedTag> - block to add
 
@@ -559,9 +559,6 @@ class AdvancedTag(object):
             self.appendText(block)
         
         return block
-
-    # append - Alias (official API name) for appendBlock
-    append = appendBlock
 
 
     def appendBlocks(self, blocks):

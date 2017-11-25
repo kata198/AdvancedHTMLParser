@@ -48,7 +48,7 @@ class TestBlocks(object):
         assert 'End Text' in innerHTML , 'Expected to find "End Text", after child elements'
 
 
-    def test_append(self):
+    def test_addBlocks(self):
         document =  AdvancedHTMLParser.AdvancedHTMLParser()
 
         document.parseStr(self.basicHTML)
@@ -59,16 +59,16 @@ class TestBlocks(object):
         
         textBlock = 'Blah Text'
 
-        existingDivEm.append(textBlock)
+        existingDivEm.appendBlock(textBlock)
 
         assert 'Blah Text' in existingDivEm.text
 
         spanEm = document.createElement('span')
         spanEm.setAttribute("id", "mySpan")
 
-        retBlock = existingDivEm.append(spanEm)
+        retBlock = existingDivEm.appendBlock(spanEm)
 
-        assert 'mySpan' in existingDivEm.outerHTML , 'Expected append(AdvancedTag) to add a tag to representation'
+        assert 'mySpan' in existingDivEm.outerHTML , 'Expected appendBlock(AdvancedTag) to add a tag to representation'
 
 
     def test_tagBlocks(self):
@@ -105,7 +105,7 @@ class TestBlocks(object):
         assert len(newTagBlocks) == 2 , "Expected modifying the list returned by tagBlocks to not affect the element"
 
 
-    def test_appendBlock(self):
+    def test_addBlocks(self):
         document =  AdvancedHTMLParser.AdvancedHTMLParser()
 
         document.parseStr(self.basicHTML)
