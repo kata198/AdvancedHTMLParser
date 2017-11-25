@@ -1050,6 +1050,53 @@ class AdvancedTag(object):
 
         return [block for block in myBlocks if not issubclass(block.__class__, AdvancedTag)]
 
+    @property
+    def innerText(self):
+        '''
+            innerText - property, gets the text of just this node. Use #textContent for this node and all children
+
+                    This is an alias of the .text property
+
+                 @return <str> - The text of this node
+        '''
+        return self.text
+
+
+    @property
+    def textContent(self):
+        '''
+            textContent - property, gets the text of this node and all inner nodes.
+
+                Use .innerText for just this node's text
+
+              @return <str> - The text of all nodes at this level or lower
+        '''
+
+        def _collateText(curNode):
+            '''
+                _collateText - Recursive function to gather the "text" of all blocks
+
+                                 in the order that they appear
+
+                    @param curNode <AdvancedTag> - The current AdvancedTag to process
+
+                    @return list<str> - A list of strings in order. Join using '' to obtain text
+                                            as it would appear
+            '''
+                   
+            curStrLst = []
+            blocks = object.__getattribute__(curNode, 'blocks')
+
+            for block in blocks:
+                if isTagNode(block):
+                    curStrLst += _collateText(block)
+                else:
+                    curStrLst.append(block)
+
+            return curStrLst
+
+        return ''.join(_collateText(self))
+
 
     def getBlocksText(self):
         '''
