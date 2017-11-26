@@ -269,6 +269,7 @@ class AdvancedTag(object):
                 return TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES[name](self)
 
             # Check if given attribute has a different name via dot-access and actual attribute ( e.x. "className" -> "class" )
+            #   TODO
             if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
                 name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
 
