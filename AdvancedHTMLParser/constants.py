@@ -60,7 +60,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'form'     : { 'acceptCharset', 'action', 'autocomplete', 'enctype', 'method', 'noValidate', 'target',
         'onblur', 'onchange', 'oncontextmenu', 'onfocus', 'oninput', 'oninvalid', 'onreset', 'onsearch', 'onselect', 'onsubmit' },
     # TODO: frame->longDesc is a url, and relative urls have an absolute value in dot-access, but we don't know the url
-    # TODO: frame->noResize is binary, but not working with name change
     # TODO: frame->src is a url, and relative urls have an absolute value in dot-access, but we don't know the url
     'frame'    : { 'frameBorder', 'longDesc', 'marginHeight', 'marginWidth', 'noResize', 'scrolling', 'src', },
     'frameset' : { 'cols', 'rows', },
@@ -72,7 +71,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'h6'       : { 'align', },
     # TODO: head->profile is listed by w3 as a pre-html5 attribute, but isn't implemented in firefox
     'head'     : { 'profile', },
-    # TODO: hr->noShade is a binary attribute, but not working with name change
     'hr'       : { 'align', 'noShade', 'size', 'width', },
     # TODO: w3 specifies html as having "xmlns" but firefox does not support such attribute.
     'html'     : { 'xmlns', },
@@ -80,7 +78,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'iframe'   : { 'align', 'frameBorder', 'height', 'marginHeight', 'marginWidth', 'sandbox',
                    'scrolling', "src", "srcdoc", 'width', },
     # TODO: img->crossOrigin is "use-credentials" or "anonymous" (all invalid values go to anonymous) default null
-    # TODO: img->isMap is binary but doesn't work with name change
     'img'   : { 'align', 'alt', 'border', 'crossOrigin', 'height', 'hspace', 'isMap', 'longDesc', 'sizes',
                 'src', 'srcset', 'useMap', 'vspace', 'width'},
     # TODO: input->autocomplete returns "yes" or "no" via dot-access, invalud empty str, but sets the html attribute to whatever
@@ -144,7 +141,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'tbody'    : { 'align', 'char', 'charoff', 'vAlign', },
     # TODO: td has "char" and "charoff" in w3 but not firefox
     # TODO: td has "colspan" minimum 1 but puts whatever in html attribute
-    # TODO: noWrap is binary but doesn't handle rename
     # TODO: td has "rowspan" minimum 1 but puts whatever in html attribute
     'td'       : { 'abbr', 'align', 'axis', 'bgcolor', 'char', 'charoff', 'colSpan', 'headers', 'height', 'noWrap',
                    'rowSpan', 'scope', 'vAlign', 'width',  },
@@ -243,8 +239,8 @@ TAG_ITEM_CHANGE_NAME_FROM_ITEM = {
 # These attributes are binary (only accept true/false)
 TAG_ITEM_BINARY_ATTRIBUTES = { 'hidden', 'checked', 'selected', 
     'autoplay', 'controls', 'loop', 'muted',
-    'compact', 'noValidate', 'noResize', 'autofocus', 'disabled', 'formNoValidate', 'multiple', 'readOnly', 'required',
-    'declare', 'reversed', 'async', 'defer', 'noWrap', 'default', 
+    'compact', 'novalidate', 'noresize', 'autofocus', 'disabled', 'formnovalidate', 'multiple', 'readOnly', 'required',
+    'declare', 'reversed', 'async', 'defer', 'nowrap', 'default', 
     }
 
 # These attributes are binary for dot-access, but have the value "true" or "false" in the HTML representation

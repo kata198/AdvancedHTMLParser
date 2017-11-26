@@ -191,7 +191,8 @@ class AdvancedTag(object):
             #   these javascript names differ from the html attribute name, e.x.  "className" -> "class"
             if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM: 
                 name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
-            elif name in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
+
+            if name in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
                 # NOTE: These are binary attributes, but have a string representation within html (e.x. spellcheck)
                 #         Handle the value conversion etc. within the SpecialAttributesDict
                 self.setAttribute(name, value)
@@ -274,7 +275,7 @@ class AdvancedTag(object):
                 name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
 
             # These have a binary representation in dot-access (this method), but a string value as an attribute.
-            elif name in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
+            if name in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
                 return convertBooleanStringToBoolean( self.getAttribute(name) )
 
             # Check if this is a binary/boolean attribute, i.e. the value is always either True or False ( e.x. "checked" )
