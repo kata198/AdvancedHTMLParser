@@ -1,4 +1,4 @@
-* 7.4.0 - Nov 24 2017
+* 7.4.0 - ??? ?? ????
 
 Combined release, was going to release 7.3.2 but has additional changes so created 7.3.3
 
@@ -33,6 +33,10 @@ Combined release, was going to release 7.3.2 but has additional changes so creat
 - Fix where "select" and "option" were not inheriting all the attribute links from "input" base
 
 - Add "spellcheck" global attribute on all tags
+
+- Add all the tag-specific attribute links as defined by w3 for all HTML4 and HTML5 tags and attributes (for example, "noWrap" on td tag, myTdTag.noWrap = True will add "nowrap" to the html representation, myTdTag.colspan = 2 will add "colspan=2" to the html representation)
+
+- Support more special conversion of values from dot-access to html attribute syntax
 
 
 * 7.3.1 - Nov 21 2017
