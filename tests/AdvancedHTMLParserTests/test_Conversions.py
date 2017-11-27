@@ -9,7 +9,8 @@ import sys
 
 import AdvancedHTMLParser
 
-from AdvancedHTMLParser.conversions import convertToIntOrNegativeOneIfUnset, convertToBooleanString, convertBooleanStringToBoolean
+from AdvancedHTMLParser.conversions import (convertToIntOrNegativeOneIfUnset, convertToBooleanString, 
+    convertBooleanStringToBoolean, convertPossibleValues)
 
 AdvancedTag = AdvancedHTMLParser.AdvancedTag
 
@@ -33,8 +34,44 @@ class TestConversions(object):
         
         convertedValue = method(inputValue)
 
-        assert convertedValue == expectedValue , 'Expected %s to return %s for value=%s. Got: %s' %( method.__name__, repr(expectedValue), repr(inputValue), repr(convertedValue))
+        try:
+            assert convertedValue == expectedValue , 'Expected %s to return %s for value=%s. Got: %s' %( method.__name__, repr(expectedValue), repr(inputValue), repr(convertedValue))
+        except AssertionError as ae:
+            raise ae
+        except Exception as e:
+            raise AssertionError('Got unexpected Exception %s ( %s ) from %s instead of expected result %s for value=%s' %( str(e.__class__.__name__), str(e), method.__name__, repr(expectedValue), repr(inputValue)))
 
+
+    @classmethod
+    def _test_convert_raises(cls, method, inputValue, exceptionType):
+        '''
+            _test_convert_raises - Perform a test using a conversion method, an input, and assert that
+
+                                        an exception of a given type is raised.
+
+                @param method <method> - A conversion method
+
+                @param inputValue <anything> - Value to pass to conversion method
+
+                @param exceptionType <Exception> - Assert that this exception is raised
+
+                @return <Exception> - The exception raised
+        '''
+
+        gotExpectedException = False
+        theException = None
+
+        try:
+            convertedValue = method(inputValue)
+        except exceptionType as e:
+            gotExpectedException = True
+            theException = e
+        except Exception as e2:
+            raise AssertionError('Call to %s expected to get an Exception of type %s, but instead got a %s exception.' %(method.__name__, exceptionType.__name__, e2.__class__.__name__))
+
+        assert gotExpectedException is True , 'Call to %s expected to get an Exception of type %s, but instead got a return value: %s' %(method.__name__, exceptionType.__name__, repr(convertedValue))
+
+        return theException
 
     def test_convertToIntOrNegativeOneIfInset(self):
         '''
@@ -85,7 +122,79 @@ class TestConversions(object):
         doTest("fAlSe", False)
         doTest("FAlsE", False)
 
-#from AdvancedHTMLParser.conversions import convertToIntOrNegativeOneIfUnset, convertToBooleanString, convertBooleanStringToBoolean
+
+    def test_convertPossibleValues(self):
+        '''
+            test_convertPossibleValues - Test the convertPossibleValues method
+        '''
+
+        def doTestResult(inputValue, possibleValues, invalidDefault, expectedValue):
+            '''
+                doTestResult - Perform a test of convertPossibleValues where the expected return is a result (not an exception)
+
+                @see doTestRaises for the exception case
+
+            '''
+
+            # Create a method do call convertPossibleValues with the args that fits into the self._test_convert framework
+            _testMethod = lambda _inputValue : convertPossibleValues(_inputValue, possibleValues, invalidDefault)
+
+            # Give it a meaningful name for the assertion message
+            _testMethod.__name__ = 'convertPossibleValues( _inputValue, possibleValues=%s, invalidDefault=%s )' %( repr(possibleValues), repr(invalidDefault))
+
+            return self._test_convert( _testMethod, inputValue, expectedValue)
+
+
+        def doTestRaises(inputValue, possibleValues, invalidDefault):
+            '''
+                doTestRaises - Perform a test of convertPossibleValues where the expected result is an exception to be raised.
+
+                @see doTestResult for the returned value case
+            '''
+            # Create a method do call convertPossibleValues with the args that fits into the self._test_convert framework
+            _testMethod = lambda _inputValue : convertPossibleValues(_inputValue, possibleValues, invalidDefault)
+
+            try:
+                if issubclass(invalidDefault, Exception):
+                    expectedExceptionType = invalidDefault
+                else:
+                    raise Exception('goto except')
+            except:
+                if issubclass(invalidDefault.__class__, Exception):
+                    expectedExceptionType = invalidDefault.__class__
+                else:
+                    raise Exception('Provided invalidDefault param %s does not seem to be an Exception type..' %( repr(invalidDefault), ))
+
+            # Give it a meaningful name for the assertion message
+            _testMethod.__name__ = 'convertPossibleValues( _inputValue, possibleValues=%s, invalidDefault=%s )' %( repr(possibleValues), repr(invalidDefault))
+
+            return self._test_convert_raises( _testMethod, inputValue, expectedExceptionType)
+
+
+
+        # Test that doTestResult is working
+        doTestResult( 'hello', ['hello', 'goodbye'], 'INVALID', 'hello' )
+
+        # Test that doTestRaises is working
+        doTestRaises( 'hello', ['blah', ], ValueError )
+
+        # Ensure we lowercase the input value
+        doTestResult('Hello', ['hello', 'goodbye'], 'INVALID', 'hello')
+
+        # Assert we get the "INVALID" option when no match
+        doTestResult('hello', ['cheese', 'blah'], 'INVALID', 'INVALID')
+
+        # Ensure we get empty string back for empty string input
+        doTestResult('', ['cheese', 'blah'], 'INVALID', '')
+
+        # Ensure we get empty string back for None input
+        doTestResult(None, ['cheese', 'blah'], 'INVALID', '')
+
+        # Check that we handle an instantiated exception as well
+        theException = doTestRaises( 'hello', ['cheese', 'doodles'], ValueError('Bad man you are'))
+
+        assert str(theException) == 'Bad man you are' , 'Expected that the instantiated Exception we passed gets raised as-is. Got: ' + repr(theException)
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
