@@ -22,9 +22,6 @@ INVISIBLE_ROOT_TAG_START = '<%s>' %(INVISIBLE_ROOT_TAG,)
 # End tag used on invisible root tag
 INVISIBLE_ROOT_TAG_END = '</%s>' %(INVISIBLE_ROOT_TAG,)
 
-# TODO: Need to remove "value" from all tags
-
-
 # Tag names with attributes that are not common to all, but exist on certain elements
 TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = { 
     'a'     : { 'href', 'target', },
@@ -184,7 +181,7 @@ ALL_JAVASCRIPT_EVENT_ATTRIBUTES = COMMON_JAVASCRIPT_ATTRIBUTES.union(
 )
 
 # object-access that link directly to an attribute on the tag
-TAG_ITEM_ATTRIBUTE_LINKS = { 'id', 'name', 'title', 'dir', 'align', 'tabIndex', 'value', 'className', 
+TAG_ITEM_ATTRIBUTE_LINKS = { 'id', 'name', 'title', 'dir', 'align', 'tabIndex', 'className', 
     'hidden', 'spellcheck', 'lang', }
 
 # Add all javascript event attributes
