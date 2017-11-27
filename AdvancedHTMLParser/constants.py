@@ -82,7 +82,7 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     # TODO: input->size is an integer through dot-access, also throws exception on invalid value
     # TODO: input->size has a minimum value of 1
     # TODO: input->src is a url can be realitve and we don't know the current url
-    'input' : { 'accept', 'align', 'alt', 'autocomplete', 'autofocus', 'checked', 'dir', 'disabled', 'formAction', 'formEnctype',
+    'input' : { 'accept', 'align', 'alt', 'autocomplete', 'autofocus', 'checked', 'dir', 'disabled', 'form', 'formAction', 'formEnctype',
                 'formAction', 'formEnctype', 'formMethod', 'formNoValidate', 'formTarget', 'list', 'max', 'maxLength',
                 'min', 'multiple', 'pattern', 'placeholder', 'readOnly',  'required', 'size', 'src',
                 'step', 'type', 'value', 'width', },
@@ -270,5 +270,6 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     #         Use empty str for now, as current impl doesn't support splitting like that
     'autocomplete' : lambda em : convertPossibleValues(em.getAttribute('autocomplete', ''), POSSIBLE_VALUES_ON_OFF, invalidDefault="on", emptyValue=''),
     'method' : lambda em : convertPossibleValues(em.getAttribute('method', 'get'), POSSIBLE_VALUES_FORM_METHOD, invalidDefault="get", emptyValue=''),
+    'form'   : lambda em : em.getParentElementCustomFilter( lambda em : em.tagName == 'form' ),
 }
 

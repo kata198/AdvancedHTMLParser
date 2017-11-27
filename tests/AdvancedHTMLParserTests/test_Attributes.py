@@ -666,6 +666,36 @@ class TestAttributes(object):
         assert 'method="put"' in formHTML , 'Expected html representation to have the value as provided, even though dot-access returns a different value. Got: ' + repr(formHTML)
 
 
+    def test_formAttribute(self):
+        '''
+            test the "form" attribute, that links to parent form
+        '''
+
+        document = AdvancedHTMLParser()
+        document.parseStr('''<html><head></head><body><div id="main"> <form id="myForm"> <div> <input type="text" id="inputWithinForm" /> </div> </form> </div> <input type="text" id="inputOutsideForm" /> </body></html>''')
+
+
+        myFormEm = document.getElementById('myForm')
+
+        assert myFormEm , 'Failed to get element by id="myForm"'
+
+        inputWithinFormEm = document.getElementById('inputWithinForm')
+
+        assert inputWithinFormEm , 'Failed to get element with id="inputWithinForm"'
+
+        foundFormEm = inputWithinFormEm.form
+
+        assert foundFormEm , 'Expected inputWithinFormEm.form to return parent form. Got nada.'
+
+        assert foundFormEm is myFormEm , 'Expected to get parent form via .form, got: ' + str(foundFormEm.getStartTag())
+
+        inputOutsideFormEm = document.getElementById('inputOutsideForm')
+
+        assert inputOutsideFormEm , 'Failed to get element with id="inputOutsideForm"'
+
+        foundFormEm = inputOutsideFormEm.form
+
+        assert foundFormEm is None , 'Expected .form to return None on an input outside of form. Got: ' + str(foundFormEm.getStartTag())
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
