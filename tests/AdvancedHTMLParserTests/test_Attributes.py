@@ -488,5 +488,73 @@ class TestAttributes(object):
         assert tag.getAttribute('spellcheck') == "true" , "Expected getAttribute('spellcheck') to return string of True"
 
 
+    def test_nameChangeFields(self):
+        '''
+            Test that fields with a different dot-access variable are handled properly
+        '''
+
+        td = AdvancedTag('td')
+
+        assert td.colspan is None , 'Expected "colspan" to be "colSpan"'
+
+        assert td.colSpan is not None , 'Expected "colSpan" to map to "colspan"'
+
+
+        td.colSpan = 5
+
+        assert not td.colspan , 'dot access should be colSpan, but colspan worked.'
+
+        assert str(td.colSpan) == "5" , "dot access on .colSpan should have worked"
+
+        assert str(td.getAttribute('colspan')) == "5" , "Expected getAttribute to use the all lowercase name"
+
+        tdHTML = str(td)
+
+        assert "colSpan" not in tdHTML , "Expected html attribute to be the lowercased name. Got: " + tdHTML
+
+        assert 'colspan="5"' in tdHTML , 'Expected colspan="5" to be present. Got: ' + tdHTML
+
+        td.setAttribute('colspan', '8')
+
+        tdHTML = str(td)
+
+        assert str(td.colSpan) == '8' , 'Expected setAttribute("colspan",...) to update .colSpan attribute. Was 5, set to 8, and got: ' + repr(td.colSpan)
+
+        assert 'colspan="8"' in tdHTML , 'Expected setAttribute("colspan") to update HTML. Got: ' + tdHTML
+
+        assert td.colSpan == 8 , 'Expected colSpan to be an integer value. Got: ' + str(type(td.colSpan))
+
+        
+        td = AdvancedTag('td', attrList=[ ('colspan', '5') ])
+
+        assert td.colSpan == 5 , 'Expected setting "colspan" in attrList sets colSpan'
+
+        # Now try a binary field
+
+        form = AdvancedTag('form')
+
+        assert form.novalidate is None , 'Expected novalidate on form to have dot-access name of noValidate'
+        assert form.noValidate is not None , 'Expected novalidate on form to have dot-access name of noValidate'
+
+        assert form.noValidate is False , 'Expected default for form.noValidate to be False'
+
+        form.noValidate = "yes"
+
+        assert form.noValidate is True , 'Expected noValidate to be converted to a bool. Got: ' + repr(form.noValidate)
+
+        formHTML = str(form)
+
+        assert 'novalidate' in formHTML , 'Expected form.noValidate to set "novalidate" property in HTML. Got: ' + formHTML
+
+        form.noValidate = True
+        formHTML = str(form)
+
+        assert 'novalidate' in formHTML , 'Expected form.noValidate to set "novalidate" property in HTML. Got: ' + formHTML
+
+        form.noValidate = False
+        formHTML = str(form)
+
+        assert 'novalidate' not in formHTML , 'Expected setting form.noValidate to False to remove it from HTML. Got: ' + formHTML
+
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())

@@ -55,8 +55,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     # TODO: form->autocomplete returns "yes" or "no" via dot-access, but sets the html attribute to whatever
     # TODO: form->encoding is an alias for "enctype"
     # TODO: form->method sets whatever value in html attribute, but on access forces to "get" or "post"
-    # TODO: form->noValidate is a BINARY_FIELD (True/False, present or not present in html attribute)
-    #          but the noValidate -> novalidate is not handled correctly with BINARY_TYPES
     'form'     : { 'acceptCharset', 'action', 'autocomplete', 'enctype', 'method', 'noValidate', 'target',
         'onblur', 'onchange', 'oncontextmenu', 'onfocus', 'oninput', 'oninvalid', 'onreset', 'onsearch', 'onselect', 'onsubmit' },
     # TODO: frame->longDesc is a url, and relative urls have an absolute value in dot-access, but we don't know the url
