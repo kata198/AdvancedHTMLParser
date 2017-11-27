@@ -38,6 +38,18 @@ Combined release, was going to release 7.3.2 but has additional changes so creat
 
 - Support more special conversion of values from dot-access to html attribute syntax
 
+- Make non-binary attributes which were being stripped from the html representation when ="" has a different meaning. i.e. autocomplete shoudl show up as ' autocomplete="" ' when given an empty string value.
+
+- Implement special conversions for 'crossOrigin' attribute of images and link tags.
+
+- Implement special conversions for 'autocomplete' attribute on input and forms
+
+- Add "encoding" as an alias for "enctype" on form. This is an extension firefox at least implements, though not in w3 standard.
+
+- Implement AdvancedTag.getParentElementCustomFunction which takes a lambda and returns the first parent of given node which matches (returns True)
+
+- Implement "form" attribute on several tags (such as 'input' and 'button') which returns the form to which that element belongs (parent form), or None if not within a form tag.
+
 
 * 7.3.1 - Nov 21 2017
 
