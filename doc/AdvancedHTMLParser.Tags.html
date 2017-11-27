@@ -389,6 +389,12 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;None&nbsp;if&nbsp;no&nbsp;parent&nbsp;element&nbsp;(error&nbsp;condition),&nbsp;otherwise&nbsp;a&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;peers&nbsp;that&nbsp;matched.</tt></dd></dl>
 
+<dl ><dt ><a name="AdvancedTag-getPeersCustomFilter" ><strong >getPeersCustomFilter</strong></a>(self, filterFunc)</dt><dd ><tt >getPeersCustomFilter&nbsp;-&nbsp;Get&nbsp;elements&nbsp;who&nbsp;share&nbsp;a&nbsp;parent&nbsp;with&nbsp;this&nbsp;element&nbsp;and&nbsp;also&nbsp;pass&nbsp;a&nbsp;custom&nbsp;filter&nbsp;check<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filterFunc&nbsp;&lt;lambda/function&gt;&nbsp;-&nbsp;Passed&nbsp;in&nbsp;an&nbsp;element,&nbsp;and&nbsp;returns&nbsp;True&nbsp;if&nbsp;it&nbsp;should&nbsp;be&nbsp;treated&nbsp;as&nbsp;a&nbsp;match,&nbsp;otherwise&nbsp;False.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;<a href="#TagCollection" >TagCollection</a>&gt;&nbsp;-&nbsp;Resulting&nbsp;peers,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;parent&nbsp;node.</tt></dd></dl>
+
 <dl ><dt ><a name="AdvancedTag-getPeersWithAttrValues" ><strong >getPeersWithAttrValues</strong></a>(self, attrName, attrValues)</dt><dd ><tt >getPeersWithAttrValues&nbsp;-&nbsp;Gets&nbsp;peers&nbsp;(elements&nbsp;on&nbsp;same&nbsp;level)&nbsp;whose&nbsp;attribute&nbsp;given&nbsp;by&nbsp;#attrName&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;in&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;possible&nbsp;vaues&nbsp;#attrValues<br />
 &nbsp;<br />
