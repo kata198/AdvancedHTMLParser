@@ -56,6 +56,8 @@ Combined release, was going to release 7.3.2 but has additional changes so creat
 
 - Implement clamping on "col" tag attribute "span" (colEm.span) between 1 and 1000 (firefox limits)
 
+- Implement AdvancedTag.getPeersCustomFilter, which takes a lambda/function that gets passed an element (each "peer" of this node) and returns True if match. Returns all matching peer nodes
+
 
 * 7.3.1 - Nov 21 2017
 
