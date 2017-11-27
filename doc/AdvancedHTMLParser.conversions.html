@@ -45,6 +45,42 @@
 @param&nbsp;val&nbsp;&lt;int/str/None&gt;&nbsp;-&nbsp;Value<br />
 &nbsp;<br />
 Takes&nbsp;a&nbsp;value,&nbsp;if&nbsp;not&nbsp;set&nbsp;returns&nbsp;-1.&nbsp;If&nbsp;not&nbsp;an&nbsp;integer,&nbsp;returns&nbsp;0</tt></dd></dl>
+ <dl ><dt ><a name="-convertToIntRange" ><strong >convertToIntRange</strong></a>(val, minValue, maxValue, invalidDefault, emptyValue='')</dt><dd ><tt >converToIntRange&nbsp;-&nbsp;Convert&nbsp;input&nbsp;value&nbsp;to&nbsp;an&nbsp;integer&nbsp;within&nbsp;a&nbsp;certain&nbsp;range<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;val&nbsp;&lt;None/str/int/float&gt;&nbsp;-&nbsp;The&nbsp;input&nbsp;value<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;minValue&nbsp;&lt;None/int&gt;&nbsp;-&nbsp;The&nbsp;minimum&nbsp;value&nbsp;(inclusive),&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;minimum<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;maxValue&nbsp;&lt;None/int&gt;&nbsp;-&nbsp;The&nbsp;maximum&nbsp;value&nbsp;(inclusive),&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;maximum<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;invalidDefault&nbsp;&lt;None/str/Exception&gt;&nbsp;-&nbsp;The&nbsp;value&nbsp;to&nbsp;return&nbsp;if&nbsp;"val"&nbsp;is&nbsp;not&nbsp;empty&nbsp;string/None<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;"val"&nbsp;is&nbsp;not&nbsp;in&nbsp;#possibleValues<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;instantiated&nbsp;Exception&nbsp;(like&nbsp;ValueError('blah')):&nbsp;&nbsp;Raise&nbsp;this&nbsp;exception<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;an&nbsp;Exception&nbsp;type&nbsp;(&nbsp;like&nbsp;ValueError&nbsp;)&nbsp;-&nbsp;Instantiate&nbsp;and&nbsp;raise&nbsp;this&nbsp;exception&nbsp;type<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;use&nbsp;this&nbsp;raw&nbsp;value<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;emptyValue&nbsp;Default&nbsp;'',&nbsp;used&nbsp;for&nbsp;an&nbsp;empty&nbsp;value&nbsp;(empty&nbsp;string&nbsp;or&nbsp;None)</tt></dd></dl>
+ <dl ><dt ><a name="-convertToIntRangeCapped" ><strong >convertToIntRangeCapped</strong></a>(val, minValue, maxValue, invalidDefault, emptyValue='')</dt><dd ><tt >converToIntRangeCapped&nbsp;-&nbsp;Convert&nbsp;input&nbsp;value&nbsp;to&nbsp;an&nbsp;integer&nbsp;within&nbsp;a&nbsp;certain&nbsp;range,&nbsp;capping&nbsp;the&nbsp;value&nbsp;potentially&nbsp;at&nbsp;a&nbsp;minimum&nbsp;or&nbsp;maximum<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;val&nbsp;&lt;None/str/int/float&gt;&nbsp;-&nbsp;The&nbsp;input&nbsp;value<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;minValue&nbsp;&lt;None/int&gt;&nbsp;-&nbsp;The&nbsp;minimum&nbsp;value&nbsp;(inclusive),&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;minimum<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;maxValue&nbsp;&lt;None/int&gt;&nbsp;-&nbsp;The&nbsp;maximum&nbsp;value&nbsp;(inclusive),&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;maximum<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;invalidDefault&nbsp;&lt;None/str/Exception&gt;&nbsp;-&nbsp;The&nbsp;value&nbsp;to&nbsp;return&nbsp;if&nbsp;"val"&nbsp;is&nbsp;not&nbsp;empty&nbsp;string/None<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;"val"&nbsp;is&nbsp;not&nbsp;in&nbsp;#possibleValues<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;instantiated&nbsp;Exception&nbsp;(like&nbsp;ValueError('blah')):&nbsp;&nbsp;Raise&nbsp;this&nbsp;exception<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;an&nbsp;Exception&nbsp;type&nbsp;(&nbsp;like&nbsp;ValueError&nbsp;)&nbsp;-&nbsp;Instantiate&nbsp;and&nbsp;raise&nbsp;this&nbsp;exception&nbsp;type<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;use&nbsp;this&nbsp;raw&nbsp;value<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;emptyValue&nbsp;Default&nbsp;'',&nbsp;used&nbsp;for&nbsp;an&nbsp;empty&nbsp;value&nbsp;(empty&nbsp;string&nbsp;or&nbsp;None)</tt></dd></dl>
 </td></tr></table><p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
 <tr bgcolor="#55aa55" >
@@ -52,5 +88,5 @@ Takes&nbsp;a&nbsp;value,&nbsp;if&nbsp;not&nbsp;set&nbsp;returns&nbsp;-1.&nbsp;If
 <font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
-<td width="100%" ><strong >__all__</strong> = ('convertToIntOrNegativeOneIfUnset', 'convertToBooleanString', 'convertBooleanStringToBoolean', 'convertPossibleValues')</td></tr></table>
+<td width="100%" ><strong >__all__</strong> = ('convertToIntOrNegativeOneIfUnset', 'convertToBooleanString', 'convertBooleanStringToBoolean', 'convertPossibleValues', 'convertToIntRange', 'convertToIntRangeCapped')</td></tr></table>
 </p></p></body></html>
