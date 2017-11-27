@@ -6,7 +6,7 @@
 '''
 
 __all__ = ('convertToIntOrNegativeOneIfUnset', 'convertToBooleanString', 'convertBooleanStringToBoolean', 
-            'convertPossibleValues'
+            'convertPossibleValues', 'convertToIntRange'
 )
 
 def convertToIntOrNegativeOneIfUnset(val=None):
@@ -80,6 +80,42 @@ def convertToPositiveInt(val=None, invalidDefault=0):
 
     return val
 
+def _handleInvalid(invalidDefault):
+    '''
+        _handleInvalid - Common code for raising / returning an invalid value
+
+            @param invalidDefault <None/str/Exception> - The value to return if "val" is not empty string/None
+                                                           and "val" is not in #possibleValues
+
+                     If instantiated Exception (like ValueError('blah')):  Raise this exception
+
+                     If an Exception type ( like ValueError ) - Instantiate and raise this exception type
+
+                     Otherwise, use this raw value
+    '''
+    # If not
+    #   If an instantiated Exception, raise that exception
+    try:
+        isInstantiatedException = bool( issubclass(invalidDefault.__class__, Exception) )
+    except:
+        isInstantiatedException = False
+
+    if isInstantiatedException:
+        raise invalidDefault
+    else:
+        try:
+            isExceptionType = bool( issubclass( invalidDefault, Exception) )
+        except TypeError:
+            isExceptionType = False
+
+        #   If an Exception type, instantiate and raise
+        if isExceptionType:
+            raise invalidDefault()
+        else:
+        #   Otherwise, just return invalidDefault itself
+            return invalidDefault
+
+
 def convertPossibleValues(val, possibleValues, invalidDefault, emptyValue=''):
     '''
         convertPossibleValues - Convert input value to one of several possible values,
@@ -118,26 +154,49 @@ def convertPossibleValues(val, possibleValues, invalidDefault, emptyValue=''):
 
     # Check if this is a valid value
     if val not in possibleValues:
-        # If not
-        #   If an instantiated Exception, raise that exception
-        try:
-            isInstantiatedException = bool( issubclass(invalidDefault.__class__, Exception) )
-        except:
-            isInstantiatedException = False
+        return _handleInvalid(invalidDefault)
 
-        if isInstantiatedException:
-            raise invalidDefault
-        else:
-            try:
-                isExceptionType = bool( issubclass( invalidDefault, Exception) )
-            except TypeError:
-                isExceptionType = False
+    return val
 
-            #   If an Exception type, instantiate and raise
-            if isExceptionType:
-                raise invalidDefault()
-            else:
-            #   Otherwise, just return invalidDefault itself
-                return invalidDefault
+
+def convertToIntRange(val, minValue, maxValue, invalidDefault, emptyValue=''):
+    '''
+        converToIntRange - Convert input value to an integer within a certain range
+            
+            @param val <None/str/int/float> - The input value
+
+            @param minValue <None/int> - The minimum value (inclusive), or None if no minimum
+
+            @param maxValue <None/int> - The maximum value (inclusive), or None if no maximum
+
+            @param invalidDefault <None/str/Exception> - The value to return if "val" is not empty string/None
+                                                           and "val" is not in #possibleValues
+
+                     If instantiated Exception (like ValueError('blah')):  Raise this exception
+
+                     If an Exception type ( like ValueError ) - Instantiate and raise this exception type
+
+                     Otherwise, use this raw value
+
+            @param emptyValue Default '', used for an empty value (empty string or None)
+                
+
+    '''
+    from .utils import tostr
+
+    # If null, retain null
+    if val is None or val == '':
+        return emptyValue
+
+    try:
+        val = int(val)
+    except ValueError:
+        return _handleInvalid(invalidDefault)
+
+    if minValue is not None and val < minValue:
+        return _handleInvalid(invalidDefault)
+    if maxValue is not None and val > maxValue:
+        return _handleInvalid(invalidDefault)
+
     return val
 
