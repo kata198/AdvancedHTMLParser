@@ -1397,7 +1397,8 @@ class AdvancedTag(object):
             # Get all attributes
             val = tostr(val)
 
-            if val:
+            # Only binary attributes have a "present/not present"
+            if val or name not in TAG_ITEM_BINARY_ATTRIBUTES:
                 # Escape any quotes found in the value
                 val = escapeQuotes(val)
 
