@@ -208,6 +208,8 @@ some of these include:
 
 	getElement\\\*            \- Same as above, but act on the children of this element.
 
+	getParentElementCustomFilter \- Takes a lambda/function and applies on all parents of this element upward until the document root. Returns the first node that when passed to this function returns True, or None if no matches on any parent nodes
+
 	getHTML / toHTML / asHTML \- Get the HTML representation using this node as a root (so start tag and attributes, innerHTML (text and child nodes), and end tag)
 
 	firstChild             \- Get the first child of this node, be it text or an element (AdvancedTag)
