@@ -52,8 +52,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'fieldset' : { 'form', },
     'font'     : { 'color', 'face', 'size', },
     # TODO: form->action defaults to current url, but we don't have such info
-    # TODO: form->method sets whatever value in html attribute, but on access forces to "get" or "post"
-    # NOTE: form->encoding is an alias implemented in firefox for "enctype"
     'form'     : { 'acceptCharset', 'action', 'autocomplete', 'encoding', 'enctype', 'method', 'noValidate', 'target',
         'onblur', 'onchange', 'oncontextmenu', 'onfocus', 'oninput', 'oninvalid', 'onreset', 'onsearch', 'onselect', 'onsubmit' },
     # TODO: frame->longDesc is a url, and relative urls have an absolute value in dot-access, but we don't know the url
@@ -251,6 +249,8 @@ POSSIBLE_VALUES_ON_OFF = ('on', 'off')
 
 POSSIBLE_VALUES_YES_NO = ('yes', 'no')
 
+POSSIBLE_VALUES_FORM_METHOD = ('get', 'post')
+
 # These attributes can have a special value
 TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'tabIndex' : lambda em : convertToIntOrNegativeOneIfUnset(em.getAttribute('tabindex', None)),
@@ -269,5 +269,6 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     # TODO: autocomplete has different default and invalid value for form vs input. Form is default of "on", input is empty str.
     #         Use empty str for now, as current impl doesn't support splitting like that
     'autocomplete' : lambda em : convertPossibleValues(em.getAttribute('autocomplete', ''), POSSIBLE_VALUES_ON_OFF, invalidDefault="on", emptyValue=''),
+    'method' : lambda em : convertPossibleValues(em.getAttribute('method', 'get'), POSSIBLE_VALUES_FORM_METHOD, invalidDefault="get", emptyValue=''),
 }
 

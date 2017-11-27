@@ -623,8 +623,48 @@ class TestAttributes(object):
 
         assert 'autocomplete=""' in inputHTML , 'Expected html property to be set to empty string. Got: ' + repr(inputHTML)
 
+    def test_formMethod(self):
+        '''
+            test the form's "method" attribute
+        '''
+
+        formEm = AdvancedTag('form')
+
+        assert formEm.method == 'get' , 'Expected default for form.method to be "get". Got: ' + repr(formEm.method)
+
+        formEm.method = 'get'
+
+        assert formEm.method == 'get' , 'Expected to be able to set form.method to "get". Got: ' + repr(formEm.method)
         
+        formHTML = str(formEm)
+
+        assert 'method="get"' in formHTML , 'Expected html attribute method to be set in html representation. Got: ' + repr(formHTML)
+
+        formEm.method = 'post'
+        formHTML = str(formEm)
+
+        assert formEm.method == 'post' , 'Expected to be able to set form.method to "post". Got: ' + repr(formEm.method)
         
+
+        assert 'method="post"' in formHTML , 'Expected html attribute method to be set in html representation. Got: ' + repr(formHTML)
+
+        formEm.method = 'POST'
+        formHTML = str(formEm)
+
+        assert formEm.method == 'post' , 'Expected to be able to set form.method to "POST" and it be converted to lowercase for dot-access. Got: ' + repr(formEm.method)
+        
+
+        assert 'method="POST"' in formHTML , 'Expected html attribute method to be set in html representation as given (i.e. not lowercased). Got: ' + repr(formHTML)
+
+        # NOTE: This is strange, but it is the behaviour as the w3 spec only allows "post" or "get" to be values,
+        #         even though other methods exist.
+        formEm.method = 'put'
+        formHTML = str(formEm)
+
+        assert formEm.method == 'get' , 'Expected dot-access to only support "get" and "post", and default to "get" for invalid values. Got: ' + repr(formEm.method)
+
+        assert 'method="put"' in formHTML , 'Expected html representation to have the value as provided, even though dot-access returns a different value. Got: ' + repr(formHTML)
+
 
 
 if __name__ == '__main__':
