@@ -2,7 +2,7 @@
 #  See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #   Constants in AdvancedHTMLParser
 
-from .conversions import convertToIntOrNegativeOneIfUnset, convertToPositiveInt
+from .conversions import convertToIntOrNegativeOneIfUnset, convertToPositiveInt, convertPossibleValues
 
 # These tags are always self-closing, whether given that way or not.
 IMPLICIT_SELF_CLOSING_TAGS = set(['meta', 'link', 'input', 'img', 'hr', 'br'])
@@ -75,7 +75,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     # TODO: sandbox is a special DOMTokenList (like classList), but we don't yet support that.
     'iframe'   : { 'align', 'frameBorder', 'height', 'marginHeight', 'marginWidth', 'sandbox',
                    'scrolling', "src", "srcdoc", 'width', },
-    # TODO: img->crossOrigin is "use-credentials" or "anonymous" (all invalid values go to anonymous) default null
     'img'   : { 'align', 'alt', 'border', 'crossOrigin', 'height', 'hspace', 'isMap', 'longDesc', 'sizes',
                 'src', 'srcset', 'useMap', 'vspace', 'width'},
     # TODO: input->autocomplete returns "yes" or "no" via dot-access, invalud empty str, but sets the html attribute to whatever
@@ -95,7 +94,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'label' : { 'for', 'form', },
     'legend': { 'align', },
     'li'    : { 'type', 'value', },
-    # TODO: link->crossOrigin is "use-credentials" or "anonymous" (all invalid values go to anonymous) default null
     # TODO: link->sizes is only for type="icon" and is DOMTokenList
     'link'  : { 'charset', 'crossOrigin', 'href', 'hreflang', 'media', 'rel', 'rev', 'sizes', 'target', 'type', },
     'menu'  : { 'label', 'type', 'onshow', },
@@ -247,6 +245,9 @@ TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR = { 'spellcheck', }
 # The opposite of TAG_ITEM_CHANGE_NAME_FROM_ITEM, for going from the attribute name to the object-access name
 TAG_ITEM_CHANGE_NAME_FROM_ATTR = { val : key for key, val in TAG_ITEM_CHANGE_NAME_FROM_ITEM.items() }
 
+
+POSSIBLE_VALUES_CROSS_ORIGIN = ('use-credentials', 'anonymous')
+
 # These attributes can have a special value
 TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'tabIndex' : lambda em : convertToIntOrNegativeOneIfUnset(em.getAttribute('tabindex', None)),
@@ -260,5 +261,7 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'maxLength'     : lambda em : convertToPositiveInt(em.getAttribute('maxlength', -1), invalidDefault=-1),
     # size throws exception on invalid value, and a minimum of 1
     'size'     : lambda em : convertToPositiveInt(em.getAttribute('size', 20), invalidDefault=20),
+    # crossOrigin is "use-credentials" or "anonymous" (all invalid values go to anonymous) default null
+    'crossOrigin' : lambda em : convertPossibleValues(em.getAttribute('crossorigin', None), POSSIBLE_VALUES_CROSS_ORIGIN, invalidDefault="anonymous", emptyValue=None)
 }
 

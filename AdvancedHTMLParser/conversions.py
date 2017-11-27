@@ -80,7 +80,7 @@ def convertToPositiveInt(val=None, invalidDefault=0):
 
     return val
 
-def convertPossibleValues(val, possibleValues, invalidDefault):
+def convertPossibleValues(val, possibleValues, invalidDefault, emptyValue=''):
     '''
         convertPossibleValues - Convert input value to one of several possible values,
             
@@ -98,6 +98,8 @@ def convertPossibleValues(val, possibleValues, invalidDefault):
                      If an Exception type ( like ValueError ) - Instantiate and raise this exception type
 
                      Otherwise, use this raw value
+
+            @param emptyValue Default '', used for an empty value (empty string or None)
                 
 
     '''
@@ -105,14 +107,14 @@ def convertPossibleValues(val, possibleValues, invalidDefault):
 
     # If null, retain null
     if val is None:
-        return ''
+        return emptyValue
 
     # Convert to a string
     val = tostr(val).lower()
 
     # If empty string, same as null
     if val == '':
-        return ''
+        return emptyValue
 
     # Check if this is a valid value
     if val not in possibleValues:

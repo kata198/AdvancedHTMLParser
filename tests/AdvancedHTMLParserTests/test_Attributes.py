@@ -556,5 +556,42 @@ class TestAttributes(object):
 
         assert 'novalidate' not in formHTML , 'Expected setting form.noValidate to False to remove it from HTML. Got: ' + formHTML
 
+    def test_crossOrigin(self):
+        '''
+            test crossOrigin attribute
+        '''
+
+        img = AdvancedTag('img')
+
+        assert img.crossOrigin is None , 'Default for crossOrigin (never set) should be None (null). Got: ' + repr(img.crossOrigin)
+
+        img.crossOrigin = 'blah'
+
+        assert img.crossOrigin == 'anonymous', 'Default dot-access value for invalid crossOrigin should be "anonymous". Got: ' + repr(img.crossOrigin)
+
+        imgHTML = str(img)
+
+        assert 'crossorigin' in imgHTML , 'Expected "crossOrigin" to be converted to "crossorigin" in HTML. Got: ' + imgHTML
+
+        assert 'crossorigin="blah"' in imgHTML , 'Expected whatever was set via img.crossOrigin = "blah" to show up in html text, even though the dot-access variable is different. Got: ' + imgHTML
+
+        img.crossOrigin = 'use-credentials'
+        imgHTML = str(img)
+
+        assert img.crossOrigin == 'use-credentials' , 'Expected "use-credentials" value to be retained for crossOrigin. Got: ' + repr(img.crossOrigin)
+
+        assert 'crossorigin="use-credentials"' in imgHTML , 'Expected crossorigin="use-credentials" to be retained in HTML. Got: ' + imgHTML
+
+        img.crossOrigin = 'anonymous'
+        imgHTML = str(img)
+
+        assert img.crossOrigin == 'anonymous' , 'Expected "anonymous" value to be retained for crossOrigin. Got: ' + repr(img.crossOrigin)
+
+        assert 'crossorigin="anonymous"' in imgHTML , 'Expected crossorigin="anonymous" to be retained in HTML. Got: ' + imgHTML
+
+
+
+
+
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
