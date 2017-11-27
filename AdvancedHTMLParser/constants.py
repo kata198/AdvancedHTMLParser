@@ -34,7 +34,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'body'  : { 'bgcolor', 'background', 'vlink', 'alink', 'link', 'onafterprint', 'onbeforeprint', \
                 'onbeforeunload', 'onerror', 'onhashchange', 'onload', 'onmessage', \
                 'onoffline', 'ononline', 'onpagehide', 'onpageshow', 'onpopstate', 'onresize', 'onstorage', 'onunload' },
-    # button->form another form
     'button' : { 'autofocus', 'disabled', 'form', 'formAction', 'formEnctype', 'formMethod', 'formNoValidate', 'formTarget', 'type', 'value', },
     'canvas' : { 'height', 'width'},
     'caption': { 'align', },
@@ -71,7 +70,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
                    'scrolling', "src", "srcdoc", 'width', },
     'img'   : { 'align', 'alt', 'border', 'crossOrigin', 'height', 'hspace', 'isMap', 'longDesc', 'sizes',
                 'src', 'srcset', 'useMap', 'vspace', 'width'},
-    # TODO: input->form dot-access returns the parent form element, but has no html attribute equivilant
     # TODO: input->formAction, formEnctype default to current url but we don't know it
     # TODO: input->list default is null
     # TODO: input->maxLength throws exception when negative value instead of default
@@ -107,7 +105,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'ol'     : { 'compact', 'reversed', 'start', 'type', },
     'optgroup' : { 'disabled', 'label', },
     'option' : { 'disabled', 'label', 'selected', 'value', },
-    # TODO: output->form another form
     'output' : { 'for', 'form', },
     'p'      : { 'align', },
     'param'  : { 'type', 'value', 'valueType', },
@@ -119,7 +116,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     # TODO: script->async is boolean, but default is true
     # TODO: script has "xml:space" but not supported in firefox
     'script'   : { 'async', 'charset', 'defer', 'src', 'type',  },
-    # TODO: another form
     'select'   : { 'autofocus', 'disabled', 'form', 'multiple', 'required', 'size', },
     # TODO: sizes list
     'source'   : { 'src', 'srcdest', 'media', 'sizes', 'type', },
@@ -134,7 +130,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'td'       : { 'abbr', 'align', 'axis', 'bgcolor', 'char', 'charoff', 'colSpan', 'headers', 'height', 'noWrap',
                    'rowSpan', 'scope', 'vAlign', 'width',  },
     # TODO: "cols" is numeric
-    # TODO: form
     'textarea' : { 'autofocus', 'cols', 'dirname', 'disabled', 'form', 'maxLength', 'placeholder',
                    'readOnly', 'required', 'rows', 'wrap', },
     'tfoot'    : { 'align', 'char', 'charoff', 'vAlign', },
