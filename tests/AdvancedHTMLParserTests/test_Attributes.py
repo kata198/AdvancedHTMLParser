@@ -589,8 +589,42 @@ class TestAttributes(object):
 
         assert 'crossorigin="anonymous"' in imgHTML , 'Expected crossorigin="anonymous" to be retained in HTML. Got: ' + imgHTML
 
+    def test_autocomplete(self):
+        '''
+            test autocomplete attribute
+        '''
 
+        inputEm = AdvancedTag('input')
 
+        assert inputEm.autocomplete == '' , 'Expected default for unset "autocomplete" to be "". Got: ' + repr(inputEm.autocomplete)
+
+        inputEm.autocomplete = 'on'
+        inputHTML = str(inputEm)
+
+        assert inputEm.autocomplete == 'on' , 'Expected autocomplete="on" to retain on. Got: ' + repr(inputEm.autocomplete)
+
+        assert 'autocomplete="on"' in inputHTML , 'Expected html property to be set. Got: ' + repr(inputHTML)
+
+        inputEm.autocomplete = 'blah'
+
+        assert inputEm.autocomplete == 'on' , 'Expected autocomplete="blah" to use invalid fallback of "on". Got: ' + repr(inputEm.autocomplete)
+
+        inputEm.autocomplete = 'off'
+        inputHTML = str(inputEm)
+
+        assert inputEm.autocomplete == 'off' , 'Expected to be able to switch autocomplete to off. Got: ' + repr(inputEm.autocomplete)
+
+        assert 'autocomplete="off"' in inputHTML , 'Expected html property to be set. Got: ' + repr(inputHTML)
+
+        inputEm.autocomplete = ''
+        inputHTML = str(inputEm)
+
+        assert inputEm.autocomplete == '' , 'Expected to be able to set autocomplete to empty string. Got: ' + repr(inputEm.autocomplete)
+
+        assert 'autocomplete=""' in inputHTML , 'Expected html property to be set to empty string. Got: ' + repr(inputHTML)
+
+        
+        
 
 
 if __name__ == '__main__':

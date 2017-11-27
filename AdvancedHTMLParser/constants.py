@@ -52,10 +52,9 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'fieldset' : { 'form', },
     'font'     : { 'color', 'face', 'size', },
     # TODO: form->action defaults to current url, but we don't have such info
-    # TODO: form->autocomplete returns "yes" or "no" via dot-access, but sets the html attribute to whatever
-    # TODO: form->encoding is an alias for "enctype"
     # TODO: form->method sets whatever value in html attribute, but on access forces to "get" or "post"
-    'form'     : { 'acceptCharset', 'action', 'autocomplete', 'enctype', 'method', 'noValidate', 'target',
+    # NOTE: form->encoding is an alias implemented in firefox for "enctype"
+    'form'     : { 'acceptCharset', 'action', 'autocomplete', 'encoding', 'enctype', 'method', 'noValidate', 'target',
         'onblur', 'onchange', 'oncontextmenu', 'onfocus', 'oninput', 'oninvalid', 'onreset', 'onsearch', 'onselect', 'onsubmit' },
     # TODO: frame->longDesc is a url, and relative urls have an absolute value in dot-access, but we don't know the url
     # TODO: frame->src is a url, and relative urls have an absolute value in dot-access, but we don't know the url
@@ -77,7 +76,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
                    'scrolling', "src", "srcdoc", 'width', },
     'img'   : { 'align', 'alt', 'border', 'crossOrigin', 'height', 'hspace', 'isMap', 'longDesc', 'sizes',
                 'src', 'srcset', 'useMap', 'vspace', 'width'},
-    # TODO: input->autocomplete returns "yes" or "no" via dot-access, invalud empty str, but sets the html attribute to whatever
     # TODO: input->form dot-access returns the parent form element, but has no html attribute equivilant
     # TODO: input->formAction, formEnctype default to current url but we don't know it
     # TODO: input->list default is null
@@ -229,6 +227,7 @@ TAG_ITEM_CHANGE_NAME_FROM_ITEM = {
     'colSpan'     : 'colspan',
     'noWrap'      : 'nowrap',
     'rowSpan'     : 'rowspan',
+    'encoding'    : 'enctype',
 
 }
 
@@ -248,6 +247,10 @@ TAG_ITEM_CHANGE_NAME_FROM_ATTR = { val : key for key, val in TAG_ITEM_CHANGE_NAM
 
 POSSIBLE_VALUES_CROSS_ORIGIN = ('use-credentials', 'anonymous')
 
+POSSIBLE_VALUES_ON_OFF = ('on', 'off')
+
+POSSIBLE_VALUES_YES_NO = ('yes', 'no')
+
 # These attributes can have a special value
 TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'tabIndex' : lambda em : convertToIntOrNegativeOneIfUnset(em.getAttribute('tabindex', None)),
@@ -262,6 +265,9 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     # size throws exception on invalid value, and a minimum of 1
     'size'     : lambda em : convertToPositiveInt(em.getAttribute('size', 20), invalidDefault=20),
     # crossOrigin is "use-credentials" or "anonymous" (all invalid values go to anonymous) default null
-    'crossOrigin' : lambda em : convertPossibleValues(em.getAttribute('crossorigin', None), POSSIBLE_VALUES_CROSS_ORIGIN, invalidDefault="anonymous", emptyValue=None)
+    'crossOrigin' : lambda em : convertPossibleValues(em.getAttribute('crossorigin', None), POSSIBLE_VALUES_CROSS_ORIGIN, invalidDefault="anonymous", emptyValue=None),
+    # TODO: autocomplete has different default and invalid value for form vs input. Form is default of "on", input is empty str.
+    #         Use empty str for now, as current impl doesn't support splitting like that
+    'autocomplete' : lambda em : convertPossibleValues(em.getAttribute('autocomplete', ''), POSSIBLE_VALUES_ON_OFF, invalidDefault="on", emptyValue=''),
 }
 
