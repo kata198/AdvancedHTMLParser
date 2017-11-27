@@ -3,7 +3,7 @@
 #   Constants in AdvancedHTMLParser
 
 from .conversions import ( convertToIntOrNegativeOneIfUnset, convertToPositiveInt, 
-    convertPossibleValues, convertToIntRange,
+    convertPossibleValues, convertToIntRange, convertToIntRangeCapped
 )
 
 # These tags are always self-closing, whether given that way or not.
@@ -127,8 +127,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     # TODO: tbody has "char" and "charoff" in w3 but not firefox
     'tbody'    : { 'align', 'char', 'charoff', 'vAlign', },
     # TODO: td has "char" and "charoff" in w3 but not firefox
-    # TODO: td has "colspan" minimum 1 but puts whatever in html attribute
-    # TODO: td has "rowspan" minimum 1 but puts whatever in html attribute
     'td'       : { 'abbr', 'align', 'axis', 'bgcolor', 'char', 'charoff', 'colSpan', 'headers', 'height', 'noWrap',
                    'rowSpan', 'scope', 'vAlign', 'width',  },
     # TODO: "cols" is numeric
@@ -250,8 +248,10 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'tabIndex' : lambda em : convertToIntOrNegativeOneIfUnset(em.getAttribute('tabindex', None)),
       # span - Default (not present) value is "1", invalids are 0
     'span'     : lambda em : convertToPositiveInt(em.getAttribute('span', 1), invalidDefault=0),
-    'colSpan'     : lambda em : convertToPositiveInt(em.getAttribute('colspan', 1), invalidDefault=1),
-    'rowSpan'     : lambda em : convertToPositiveInt(em.getAttribute('rowspan', 1), invalidDefault=1),
+    # TODO: colSpan on invalid in firefox sets HTML attribute text to "0" but returns "1" on JS. We aren't doing the HTML attr portion
+    'colSpan'     : lambda em : convertToIntRangeCapped(em.getAttribute('colspan', 1), minValue=1, maxValue=1000, invalidDefault=1),
+    # TODO: rowSpan on invalid in firefox sets HTML attribute text to "0" but returns "0" on JS. We aren't doing the HTML attr portion
+    'rowSpan'     : lambda em : convertToIntRangeCapped(em.getAttribute('rowspan', 1), minValue=0, maxValue=65534, invalidDefault=0),
     'hspace'     : lambda em : convertToPositiveInt(em.getAttribute('hspace', 0), invalidDefault=0),
     'vspace'     : lambda em : convertToPositiveInt(em.getAttribute('vspace', 0), invalidDefault=0),
     # maxLength needs to throw exception on invalid

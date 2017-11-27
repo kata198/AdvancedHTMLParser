@@ -697,5 +697,50 @@ class TestAttributes(object):
 
         assert foundFormEm is None , 'Expected .form to return None on an input outside of form. Got: ' + str(foundFormEm.getStartTag())
 
+    def test_rowAndColSpan(self):
+        '''
+            test_rowAndColSpan - test rowSpan and colSpan
+        '''
+
+        tdEm = AdvancedTag('td')
+
+        assert tdEm.colspan is None , 'Expected colspan dot-access to be None'
+        assert tdEm.colSpan is not None , 'Expected colSpan dot-access to not be None'
+
+        assert tdEm.colSpan == 1 , 'Expected default colSpan to be 1 but got: ' + repr(tdEm.colSpan)
+
+        tdEm.colSpan = 10
+        tdEmHTML = str(tdEm)
+
+        assert tdEm.colSpan == 10 , 'Expected to be able to set colSpan to 10, but value returned was: ' + repr(tdEm.colSpan)
+        assert 'colspan="10"' in tdEmHTML , 'Expected colspan="10" to be in HTML string after setting, but got: ' + tdEmHTML
+        
+        tdEm.colSpan = -5
+        assert tdEm.colSpan == 1 , 'Expected colSpan to be clamped to a minimum of 1, but got: ' + repr(tdEm.colSpan)
+
+        tdEm.colSpan = 1000000
+        assert tdEm.colSpan == 1000 , 'Expected colSpan to be clamped to a maximum of 1000, but got: ' + repr(tdEm.colSpan)
+
+        tdEm = AdvancedTag('td')
+
+        assert tdEm.rowspan is None , 'Expected rowspan dot-access to be None'
+        assert tdEm.rowSpan is not None , 'Expected rowSpan dot-access to not be None'
+
+        assert tdEm.rowSpan == 1 , 'Expected default rowSpan to be 1 but got: ' + repr(tdEm.rowSpan)
+
+
+        tdEm.rowSpan = 10
+        tdEmHTML = str(tdEm)
+
+        assert tdEm.rowSpan == 10 , 'Expected to be able to set rowSpan to 10, but value returned was: ' + repr(tdEm.rowSpan)
+        assert 'rowspan="10"' in tdEmHTML , 'Expected rowspan="10" to be in HTML string after setting, but got: ' + tdEmHTML
+
+        tdEm.rowSpan = -5
+        assert tdEm.rowSpan == 0 , 'Expected rowSpan to be clamped to a minimum of 0, but got: ' + repr(tdEm.rowSpan)
+
+        tdEm.rowSpan = 1000000
+        assert tdEm.rowSpan == 65534 , 'Expected rowSpan to be clamped to a maximum of 65534, but got: ' + repr(tdEm.rowSpan)
+
+
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
