@@ -54,6 +54,8 @@ Combined release, was going to release 7.3.2 but has additional changes so creat
 
 - Implement "rowSpan" attribute on 'td' to be a clamped value from 0 to 65534 (firefox limits)
 
+- Implement clamping on "col" tag attribute "span" (colEm.span) between 1 and 1000 (firefox limits)
+
 
 * 7.3.1 - Nov 21 2017
 
