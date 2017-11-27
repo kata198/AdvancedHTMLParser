@@ -10,7 +10,7 @@ import sys
 import AdvancedHTMLParser
 
 from AdvancedHTMLParser.conversions import (convertToIntOrNegativeOneIfUnset, convertToBooleanString, 
-    convertBooleanStringToBoolean, convertPossibleValues, convertToIntRange
+    convertBooleanStringToBoolean, convertPossibleValues, convertToIntRange, convertToIntRangeCapped
 )
 
 AdvancedTag = AdvancedHTMLParser.AdvancedTag
@@ -123,6 +123,7 @@ class TestConversions(object):
         doTest("fAlSe", False)
         doTest("FAlsE", False)
 
+
     def test_convertToIntRange(self):
         '''
             test_convertToIntRange - Test the convertToIntRange method
@@ -191,6 +192,74 @@ class TestConversions(object):
         doTestRaises("5", 1, 4, ValueError)
         doTestRaises("5", 6, None, ValueError)
         doTestRaises("5", None, 4, ValueError)
+
+        doTestRaises("abc", 2, 5, ValueError)
+
+    def test_convertToIntRangeCapped(self):
+        '''
+            test_convertToIntRangeCapped - Test the convertToIntRangeCapped method
+        '''
+        def doTestResult(inputValue, minValue, maxValue, invalidDefault, expectedValue):
+            '''
+                doTestResult - Perform a test of convertToIntRangeCapped where the expected return is a result (not an exception)
+
+                @see doTestRaises for the exception case
+
+            '''
+
+            # Create a method do call convertToIntRangeCapped with the args that fits into the self._test_convert framework
+            _testMethod = lambda _inputValue : convertToIntRangeCapped(_inputValue, minValue, maxValue, invalidDefault)
+
+            # Give it a meaningful name for the assertion message
+            _testMethod.__name__ = 'convertToIntRangeCapped( _inputValue, minValue=%s, maxValue=%s, invalidDefault=%s )' %( repr(minValue), repr(maxValue), repr(invalidDefault))
+
+            return self._test_convert( _testMethod, inputValue, expectedValue)
+
+
+        def doTestRaises(inputValue, minValue, maxValue, invalidDefault):
+            '''
+                doTestRaises - Perform a test of convertToIntRangeCapped where the expected result is an exception to be raised.
+
+                @see doTestResult for the returned value case
+            '''
+            # Create a method do call convertToIntRangeCapped with the args that fits into the self._test_convert framework
+            _testMethod = lambda _inputValue : convertToIntRangeCapped(_inputValue, minValue, maxValue, invalidDefault)
+
+            try:
+                if issubclass(invalidDefault, Exception):
+                    expectedExceptionType = invalidDefault
+                else:
+                    raise Exception('goto except')
+            except:
+                if issubclass(invalidDefault.__class__, Exception):
+                    expectedExceptionType = invalidDefault.__class__
+                else:
+                    raise Exception('Provided invalidDefault param %s does not seem to be an Exception type..' %( repr(invalidDefault), ))
+
+            # Give it a meaningful name for the assertion message
+            _testMethod.__name__ = 'convertToIntRangeCapped( _inputValue, minValue=%s, maxValue=%s, invalidDefault=%s )' %( repr(minValue), repr(maxValue), repr(invalidDefault))
+
+            return self._test_convert_raises( _testMethod, inputValue, expectedExceptionType)
+
+
+        # Test that doTestResult method works
+        doTestResult("5", 0, 10, "INVALID", 5)
+
+
+        # Test that doTestRaises method works
+        doTestRaises("abc", 2, 5, ValueError)
+
+
+        doTestResult("5", 5, 10, "INVALID", 5)
+        doTestResult("5", 0, 5, "INVALID", 5)
+        doTestResult("5", None, 10, "INVALID", 5)
+        doTestResult("5", 0, None, "INVALID", 5)
+
+
+        doTestResult("5", 1, 4, "INVALID", 4)
+        doTestResult("5", 6, None, "INVALID", 6)
+        doTestResult("5", None, 4, "INVALID", 4)
+
 
 
     def test_convertPossibleValues(self):

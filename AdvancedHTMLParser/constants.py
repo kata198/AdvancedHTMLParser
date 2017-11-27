@@ -2,7 +2,9 @@
 #  See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #   Constants in AdvancedHTMLParser
 
-from .conversions import convertToIntOrNegativeOneIfUnset, convertToPositiveInt, convertPossibleValues
+from .conversions import ( convertToIntOrNegativeOneIfUnset, convertToPositiveInt, 
+    convertPossibleValues, convertToIntRange,
+)
 
 # These tags are always self-closing, whether given that way or not.
 IMPLICIT_SELF_CLOSING_TAGS = set(['meta', 'link', 'input', 'img', 'hr', 'br'])
