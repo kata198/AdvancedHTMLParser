@@ -741,6 +741,34 @@ class TestAttributes(object):
         tdEm.rowSpan = 1000000
         assert tdEm.rowSpan == 65534 , 'Expected rowSpan to be clamped to a maximum of 65534, but got: ' + repr(tdEm.rowSpan)
 
+    def test_spanAttributeOnCol(self):
+        '''
+            test_spanAttributeOnCol - Tests the "span" attribute on a "col"
+        '''
+
+        colEm = AdvancedTag('col')
+
+        assert colEm.span == 1 , 'Expected default for col.span to be 1. Got: ' + repr(colEm.span)
+
+        colEm.span = 5
+
+        assert colEm.span == 5 , 'Expected to be able to set col.span to 5, but returned: ' + repr(colEm.span)
+
+        colEmHTML = str(colEm)
+
+        assert 'span="5"' in colEmHTML , 'Expected span="5" to show up after setting col.span to 5. Got: ' + repr(colEmHTML)
+
+        colEm.span = -5
+
+        assert colEm.span == 1 , 'Expected col.span to be clamped to a minimum of 1. Got: ' + repr(colEm.span)
+
+        colEm.span = 1
+        assert colEm.span == 1 , 'Expected col.span to be clamped to a minimum of 1. Got: ' + repr(colEm.span)
+
+        colEm.span = 1500
+
+        assert colEm.span == 1000 , 'Expected col.span to be clamped to a maximum of 1000. Got: ' + repr(ColEm.span)
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())

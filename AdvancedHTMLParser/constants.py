@@ -243,11 +243,13 @@ POSSIBLE_VALUES_YES_NO = ('yes', 'no')
 
 POSSIBLE_VALUES_FORM_METHOD = ('get', 'post')
 
+# TODO: Send firefox some bug reports based on below info
+
 # These attributes can have a special value
 TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'tabIndex' : lambda em : convertToIntOrNegativeOneIfUnset(em.getAttribute('tabindex', None)),
-      # span - Default (not present) value is "1", invalids are 0
-    'span'     : lambda em : convertToPositiveInt(em.getAttribute('span', 1), invalidDefault=0),
+    # TODO: span is minimum 1, but firefox (I think it's a bug) allows you to set to 0, it sets the html text to span="0" but value remains 1. Also, it is clamped at "1000" via dot-access, but the html string will go up to what appears to be a 32-bit variable overflowing
+    'span'     : lambda em : convertToIntRangeCapped(em.getAttribute('span', 1), minValue=1, maxValue=1000, invalidDefault=1),
     # TODO: colSpan on invalid in firefox sets HTML attribute text to "0" but returns "1" on JS. We aren't doing the HTML attr portion
     'colSpan'     : lambda em : convertToIntRangeCapped(em.getAttribute('colspan', 1), minValue=1, maxValue=1000, invalidDefault=1),
     # TODO: rowSpan on invalid in firefox sets HTML attribute text to "0" but returns "0" on JS. We aren't doing the HTML attr portion
