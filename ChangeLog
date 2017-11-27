@@ -50,6 +50,10 @@ Combined release, was going to release 7.3.2 but has additional changes so creat
 
 - Implement "form" attribute on several tags (such as 'input' and 'button') which returns the form to which that element belongs (parent form), or None if not within a form tag.
 
+- Implement "colSpan" attribute on 'td' to be a clamped value from 1 to 1000 (firefox limits)
+
+- Implement "rowSpan" attribute on 'td' to be a clamped value from 0 to 65534 (firefox limits)
+
 
 * 7.3.1 - Nov 21 2017
 
