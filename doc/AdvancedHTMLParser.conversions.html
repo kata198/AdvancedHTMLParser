@@ -19,6 +19,24 @@
     
 <tr ><td bgcolor="#eeaa77" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
 <td width="100%" ><dl ><dt ><a name="-convertBooleanStringToBoolean" ><strong >convertBooleanStringToBoolean</strong></a>(val=None)</dt><dd ><tt >convertBooleanStringToBoolean&nbsp;-&nbsp;Convert&nbsp;from&nbsp;a&nbsp;boolean&nbsp;attribute&nbsp;(string&nbsp;"true"&nbsp;/&nbsp;"false"&nbsp;)&nbsp;into&nbsp;a&nbsp;booelan</tt></dd></dl>
+ <dl ><dt ><a name="-convertPossibleValues" ><strong >convertPossibleValues</strong></a>(val, possibleValues, invalidDefault, emptyValue='')</dt><dd ><tt >convertPossibleValues&nbsp;-&nbsp;Convert&nbsp;input&nbsp;value&nbsp;to&nbsp;one&nbsp;of&nbsp;several&nbsp;possible&nbsp;values,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;default&nbsp;for&nbsp;invalid&nbsp;entries<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;val&nbsp;&lt;None/str&gt;&nbsp;-&nbsp;The&nbsp;input&nbsp;value<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;possibleValues&nbsp;list&lt;str&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;possible&nbsp;values<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;invalidDefault&nbsp;&lt;None/str/Exception&gt;&nbsp;-&nbsp;The&nbsp;value&nbsp;to&nbsp;return&nbsp;if&nbsp;"val"&nbsp;is&nbsp;not&nbsp;empty&nbsp;string/None<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;"val"&nbsp;is&nbsp;not&nbsp;in&nbsp;#possibleValues<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;instantiated&nbsp;Exception&nbsp;(like&nbsp;ValueError('blah')):&nbsp;&nbsp;Raise&nbsp;this&nbsp;exception<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;an&nbsp;Exception&nbsp;type&nbsp;(&nbsp;like&nbsp;ValueError&nbsp;)&nbsp;-&nbsp;Instantiate&nbsp;and&nbsp;raise&nbsp;this&nbsp;exception&nbsp;type<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;use&nbsp;this&nbsp;raw&nbsp;value<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;emptyValue&nbsp;Default&nbsp;'',&nbsp;used&nbsp;for&nbsp;an&nbsp;empty&nbsp;value&nbsp;(empty&nbsp;string&nbsp;or&nbsp;None)</tt></dd></dl>
  <dl ><dt ><a name="-convertToBooleanString" ><strong >convertToBooleanString</strong></a>(val=None)</dt><dd ><tt >convertToBooleanString&nbsp;-&nbsp;Converts&nbsp;a&nbsp;value&nbsp;to&nbsp;either&nbsp;a&nbsp;string&nbsp;of&nbsp;"true"&nbsp;or&nbsp;"false"<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;val&nbsp;&lt;int/str/bool&gt;&nbsp;-&nbsp;Value</tt></dd></dl>
@@ -34,5 +52,5 @@ Takes&nbsp;a&nbsp;value,&nbsp;if&nbsp;not&nbsp;set&nbsp;returns&nbsp;-1.&nbsp;If
 <font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
-<td width="100%" ><strong >__all__</strong> = ('convertToIntOrNegativeOneIfUnset', 'convertToBooleanString', 'convertBooleanStringToBoolean')</td></tr></table>
+<td width="100%" ><strong >__all__</strong> = ('convertToIntOrNegativeOneIfUnset', 'convertToBooleanString', 'convertBooleanStringToBoolean', 'convertPossibleValues')</td></tr></table>
 </p></p></body></html>
