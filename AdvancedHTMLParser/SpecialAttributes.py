@@ -794,7 +794,12 @@ class TokenList(list):
 
     def __init__(self, *args, **kwargs):
         if len(args) == 1 and isstr(args[0]):
-            return list.__init__(self, stripWordsOnly(args[0]).split(' '))
+            strippedValue = stripWordsOnly(args[0])
+            if not strippedValue:
+                # Empty string, don't try to split (we would get one empty string element)
+                return list.__init__(self)
+            # Create list with split string
+            return list.__init__(self, strippedValue.split(' '))
 
         return list.__init__(self, *args, **kwargs)
 

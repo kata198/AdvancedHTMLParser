@@ -62,6 +62,23 @@ class TestTokenList(object):
 
         assert str(tl) == 'hello world' , 'Expected str(TokenList) to do a string join, but got: ' + repr(str(tl))
 
+    def test_emptyFromEmptyStr(self):
+        '''
+            test_emptyFromEmptyStr - Test that we create an empty list with an empty str (or only whitespace)
+        '''
+
+        myStr = ''
+
+        tl = TokenList(myStr)
+
+        assert len(tl) == 0 , 'Expected to have no elements in TokenList constructed with empty string, but got: ' + repr(tl)
+
+        myStr = '        '
+
+        tl = TokenList(myStr)
+
+        assert len(tl) == 0 , 'Expected to have no elements in TokenList constructed with whitespace-only string, but got: ' + repr(tl)
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
