@@ -589,9 +589,9 @@ class TestAttributes(object):
 
         assert 'crossorigin="anonymous"' in imgHTML , 'Expected crossorigin="anonymous" to be retained in HTML. Got: ' + imgHTML
 
-    def test_autocomplete(self):
+    def test_inputAutocomplete(self):
         '''
-            test autocomplete attribute
+            test input autocomplete attribute
         '''
 
         inputEm = AdvancedTag('input')
@@ -607,7 +607,7 @@ class TestAttributes(object):
 
         inputEm.autocomplete = 'blah'
 
-        assert inputEm.autocomplete == 'on' , 'Expected autocomplete="blah" to use invalid fallback of "on". Got: ' + repr(inputEm.autocomplete)
+        assert inputEm.autocomplete == '' , 'Expected autocomplete="blah" to use invalid fallback of "". Got: ' + repr(inputEm.autocomplete)
 
         inputEm.autocomplete = 'off'
         inputHTML = str(inputEm)
@@ -622,6 +622,42 @@ class TestAttributes(object):
         assert inputEm.autocomplete == '' , 'Expected to be able to set autocomplete to empty string. Got: ' + repr(inputEm.autocomplete)
 
         assert 'autocomplete=""' in inputHTML , 'Expected html property to be set to empty string. Got: ' + repr(inputHTML)
+
+
+    def test_formAutocomplete(self):
+        '''
+            test form autocomplete attribute
+        '''
+
+        formEm = AdvancedTag('form')
+
+        assert formEm.autocomplete == 'on' , 'Expected default for unset "autocomplete" to be "on". Got: ' + repr(formEm.autocomplete)
+
+        formEm.autocomplete = 'on'
+        formHTML = str(formEm)
+
+        assert formEm.autocomplete == 'on' , 'Expected autocomplete="on" to retain on. Got: ' + repr(formEm.autocomplete)
+
+        assert 'autocomplete="on"' in formHTML , 'Expected html property to be set. Got: ' + repr(formHTML)
+
+        formEm.autocomplete = 'blah'
+
+        assert formEm.autocomplete == 'on' , 'Expected autocomplete="blah" to use invalid fallback of "on". Got: ' + repr(formEm.autocomplete)
+
+        formEm.autocomplete = 'off'
+        formHTML = str(formEm)
+
+        assert formEm.autocomplete == 'off' , 'Expected to be able to switch autocomplete to off. Got: ' + repr(formEm.autocomplete)
+
+        assert 'autocomplete="off"' in formHTML , 'Expected html property to be set. Got: ' + repr(formHTML)
+
+        formEm.autocomplete = ''
+        formHTML = str(formEm)
+
+        assert formEm.autocomplete == 'on' , 'Expected setting autocomplete to empty string to revert to invalid, "on". Got: ' + repr(formEm.autocomplete)
+
+        assert 'autocomplete=""' in formHTML , 'Expected html property to be set to empty string. Got: ' + repr(formHTML)
+
 
     def test_formMethod(self):
         '''

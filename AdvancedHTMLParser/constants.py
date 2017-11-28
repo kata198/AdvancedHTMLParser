@@ -264,6 +264,15 @@ def _special_value_cols(em):
         # frameset
         return em.getAttribute('cols', '')
 
+def _special_value_autocomplete(em):
+    '''
+        handle "autocomplete" property, which has different behaviour for form vs input"
+    '''
+    if em.tagName == 'form':
+        return convertPossibleValues(em.getAttribute('autocomplete', 'on'), POSSIBLE_VALUES_ON_OFF, invalidDefault='on', emptyValue=EMPTY_IS_INVALID)
+    # else: input
+    return convertPossibleValues(em.getAttribute('autocomplete', ''), POSSIBLE_VALUES_ON_OFF, invalidDefault="", emptyValue='')
+
 def _DOMTokenList_type(*args):
     '''
         _DOMTokenList_type - A method which imports and returns SpecialAttributes.DOMTokenList
@@ -299,9 +308,8 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'size'     : lambda em : convertToPositiveInt(em.getAttribute('size', 20), invalidDefault=20),
     # crossOrigin is "use-credentials" or "anonymous" (all invalid values go to anonymous) default null
     'crossOrigin' : lambda em : convertPossibleValues(em.getAttribute('crossorigin', None), POSSIBLE_VALUES_CROSS_ORIGIN, invalidDefault="anonymous", emptyValue=None),
-    # TODO: autocomplete has different default and invalid value for form vs input. Form is default of "on", input is empty str.
-    #         Use empty str for now, as current impl doesn't support splitting like that
-    'autocomplete' : lambda em : convertPossibleValues(em.getAttribute('autocomplete', ''), POSSIBLE_VALUES_ON_OFF, invalidDefault="on", emptyValue=''),
+    # autocomplete has different behaviour for "input" vs "form"
+    'autocomplete' : _special_value_autocomplete,
     'method' : lambda em : convertPossibleValues(em.getAttribute('method', 'get'), POSSIBLE_VALUES_FORM_METHOD, invalidDefault="get", emptyValue=''),
     'form'   : lambda em : em.getParentElementCustomFilter( lambda em : em.tagName == 'form' ),
     'cols'   : _special_value_cols,
