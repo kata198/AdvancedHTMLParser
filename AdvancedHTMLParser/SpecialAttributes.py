@@ -12,7 +12,7 @@ from .utils import escapeQuotes, tostr
 from .conversions import convertToBooleanString
 from .constants import TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR
 
-__all__ = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute' )
+__all__ = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute', 'TokenList' )
 
 
 class SpecialAttributesDict(dict):
@@ -786,5 +786,17 @@ class StyleAttribute(object):
     def __deepcopy__(self, memo):
         return self.__class__(self._asStr())
 
+
+class TokenList(list):
+    '''
+        TokenList - Imitates a DOMTokenList, that is a list in normal form, but joins via " " on stringifying
+    '''
+
+
+    def __str__(self):
+        return ' '.join(self)
+
+    def __repr__(self):
+        return 'TokenList(%s)' %( list.__repr__(self), )
 
 #vim: set ts=4 sw=4 expandtab :
