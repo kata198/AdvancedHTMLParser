@@ -790,9 +790,20 @@ class StyleAttribute(object):
 class DOMTokenList(list):
     '''
         DOMTokenList - Imitates a DOMTokenList, that is a list in normal form, but joins via " " on stringifying
+
+                and can be constructed from a string by stripping to single words and splitting by " ", ignoring empty string case
     '''
 
     def __init__(self, *args, **kwargs):
+        '''
+            __init__ - Create a DOMTaskList.
+
+                Can take no arguments to create empty list
+
+                Can take a list argument to use those elements in this list
+
+                Can take a string argument, and will strip whitespace and retain each distinct word as an element
+        '''
         if len(args) == 1 and isstr(args[0]):
             strippedValue = stripWordsOnly(args[0])
             if not strippedValue:
@@ -805,6 +816,11 @@ class DOMTokenList(list):
 
 
     def __str__(self):
+        '''
+            __str__ - String this element. Equivilant to a javascript DOMTokenList.toString(),
+                
+                and will join by ' '
+        '''
         return ' '.join(self)
 
     def __repr__(self):
