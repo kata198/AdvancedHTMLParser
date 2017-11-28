@@ -3,7 +3,7 @@
 #   Constants in AdvancedHTMLParser
 
 from .conversions import ( convertToIntOrNegativeOneIfUnset, convertToPositiveInt, 
-    convertPossibleValues, convertToIntRange, convertToIntRangeCapped
+    convertPossibleValues, convertToIntRange, convertToIntRangeCapped, EMPTY_IS_INVALID
 )
 
 # These tags are always self-closing, whether given that way or not.
@@ -67,7 +67,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'hr'       : { 'align', 'noShade', 'size', 'width', },
     # TODO: w3 specifies html as having "xmlns" but firefox does not support such attribute.
     'html'     : { 'xmlns', },
-    # TODO: sandbox is a special DOMTokenList (like classList), but we don't yet support that.
     'iframe'   : { 'align', 'frameBorder', 'height', 'marginHeight', 'marginWidth', 'sandbox',
                    'scrolling', "src", "srcdoc", 'width', },
     'img'   : { 'align', 'alt', 'border', 'crossOrigin', 'height', 'hspace', 'isMap', 'longDesc', 'sizes',
@@ -140,7 +139,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'time'     : { 'dateTime', },
     'tr'       : { 'align', 'bgcolor', 'char', 'charoff', 'vAlign', },
     # TODO: track has 'default' but pretty sure it's used elsewhere (not firefox impl) which is NOT binary
-    # TODO: "kind" has default 'subtitles'
     'track'    : { 'default', 'kind', 'label', 'src', 'srclang', },
     'ul'       : { 'compact', 'type', },
     # TODO: poster is url
@@ -237,6 +235,9 @@ TAG_ITEM_CHANGE_NAME_FROM_ATTR = { val : key for key, val in TAG_ITEM_CHANGE_NAM
 
 POSSIBLE_VALUES_CROSS_ORIGIN = ('use-credentials', 'anonymous')
 
+POSSIBLE_VALUES_TRACK__KIND = ( 'captions', 'chapters', 'descriptions', 'metadata', 'subtitles' )
+
+
 POSSIBLE_VALUES_ON_OFF = ('on', 'off')
 
 POSSIBLE_VALUES_YES_NO = ('yes', 'no')
@@ -306,6 +307,9 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'cols'   : _special_value_cols,
     'rows'   : _special_value_rows,
     'sandbox' : lambda em : _DOMTokenList_type( em.getAttribute('sandbox', '') ),
+
+    # track->kind has a default of "subtitles", an invalid of "metadata", and possible of the list below.
+    'kind' : lambda em : convertPossibleValues(em.getAttribute('kind', "subtitles"), POSSIBLE_VALUES_TRACK__KIND, invalidDefault="metadata", emptyValue=EMPTY_IS_INVALID)
 
 }
 

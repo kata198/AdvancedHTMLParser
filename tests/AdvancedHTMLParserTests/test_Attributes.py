@@ -892,6 +892,37 @@ class TestAttributes(object):
         assert len(iframeEm.sandbox) == 3 , 'Expected appending to the DOMTokenList returned to have no effect.'
 
 
+    def test_trackKind(self):
+        '''
+            test the "kind" attribute on a track
+        '''
+
+        # A copy of the possible values. Use a copy so that we are testing not using the code we are testing for validation of the validation of the code we are testing to validate the code that the validation of the INFINTIEEEE LOOOOP AHHHHHHHHHHHHHH
+        TRACK_POSSIBLE_KINDS = ( 'captions', 'chapters', 'descriptions', 'metadata', 'subtitles' )
+
+        trackEm = AdvancedTag('track')
+
+        assert trackEm.kind == 'subtitles' , 'Expected default value of trackEm.kind to be "subtitles"'
+
+        trackEm.kind = 'blah'
+
+        trackEmHTML = str(trackEm)
+
+        assert trackEm.kind == 'metadata' , 'Expected when an "invalid" value is provided for track->kind, that "metadata" is returned, but got: ' + repr(trackEm.kind)
+
+        assert 'kind="blah"' in trackEmHTML , 'Expected when an "invalid" value is provided for track->kind, that the value is put into the HTML attribute as-is, but got: ' + str(trackEmHTML)
+
+        for possibleKind in TRACK_POSSIBLE_KINDS:
+            
+            trackEm.kind = possibleKind
+
+            assert trackEm.kind == possibleKind , 'Expected to be able to set track->kind to "%s", but after doing so got %s as the return.' %( possibleKind, repr(trackEm.kind))
+
+        trackEm.kind = ''
+        
+        assert trackEm.kind == 'metadata' , 'Expected setting kind to an empty string returns "metadata" (the invalid result), but got: ' + repr(trackEm.kind)
+
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
