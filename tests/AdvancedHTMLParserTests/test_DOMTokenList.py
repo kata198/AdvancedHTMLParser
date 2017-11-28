@@ -1,49 +1,49 @@
 #!/usr/bin/env GoodTests.py
 '''
-    Test TokenList
+    Test DOMTokenList
 '''
 
 import sys
 import subprocess
 
-from AdvancedHTMLParser.SpecialAttributes import TokenList
+from AdvancedHTMLParser.SpecialAttributes import DOMTokenList
 
 
-class TestTokenList(object):
+class TestDOMTokenList(object):
     '''
-        Test SpecialAttributes.TokenList
+        Test SpecialAttributes.DOMTokenList
     '''
 
     def test_general(self):
         '''
-            test_general - Test basic listy operations of a TokenList
+            test_general - Test basic listy operations of a DOMTokenList
         '''
         
-        tl = TokenList( [ 'hello', 'world'] )
+        tl = DOMTokenList( [ 'hello', 'world'] )
 
         assert len(tl) == 2 , 'Expected len to work.'
 
         assert tl[0] == 'hello' , 'Expected indexing to work'
         assert tl[1] == 'world' , 'Expected indexing to work'
 
-        assert str(tl) == 'hello world' , 'Expected str(TokenList) to do a string join, but got: ' + repr(str(tl))
+        assert str(tl) == 'hello world' , 'Expected str(DOMTokenList) to do a string join, but got: ' + repr(str(tl))
 
 
     def test_createFromString(self):
         '''
-            test_createFromString - Test that we can create a TokenList from a string
+            test_createFromString - Test that we can create a DOMTokenList from a string
         '''
         
         myStr = 'hello world'
 
-        tl = TokenList(myStr)
+        tl = DOMTokenList(myStr)
 
         assert len(tl) == 2 , 'Expected len to work.'
 
         assert tl[0] == 'hello' , 'Expected indexing to work'
         assert tl[1] == 'world' , 'Expected indexing to work'
 
-        assert str(tl) == 'hello world' , 'Expected str(TokenList) to do a string join, but got: ' + repr(str(tl))
+        assert str(tl) == 'hello world' , 'Expected str(DOMTokenList) to do a string join, but got: ' + repr(str(tl))
 
 
     def test_createFromCrazyString(self):
@@ -53,14 +53,14 @@ class TestTokenList(object):
         
         myStr = '    hello         world '
 
-        tl = TokenList(myStr)
+        tl = DOMTokenList(myStr)
 
         assert len(tl) == 2 , 'Expected len to work.'
 
         assert tl[0] == 'hello' , 'Expected indexing to work'
         assert tl[1] == 'world' , 'Expected indexing to work'
 
-        assert str(tl) == 'hello world' , 'Expected str(TokenList) to do a string join, but got: ' + repr(str(tl))
+        assert str(tl) == 'hello world' , 'Expected str(DOMTokenList) to do a string join, but got: ' + repr(str(tl))
 
     def test_emptyFromEmptyStr(self):
         '''
@@ -69,15 +69,15 @@ class TestTokenList(object):
 
         myStr = ''
 
-        tl = TokenList(myStr)
+        tl = DOMTokenList(myStr)
 
-        assert len(tl) == 0 , 'Expected to have no elements in TokenList constructed with empty string, but got: ' + repr(tl)
+        assert len(tl) == 0 , 'Expected to have no elements in DOMTokenList constructed with empty string, but got: ' + repr(tl)
 
         myStr = '        '
 
-        tl = TokenList(myStr)
+        tl = DOMTokenList(myStr)
 
-        assert len(tl) == 0 , 'Expected to have no elements in TokenList constructed with whitespace-only string, but got: ' + repr(tl)
+        assert len(tl) == 0 , 'Expected to have no elements in DOMTokenList constructed with whitespace-only string, but got: ' + repr(tl)
 
 
 if __name__ == '__main__':

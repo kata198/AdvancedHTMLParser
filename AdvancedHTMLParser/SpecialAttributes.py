@@ -12,7 +12,7 @@ from .utils import escapeQuotes, tostr, isstr, stripWordsOnly
 from .conversions import convertToBooleanString
 from .constants import TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR
 
-__all__ = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute', 'TokenList' )
+__all__ = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute', 'DOMTokenList' )
 
 
 class SpecialAttributesDict(dict):
@@ -787,9 +787,9 @@ class StyleAttribute(object):
         return self.__class__(self._asStr())
 
 
-class TokenList(list):
+class DOMTokenList(list):
     '''
-        TokenList - Imitates a DOMTokenList, that is a list in normal form, but joins via " " on stringifying
+        DOMTokenList - Imitates a DOMTokenList, that is a list in normal form, but joins via " " on stringifying
     '''
 
     def __init__(self, *args, **kwargs):
@@ -808,6 +808,6 @@ class TokenList(list):
         return ' '.join(self)
 
     def __repr__(self):
-        return 'TokenList(%s)' %( list.__repr__(self), )
+        return 'DOMTokenList(%s)' %( list.__repr__(self), )
 
 #vim: set ts=4 sw=4 expandtab :
