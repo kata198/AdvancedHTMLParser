@@ -16,7 +16,7 @@ from .constants import ( PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, TAG_NAME
     TAG_ITEM_CHANGE_NAME_FROM_ITEM, TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR,
 )
 
-from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeNodeMap
+from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeNodeMap, DOMTokenList
 
 from .utils import escapeQuotes, tostr, stripWordsOnly
 
@@ -1352,16 +1352,16 @@ class AdvancedTag(object):
 
             @return <str> - Class attribute, or empty string if not set
         '''
-        return ' '.join(self.classList)
+        return str(self.classList)
 
     @property
     def classList(self):
         '''
             classList - get a copy of the list of the class names ( the "class" attribute ) for this element
 
-                @return list<str> - A list of the class names for this element
+                @return DOMTokenList<str> - A list of the class names for this element
         '''
-        return self._classNames[:]
+        return DOMTokenList(self._classNames[:])
 
     def getUid(self):
         '''

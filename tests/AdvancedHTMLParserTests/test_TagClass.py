@@ -328,5 +328,25 @@ class TestTagClass(object):
         assert x.classList == ["goodbye", "butter"] , "Expected tag.removeClass('   hello    cheddar ') to split and strip and remove both 'hello' and 'cheddar' classes. classList only shows: " + repr(x.classList)
 
 
+    def test_strClassList(self):
+        '''
+            test_strClassList - Assert that a classList can be str'd (equiv to tag.classList.toString()) to get a " " join
+        '''
+
+        x = AdvancedTag('div')
+
+        x.className = 'hello world welcome to the pizza haven'
+
+        classList = x.classList
+
+        assert len(classList) == 7 , 'Expected classList to contain 7 elements'
+
+        strClassName = str(classList)
+
+        assert strClassName == 'hello world welcome to the pizza haven' , 'Expected to be able to str() the .classList to get className'
+
+        assert strClassName == x.className , 'Expected str of classList to be the same as .className'
+
+
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
