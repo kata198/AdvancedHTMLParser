@@ -10,8 +10,13 @@ __all__ = ('convertToIntOrNegativeOneIfUnset', 'convertToBooleanString', 'conver
 )
 
 class _EMPTY_IS_INVALID_TYPE(object):
+    '''
+        _EMPTY_IS_INVALID_TYPE - Special type for EMPTY_IS_INVALID singleton
+    '''
     pass
 
+# EMPTY_IS_INVALID - A singleton to specify that passing an empty value should be treated
+#                       as the "invalidDefault" path
 EMPTY_IS_INVALID = _EMPTY_IS_INVALID_TYPE()
 
 
