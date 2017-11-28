@@ -34,6 +34,12 @@
 <dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.SpecialAttributes.html#SpecialAttributesDict" >SpecialAttributesDict</a>
 </font></dt></dl>
 </dd>
+<dt ><font face="helvetica, arial" ><a href="builtins.html#list" >builtins.list</a>(<a href="builtins.html#object" >builtins.object</a>)
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.SpecialAttributes.html#DOMTokenList" >DOMTokenList</a>
+</font></dt></dl>
+</dd>
 <dt ><font face="helvetica, arial" ><a href="builtins.html#object" >builtins.object</a>
 </font></dt><dd >
 <dl >
@@ -141,6 +147,119 @@ Data descriptors defined here:<br />
 <dl ><dt ><strong >__weakref__</strong></dt>
 <dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
+</td></tr></table> <p >
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="DOMTokenList" >class <strong >DOMTokenList</strong></a>(<a href="builtins.html#list" >builtins.list</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#DOMTokenList" >DOMTokenList</a>&nbsp;-&nbsp;Imitates&nbsp;a&nbsp;<a href="#DOMTokenList" >DOMTokenList</a>,&nbsp;that&nbsp;is&nbsp;a&nbsp;<a href="builtins.html#list" >list</a>&nbsp;in&nbsp;normal&nbsp;form,&nbsp;but&nbsp;joins&nbsp;via&nbsp;"&nbsp;"&nbsp;on&nbsp;stringifying<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;can&nbsp;be&nbsp;constructed&nbsp;from&nbsp;a&nbsp;string&nbsp;by&nbsp;stripping&nbsp;to&nbsp;single&nbsp;words&nbsp;and&nbsp;splitting&nbsp;by&nbsp;"&nbsp;",&nbsp;ignoring&nbsp;empty&nbsp;string&nbsp;case<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.SpecialAttributes.html#DOMTokenList" >DOMTokenList</a></dd>
+<dd ><a href="builtins.html#list" >builtins.list</a></dd>
+<dd ><a href="builtins.html#object" >builtins.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="DOMTokenList-__init__" ><strong >__init__</strong></a>(self, *args, **kwargs)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;a&nbsp;DOMTaskList.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Can&nbsp;take&nbsp;no&nbsp;arguments&nbsp;to&nbsp;create&nbsp;empty&nbsp;<a href="builtins.html#list" >list</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Can&nbsp;take&nbsp;a&nbsp;<a href="builtins.html#list" >list</a>&nbsp;argument&nbsp;to&nbsp;use&nbsp;those&nbsp;elements&nbsp;in&nbsp;this&nbsp;<a href="builtins.html#list" >list</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Can&nbsp;take&nbsp;a&nbsp;string&nbsp;argument,&nbsp;and&nbsp;will&nbsp;strip&nbsp;whitespace&nbsp;and&nbsp;retain&nbsp;each&nbsp;distinct&nbsp;word&nbsp;as&nbsp;an&nbsp;element</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__repr__" ><strong >__repr__</strong></a>(self)</dt><dd ><tt >Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__str__" ><strong >__str__</strong></a>(self)</dt><dd ><tt >__str__&nbsp;-&nbsp;String&nbsp;this&nbsp;element.&nbsp;Equivilant&nbsp;to&nbsp;a&nbsp;javascript&nbsp;<a href="#DOMTokenList" >DOMTokenList</a>.toString(),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;will&nbsp;join&nbsp;by&nbsp;'&nbsp;'</tt></dd></dl>
+
+<hr />
+Data descriptors defined here:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr />
+Methods inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
+<dl ><dt ><a name="DOMTokenList-__add__" ><strong >__add__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self+value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__contains__" ><strong >__contains__</strong></a>(self, key, /)</dt><dd ><tt >Return&nbsp;key&nbsp;in&nbsp;self.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__delitem__" ><strong >__delitem__</strong></a>(self, key, /)</dt><dd ><tt >Delete&nbsp;self[key].</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__eq__" ><strong >__eq__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self==value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__ge__" ><strong >__ge__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&gt;=value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__getattribute__" ><strong >__getattribute__</strong></a>(self, name, /)</dt><dd ><tt >Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__getitem__" ><strong >__getitem__</strong></a>(...)</dt><dd ><tt >x.<a href="#DOMTokenList-__getitem__" >__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__gt__" ><strong >__gt__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&gt;value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__iadd__" ><strong >__iadd__</strong></a>(self, value, /)</dt><dd ><tt >Implement&nbsp;self+=value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__imul__" ><strong >__imul__</strong></a>(self, value, /)</dt><dd ><tt >Implement&nbsp;self*=value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__iter__" ><strong >__iter__</strong></a>(self, /)</dt><dd ><tt >Implement&nbsp;iter(self).</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__le__" ><strong >__le__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&lt;=value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__len__" ><strong >__len__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;len(self).</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__lt__" ><strong >__lt__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&lt;value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__mul__" ><strong >__mul__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self*value.n</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__ne__" ><strong >__ne__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self!=value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object" >object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__reversed__" ><strong >__reversed__</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-__reversed__" >__reversed__</a>()&nbsp;--&nbsp;return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;<a href="builtins.html#list" >list</a></tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__rmul__" ><strong >__rmul__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self*value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__setitem__" ><strong >__setitem__</strong></a>(self, key, value, /)</dt><dd ><tt >Set&nbsp;self[key]&nbsp;to&nbsp;value.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-__sizeof__" ><strong >__sizeof__</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-__sizeof__" >__sizeof__</a>()&nbsp;--&nbsp;size&nbsp;of&nbsp;L&nbsp;in&nbsp;memory,&nbsp;in&nbsp;bytes</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-append" ><strong >append</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-append" >append</a>(<a href="builtins.html#object" >object</a>)&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;append&nbsp;<a href="builtins.html#object" >object</a>&nbsp;to&nbsp;end</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-clear" ><strong >clear</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-clear" >clear</a>()&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;remove&nbsp;all&nbsp;items&nbsp;from&nbsp;L</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-copy" ><strong >copy</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-copy" >copy</a>()&nbsp;-&gt;&nbsp;<a href="builtins.html#list" >list</a>&nbsp;--&nbsp;a&nbsp;shallow&nbsp;copy&nbsp;of&nbsp;L</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-count" ><strong >count</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-count" >count</a>(value)&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;number&nbsp;of&nbsp;occurrences&nbsp;of&nbsp;value</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-extend" ><strong >extend</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-extend" >extend</a>(iterable)&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;extend&nbsp;<a href="builtins.html#list" >list</a>&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-index" ><strong >index</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-index" >index</a>(value,&nbsp;[start,&nbsp;[stop]])&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;first&nbsp;index&nbsp;of&nbsp;value.<br />
+Raises&nbsp;ValueError&nbsp;if&nbsp;the&nbsp;value&nbsp;is&nbsp;not&nbsp;present.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-insert" ><strong >insert</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-insert" >insert</a>(index,&nbsp;<a href="builtins.html#object" >object</a>)&nbsp;--&nbsp;insert&nbsp;<a href="builtins.html#object" >object</a>&nbsp;before&nbsp;index</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-pop" ><strong >pop</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-pop" >pop</a>([index])&nbsp;-&gt;&nbsp;item&nbsp;--&nbsp;remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last).<br />
+Raises&nbsp;IndexError&nbsp;if&nbsp;<a href="builtins.html#list" >list</a>&nbsp;is&nbsp;empty&nbsp;or&nbsp;index&nbsp;is&nbsp;out&nbsp;of&nbsp;range.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-remove" ><strong >remove</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-remove" >remove</a>(value)&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;remove&nbsp;first&nbsp;occurrence&nbsp;of&nbsp;value.<br />
+Raises&nbsp;ValueError&nbsp;if&nbsp;the&nbsp;value&nbsp;is&nbsp;not&nbsp;present.</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-reverse" ><strong >reverse</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-reverse" >reverse</a>()&nbsp;--&nbsp;reverse&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
+
+<dl ><dt ><a name="DOMTokenList-sort" ><strong >sort</strong></a>(...)</dt><dd ><tt >L.<a href="#DOMTokenList-sort" >sort</a>(key=None,&nbsp;reverse=False)&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
+
+<hr />
+Data and other attributes inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
+<dl ><dt ><strong >__hash__</strong> = None</dt></dl>
+
 </td></tr></table> <p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
 <tr bgcolor="#ffc8d8" >
@@ -369,12 +488,12 @@ Data and other attributes defined here:<br />
 
 <dl ><dt ><strong >__hash__</strong> = None</dt></dl>
 
-</td></tr></table></p></p></p></p></td></tr></table><p >
+</td></tr></table></p></p></p></p></p></td></tr></table><p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
 <tr bgcolor="#55aa55" >
 <td colspan="3" valign="bottom" >&nbsp;<br />
 <font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
-<td width="100%" ><strong >__all__</strong> = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute')</td></tr></table>
+<td width="100%" ><strong >__all__</strong> = ('SpecialAttributesDict', 'AttributeNode', 'AttributeNodeMap', 'StyleAttribute', 'DOMTokenList')</td></tr></table>
 </p></p></p></body></html>

@@ -34,6 +34,7 @@
 @param&nbsp;value&nbsp;&lt;str&gt;<br />
 &nbsp;<br />
 @return&nbsp;&lt;str&gt;&nbsp;-&nbsp;Escaped&nbsp;value</tt></dd></dl>
+ <dl ><dt ><a name="-isstr" ><strong >isstr</strong></a>(value)</dt></dl>
  <dl ><dt ><a name="-stripIEConditionals" ><strong >stripIEConditionals</strong></a>(contents, addHtmlIfMissing=True)</dt><dd ><tt >stripIEConditionals&nbsp;-&nbsp;Strips&nbsp;Internet&nbsp;Explorer&nbsp;conditional&nbsp;statements.<br />
 &nbsp;<br />
 @param&nbsp;contents&nbsp;&lt;str&gt;&nbsp;-&nbsp;Contents&nbsp;String<br />
@@ -56,5 +57,5 @@
 <strong >END_HTML</strong> = re.compile('.*&lt;/[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br />
 <strong >IE_CONDITIONAL_PATTERN</strong> = re.compile('[&lt;][!][-][-][ \t\r\n]*[\\[][ \t\r\n]*if.*--&gt;', re.MULTILINE)<br />
 <strong >START_HTML</strong> = re.compile('.*&lt;[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br />
-<strong >__all__</strong> = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr', 'stripWordsOnly')</td></tr></table>
+<strong >__all__</strong> = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr', 'isstr', 'stripWordsOnly')</td></tr></table>
 </p></p></p></body></html>
