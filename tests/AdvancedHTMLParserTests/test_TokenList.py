@@ -15,8 +15,45 @@ class TestTokenList(object):
     '''
 
     def test_general(self):
+        '''
+            test_general - Test basic listy operations of a TokenList
+        '''
         
         tl = TokenList( [ 'hello', 'world'] )
+
+        assert len(tl) == 2 , 'Expected len to work.'
+
+        assert tl[0] == 'hello' , 'Expected indexing to work'
+        assert tl[1] == 'world' , 'Expected indexing to work'
+
+        assert str(tl) == 'hello world' , 'Expected str(TokenList) to do a string join, but got: ' + repr(str(tl))
+
+
+    def test_createFromString(self):
+        '''
+            test_createFromString - Test that we can create a TokenList from a string
+        '''
+        
+        myStr = 'hello world'
+
+        tl = TokenList(myStr)
+
+        assert len(tl) == 2 , 'Expected len to work.'
+
+        assert tl[0] == 'hello' , 'Expected indexing to work'
+        assert tl[1] == 'world' , 'Expected indexing to work'
+
+        assert str(tl) == 'hello world' , 'Expected str(TokenList) to do a string join, but got: ' + repr(str(tl))
+
+
+    def test_createFromCrazyString(self):
+        '''
+            test_createFromCrazyString - Test that we properly strip before splitting a TokenString from string
+        '''
+        
+        myStr = '    hello         world '
+
+        tl = TokenList(myStr)
 
         assert len(tl) == 2 , 'Expected len to work.'
 

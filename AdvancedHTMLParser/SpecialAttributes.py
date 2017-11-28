@@ -8,7 +8,7 @@ import weakref
 
 from collections import OrderedDict
 
-from .utils import escapeQuotes, tostr
+from .utils import escapeQuotes, tostr, isstr, stripWordsOnly
 from .conversions import convertToBooleanString
 from .constants import TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR
 
@@ -791,6 +791,12 @@ class TokenList(list):
     '''
         TokenList - Imitates a DOMTokenList, that is a list in normal form, but joins via " " on stringifying
     '''
+
+    def __init__(self, *args, **kwargs):
+        if len(args) == 1 and isstr(args[0]):
+            return list.__init__(self, stripWordsOnly(args[0]).split(' '))
+
+        return list.__init__(self, *args, **kwargs)
 
 
     def __str__(self):
