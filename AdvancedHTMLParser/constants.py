@@ -243,6 +243,26 @@ POSSIBLE_VALUES_YES_NO = ('yes', 'no')
 
 POSSIBLE_VALUES_FORM_METHOD = ('get', 'post')
 
+def _special_value_rows(em):
+    '''
+        _special_value_rows - Handle "rows" special attribute, which differs if tagName is a textarea or frameset
+    '''
+    if em.tagName == 'textarea':
+        return convertToIntRange(em.getAttribute('rows', 2), minValue=1, maxValue=None, invalidDefault=2)
+    else:
+        # frameset
+        return em.getAttribute('rows', '')
+
+def _special_value_cols(em):
+    '''
+        _special_value_cols - Handle "cols" special attribute, which differs if tagName is a textarea or frameset
+    '''
+    if em.tagName == 'textarea':
+        return convertToIntRange(em.getAttribute('cols', 20), minValue=1, maxValue=None, invalidDefault=20)
+    else:
+        # frameset
+        return em.getAttribute('cols', '')
+
 # TODO: Send firefox some bug reports based on below info
 
 # These attributes can have a special value
@@ -267,5 +287,7 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'autocomplete' : lambda em : convertPossibleValues(em.getAttribute('autocomplete', ''), POSSIBLE_VALUES_ON_OFF, invalidDefault="on", emptyValue=''),
     'method' : lambda em : convertPossibleValues(em.getAttribute('method', 'get'), POSSIBLE_VALUES_FORM_METHOD, invalidDefault="get", emptyValue=''),
     'form'   : lambda em : em.getParentElementCustomFilter( lambda em : em.tagName == 'form' ),
+    'cols'   : _special_value_cols,
+    'rows'   : _special_value_rows,
 }
 

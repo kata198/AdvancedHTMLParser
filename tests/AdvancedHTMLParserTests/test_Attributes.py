@@ -770,5 +770,86 @@ class TestAttributes(object):
         assert colEm.span == 1000 , 'Expected col.span to be clamped to a maximum of 1000. Got: ' + repr(ColEm.span)
 
 
+    def test_colsAttribute(self):
+        '''
+            test_colsAttribute - Tests the "cols" attribute
+
+                NOTE: This differs in behaviour between a textarea and a frameset
+        '''
+
+        textareaEm = AdvancedTag('textarea')
+
+        assert textareaEm.cols == 20 , 'Expected default "cols" for textarea to be 20, but got: ' + repr(textareaEm.cols)
+
+        textareaEm.cols = 100
+
+        assert textareaEm.cols == 100 , 'Expected to be able to set "cols" to 100 and that value stick, but got: ' + repr(textareaEm.cols)
+
+        textareaEmHTML = str(textareaEm)
+
+        assert 'cols="100"' in textareaEmHTML , 'Expected to find "cols" attribute set to "100" in HTML, but got: ' + repr(textareaEmHTML)
+
+        textareaEm.cols = 0
+
+        assert textareaEm.cols == 20 , 'Expected an invalid value in "cols" attribute on textarea to return 20, but got: ' + repr(textareaEm.cols)
+
+
+        framesetEm = AdvancedTag('frameset')
+
+        assert framesetEm.cols == '' , 'Expected "cols" attribute on frameset to default to empty string, but got: ' + repr(framesetEm.cols)
+
+        framesetEm.cols = "5"
+
+        assert framesetEm.cols == "5" , 'Expected to be able to set "cols" attribute to "5" and it apply, but got: ' + repr(framesetEm.cols)
+
+        framesetEmHTML = str(framesetEm)
+
+        assert 'cols="5"' in framesetEmHTML , 'Expected "cols" attribute to be set to "5" in HTML representation, but got: ' + repr(framesetEmHTML)
+
+        framesetEm.cols = "bologna"
+
+        assert framesetEm.cols == "bologna" , 'Expected to be able to set "cols" to any string, set to "bologna" but got back: ' + repr(framesetEm.cols)
+
+
+    def test_rowsAttribute(self):
+        '''
+            test_rowsAttribute - Tests the "rows" attribute
+
+                NOTE: This differs in behaviour between a textarea and a frameset
+        '''
+
+        textareaEm = AdvancedTag('textarea')
+
+        assert textareaEm.rows == 2 , 'Expected default "rows" for textarea to be 2, but got: ' + repr(textareaEm.rows)
+
+        textareaEm.rows = 100
+
+        assert textareaEm.rows == 100 , 'Expected to be able to set "rows" to 100 and that value stick, but got: ' + repr(textareaEm.rows)
+
+        textareaEmHTML = str(textareaEm)
+
+        assert 'rows="100"' in textareaEmHTML , 'Expected to find "rows" attribute set to "100" in HTML, but got: ' + repr(textareaEmHTML)
+
+        textareaEm.rows = 0
+
+        assert textareaEm.rows == 2 , 'Expected an invalid value in "rows" attribute on textarea to return "2", but got: ' + repr(textareaEm.rows)
+
+
+        framesetEm = AdvancedTag('frameset')
+
+        assert framesetEm.rows == '' , 'Expected "rows" attribute on frameset to default to empty string, but got: ' + repr(framesetEm.rows)
+
+        framesetEm.rows = "5"
+
+        assert framesetEm.rows == "5" , 'Expected to be able to set "rows" attribute to "5" and it apply, but got: ' + repr(framesetEm.rows)
+
+        framesetEmHTML = str(framesetEm)
+
+        assert 'rows="5"' in framesetEmHTML , 'Expected "rows" attribute to be set to "5" in HTML representation, but got: ' + repr(framesetEmHTML)
+
+        framesetEm.rows = "bologna"
+
+        assert framesetEm.rows == "bologna" , 'Expected to be able to set "rows" to any string, set to "bologna" but got back: ' + repr(framesetEm.rows)
+
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
