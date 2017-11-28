@@ -58,6 +58,16 @@ Combined release, was going to release 7.3.2 but has additional changes so creat
 
 - Implement AdvancedTag.getPeersCustomFilter, which takes a lambda/function that gets passed an element (each "peer" of this node) and returns True if match. Returns all matching peer nodes
 
+- Handle 'cols' and 'rows' special attributes on textarea with their defined behaviour and defaults, whilst retaining the "stringy" implementation on those same attribute names if found on a 'fieldset' tag.
+
+- Add a DOMTokenList implementation. This behaves like a list, but can be constructed from a string (by stripping whitespace so that just distinct words remain, and using those as the elements). Also, str() a DOMTokenList ( .toString() in javascript terminology ) will join by " ".
+
+- Change AdvancedTag.classList to return a DOMTokenList instead of a regular list. Stringing it will give the className now, same as in javascript.
+
+- Add "sandbox" attribute of an iframe, as a DOMTokenList special attribute
+
+
+
 
 * 7.3.1 - Nov 21 2017
 
