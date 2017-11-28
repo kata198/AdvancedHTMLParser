@@ -5,7 +5,7 @@ import sys
 import re
 
 __all__ = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 
-    'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr',
+    'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr', 'isstr',
     'stripWordsOnly', 
 )
 
@@ -83,7 +83,12 @@ if sys.version_info.major < 3:
         if not isinstance(value, (str, unicode)):
             value = unicode(value)
         return value
+
+    def isstr(value):
+        return isinstance(value, (str, unicode))
 else:
     def tostr(value):
         return str(value)
  
+    def isstr(value):
+        return isinstance(value, str)
