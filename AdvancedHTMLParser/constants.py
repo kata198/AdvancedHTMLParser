@@ -273,6 +273,18 @@ def _special_value_autocomplete(em):
     # else: input
     return convertPossibleValues(em.getAttribute('autocomplete', ''), POSSIBLE_VALUES_ON_OFF, invalidDefault="", emptyValue='')
 
+def _special_size(em):
+    '''
+        handle "size" property, which has different behaviour for input vs everything else
+    '''
+    if em.tagName == 'input':
+        # TODO: "size" on an input is implemented very weirdly. Negative values are treated as invalid,
+        #          A value of "0" raises an exception (and does not set HTML attribute)
+        #          No upper limit.
+        return convertToPositiveInt(em.getAttribute('size', 20), invalidDefault=20)
+    return em.getAttribute('size', '')
+
+
 def _DOMTokenList_type(*args):
     '''
         _DOMTokenList_type - A method which imports and returns SpecialAttributes.DOMTokenList
@@ -305,7 +317,7 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     # maxLength needs to throw exception on invalid
     'maxLength'     : lambda em : convertToPositiveInt(em.getAttribute('maxlength', -1), invalidDefault=-1),
     # size throws exception on invalid value, and a minimum of 1
-    'size'     : lambda em : convertToPositiveInt(em.getAttribute('size', 20), invalidDefault=20),
+    'size'     : _special_size,
     # crossOrigin is "use-credentials" or "anonymous" (all invalid values go to anonymous) default null
     'crossOrigin' : lambda em : convertPossibleValues(em.getAttribute('crossorigin', None), POSSIBLE_VALUES_CROSS_ORIGIN, invalidDefault="anonymous", emptyValue=None),
     # autocomplete has different behaviour for "input" vs "form"
