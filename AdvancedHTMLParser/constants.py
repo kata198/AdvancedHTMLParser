@@ -263,6 +263,22 @@ def _special_value_cols(em):
         # frameset
         return em.getAttribute('cols', '')
 
+def _DOMTokenList_type(*args):
+    '''
+        _DOMTokenList_type - A method which imports and returns SpecialAttributes.DOMTokenList
+            
+            for late-binding reasons
+
+            If arguments are passed, will construct a DOMTokenList object, otherwise will return the type itself
+    '''
+    from .SpecialAttributes import DOMTokenList
+
+    if args:
+        return DOMTokenList(*args)
+
+    return DOMTokenList
+
+
 # TODO: Send firefox some bug reports based on below info
 
 # These attributes can have a special value
@@ -289,5 +305,7 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'form'   : lambda em : em.getParentElementCustomFilter( lambda em : em.tagName == 'form' ),
     'cols'   : _special_value_cols,
     'rows'   : _special_value_rows,
+    'sandbox' : lambda em : _DOMTokenList_type( em.getAttribute('sandbox', '') ),
+
 }
 

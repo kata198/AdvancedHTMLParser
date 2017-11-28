@@ -851,5 +851,47 @@ class TestAttributes(object):
 
         assert framesetEm.rows == "bologna" , 'Expected to be able to set "rows" to any string, set to "bologna" but got back: ' + repr(framesetEm.rows)
 
+
+    def test_iframeSandbox(self):
+        '''
+            Test iframe's "sandbox" attribute
+        '''
+        from AdvancedHTMLParser.SpecialAttributes import DOMTokenList
+
+        iframeEm = AdvancedTag('iframe')
+
+        assert isinstance(iframeEm.sandbox, DOMTokenList) , 'Expected iframe.sandbox to be a "DOMTokenList", but got: ' + str(iframeEm.sandbox.__class__.__name__)
+
+        iframeEm.sandbox = ''
+
+        sandbox = iframeEm.sandbox
+
+        assert isinstance(sandbox, DOMTokenList) , 'Expected after setting iframe.sandbox = "" to retain a DOMTokenList on access, but got: ' +  str(iframeEm.sandbox.__class__.__name__)
+
+        assert len(sandbox) == 0 , 'Expected to have no elements after setting to empty string, but got: ' + repr(sandbox)
+
+        iframeEm.sandbox = 'one two three'
+
+        sandbox = iframeEm.sandbox
+        assert isinstance(sandbox, DOMTokenList) , 'Expected after setting iframe.sandbox = "one two three" to retain a DOMTokenList on access, but got: ' +  str(iframeEm.sandbox.__class__.__name__)
+
+        assert len(sandbox) == 3 , 'Expected to have 3 elements in sandbox. Got: ' + repr(sandbox)
+
+        assert sandbox[0] == 'one', 'Expected first element to be "one". Got: ' + repr(sandbox[0])
+        assert sandbox[1] == 'two', 'Expected second element to be "two". Got: ' + repr(sandbox[1])
+        assert sandbox[2] == 'three', 'Expected third element to be "third". Got: ' + repr(sandbox[2])
+
+        assert str(sandbox) == 'one two three', 'Expected str of sandbox attr to be "one two three". Got: ' + repr(str(sandbox))
+
+        iframeEmHTML = str(iframeEm)
+
+        assert 'sandbox="one two three"' in iframeEmHTML , 'Expected sandbox="one two three" to be in HTML, but got: ' + iframeEmHTML
+
+        sandbox.append('Hello')
+
+        assert len(iframeEm.sandbox) == 3 , 'Expected appending to the DOMTokenList returned to have no effect.'
+
+
+
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
