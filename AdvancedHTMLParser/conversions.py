@@ -6,8 +6,14 @@
 '''
 
 __all__ = ('convertToIntOrNegativeOneIfUnset', 'convertToBooleanString', 'convertBooleanStringToBoolean', 
-            'convertPossibleValues', 'convertToIntRange', 'convertToIntRangeCapped',
+            'convertPossibleValues', 'convertToIntRange', 'convertToIntRangeCapped', 'EMPTY_IS_INVALID',
 )
+
+class _EMPTY_IS_INVALID_TYPE(object):
+    pass
+
+EMPTY_IS_INVALID = _EMPTY_IS_INVALID_TYPE()
+
 
 def convertToIntOrNegativeOneIfUnset(val=None):
     '''
@@ -143,6 +149,8 @@ def convertPossibleValues(val, possibleValues, invalidDefault, emptyValue=''):
 
     # If null, retain null
     if val is None:
+        if emptyValue is EMPTY_IS_INVALID:
+            return _handleInvalid(invalidDefault)
         return emptyValue
 
     # Convert to a string
@@ -150,6 +158,8 @@ def convertPossibleValues(val, possibleValues, invalidDefault, emptyValue=''):
 
     # If empty string, same as null
     if val == '':
+        if emptyValue is EMPTY_IS_INVALID:
+            return _handleInvalid(invalidDefault)
         return emptyValue
 
     # Check if this is a valid value
@@ -186,6 +196,8 @@ def convertToIntRange(val, minValue, maxValue, invalidDefault, emptyValue=''):
 
     # If null, retain null
     if val is None or val == '':
+        if emptyValue is EMPTY_IS_INVALID:
+            return _handleInvalid(invalidDefault)
         return emptyValue
 
     try:
@@ -227,6 +239,8 @@ def convertToIntRangeCapped(val, minValue, maxValue, invalidDefault, emptyValue=
 
     # If null, retain null
     if val is None or val == '':
+        if emptyValue is EMPTY_IS_INVALID:
+            return _handleInvalid(invalidDefault)
         return emptyValue
 
     try:
