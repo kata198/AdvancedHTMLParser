@@ -2,7 +2,7 @@
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #  Exceptions used
 
-__all__ = ('MultipleRootNodeException', 'HTMLValidationException', 'InvalidCloseException', 'MissedCloseException')
+__all__ = ('MultipleRootNodeException', 'HTMLValidationException', 'InvalidCloseException', 'MissedCloseException', 'IndexSizeErrorException')
 
 class MultipleRootNodeException(Exception):
     '''
@@ -59,5 +59,13 @@ class MissedCloseException(HTMLValidationException):
 
         Exception.__init__(self, message)
 
+
+class IndexSizeErrorException(ValueError):
+    
+    def __init__(self, *args, **kwargs):
+        if len(args) == 0 and len(kwargs) == 0:
+            ValueError.__init__(self, "Index or size is negative or greater than the allowed amount")
+        else:
+            ValueError.__init__(self, *args, **kwargs)
 
 #vim: set ts=4 sw=4 expandtab

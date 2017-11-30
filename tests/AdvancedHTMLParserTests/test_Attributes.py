@@ -980,6 +980,57 @@ class TestAttributes(object):
 
 
 
+    def test_maxLength(self):
+        '''
+            test_maxLength - Test the "maxLength" attribute
+        '''
+
+        inputEm = AdvancedTag('input')
+
+        assert inputEm.maxlength is None , 'Expected .maxlength to not be valid (should be .maxLength)'
+
+        assert inputEm.maxLength == -1 , 'Expected default .maxLength to be -1'
+
+        inputEm.maxLength = 5
+
+        assert inputEm.maxLength == 5 , 'Expected to be able to set maxLength to 5 and get 5 back, but got: ' + repr(inputEm.maxLength)
+
+        inputEmHTML = str(inputEm)
+
+        assert 'maxlength="5"' in inputEmHTML , 'Expected .maxLength to set the "maxlength" attribute. Got: ' + inputEmHTML
+
+        maxLengthAttr = inputEm.getAttribute('maxlength', None)
+        assert maxLengthAttr == "5" , 'Expected .getAttribute("maxlength") to return "5", but got: ' + repr(maxLengthAttr)
+
+        inputEm.maxLength = 0
+
+        assert inputEm.maxLength == 0 , 'Expected to be able to set maxLength to 0'
+
+        gotException = False
+        try:
+            inputEm.maxLength = -4
+        except Exception as e:
+            gotException = e
+
+        assert gotException is not False , 'Expected to get an exception when setting maxLength < 0. Did not.'
+
+        try:
+            inputEm.setAttribute('maxlength', '-5')
+        except Exception as e:
+            raise AssertionError('Expected to be able to use .setAttribute to set "maxlength" to an invalid value, but got exception: %s: %s' %( e.__class__.__name__, str(e)) )
+
+        inputEmHTML = str(inputEm)
+
+        assert 'maxlength="-5"' in inputEmHTML , 'Expected .setAttribute to really set an invalid value on the HTML. Should be maxlength="-5", but got: ' + inputEmHTML
+
+        maxLengthValue = None
+        try:
+            maxLengthValue = inputEm.maxLength
+        except Exception as e:
+            raise AssertionError('Expected to be able to query .maxLength after .setAttribute to an invalid value, but got an exception: %s: %s' %( e.__class__.__name__, str(e)) )
+
+        assert maxLengthValue == -1 , 'Expected invalid attribute value to return "-1" on .maxLength access, but got: ' + repr(maxLengthValue)
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())

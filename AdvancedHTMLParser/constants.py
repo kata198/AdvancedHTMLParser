@@ -6,6 +6,8 @@ from .conversions import ( convertToIntOrNegativeOneIfUnset, convertToPositiveIn
     convertPossibleValues, convertToIntRange, convertToIntRangeCapped, EMPTY_IS_INVALID
 )
 
+from .exceptions import IndexSizeErrorException
+
 # These tags are always self-closing, whether given that way or not.
 IMPLICIT_SELF_CLOSING_TAGS = set(['meta', 'link', 'input', 'img', 'hr', 'br'])
 
@@ -273,7 +275,7 @@ def _special_value_autocomplete(em):
     # else: input
     return convertPossibleValues(em.getAttribute('autocomplete', ''), POSSIBLE_VALUES_ON_OFF, invalidDefault="", emptyValue='')
 
-def _special_size(em):
+def _special_value_size(em):
     '''
         handle "size" property, which has different behaviour for input vs everything else
     '''
@@ -283,6 +285,48 @@ def _special_size(em):
         #          No upper limit.
         return convertToPositiveInt(em.getAttribute('size', 20), invalidDefault=20)
     return em.getAttribute('size', '')
+
+
+class NOT_PROVIDED_TYPE(object):
+    '''
+        NOT_PROVIDED_TYPE - A type for a singleton which is meant to mean "Argumnent not provided"
+
+            (since None, empty string, etc are legitimate possible values
+    '''
+    pass
+ 
+# NOT_PROVIDED - Singleton of NOT_PROVIDED_TYPE, used to indicate that an argument is not provided
+NOT_PROVIDED = NOT_PROVIDED_TYPE()
+
+def _special_value_maxLength(em, newValue=NOT_PROVIDED):
+    '''
+        _special_value_maxLength - Handle the special "maxLength" property
+
+            @param em <AdvancedTag> - The tag element
+
+            @param newValue - Default NOT_PROVIDED, if provided will use that value instead of the
+
+                current .getAttribute value on the tag. This is because this method can be used for both validation
+                 
+                and getting/setting
+    '''
+    
+    if newValue is NOT_PROVIDED:
+        if not em.hasAttribute('maxlength'):
+            return -1
+
+        curValue = em.getAttribute('maxlength', '-1')
+
+        # If we are accessing, the invalid default should be negative
+        invalidDefault = -1
+    else:
+        curValue = newValue
+
+        # If we are setting, we should raise an exception upon invalid value
+        invalidDefault = IndexSizeErrorException
+
+    return convertToIntRange(curValue, minValue=0, maxValue=None, emptyValue='0', invalidDefault=invalidDefault)
+
 
 
 def _DOMTokenList_type(*args):
@@ -301,6 +345,9 @@ def _DOMTokenList_type(*args):
     return DOMTokenList
 
 
+
+IndexSizeError = IndexSizeErrorException()
+
 # TODO: Send firefox some bug reports based on below info
 
 # These attributes can have a special value
@@ -315,9 +362,9 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'hspace'     : lambda em : convertToPositiveInt(em.getAttribute('hspace', 0), invalidDefault=0),
     'vspace'     : lambda em : convertToPositiveInt(em.getAttribute('vspace', 0), invalidDefault=0),
     # maxLength needs to throw exception on invalid
-    'maxLength'     : lambda em : convertToPositiveInt(em.getAttribute('maxlength', -1), invalidDefault=-1),
+    'maxLength'     : _special_value_maxLength,
     # size throws exception on invalid value, and a minimum of 1
-    'size'     : _special_size,
+    'size'     : _special_value_size,
     # crossOrigin is "use-credentials" or "anonymous" (all invalid values go to anonymous) default null
     'crossOrigin' : lambda em : convertPossibleValues(em.getAttribute('crossorigin', None), POSSIBLE_VALUES_CROSS_ORIGIN, invalidDefault="anonymous", emptyValue=None),
     # autocomplete has different behaviour for "input" vs "form"
@@ -332,4 +379,9 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'kind' : lambda em : convertPossibleValues(em.getAttribute('kind', "subtitles"), POSSIBLE_VALUES_TRACK__KIND, invalidDefault="metadata", emptyValue=EMPTY_IS_INVALID)
 
 }
+
+TAG_ITEM_ATTRIBUTES_SPECIAL_VALIDATION = {
+    'maxLength' : _special_value_maxLength,
+}
+
 

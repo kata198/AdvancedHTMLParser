@@ -13,7 +13,7 @@ from .conversions import convertBooleanStringToBoolean
 from .constants import ( PREFORMATTED_TAGS, IMPLICIT_SELF_CLOSING_TAGS, TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES,
     COMMON_JAVASCRIPT_ATTRIBUTES, ALL_JAVASCRIPT_EVENT_ATTRIBUTES, TAG_ITEM_BINARY_ATTRIBUTES,
     TAG_ITEM_ATTRIBUTE_LINKS, TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES, TAG_ITEM_CHANGE_NAME_FROM_ATTR,
-    TAG_ITEM_CHANGE_NAME_FROM_ITEM, TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR,
+    TAG_ITEM_CHANGE_NAME_FROM_ITEM, TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR, TAG_ITEM_ATTRIBUTES_SPECIAL_VALIDATION,
 )
 
 from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeNodeMap, DOMTokenList
@@ -186,6 +186,10 @@ class AdvancedTag(object):
         if name in TAG_ITEM_ATTRIBUTE_LINKS \
                or \
              name in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.get(self.tagName, []):
+
+            # Check if we have special validation on this attribute, and run it (will raise exception if invalid)
+            if name in TAG_ITEM_ATTRIBUTES_SPECIAL_VALIDATION:
+                TAG_ITEM_ATTRIBUTES_SPECIAL_VALIDATION[name](self, value)
 
             # Check if we need to adjust the name fpr setting this html attribute - 
             #   these javascript names differ from the html attribute name, e.x.  "className" -> "class"
