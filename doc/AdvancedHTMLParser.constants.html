@@ -12,6 +12,39 @@
 #&nbsp;&nbsp;&nbsp;Constants&nbsp;in&nbsp;AdvancedHTMLParser</tt></p>
 <p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
+<tr bgcolor="#ee77aa" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" ><big ><strong >Classes</strong></big></font></td></tr>
+    
+<tr ><td bgcolor="#ee77aa" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl >
+<dt ><font face="helvetica, arial" ><a href="builtins.html#object" >builtins.object</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.constants.html#NOT_PROVIDED_TYPE" >NOT_PROVIDED_TYPE</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p >
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="NOT_PROVIDED_TYPE" >class <strong >NOT_PROVIDED_TYPE</strong></a>(<a href="builtins.html#object" >builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#NOT_PROVIDED_TYPE" >NOT_PROVIDED_TYPE</a>&nbsp;-&nbsp;A&nbsp;type&nbsp;for&nbsp;a&nbsp;singleton&nbsp;which&nbsp;is&nbsp;meant&nbsp;to&nbsp;mean&nbsp;"Argumnent&nbsp;not&nbsp;provided"<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;(since&nbsp;None,&nbsp;empty&nbsp;string,&nbsp;etc&nbsp;are&nbsp;legitimate&nbsp;possible&nbsp;values<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" >Data descriptors defined here:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></p></td></tr></table><p >
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
 <tr bgcolor="#55aa55" >
 <td colspan="3" valign="bottom" >&nbsp;<br />
 <font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
@@ -25,6 +58,8 @@
 <strong >INVISIBLE_ROOT_TAG</strong> = 'xxxblank'<br />
 <strong >INVISIBLE_ROOT_TAG_END</strong> = '&lt;/xxxblank&gt;'<br />
 <strong >INVISIBLE_ROOT_TAG_START</strong> = '&lt;xxxblank&gt;'<br />
+<strong >IndexSizeError</strong> = IndexSizeErrorException('Index or size is negative or greater than the allowed amount',)<br />
+<strong >NOT_PROVIDED</strong> = &lt;AdvancedHTMLParser.constants.NOT_PROVIDED_TYPE object&gt;<br />
 <strong >POSSIBLE_VALUES_CROSS_ORIGIN</strong> = ('use-credentials', 'anonymous')<br />
 <strong >POSSIBLE_VALUES_FORM_METHOD</strong> = ('get', 'post')<br />
 <strong >POSSIBLE_VALUES_ON_OFF</strong> = ('on', 'off')<br />
@@ -32,7 +67,8 @@
 <strong >POSSIBLE_VALUES_YES_NO</strong> = ('yes', 'no')<br />
 <strong >PREFORMATTED_TAGS</strong> = {'code', 'pre'}<br />
 <strong >PRESERVE_CONTENTS_TAGS</strong> = {'code', 'pre', 'script', 'style'}<br />
-<strong >TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES</strong> = {'autocomplete': &lt;function _special_value_autocomplete&gt;, 'colSpan': &lt;function &lt;lambda&gt;&gt;, 'cols': &lt;function _special_value_cols&gt;, 'crossOrigin': &lt;function &lt;lambda&gt;&gt;, 'form': &lt;function &lt;lambda&gt;&gt;, 'hspace': &lt;function &lt;lambda&gt;&gt;, 'kind': &lt;function &lt;lambda&gt;&gt;, 'maxLength': &lt;function &lt;lambda&gt;&gt;, 'method': &lt;function &lt;lambda&gt;&gt;, 'rowSpan': &lt;function &lt;lambda&gt;&gt;, ...}<br />
+<strong >TAG_ITEM_ATTRIBUTES_SPECIAL_VALIDATION</strong> = {'maxLength': &lt;function _special_value_maxLength&gt;}<br />
+<strong >TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES</strong> = {'autocomplete': &lt;function _special_value_autocomplete&gt;, 'colSpan': &lt;function &lt;lambda&gt;&gt;, 'cols': &lt;function _special_value_cols&gt;, 'crossOrigin': &lt;function &lt;lambda&gt;&gt;, 'form': &lt;function &lt;lambda&gt;&gt;, 'hspace': &lt;function &lt;lambda&gt;&gt;, 'kind': &lt;function &lt;lambda&gt;&gt;, 'maxLength': &lt;function _special_value_maxLength&gt;, 'method': &lt;function &lt;lambda&gt;&gt;, 'rowSpan': &lt;function &lt;lambda&gt;&gt;, ...}<br />
 <strong >TAG_ITEM_ATTRIBUTE_LINKS</strong> = {'align', 'className', 'dir', 'hidden', 'id', 'lang', ...}<br />
 <strong >TAG_ITEM_BINARY_ATTRIBUTES</strong> = {'async', 'autofocus', 'autoplay', 'checked', 'compact', 'controls', ...}<br />
 <strong >TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR</strong> = {'spellcheck'}<br />
@@ -40,4 +76,4 @@
 <strong >TAG_ITEM_CHANGE_NAME_FROM_ITEM</strong> = {'acceptCharset': 'accept-charset', 'cellPadding': 'cellpadding', 'cellSpacing': 'cellspacing', 'className': 'class', 'codeBase': 'codebase', 'codeType': 'codetype', 'colSpan': 'colspan', 'crossOrigin': 'crossorigin', 'dateTime': 'datetime', 'dir': 'dirname', ...}<br />
 <strong >TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES</strong> = {'a': {'href', 'target'}, 'area': {'alt', 'coords', 'download', 'href', 'rel', 'shape', ...}, 'audio': {'autoplay', 'controls', 'loop', 'muted', 'preload', 'src'}, 'base': {'href', 'target'}, 'basefont': {'color', 'face', 'size'}, 'bdo': {'dir'}, 'blockquote': {'cite'}, 'body': {'alink', 'background', 'bgcolor', 'link', 'onafterprint', 'onbeforeprint', ...}, 'button': {'autofocus', 'checked', 'disabled', 'form', 'formAction', 'formEnctype', ...}, 'canvas': {'height', 'width'}, ...}<br />
 <strong >otherInputName</strong> = 'option'</td></tr></table>
-</p></body></html>
+</p></p></body></html>
