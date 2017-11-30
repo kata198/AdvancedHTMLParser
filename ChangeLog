@@ -40,7 +40,7 @@ NOTE: Was originally released as 7.4.0, but since it's such a major update, I up
 
 - Add "spellcheck" global attribute on all tags
 
-- Add all the tag-specific attribute links as defined by w3 for all HTML4 and HTML5 tags and attributes (for example, "noWrap" on td tag, myTdTag.noWrap = True will add "nowrap" to the html representation, myTdTag.colspan = 2 will add "colspan=2" to the html representation)
+- **Major** - Add all the tag-specific attribute links as defined by w3 for all HTML4 and HTML5 tags and attributes (for example, "noWrap" on td tag, myTdTag.noWrap = True will add "nowrap" to the html representation, myTdTag.colspan = 2 will add "colspan=2" to the html representation)
 
 - Support more special conversion of values from dot-access to html attribute syntax
 
@@ -73,6 +73,9 @@ NOTE: Was originally released as 7.4.0, but since it's such a major update, I up
 - Add "sandbox" attribute of an iframe, as a DOMTokenList special attribute
 
 - Add special conversions for "kind" attribute to a "track"
+
+- Lots of additional tests and other improvements
+
 
 
 * 7.3.1 - Nov 21 2017
