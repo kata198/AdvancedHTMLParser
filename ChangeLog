@@ -1,3 +1,10 @@
+* 8.0.1 - Nov 30 2017
+
+- Support an extra validation step on __setattribute__ on an AdvancedTag (like myTag.maxLength = something). Use this for the .maxLength attribute, in order to raise an exception when there is an invalid value. Tests included.
+
+- Fix the error where we would throw an exception when trying to access AdvancedTag.maxLength after AdvancedTag.setAttribute is used to set it to an invalid value (setAttribute does NOT perform validation, and allows any arbitrary value to be set.) Tests included.
+
+
 * 8.0.0 - Nov 30 2017
 * 7.4.0 - Nov 30 2017
 
