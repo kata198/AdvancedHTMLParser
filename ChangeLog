@@ -1,6 +1,6 @@
-* 7.4.0 - ??? ?? ????
+* 7.4.0 - Nov 30 2017
 
-Combined release, was going to release 7.3.2 but has additional changes so created 7.3.3
+- Ensure that getAttribute, setAttribute, hasAttribute, 'key' in em.attributes, etc all lowercase the key. This is how the standard operates.
 
 - Add "src", "height", and "width" as linked attributes for "img" tags (so imgEm.height = '60px' will set height='60px' on an img.) As a reminder, you can always use element.setAttribute('height', '60px') whether or not a dot-alias is setup.
 
