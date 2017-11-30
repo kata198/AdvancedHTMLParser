@@ -476,7 +476,11 @@ See: https://raw.githubusercontent.com/kata198/AdvancedHTMLParser/master/ChangeL
 Contact Me / Support
 --------------------
 
-I am available by email to provide support, answer questions, or otherwise  provide assistance in using this software. Use my email kata198 at gmail.com with "AdvancedArgumentParser" in the subject line.
+I am available by email to provide support, answer questions, or otherwise  provide assistance in using this software. Use my email kata198 at gmail.com with "AdvancedHTMLParser" in the subject line.
+
+
+If you are having an issue / found a bug / want to merge in some changes, please open a pull request.
+
 
 Unit Tests
 ----------
