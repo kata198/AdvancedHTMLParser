@@ -60,6 +60,8 @@ class SpecialAttributesDict(dict):
 
 
     def __getitem__(self, key):
+        key = key.lower()
+
         if key == 'style':
             # TODO: If detatched from a tag, this will throw an error.
             #         Need to handle detatch and reattach for this attribute
@@ -81,6 +83,8 @@ class SpecialAttributesDict(dict):
 
     def __setitem__(self, key, value):
         
+        key = key.lower()
+
         tag = self.tag
 
         if key == 'style':
@@ -105,6 +109,9 @@ class SpecialAttributesDict(dict):
 
                 @param key <str> - The attribute key to delete
         '''
+        
+        key = key.lower()
+
         if key == 'style':
             self.tag.style = ''
             return
@@ -120,6 +127,9 @@ class SpecialAttributesDict(dict):
 
     def __contains__(self, key):
         # Hack in 'class' here
+
+        key = key.lower()
+
         if key == 'class':
             return bool( len(self.tag._classNames) > 0 )
 
@@ -184,6 +194,9 @@ class SpecialAttributesDict(dict):
 
              @return - The value of attribute at #key, or #default if not present.
         '''
+
+        key = key.lower()
+
         if key == 'class':
             return self.tag.className
 

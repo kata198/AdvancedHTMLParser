@@ -120,6 +120,25 @@ class TestAttributes(object):
         assert 'padding-top' not in str(helloEm.style)
 #        parser.parseStr('<div id="hello" style="display: none; width: 500px; padding-left: 15px;" class="One Two" data="Yes">Hello</div>')
 
+    def test_attributesCase(self):
+        '''
+            test_attributesCase - Test that getAttribute and setAttribute force lowercase for keys
+        '''
+
+        em = AdvancedTag('input')
+
+        em.setAttribute('MaXlEnGtH', '5')
+
+        html = str(em)
+
+        assert 'maxlength="5"' in html , 'Expected setAttribute to lowercase the key before setting. Got: ' + html
+
+        assert em.getAttribute('MAXlength', None) == '5' , 'Expected getAttribute to lowercase the key before setting.'
+
+        assert em.hasAttribute('maXlenGTH') is True , 'Expected hasAttribute to lowercase the key'
+
+        assert 'MaxLength' in em.attributes , 'Expected "in" operator to lowercase the key'
+
     def test_getAttributesDict(self):
         parser = AdvancedHTMLParser()
 
@@ -957,6 +976,8 @@ class TestAttributes(object):
         trackEm.kind = ''
         
         assert trackEm.kind == 'metadata' , 'Expected setting kind to an empty string returns "metadata" (the invalid result), but got: ' + repr(trackEm.kind)
+
+
 
 
 
