@@ -75,7 +75,6 @@ TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
                 'src', 'srcset', 'useMap', 'vspace', 'width'},
     # TODO: input->formAction, formEnctype default to current url but we don't know it
     # TODO: input->list default is null
-    # TODO: input->maxLength throws exception when negative value instead of default
     # TODO: input->size seems to have some sort of default value in firefox (20?)
     # TODO: input->size is an integer through dot-access, also throws exception on invalid value
     # TODO: input->size has a minimum value of 1
@@ -345,7 +344,7 @@ def _DOMTokenList_type(*args):
     return DOMTokenList
 
 
-
+# IndexSizeError - Singleton for the IndexSizeErrorException type
 IndexSizeError = IndexSizeErrorException()
 
 # TODO: Send firefox some bug reports based on below info
@@ -361,7 +360,6 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
     'rowSpan'     : lambda em : convertToIntRangeCapped(em.getAttribute('rowspan', 1), minValue=0, maxValue=65534, invalidDefault=0),
     'hspace'     : lambda em : convertToPositiveInt(em.getAttribute('hspace', 0), invalidDefault=0),
     'vspace'     : lambda em : convertToPositiveInt(em.getAttribute('vspace', 0), invalidDefault=0),
-    # maxLength needs to throw exception on invalid
     'maxLength'     : _special_value_maxLength,
     # size throws exception on invalid value, and a minimum of 1
     'size'     : _special_value_size,
@@ -380,6 +378,9 @@ TAG_ITEM_ATTRIBUTES_SPECIAL_VALUES = {
 
 }
 
+
+# TAG_ITEM_ATTRIBUTES_SPECIAL_VALIDATION - These perform a validation step when setting the value via AdvancedTag.${NAME} = something
+#    Key should be the . access name, value is a function/lambda which takes the element as first argument, and the new value as the second argument.
 TAG_ITEM_ATTRIBUTES_SPECIAL_VALIDATION = {
     'maxLength' : _special_value_maxLength,
 }
