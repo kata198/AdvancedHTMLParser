@@ -1,4 +1,10 @@
+* 8.0.0 - Nov 30 2017
 * 7.4.0 - Nov 30 2017
+
+
+NOTE: Was originally released as 7.4.0, but since it's such a major update, I updated the major to the "8" series.
+
+
 
 - Ensure that getAttribute, setAttribute, hasAttribute, 'key' in em.attributes, etc all lowercase the key. This is how the standard operates.
 
