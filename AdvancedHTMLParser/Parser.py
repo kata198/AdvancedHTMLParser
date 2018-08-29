@@ -366,13 +366,13 @@ class AdvancedHTMLParser(HTMLParser):
 
         elements = []
 
-        if isFromRoot is True and className in root.classNames:
+        if isFromRoot is True and className in root.classList:
             elements.append(root)
 
         getElementsByClassName = self.getElementsByClassName
         for child in root.children:
 
-            if className in child.classNames:
+            if className in child.classList:
                 elements.append(child)
 
             elements += getElementsByClassName(className, child)
@@ -977,7 +977,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
           If you are writing/modifying, you may use this, but be sure to call reindex() after changes.
     '''
 
-    def __init__(self, filename=None, encoding='utf-8', indexIDs=True, indexNames=True, indexClassNames=True, indexTagNames=True):
+    def __init__(self, filename=None, encoding='utf-8', indexIDs=True, indexNames=True, indexClassList=True, indexTagNames=True):
         '''
             __init__ - Creates an Advanced HTML parser object, with specific indexing settings.
 
@@ -987,7 +987,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
                 @param encoding <str> - Specifies the document encoding. Default utf-8
                 @param indexIDs <bool>        - True to create an index for getElementByID method.  <default True>
                 @param indexNames <bool>      - True to create an index for getElementsByName method  <default True>
-                @param indexClassNames <bool> - True to create an index for getElementsByClassName method. <default True>
+                @param indexClassList <bool> - True to create an index for getElementsByClassName method. <default True>
                 @param indexTagNames <bool>   - True to create an index for tag names. <default True>
 
                 For indexing other attributes, see the more generic addIndexOnAttribute
@@ -998,7 +998,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         self._otherAttributeIndexes = {}
         self.indexIDs = indexIDs
         self.indexNames = indexNames
-        self.indexClassNames = indexClassNames
+        self.indexClassList = indexClassList
         self.indexTagNames = indexTagNames
 
         self._resetIndexInternal()
@@ -1018,7 +1018,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
             self.indexFunctions.append(self._indexID)
         if self.indexNames is True:
             self.indexFunctions.append(self._indexName)
-        if self.indexClassNames is True:
+        if self.indexClassList is True:
             self.indexFunctions.append(self._indexClassName)
         if self.indexTagNames is True:
             self.indexFunctions.append(self._indexTagName)
@@ -1044,8 +1044,8 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
             self._nameMap[name].append(tag)
 
     def _indexClassName(self, tag):
-        classNames = tag.classNames
-        for className in classNames:
+        classList = tag.classList
+        for className in classList:
             self._classNameMap[className].append(tag)
 
     def _indexTagName(self, tag):
@@ -1093,21 +1093,21 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
 ##########################################################
 
     # This should be called if you modify a parsed tree at an element level, then search it.
-    def reindex(self, newIndexIDs=None, newIndexNames=None, newIndexClassNames=None, newIndexTagNames=None):
+    def reindex(self, newIndexIDs=None, newIndexNames=None, newIndexClassList=None, newIndexTagNames=None):
         '''
             reindex - reindex the tree. Optionally, change what fields are indexed.
 
                 @param newIndexIDs <bool/None>        - None to leave same, otherwise new value to index IDs
                 @parma newIndexNames <bool/None>      - None to leave same, otherwise new value to index names
-                @param newIndexClassNames <bool/None> - None to leave same, otherwise new value to index class names
+                @param newIndexClassList <bool/None> - None to leave same, otherwise new value to index class names
                 @param newIndexTagNames <bool/None>   - None to leave same, otherwise new value to index tag names
         '''
         if newIndexIDs is not None:
             self.indexIDs = newIndexIDs
         if newIndexNames is not None:
             self.indexNames = newIndexNames
-        if newIndexClassNames is not None:
-            self.newIndexClassNames = newIndexClassNames
+        if newIndexClassList is not None:
+            self.newIndexClassList = newIndexClassList
         if newIndexTagNames is not None:
             self.newIndexTagNames = newIndexTagNames
 
@@ -1120,7 +1120,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
               Maybe useful in some scenarios where you want to parse, add a ton of elements, then index
               and do a bunch of searching.
         '''
-        self.indexIDs = self.indexNames = self.indexClassNames = self.indexTagNames = False
+        self.indexIDs = self.indexNames = self.indexClassList = self.indexTagNames = False
         self._resetIndexInternal()
 
     def addIndexOnAttribute(self, attributeName):
@@ -1237,7 +1237,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         '''
         (root, isFromRoot) = self._handleRootArg(root)
 
-        if useIndex is True and self.indexClassNames is True:
+        if useIndex is True and self.indexClassList is True:
 
             elements = self._classNameMap.get(className, [])
 

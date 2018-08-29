@@ -80,7 +80,7 @@ def toggleAttributesDOM(isEnabled):
 
 # ADVANCED_TAG_RAW_ATTRIBUTES - These are tags which are just raw attributes on AdvancedTag
 #   Used to optimize access
-ADVANCED_TAG_RAW_ATTRIBUTES = set( ['tagName', '_attributes', 'text', 'blocks', '_classNames', 'isSelfClosing',
+ADVANCED_TAG_RAW_ATTRIBUTES = set( ['tagName', '_attributes', 'text', 'blocks', '_classList', 'isSelfClosing',
                                     'children', 'parentNode', 'ownerDocument', 'uid', '_indent']
 )
 
@@ -126,7 +126,7 @@ class AdvancedTag(object):
         # TODO: Maybe can refactor "children" into just being the "tagBlocks" from above?
         rawSet('children', [])
 
-        rawSet('_classNames', [])
+        rawSet('_classList', [])
         rawSet('isSelfClosing', isSelfClosing)
         rawSet('parentNode', None)
         rawSet('ownerDocument', ownerDocument)
@@ -167,7 +167,7 @@ class AdvancedTag(object):
 
         # These are direct properties on the object itself, and maybe only have meaning as AdvancedHTMLParser-specific
         #   properties.
-        #  NOTE: Investigate if we should intercept "classNames" here to modify "class" and "classList"
+        #  NOTE: Investigate if we should intercept "classList" here to modify "class" and "classList"
         #         (Probably will remain as-is, as it is not a standard property but specific to AdvancedHTMLParser
         if name in ADVANCED_TAG_RAW_ATTRIBUTES:
             return object.__setattr__(self, name, value)
@@ -175,7 +175,7 @@ class AdvancedTag(object):
         # Check for special "className"
         if name == "className":
             value = stripWordsOnly( tostr(value) )
-            object.__setattr__(self, '_classNames', [x for x in value.split(' ') if x])
+            object.__setattr__(self, '_classList', [x for x in value.split(' ') if x])
             return value
 
         # Check if this is one of the special items which map directly to attributes
@@ -1365,7 +1365,7 @@ class AdvancedTag(object):
 
                 @return DOMTokenList<str> - A list of the class names for this element
         '''
-        return DOMTokenList(self._classNames[:])
+        return DOMTokenList(self._classList[:])
 
     def getUid(self):
         '''
@@ -1573,7 +1573,7 @@ class AdvancedTag(object):
 
             @return <bool> - True if provided class is present, otherwise False
         '''
-        return bool(className in self._classNames)
+        return bool(className in self._classList)
 
 
     def addClass(self, className):
@@ -1593,15 +1593,15 @@ class AdvancedTag(object):
                 self.addClass(oneClassName)
             return
 
-        myClassNames = self._classNames
+        myClassList = self._classList
 
         # Do not allow duplicates
-        if className in myClassNames:
+        if className in myClassList:
             return
 
-        # Regenerate "classNames" and "class" attr.
+        # Regenerate "classList" and "class" attr.
         #   TODO: Maybe those should be properties?
-        myClassNames.append(className)
+        myClassList.append(className)
 
         return None
 
@@ -1625,14 +1625,14 @@ class AdvancedTag(object):
                 self.removeClass(oneClassName)
             return
 
-        myClassNames = self._classNames
+        myClassList = self._classList
 
         # If not present, this is a no-op
-        if className not in myClassNames:
+        if className not in myClassList:
             return None
 
 
-        myClassNames.remove(className)
+        myClassList.remove(className)
 
         return className
 

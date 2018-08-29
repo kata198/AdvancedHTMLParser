@@ -131,7 +131,7 @@ class SpecialAttributesDict(dict):
         key = key.lower()
 
         if key == 'class':
-            return bool( len(self.tag._classNames) > 0 )
+            return bool( len(self.tag._classList) > 0 )
 
         return dict.__contains__(self, key)
 
@@ -155,7 +155,7 @@ class SpecialAttributesDict(dict):
 
                 TODO: I don't like this hack.
         '''
-        if len(self.tag._classNames) > 0:
+        if len(self.tag._classList) > 0:
             dict.__setitem__(self, "class", self.tag.className)
         else:
             try:
