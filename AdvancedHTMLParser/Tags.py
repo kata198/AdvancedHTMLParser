@@ -1593,15 +1593,15 @@ class AdvancedTag(object):
                 self.addClass(oneClassName)
             return
 
-        myclassList = self._classList
+        myClassList = self._classList
 
         # Do not allow duplicates
-        if className in myclassList:
+        if className in myClassList:
             return
 
         # Regenerate "classList" and "class" attr.
         #   TODO: Maybe those should be properties?
-        myclassList.append(className)
+        myClassList.append(className)
 
         return None
 
@@ -1625,14 +1625,14 @@ class AdvancedTag(object):
                 self.removeClass(oneClassName)
             return
 
-        myclassList = self._classList
+        myClassList = self._classList
 
         # If not present, this is a no-op
-        if className not in myclassList:
+        if className not in myClassList:
             return None
 
 
-        myclassList.remove(className)
+        myClassList.remove(className)
 
         return className
 
