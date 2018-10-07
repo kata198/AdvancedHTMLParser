@@ -1403,13 +1403,13 @@ class AdvancedTag(object):
             val = tostr(val)
 
             # Only binary attributes have a "present/not present"
-            if val or name not in TAG_ITEM_BINARY_ATTRIBUTES:
+            if val and name not in TAG_ITEM_BINARY_ATTRIBUTES:
                 # Escape any quotes found in the value
                 val = escapeQuotes(val)
 
                 # Add a name="value" to the resulting string
                 attributeStrings.append('%s="%s"' %(name, val) )
-            else:
+            elif name in TAG_ITEM_BINARY_ATTRIBUTES:
                 # This is a binary attribute, and thus only includes the name ( e.x. checked )
                 attributeStrings.append(name)
 
