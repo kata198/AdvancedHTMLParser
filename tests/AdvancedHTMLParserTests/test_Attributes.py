@@ -622,6 +622,8 @@ class TestAttributes(object):
 
         assert inputEm.autocomplete == 'on' , 'Expected autocomplete="on" to retain on. Got: ' + repr(inputEm.autocomplete)
 
+        assert inputEm.getAttribute('autocomplete') == 'on' , 'Expected getAttribute to return the value on a binary attribute when provided'
+
         assert 'autocomplete="on"' in inputHTML , 'Expected html property to be set. Got: ' + repr(inputHTML)
 
         inputEm.autocomplete = 'blah'
@@ -978,6 +980,27 @@ class TestAttributes(object):
         assert trackEm.kind == 'metadata' , 'Expected setting kind to an empty string returns "metadata" (the invalid result), but got: ' + repr(trackEm.kind)
 
 
+    def test_hiddenAttr(self):
+        '''
+            Test that the "hidden" attribute works correctly.
+        '''
+        myHTML = '''<html> <input hidden value="hello" id="abc" />'''
+
+        parser = AdvancedHTMLParser()
+
+        parser.parseStr(myHTML)
+
+        idEm = parser.getElementById('abc')
+
+        assert idEm.hidden == True
+
+        assert 'hidden' in str(idEm)
+
+        # Make sure we treat this as a real binary attribute
+        x = str(idEm)
+        assert 'hidden=' not in str(idEm)
+
+        assert idEm.getAttribute('hidden') is True
 
 
     def test_maxLength(self):
