@@ -1,3 +1,9 @@
+* 8.1.0 - ??? ?? ????
+
+- Fix an issue where .classNames became no longer an attribute.
+
+- Fix an issue where under certain conditions binary attributes would have a value of string 'None' (like hidden="None" instead of just hidden in the output)
+
 * 8.0.1 - Nov 30 2017
 
 - Support an extra validation step on __setattribute__ on an AdvancedTag (like myTag.maxLength = something). Use this for the .maxLength attribute, in order to raise an exception when there is an invalid value. Tests included.
