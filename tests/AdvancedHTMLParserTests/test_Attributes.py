@@ -221,6 +221,8 @@ class TestAttributes(object):
         assert tag.hasClass('abc'), 'Failed to add class'
         assert 'abc' in tag.outerHTML , 'Failed to add class in outerHTML'
 
+        assert 'abc' in tag.classNames
+
         tag.addClass('def')
 
         assert tag.hasClass('abc'), 'Failed to retain class'

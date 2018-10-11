@@ -1367,6 +1367,8 @@ class AdvancedTag(object):
         '''
         return DOMTokenList(self._classNames[:])
 
+    classNames = classList
+
     def getUid(self):
         '''
             getUid - Get the AdvancedHTMLParser unique id for this tag.
