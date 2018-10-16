@@ -86,13 +86,15 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 
 	getElementsCustomFilter \- Provide a function/lambda that takes a tag argument, and returns True to "match" it. Returns all matched objects
 
-	getHTML                 \- Returns string of HTML representing this DOM
-
 	getRootNodes            \- Get a list of nodes at root level (0)
 
 	getAllNodes             \- Get all the nodes contained within this document
 
-	getFormattedHTML        \- Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to two spaces)
+	getHTML                 \- Returns string of HTML representing this DOM
+
+	getFormattedHTML        \- Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to four spaces)
+
+	getMiniHTML             \- Returns a "mini" HTML representation which disregards all whitespace and indentation beyond the functional single\-space
 
 
 The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
@@ -434,7 +436,7 @@ Notes
 
 * In general, for tag names and attribute names, you should use lowercase values. During parsing, the parser will lowercase attribute names (like NAME="Abc" becomes name="Abc"). During searching, however, for performance reasons, it is assumed you are passing in already-lowercased strings. If you can't trust the input to be lowercase, then it is your responsibility to call .lower() before calling .getElementsBy\*
 
-* If you are using IndexedAdvancedHTMLParser to construct HTML and not search, I recommend either setting the index params to False in the constructor, or calling  AdvancedHTMLParser.disableIndexing()
+* If you are using this to construct HTML and not search, I recommend either setting the index params to False in the constructor, or calling  AdvancedHTMLParser.disableIndexing()
 
 * There are additional functions and usages not documented here, check the file for more information.
 
@@ -469,7 +471,7 @@ If you are still getting UnicodeDecodeError or UnicodeEncodeError, there are a f
 
 * If the error happens when printing/writing to stdout ( default behaviour for apache / mod\_python is to open stdout with the ANSI/ASCII encoding ), ensure your streams are, in fact, set to utf\-8.
 
-	* Set the environment variable PYTHONIOENCODING to "utf\-8" before python is launched. In Apache, you can add the line "SetEnv PYTHONIOENCODING utf\-8" to your httpd.conf in order to achieve this.
+	\* Set the environment variable PYTHONIOENCODING to "utf\\\-8" before python is launched. In Apache, you can add the line "SetEnv PYTHONIOENCODING utf\\\-8" to your httpd.conf in order to achieve this.
 
 * Ensure that the data you are passing to AdvancedHTMLParser has the correct encoding (matching the "encoding" parameter).
 

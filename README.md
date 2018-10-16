@@ -76,13 +76,15 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 
 	getElementsCustomFilter - Provide a function/lambda that takes a tag argument, and returns True to "match" it. Returns all matched objects
 
-	getHTML                 - Returns string of HTML representing this DOM
-
 	getRootNodes            - Get a list of nodes at root level (0)
 
 	getAllNodes             - Get all the nodes contained within this document
 
-	getFormattedHTML        - Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to two spaces)
+	getHTML                 - Returns string of HTML representing this DOM
+
+	getFormattedHTML        - Returns a formatted string (using AdvancedHTMLFormatter; see below) of the HTML. Takes as argument an indent (defaults to four spaces)
+
+	getMiniHTML             - Returns a "mini" HTML representation which disregards all whitespace and indentation beyond the functional single-space
 
 
 The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
