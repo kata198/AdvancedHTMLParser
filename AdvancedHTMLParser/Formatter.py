@@ -27,7 +27,7 @@ from .utils import addStartTag, stripIEConditionals
 import codecs
 
 
-__all__ = ('AdvancedHTMLFormatter', )
+__all__ = ('AdvancedHTMLFormatter', 'AdvancedHTMLMiniFormatter')
 
 class AdvancedHTMLFormatter(HTMLParser):
     '''
@@ -37,10 +37,11 @@ class AdvancedHTMLFormatter(HTMLParser):
 
     def __init__(self, indent='  ', encoding='utf-8'):
         '''
-            Create a formatter.
+            Create a pretty formatter.
 
-            @param indent - Either a space/tab/newline that represents one level of indent, or an integer to use that number of spaces
-            @param encoding - Use this encoding for the document.
+            @param indent <str/int>, Default '    ' [4 spaces] - Either a space/tab/newline that represents one level of indent, or an integer to use that number of spaces
+
+            @param encoding <str/None>, Default 'utf-8', - Use this encoding for the document. None to not mess with encoding
         '''
         HTMLParser.__init__(self)
 
@@ -306,5 +307,23 @@ class AdvancedHTMLFormatter(HTMLParser):
             self.feed(html.decode(self.encoding))
         else:
             self.feed(html)
+
+
+class AdvancedHTMLMiniFormatter(AdvancedHTMLFormatter):
+    '''
+        AdvancedHTMLMiniFormatter - A formatter that will reformat a document, keeping only functional
+            whitespace and removing any and all indentation and nesting spaces.
+    '''
+
+    def __init__(self, encoding='utf-8'):
+        '''
+            Create a mini formatter.
+
+            @param encoding <str/None>, Default 'utf-8', - Use this encoding for the document. None to not mess with encoding
+        '''
+        AdvancedHTMLFormatter.__init__(self, indent='', encoding=encoding)
+
+    def _getIndent(self):
+        return ''
 
 #vim: set ts=4 sw=4 expandtab

@@ -767,8 +767,15 @@ class AdvancedHTMLParser(HTMLParser):
 
     def getHTML(self):
         '''
-            getHTML - Get the full HTML as contained within this tree
-                @returns - String
+            getHTML - Get the full HTML as contained within this tree.
+
+                If parsed from a document, this will contain the original whitespacing.
+
+                @returns - <str> of html
+
+                    @see getFormattedHTML
+
+                    @see getMiniHTML
         '''
         root = self.getRoot()
         if root is None:
@@ -799,18 +806,35 @@ class AdvancedHTMLParser(HTMLParser):
 
     def getFormattedHTML(self, indent='  '):
         '''
-            getFormattedHTML - Get formatted and xhtml of this document
+            getFormattedHTML - Get formatted and xhtml of this document, replacing the original whitespace
+                with a pretty-printed version
 
             @param indent - space/tab/newline of each level of indent, or integer for how many spaces per level
         
-            @return - Formatted html as string
+            @return - <str> Formatted html
+
+            @see getHTML - Get HTML with original whitespace
+
+            @see getMiniHTML - Get HTML with only functional whitespace remaining
         '''
         from .Formatter import AdvancedHTMLFormatter
         html = self.getHTML()
         formatter = AdvancedHTMLFormatter(indent, None) # Do not double-encode
         formatter.feed(html)
         return formatter.getHTML()
-    
+
+    def getMiniHTML(self):
+        '''
+            getMiniHTML - Gets the HTML representation of this document without any pretty formatting
+                and disregarding original whitespace beyond the functional.
+
+                @return <str> - HTML with only functional whitespace present
+        '''
+        from .Formatter import AdvancedHTMLMiniFormatter
+        html = self.getHTML()
+        formatter = AdvancedHTMLMiniFormatter(None) # Do not double-encode
+        formatter.feed(html)
+        return formatter.getHTML()
 
     def _reset(self):
         '''
