@@ -384,6 +384,8 @@ Each of the get\* functions above takes an additional "useIndex" function, which
 AdvancedHTMLFormatter and formatHTML
 ------------------------------------
 
+**AdvancedHTMLFormatter**
+
 The AdvancedHTMLFormatter formats HTML into a pretty layout. It can handle elements like pre, core, script, style, etc to keep their contents preserved, but does not understand CSS rules.
 
 The methods are:
@@ -397,18 +399,46 @@ The methods are:
 	getRoot                - Gets the "root" node (on a valid document this should be <html>). For arbitrary HTML, you should use getRootNodes, as there may be several nodes at the same outermost level
 
 
+You can access this same formatting off an AdvancedHTMLParser.AdvancedHTMLParser (or IndexedAdvancedHTMLParser) by calling .getFormattedHTML()
+
+
+**AdvancedHTMLMiniFormatter**
+
+The AdvancedHTMLMiniFormatter will strip all non-functional whitespace (meaning any whitespace which wouldn't normally add a space to the document or is required for xhtml) and provide no indentation.
+
+Use this when pretty-printing doesn't matter and you'd like to save space.
+
+
+You can access this same formatting off an AdvancedHTMLParser.AdvancedHTMLParser (or IndexedAdvancedHTMLParser) by calling .getMiniHTML()
+
+
+**formatHTML script**
+
 
 A script, formatHTML comes with this package and will perform formatting on an input file, and output to a file or stdout:
 
-	Usage: formatHTML (Optional: [/path/to/in.html]) (optional: [/path/to/output.html])
+	Usage: formatHTML (Optional Arguments) (optional: /path/to/in.html) (optional: [/path/to/output.html])
+	  Formats HTML on input and writes to output.
 
-		Formats HTML on input and writes to output file, or stdout if output file is omitted.
+	 Optional Arguments:
+	 -------------------
+
+		-e [encoding]        - Specify an encoding to use. Default is utf-8
+
+		-m  or --mini        - Output "mini" HTML (only retain functional whitespace,
+								strip the rest and no indentation)
+
+		-p  or --pretty      - Output "pretty" HTML [This is the defualt mode]
 
 
-	If output filename is not specified or is empty string, output will be to stdout.
+		--indent='    '      - Use the provided string [default 4-spaces] to represent each
+								level of nesting. Use --indent="	" for 1 tab insead, for example.
+							   Affects pretty printing mode only
 
-	If input filename is not specified or is empty string, input will be from stdin
 
+	 If output filename is not specified or is empty string, output will be to stdout.
+	 If input filename is not specified or is empty string, input will be from stdin
+	 If -e is provided, will use that as the encoding. Defaults to utf-8
 
 
 Notes
