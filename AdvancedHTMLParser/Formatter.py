@@ -1,4 +1,4 @@
-# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3. 
+# Copyright (c) 2015, 2017, 2018 Tim Savannah under LGPLv3. 
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #   HTML formatting (HTML->XHTML conversion as well)
 
