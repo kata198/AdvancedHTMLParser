@@ -1,4 +1,4 @@
-* 8.1.0 - ??? ?? ????
+* 8.1.0 - Oct 15 2018
 
 - Fix an issue where .classNames became no longer an attribute. [ Bug report and solution validation found by github user mninc [ https://github.com/mninc] ]
 
