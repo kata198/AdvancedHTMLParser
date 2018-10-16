@@ -37,7 +37,9 @@
 <font color="#000000" face="helvetica, arial" ><a name="InvalidCloseException" >class <strong >InvalidCloseException</strong></a>(<a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException" >HTMLValidationException</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#InvalidCloseException" >InvalidCloseException</a>&nbsp;-&nbsp;Raised&nbsp;when&nbsp;a&nbsp;tag&nbsp;is&nbsp;closed&nbsp;that&nbsp;shouldn't&nbsp;be&nbsp;closed.<br />&nbsp;</tt></td></tr>
+<td colspan="2" ><tt ><a href="#InvalidCloseException" >InvalidCloseException</a>(triedToClose,&nbsp;stillOpen)<br />
+&nbsp;<br />
+<a href="#InvalidCloseException" >InvalidCloseException</a>&nbsp;-&nbsp;Raised&nbsp;when&nbsp;a&nbsp;tag&nbsp;is&nbsp;closed&nbsp;that&nbsp;shouldn't&nbsp;be&nbsp;closed.<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
 <dd ><a href="AdvancedHTMLParser.exceptions.html#InvalidCloseException" >InvalidCloseException</a></dd>
@@ -56,7 +58,7 @@ Data descriptors inherited from <a href="AdvancedHTMLParser.exceptions.html#HTML
 <dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
 <hr />
-Methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
+Static methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
 <dl ><dt ><a name="InvalidCloseException-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;object.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
 <hr />
@@ -65,7 +67,7 @@ Methods inherited from <a href="builtins.html#BaseException" >builtins.BaseExcep
 
 <dl ><dt ><a name="InvalidCloseException-__getattribute__" ><strong >__getattribute__</strong></a>(self, name, /)</dt><dd ><tt >Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
 
-<dl ><dt ><a name="InvalidCloseException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >helper&nbsp;for&nbsp;pickle</tt></dd></dl>
+<dl ><dt ><a name="InvalidCloseException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >Helper&nbsp;for&nbsp;pickle.</tt></dd></dl>
 
 <dl ><dt ><a name="InvalidCloseException-__repr__" ><strong >__repr__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;repr(self).</tt></dd></dl>
 
@@ -101,7 +103,9 @@ Data descriptors inherited from <a href="builtins.html#BaseException" >builtins.
 <font color="#000000" face="helvetica, arial" ><a name="MissedCloseException" >class <strong >MissedCloseException</strong></a>(<a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException" >HTMLValidationException</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#MissedCloseException" >MissedCloseException</a>&nbsp;-&nbsp;Raised&nbsp;when&nbsp;a&nbsp;close&nbsp;was&nbsp;missed<br />&nbsp;</tt></td></tr>
+<td colspan="2" ><tt ><a href="#MissedCloseException" >MissedCloseException</a>(triedToClose,&nbsp;stillOpen)<br />
+&nbsp;<br />
+<a href="#MissedCloseException" >MissedCloseException</a>&nbsp;-&nbsp;Raised&nbsp;when&nbsp;a&nbsp;close&nbsp;was&nbsp;missed<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
 <dd ><a href="AdvancedHTMLParser.exceptions.html#MissedCloseException" >MissedCloseException</a></dd>
@@ -120,7 +124,7 @@ Data descriptors inherited from <a href="AdvancedHTMLParser.exceptions.html#HTML
 <dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
 <hr />
-Methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
+Static methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
 <dl ><dt ><a name="MissedCloseException-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;object.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
 <hr />
@@ -129,7 +133,7 @@ Methods inherited from <a href="builtins.html#BaseException" >builtins.BaseExcep
 
 <dl ><dt ><a name="MissedCloseException-__getattribute__" ><strong >__getattribute__</strong></a>(self, name, /)</dt><dd ><tt >Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
 
-<dl ><dt ><a name="MissedCloseException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >helper&nbsp;for&nbsp;pickle</tt></dd></dl>
+<dl ><dt ><a name="MissedCloseException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >Helper&nbsp;for&nbsp;pickle.</tt></dd></dl>
 
 <dl ><dt ><a name="MissedCloseException-__repr__" ><strong >__repr__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;repr(self).</tt></dd></dl>
 
@@ -165,7 +169,9 @@ Data descriptors inherited from <a href="builtins.html#BaseException" >builtins.
 <font color="#000000" face="helvetica, arial" ><a name="ValidatingAdvancedHTMLParser" >class <strong >ValidatingAdvancedHTMLParser</strong></a>(<a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser" >AdvancedHTMLParser.Parser.AdvancedHTMLParser</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#ValidatingAdvancedHTMLParser" >ValidatingAdvancedHTMLParser</a>&nbsp;-&nbsp;A&nbsp;parser&nbsp;which&nbsp;will&nbsp;raise&nbsp;Exceptions&nbsp;for&nbsp;a&nbsp;couple&nbsp;HTML&nbsp;errors&nbsp;that&nbsp;would&nbsp;otherwise&nbsp;cause<br />
+<td colspan="2" ><tt ><a href="#ValidatingAdvancedHTMLParser" >ValidatingAdvancedHTMLParser</a>(filename=None,&nbsp;encoding='utf-8')<br />
+&nbsp;<br />
+<a href="#ValidatingAdvancedHTMLParser" >ValidatingAdvancedHTMLParser</a>&nbsp;-&nbsp;A&nbsp;parser&nbsp;which&nbsp;will&nbsp;raise&nbsp;Exceptions&nbsp;for&nbsp;a&nbsp;couple&nbsp;HTML&nbsp;errors&nbsp;that&nbsp;would&nbsp;otherwise&nbsp;cause<br />
 &nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;assumption&nbsp;to&nbsp;be&nbsp;made&nbsp;during&nbsp;parsing.<br />
 &nbsp;<br />
 exceptions.<a href="#InvalidCloseException" >InvalidCloseException</a>&nbsp;-&nbsp;The&nbsp;parsed&nbsp;string/file&nbsp;tried&nbsp;to&nbsp;close&nbsp;something&nbsp;it&nbsp;shouldn't&nbsp;have.<br />
@@ -199,8 +205,15 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;state&nbsp;&lt;dict&gt;&nbsp;-&nbsp;The&nbsp;state</tt></dd></dl>
 
-<dl ><dt ><a name="ValidatingAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-contains" ><strong >contains</strong></a>(self, em)</dt><dd ><tt >Checks&nbsp;if&nbsp;#em&nbsp;is&nbsp;found&nbsp;anywhere&nbsp;within&nbsp;this&nbsp;element&nbsp;tree<br />
 &nbsp;<br />
@@ -347,14 +360,31 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 @return&nbsp;-&nbsp;An&nbsp;AdvancedTag&nbsp;of&nbsp;the&nbsp;node&nbsp;that&nbsp;matched,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;match.</tt></dd></dl>
 
-<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br />
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document,&nbsp;replacing&nbsp;the&nbsp;original&nbsp;whitespace<br />
+&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;pretty-printed&nbsp;version<br />
 &nbsp;<br />
 @param&nbsp;indent&nbsp;-&nbsp;space/tab/newline&nbsp;of&nbsp;each&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;integer&nbsp;for&nbsp;how&nbsp;many&nbsp;spaces&nbsp;per&nbsp;level<br />
 &nbsp;<br />
-@return&nbsp;-&nbsp;Formatted&nbsp;html&nbsp;as&nbsp;string</tt></dd></dl>
+@return&nbsp;-&nbsp;&lt;str&gt;&nbsp;Formatted&nbsp;html<br />
+&nbsp;<br />
+@see&nbsp;getHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;original&nbsp;whitespace<br />
+&nbsp;<br />
+@see&nbsp;getMiniHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;remaining</tt></dd></dl>
 
-<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
+
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getMiniHTML" ><strong >getMiniHTML</strong></a>(self)</dt><dd ><tt >getMiniHTML&nbsp;-&nbsp;Gets&nbsp;the&nbsp;HTML&nbsp;representation&nbsp;of&nbsp;this&nbsp;document&nbsp;without&nbsp;any&nbsp;pretty&nbsp;formatting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;disregarding&nbsp;original&nbsp;whitespace&nbsp;beyond&nbsp;the&nbsp;functional.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;str&gt;&nbsp;-&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;present</tt></dd></dl>
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-getRoot" ><strong >getRoot</strong></a>(self)</dt><dd ><tt >getRoot&nbsp;-&nbsp;returns&nbsp;the&nbsp;root&nbsp;Tag.<br />
 &nbsp;<br />
@@ -396,8 +426,15 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-setRoot" ><strong >setRoot</strong></a>(self, root)</dt><dd ><tt >Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes</tt></dd></dl>
 
-<dl ><dt ><a name="ValidatingAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-unknown_decl" ><strong >unknown_decl</strong></a>(self, decl)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 

@@ -6,8 +6,8 @@
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="heading" >
 <tr bgcolor="#7799ee" >
 <td valign="bottom" >&nbsp;<br />
-<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong >AdvancedHTMLParser</strong></big></big> (version 8.0.1)</font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
-    <p ><tt >#&nbsp;Copyright&nbsp;(c)&nbsp;2015,&nbsp;2016,&nbsp;2017&nbsp;Tim&nbsp;Savannah&nbsp;All&nbsp;Rights&nbsp;Rserved&nbsp;under&nbsp;LGPLv3.&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
+<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong >AdvancedHTMLParser</strong></big></big> (version 8.1.0)</font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
+    <p ><tt >#&nbsp;Copyright&nbsp;(c)&nbsp;2015,&nbsp;2016,&nbsp;2017,&nbsp;2018&nbsp;Tim&nbsp;Savannah&nbsp;All&nbsp;Rights&nbsp;Rserved&nbsp;under&nbsp;LGPLv3.&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
 #<br />
 #&nbsp;In&nbsp;general&nbsp;below,&nbsp;all&nbsp;"tag&nbsp;names"&nbsp;(body,&nbsp;div,&nbsp;etc)&nbsp;should&nbsp;be&nbsp;lowercase.&nbsp;The&nbsp;parser&nbsp;will&nbsp;lowercase&nbsp;internally.&nbsp;All&nbsp;attribute&nbsp;names&nbsp;(like&nbsp;`id`&nbsp;in&nbsp;id="123")&nbsp;provided&nbsp;to&nbsp;search&nbsp;functions&nbsp;should&nbsp;be&nbsp;lowercase.&nbsp;Values&nbsp;are&nbsp;not&nbsp;lowercase.&nbsp;This&nbsp;is&nbsp;because&nbsp;doing&nbsp;tons&nbsp;of&nbsp;searches,&nbsp;lowercasing&nbsp;every&nbsp;search&nbsp;can&nbsp;quickly&nbsp;build&nbsp;up.&nbsp;Lowercase&nbsp;it&nbsp;once&nbsp;in&nbsp;your&nbsp;code,&nbsp;not&nbsp;every&nbsp;time&nbsp;you&nbsp;call&nbsp;a&nbsp;function.</tt></p>
 <p >
@@ -81,7 +81,9 @@
 <font color="#000000" face="helvetica, arial" ><a name="AdvancedHTMLFormatter" >class <strong >AdvancedHTMLFormatter</strong></a>(<a href="html.parser.html#HTMLParser" >html.parser.HTMLParser</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt >A&nbsp;formatter&nbsp;for&nbsp;HTML.&nbsp;Note&nbsp;this&nbsp;does&nbsp;not&nbsp;understand&nbsp;CSS,&nbsp;so&nbsp;if&nbsp;you&nbsp;are&nbsp;enabling&nbsp;preformatted&nbsp;text&nbsp;based&nbsp;on&nbsp;css&nbsp;rules,&nbsp;it&nbsp;will&nbsp;not&nbsp;work.<br />
+<td colspan="2" ><tt ><a href="#AdvancedHTMLFormatter" >AdvancedHTMLFormatter</a>(indent='&nbsp;&nbsp;',&nbsp;encoding='utf-8')<br />
+&nbsp;<br />
+A&nbsp;formatter&nbsp;for&nbsp;HTML.&nbsp;Note&nbsp;this&nbsp;does&nbsp;not&nbsp;understand&nbsp;CSS,&nbsp;so&nbsp;if&nbsp;you&nbsp;are&nbsp;enabling&nbsp;preformatted&nbsp;text&nbsp;based&nbsp;on&nbsp;css&nbsp;rules,&nbsp;it&nbsp;will&nbsp;not&nbsp;work.<br />
 It&nbsp;does,&nbsp;however,&nbsp;understand&nbsp;"pre",&nbsp;"code"&nbsp;and&nbsp;"script"&nbsp;tags&nbsp;and&nbsp;will&nbsp;not&nbsp;try&nbsp;to&nbsp;format&nbsp;their&nbsp;contents.<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
@@ -92,10 +94,11 @@ It&nbsp;does,&nbsp;however,&nbsp;understand&nbsp;"pre",&nbsp;"code"&nbsp;and&nbs
 </dl>
 <hr />
 Methods defined here:<br />
-<dl ><dt ><a name="AdvancedHTMLFormatter-__init__" ><strong >__init__</strong></a>(self, indent='  ', encoding='utf-8')</dt><dd ><tt >Create&nbsp;a&nbsp;formatter.<br />
+<dl ><dt ><a name="AdvancedHTMLFormatter-__init__" ><strong >__init__</strong></a>(self, indent='  ', encoding='utf-8')</dt><dd ><tt >Create&nbsp;a&nbsp;pretty&nbsp;formatter.<br />
 &nbsp;<br />
-@param&nbsp;indent&nbsp;-&nbsp;Either&nbsp;a&nbsp;space/tab/newline&nbsp;that&nbsp;represents&nbsp;one&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;an&nbsp;integer&nbsp;to&nbsp;use&nbsp;that&nbsp;number&nbsp;of&nbsp;spaces<br />
-@param&nbsp;encoding&nbsp;-&nbsp;Use&nbsp;this&nbsp;encoding&nbsp;for&nbsp;the&nbsp;document.</tt></dd></dl>
+@param&nbsp;indent&nbsp;&lt;str/int&gt;,&nbsp;Default&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;[4&nbsp;spaces]&nbsp;-&nbsp;Either&nbsp;a&nbsp;space/tab/newline&nbsp;that&nbsp;represents&nbsp;one&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;an&nbsp;integer&nbsp;to&nbsp;use&nbsp;that&nbsp;number&nbsp;of&nbsp;spaces<br />
+&nbsp;<br />
+@param&nbsp;encoding&nbsp;&lt;str/None&gt;,&nbsp;Default&nbsp;'utf-8',&nbsp;-&nbsp;Use&nbsp;this&nbsp;encoding&nbsp;for&nbsp;the&nbsp;document.&nbsp;None&nbsp;to&nbsp;not&nbsp;mess&nbsp;with&nbsp;encoding</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLFormatter-feed" ><strong >feed</strong></a>(self, contents)</dt><dd ><tt >feed&nbsp;-&nbsp;Load&nbsp;contents<br />
 &nbsp;<br />
@@ -218,7 +221,9 @@ Data descriptors inherited from <a href="_markupbase.html#ParserBase" >_markupba
 <font color="#000000" face="helvetica, arial" ><a name="AdvancedHTMLParser" >class <strong >AdvancedHTMLParser</strong></a>(<a href="html.parser.html#HTMLParser" >html.parser.HTMLParser</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;-&nbsp;This&nbsp;class&nbsp;parses&nbsp;and&nbsp;allows&nbsp;searching&nbsp;of&nbsp;&nbsp;documents<br />&nbsp;</tt></td></tr>
+<td colspan="2" ><tt ><a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>(filename=None,&nbsp;encoding='utf-8')<br />
+&nbsp;<br />
+<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;-&nbsp;This&nbsp;class&nbsp;parses&nbsp;and&nbsp;allows&nbsp;searching&nbsp;of&nbsp;&nbsp;documents<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
 <dd ><a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser" >AdvancedHTMLParser</a></dd>
@@ -375,14 +380,31 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 @return&nbsp;-&nbsp;An&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;of&nbsp;the&nbsp;node&nbsp;that&nbsp;matched,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;match.</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br />
+<dl ><dt ><a name="AdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document,&nbsp;replacing&nbsp;the&nbsp;original&nbsp;whitespace<br />
+&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;pretty-printed&nbsp;version<br />
 &nbsp;<br />
 @param&nbsp;indent&nbsp;-&nbsp;space/tab/newline&nbsp;of&nbsp;each&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;integer&nbsp;for&nbsp;how&nbsp;many&nbsp;spaces&nbsp;per&nbsp;level<br />
 &nbsp;<br />
-@return&nbsp;-&nbsp;Formatted&nbsp;html&nbsp;as&nbsp;string</tt></dd></dl>
+@return&nbsp;-&nbsp;&lt;str&gt;&nbsp;Formatted&nbsp;html<br />
+&nbsp;<br />
+@see&nbsp;getHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;original&nbsp;whitespace<br />
+&nbsp;<br />
+@see&nbsp;getMiniHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;remaining</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="AdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLParser-getMiniHTML" ><strong >getMiniHTML</strong></a>(self)</dt><dd ><tt >getMiniHTML&nbsp;-&nbsp;Gets&nbsp;the&nbsp;HTML&nbsp;representation&nbsp;of&nbsp;this&nbsp;document&nbsp;without&nbsp;any&nbsp;pretty&nbsp;formatting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;disregarding&nbsp;original&nbsp;whitespace&nbsp;beyond&nbsp;the&nbsp;functional.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;str&gt;&nbsp;-&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;present</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getRoot" ><strong >getRoot</strong></a>(self)</dt><dd ><tt >getRoot&nbsp;-&nbsp;returns&nbsp;the&nbsp;root&nbsp;Tag.<br />
 &nbsp;<br />
@@ -566,7 +588,9 @@ Data descriptors inherited from <a href="_markupbase.html#ParserBase" >_markupba
 <font color="#000000" face="helvetica, arial" ><a name="AdvancedTag" >class <strong >AdvancedTag</strong></a>(<a href="builtins.html#object" >builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#AdvancedTag" >AdvancedTag</a>&nbsp;-&nbsp;Represents&nbsp;a&nbsp;Tag.&nbsp;Used&nbsp;with&nbsp;<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;to&nbsp;create&nbsp;a&nbsp;DOM-model<br />
+<td colspan="2" ><tt ><a href="#AdvancedTag" >AdvancedTag</a>(tagName,&nbsp;attrList=None,&nbsp;isSelfClosing=False,&nbsp;ownerDocument=None)<br />
+&nbsp;<br />
+<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;-&nbsp;Represents&nbsp;a&nbsp;Tag.&nbsp;Used&nbsp;with&nbsp;<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;to&nbsp;create&nbsp;a&nbsp;DOM-model<br />
 &nbsp;<br />
 Keep&nbsp;tag&nbsp;names&nbsp;lowercase.<br />
 &nbsp;<br />
@@ -1203,6 +1227,11 @@ NOTE:&nbsp;Unlike&nbsp;JS&nbsp;DOM,&nbsp;this&nbsp;returns&nbsp;ONLY&nbsp;tags,&
 &nbsp;<br />
 @return&nbsp;&lt;str&gt;&nbsp;-&nbsp;Class&nbsp;attribute,&nbsp;or&nbsp;empty&nbsp;string&nbsp;if&nbsp;not&nbsp;set</tt></dd>
 </dl>
+<dl ><dt ><strong >classNames</strong></dt>
+<dd ><tt >classList&nbsp;-&nbsp;get&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;list&nbsp;of&nbsp;the&nbsp;class&nbsp;names&nbsp;(&nbsp;the&nbsp;"class"&nbsp;attribute&nbsp;)&nbsp;for&nbsp;this&nbsp;element<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;DOMTokenList&lt;str&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;the&nbsp;class&nbsp;names&nbsp;for&nbsp;this&nbsp;element</tt></dd>
+</dl>
 <dl ><dt ><strong >firstChild</strong></dt>
 <dd ><tt >firstChild&nbsp;-&nbsp;property,&nbsp;Get&nbsp;the&nbsp;first&nbsp;child&nbsp;block,&nbsp;text&nbsp;or&nbsp;tag.<br />
 &nbsp;<br />
@@ -1353,6 +1382,8 @@ Data descriptors defined here:<br />
 Methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
 <dl ><dt ><a name="HTMLValidationException-__init__" ><strong >__init__</strong></a>(self, /, *args, **kwargs)</dt><dd ><tt >Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
+<hr />
+Static methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
 <dl ><dt ><a name="HTMLValidationException-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object" >object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
 <hr />
@@ -1361,7 +1392,7 @@ Methods inherited from <a href="builtins.html#BaseException" >builtins.BaseExcep
 
 <dl ><dt ><a name="HTMLValidationException-__getattribute__" ><strong >__getattribute__</strong></a>(self, name, /)</dt><dd ><tt >Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
 
-<dl ><dt ><a name="HTMLValidationException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >helper&nbsp;for&nbsp;pickle</tt></dd></dl>
+<dl ><dt ><a name="HTMLValidationException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >Helper&nbsp;for&nbsp;pickle.</tt></dd></dl>
 
 <dl ><dt ><a name="HTMLValidationException-__repr__" ><strong >__repr__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;repr(self).</tt></dd></dl>
 
@@ -1397,7 +1428,9 @@ Data descriptors inherited from <a href="builtins.html#BaseException" >builtins.
 <font color="#000000" face="helvetica, arial" ><a name="IndexedAdvancedHTMLParser" >class <strong >IndexedAdvancedHTMLParser</strong></a>(<a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser" >AdvancedHTMLParser</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt >An&nbsp;<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;that&nbsp;indexes&nbsp;for&nbsp;much&nbsp;much&nbsp;faster&nbsp;searching.&nbsp;If&nbsp;you&nbsp;are&nbsp;doing&nbsp;searching/validation,&nbsp;this&nbsp;is&nbsp;your&nbsp;bet.<br />
+<td colspan="2" ><tt ><a href="#IndexedAdvancedHTMLParser" >IndexedAdvancedHTMLParser</a>(filename=None,&nbsp;encoding='utf-8',&nbsp;indexIDs=True,&nbsp;indexNames=True,&nbsp;indexClassNames=True,&nbsp;indexTagNames=True)<br />
+&nbsp;<br />
+An&nbsp;<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;that&nbsp;indexes&nbsp;for&nbsp;much&nbsp;much&nbsp;faster&nbsp;searching.&nbsp;If&nbsp;you&nbsp;are&nbsp;doing&nbsp;searching/validation,&nbsp;this&nbsp;is&nbsp;your&nbsp;bet.<br />
 &nbsp;&nbsp;If&nbsp;you&nbsp;are&nbsp;writing/modifying,&nbsp;you&nbsp;may&nbsp;use&nbsp;this,&nbsp;but&nbsp;be&nbsp;sure&nbsp;to&nbsp;call&nbsp;<a href="#IndexedAdvancedHTMLParser-reindex" >reindex</a>()&nbsp;after&nbsp;changes.<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
@@ -1500,8 +1533,15 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;state&nbsp;&lt;dict&gt;&nbsp;-&nbsp;The&nbsp;state</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-contains" ><strong >contains</strong></a>(self, em)</dt><dd ><tt >Checks&nbsp;if&nbsp;#em&nbsp;is&nbsp;found&nbsp;anywhere&nbsp;within&nbsp;this&nbsp;element&nbsp;tree<br />
 &nbsp;<br />
@@ -1614,14 +1654,31 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 @return&nbsp;-&nbsp;An&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;of&nbsp;the&nbsp;node&nbsp;that&nbsp;matched,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;match.</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br />
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document,&nbsp;replacing&nbsp;the&nbsp;original&nbsp;whitespace<br />
+&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;pretty-printed&nbsp;version<br />
 &nbsp;<br />
 @param&nbsp;indent&nbsp;-&nbsp;space/tab/newline&nbsp;of&nbsp;each&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;integer&nbsp;for&nbsp;how&nbsp;many&nbsp;spaces&nbsp;per&nbsp;level<br />
 &nbsp;<br />
-@return&nbsp;-&nbsp;Formatted&nbsp;html&nbsp;as&nbsp;string</tt></dd></dl>
+@return&nbsp;-&nbsp;&lt;str&gt;&nbsp;Formatted&nbsp;html<br />
+&nbsp;<br />
+@see&nbsp;getHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;original&nbsp;whitespace<br />
+&nbsp;<br />
+@see&nbsp;getMiniHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;remaining</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
+
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-getMiniHTML" ><strong >getMiniHTML</strong></a>(self)</dt><dd ><tt >getMiniHTML&nbsp;-&nbsp;Gets&nbsp;the&nbsp;HTML&nbsp;representation&nbsp;of&nbsp;this&nbsp;document&nbsp;without&nbsp;any&nbsp;pretty&nbsp;formatting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;disregarding&nbsp;original&nbsp;whitespace&nbsp;beyond&nbsp;the&nbsp;functional.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;str&gt;&nbsp;-&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;present</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getRoot" ><strong >getRoot</strong></a>(self)</dt><dd ><tt >getRoot&nbsp;-&nbsp;returns&nbsp;the&nbsp;root&nbsp;Tag.<br />
 &nbsp;<br />
@@ -1661,8 +1718,15 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-unknown_decl" ><strong >unknown_decl</strong></a>(self, decl)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
@@ -1802,7 +1866,9 @@ Data descriptors inherited from <a href="_markupbase.html#ParserBase" >_markupba
 <font color="#000000" face="helvetica, arial" ><a name="InvalidCloseException" >class <strong >InvalidCloseException</strong></a>(<a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException" >HTMLValidationException</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#InvalidCloseException" >InvalidCloseException</a>&nbsp;-&nbsp;Raised&nbsp;when&nbsp;a&nbsp;tag&nbsp;is&nbsp;closed&nbsp;that&nbsp;shouldn't&nbsp;be&nbsp;closed.<br />&nbsp;</tt></td></tr>
+<td colspan="2" ><tt ><a href="#InvalidCloseException" >InvalidCloseException</a>(triedToClose,&nbsp;stillOpen)<br />
+&nbsp;<br />
+<a href="#InvalidCloseException" >InvalidCloseException</a>&nbsp;-&nbsp;Raised&nbsp;when&nbsp;a&nbsp;tag&nbsp;is&nbsp;closed&nbsp;that&nbsp;shouldn't&nbsp;be&nbsp;closed.<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
 <dd ><a href="AdvancedHTMLParser.exceptions.html#InvalidCloseException" >InvalidCloseException</a></dd>
@@ -1821,7 +1887,7 @@ Data descriptors inherited from <a href="AdvancedHTMLParser.exceptions.html#HTML
 <dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
 <hr />
-Methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
+Static methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
 <dl ><dt ><a name="InvalidCloseException-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object" >object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
 <hr />
@@ -1830,7 +1896,7 @@ Methods inherited from <a href="builtins.html#BaseException" >builtins.BaseExcep
 
 <dl ><dt ><a name="InvalidCloseException-__getattribute__" ><strong >__getattribute__</strong></a>(self, name, /)</dt><dd ><tt >Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
 
-<dl ><dt ><a name="InvalidCloseException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >helper&nbsp;for&nbsp;pickle</tt></dd></dl>
+<dl ><dt ><a name="InvalidCloseException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >Helper&nbsp;for&nbsp;pickle.</tt></dd></dl>
 
 <dl ><dt ><a name="InvalidCloseException-__repr__" ><strong >__repr__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;repr(self).</tt></dd></dl>
 
@@ -1866,7 +1932,9 @@ Data descriptors inherited from <a href="builtins.html#BaseException" >builtins.
 <font color="#000000" face="helvetica, arial" ><a name="MissedCloseException" >class <strong >MissedCloseException</strong></a>(<a href="AdvancedHTMLParser.exceptions.html#HTMLValidationException" >HTMLValidationException</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#MissedCloseException" >MissedCloseException</a>&nbsp;-&nbsp;Raised&nbsp;when&nbsp;a&nbsp;close&nbsp;was&nbsp;missed<br />&nbsp;</tt></td></tr>
+<td colspan="2" ><tt ><a href="#MissedCloseException" >MissedCloseException</a>(triedToClose,&nbsp;stillOpen)<br />
+&nbsp;<br />
+<a href="#MissedCloseException" >MissedCloseException</a>&nbsp;-&nbsp;Raised&nbsp;when&nbsp;a&nbsp;close&nbsp;was&nbsp;missed<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
 <dd ><a href="AdvancedHTMLParser.exceptions.html#MissedCloseException" >MissedCloseException</a></dd>
@@ -1885,7 +1953,7 @@ Data descriptors inherited from <a href="AdvancedHTMLParser.exceptions.html#HTML
 <dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
 <hr />
-Methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
+Static methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
 <dl ><dt ><a name="MissedCloseException-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object" >object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
 <hr />
@@ -1894,7 +1962,7 @@ Methods inherited from <a href="builtins.html#BaseException" >builtins.BaseExcep
 
 <dl ><dt ><a name="MissedCloseException-__getattribute__" ><strong >__getattribute__</strong></a>(self, name, /)</dt><dd ><tt >Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
 
-<dl ><dt ><a name="MissedCloseException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >helper&nbsp;for&nbsp;pickle</tt></dd></dl>
+<dl ><dt ><a name="MissedCloseException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >Helper&nbsp;for&nbsp;pickle.</tt></dd></dl>
 
 <dl ><dt ><a name="MissedCloseException-__repr__" ><strong >__repr__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;repr(self).</tt></dd></dl>
 
@@ -1959,6 +2027,8 @@ Data descriptors defined here:<br />
 Methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
 <dl ><dt ><a name="MultipleRootNodeException-__init__" ><strong >__init__</strong></a>(self, /, *args, **kwargs)</dt><dd ><tt >Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
+<hr />
+Static methods inherited from <a href="builtins.html#Exception" >builtins.Exception</a>:<br />
 <dl ><dt ><a name="MultipleRootNodeException-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object" >object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
 <hr />
@@ -1967,7 +2037,7 @@ Methods inherited from <a href="builtins.html#BaseException" >builtins.BaseExcep
 
 <dl ><dt ><a name="MultipleRootNodeException-__getattribute__" ><strong >__getattribute__</strong></a>(self, name, /)</dt><dd ><tt >Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
 
-<dl ><dt ><a name="MultipleRootNodeException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >helper&nbsp;for&nbsp;pickle</tt></dd></dl>
+<dl ><dt ><a name="MultipleRootNodeException-__reduce__" ><strong >__reduce__</strong></a>(...)</dt><dd ><tt >Helper&nbsp;for&nbsp;pickle.</tt></dd></dl>
 
 <dl ><dt ><a name="MultipleRootNodeException-__repr__" ><strong >__repr__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;repr(self).</tt></dd></dl>
 
@@ -2003,7 +2073,9 @@ Data descriptors inherited from <a href="builtins.html#BaseException" >builtins.
 <font color="#000000" face="helvetica, arial" ><a name="StyleAttribute" >class <strong >StyleAttribute</strong></a>(<a href="builtins.html#object" >builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#StyleAttribute" >StyleAttribute</a>&nbsp;-&nbsp;Represents&nbsp;the&nbsp;"style"&nbsp;field&nbsp;on&nbsp;a&nbsp;tag.<br />&nbsp;</tt></td></tr>
+<td colspan="2" ><tt ><a href="#StyleAttribute" >StyleAttribute</a>(styleValue,&nbsp;tag=None)<br />
+&nbsp;<br />
+<a href="#StyleAttribute" >StyleAttribute</a>&nbsp;-&nbsp;Represents&nbsp;the&nbsp;"style"&nbsp;field&nbsp;on&nbsp;a&nbsp;tag.<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" >Methods defined here:<br />
 <dl ><dt ><a name="StyleAttribute-__copy__" ><strong >__copy__</strong></a>(self)</dt></dl>
@@ -2125,7 +2197,9 @@ Data and other attributes defined here:<br />
 <font color="#000000" face="helvetica, arial" ><a name="TagCollection" >class <strong >TagCollection</strong></a>(<a href="builtins.html#list" >builtins.list</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt >A&nbsp;collection&nbsp;of&nbsp;AdvancedTags.&nbsp;You&nbsp;may&nbsp;use&nbsp;this&nbsp;like&nbsp;a&nbsp;normal&nbsp;<a href="builtins.html#list" >list</a>,&nbsp;or&nbsp;you&nbsp;can&nbsp;use&nbsp;the&nbsp;various&nbsp;getElements*&nbsp;functions&nbsp;within&nbsp;to&nbsp;operate&nbsp;on&nbsp;the&nbsp;results.<br />
+<td colspan="2" ><tt ><a href="#TagCollection" >TagCollection</a>(values=None)<br />
+&nbsp;<br />
+A&nbsp;collection&nbsp;of&nbsp;AdvancedTags.&nbsp;You&nbsp;may&nbsp;use&nbsp;this&nbsp;like&nbsp;a&nbsp;normal&nbsp;<a href="builtins.html#list" >list</a>,&nbsp;or&nbsp;you&nbsp;can&nbsp;use&nbsp;the&nbsp;various&nbsp;getElements*&nbsp;functions&nbsp;within&nbsp;to&nbsp;operate&nbsp;on&nbsp;the&nbsp;results.<br />
 Generally,&nbsp;this&nbsp;is&nbsp;the&nbsp;return&nbsp;of&nbsp;all&nbsp;get*&nbsp;functions.<br />
 &nbsp;<br />
 All&nbsp;the&nbsp;get*&nbsp;functions&nbsp;called&nbsp;on&nbsp;a&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;search&nbsp;all&nbsp;contained&nbsp;elements&nbsp;and&nbsp;their&nbsp;childrens.&nbsp;If&nbsp;you&nbsp;need&nbsp;to&nbsp;check&nbsp;ONLY&nbsp;the&nbsp;elements&nbsp;in&nbsp;the&nbsp;tag&nbsp;collection,&nbsp;and&nbsp;not&nbsp;their&nbsp;children,<br />
@@ -2343,39 +2417,43 @@ Methods inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
 
 <dl ><dt ><a name="TagCollection-__lt__" ><strong >__lt__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&lt;value.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-__mul__" ><strong >__mul__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self*value.n</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__mul__" ><strong >__mul__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self*value.</tt></dd></dl>
 
 <dl ><dt ><a name="TagCollection-__ne__" ><strong >__ne__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self!=value.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object" >object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__reversed__" ><strong >__reversed__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-__reversed__" ><strong >__reversed__</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-__reversed__" >__reversed__</a>()&nbsp;--&nbsp;return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;<a href="builtins.html#list" >list</a></tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__rmul__" ><strong >__rmul__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self*value.</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__rmul__" ><strong >__rmul__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;value*self.</tt></dd></dl>
 
 <dl ><dt ><a name="TagCollection-__setitem__" ><strong >__setitem__</strong></a>(self, key, value, /)</dt><dd ><tt >Set&nbsp;self[key]&nbsp;to&nbsp;value.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-__sizeof__" ><strong >__sizeof__</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-__sizeof__" >__sizeof__</a>()&nbsp;--&nbsp;size&nbsp;of&nbsp;L&nbsp;in&nbsp;memory,&nbsp;in&nbsp;bytes</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__sizeof__" ><strong >__sizeof__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>&nbsp;in&nbsp;memory,&nbsp;in&nbsp;bytes.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-clear" ><strong >clear</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-clear" >clear</a>()&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;remove&nbsp;all&nbsp;items&nbsp;from&nbsp;L</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-clear" ><strong >clear</strong></a>(self, /)</dt><dd ><tt >Remove&nbsp;all&nbsp;items&nbsp;from&nbsp;<a href="builtins.html#list" >list</a>.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-copy" ><strong >copy</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-copy" >copy</a>()&nbsp;-&gt;&nbsp;<a href="builtins.html#list" >list</a>&nbsp;--&nbsp;a&nbsp;shallow&nbsp;copy&nbsp;of&nbsp;L</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-copy" ><strong >copy</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;a&nbsp;shallow&nbsp;copy&nbsp;of&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-count" ><strong >count</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-count" >count</a>(value)&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;number&nbsp;of&nbsp;occurrences&nbsp;of&nbsp;value</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-count" ><strong >count</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;number&nbsp;of&nbsp;occurrences&nbsp;of&nbsp;value.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-extend" ><strong >extend</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-extend" >extend</a>(iterable)&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;extend&nbsp;<a href="builtins.html#list" >list</a>&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-extend" ><strong >extend</strong></a>(self, iterable, /)</dt><dd ><tt >Extend&nbsp;<a href="builtins.html#list" >list</a>&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-index" ><strong >index</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-index" >index</a>(value,&nbsp;[start,&nbsp;[stop]])&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;first&nbsp;index&nbsp;of&nbsp;value.<br />
+<dl ><dt ><a name="TagCollection-index" ><strong >index</strong></a>(self, value, start=0, stop=9223372036854775807, /)</dt><dd ><tt >Return&nbsp;first&nbsp;index&nbsp;of&nbsp;value.<br />
+&nbsp;<br />
 Raises&nbsp;ValueError&nbsp;if&nbsp;the&nbsp;value&nbsp;is&nbsp;not&nbsp;present.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-insert" ><strong >insert</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-insert" >insert</a>(index,&nbsp;<a href="builtins.html#object" >object</a>)&nbsp;--&nbsp;insert&nbsp;<a href="builtins.html#object" >object</a>&nbsp;before&nbsp;index</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-insert" ><strong >insert</strong></a>(self, index, object, /)</dt><dd ><tt >Insert&nbsp;<a href="builtins.html#object" >object</a>&nbsp;before&nbsp;index.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-pop" ><strong >pop</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-pop" >pop</a>([index])&nbsp;-&gt;&nbsp;item&nbsp;--&nbsp;remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last).<br />
+<dl ><dt ><a name="TagCollection-pop" ><strong >pop</strong></a>(self, index=-1, /)</dt><dd ><tt >Remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last).<br />
+&nbsp;<br />
 Raises&nbsp;IndexError&nbsp;if&nbsp;<a href="builtins.html#list" >list</a>&nbsp;is&nbsp;empty&nbsp;or&nbsp;index&nbsp;is&nbsp;out&nbsp;of&nbsp;range.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-reverse" ><strong >reverse</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-reverse" >reverse</a>()&nbsp;--&nbsp;reverse&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-reverse" ><strong >reverse</strong></a>(self, /)</dt><dd ><tt >Reverse&nbsp;*IN&nbsp;PLACE*.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-sort" ><strong >sort</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-sort" >sort</a>(key=None,&nbsp;reverse=False)&nbsp;-&gt;&nbsp;None&nbsp;--&nbsp;stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-sort" ><strong >sort</strong></a>(self, /, *, key=None, reverse=False)</dt><dd ><tt >Stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*.</tt></dd></dl>
+
+<hr />
+Static methods inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
+<dl ><dt ><a name="TagCollection-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object" >object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
 
 <hr />
 Data and other attributes inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
@@ -2388,7 +2466,9 @@ Data and other attributes inherited from <a href="builtins.html#list" >builtins.
 <font color="#000000" face="helvetica, arial" ><a name="ValidatingAdvancedHTMLParser" >class <strong >ValidatingAdvancedHTMLParser</strong></a>(<a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser" >AdvancedHTMLParser.Parser.AdvancedHTMLParser</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#ValidatingAdvancedHTMLParser" >ValidatingAdvancedHTMLParser</a>&nbsp;-&nbsp;A&nbsp;parser&nbsp;which&nbsp;will&nbsp;raise&nbsp;Exceptions&nbsp;for&nbsp;a&nbsp;couple&nbsp;HTML&nbsp;errors&nbsp;that&nbsp;would&nbsp;otherwise&nbsp;cause<br />
+<td colspan="2" ><tt ><a href="#ValidatingAdvancedHTMLParser" >ValidatingAdvancedHTMLParser</a>(filename=None,&nbsp;encoding='utf-8')<br />
+&nbsp;<br />
+<a href="#ValidatingAdvancedHTMLParser" >ValidatingAdvancedHTMLParser</a>&nbsp;-&nbsp;A&nbsp;parser&nbsp;which&nbsp;will&nbsp;raise&nbsp;Exceptions&nbsp;for&nbsp;a&nbsp;couple&nbsp;HTML&nbsp;errors&nbsp;that&nbsp;would&nbsp;otherwise&nbsp;cause<br />
 &nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;assumption&nbsp;to&nbsp;be&nbsp;made&nbsp;during&nbsp;parsing.<br />
 &nbsp;<br />
 exceptions.<a href="#InvalidCloseException" >InvalidCloseException</a>&nbsp;-&nbsp;The&nbsp;parsed&nbsp;string/file&nbsp;tried&nbsp;to&nbsp;close&nbsp;something&nbsp;it&nbsp;shouldn't&nbsp;have.<br />
@@ -2422,8 +2502,15 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;state&nbsp;&lt;dict&gt;&nbsp;-&nbsp;The&nbsp;state</tt></dd></dl>
 
-<dl ><dt ><a name="ValidatingAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-contains" ><strong >contains</strong></a>(self, em)</dt><dd ><tt >Checks&nbsp;if&nbsp;#em&nbsp;is&nbsp;found&nbsp;anywhere&nbsp;within&nbsp;this&nbsp;element&nbsp;tree<br />
 &nbsp;<br />
@@ -2570,14 +2657,31 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 @return&nbsp;-&nbsp;An&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;of&nbsp;the&nbsp;node&nbsp;that&nbsp;matched,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;match.</tt></dd></dl>
 
-<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br />
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document,&nbsp;replacing&nbsp;the&nbsp;original&nbsp;whitespace<br />
+&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;pretty-printed&nbsp;version<br />
 &nbsp;<br />
 @param&nbsp;indent&nbsp;-&nbsp;space/tab/newline&nbsp;of&nbsp;each&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;integer&nbsp;for&nbsp;how&nbsp;many&nbsp;spaces&nbsp;per&nbsp;level<br />
 &nbsp;<br />
-@return&nbsp;-&nbsp;Formatted&nbsp;html&nbsp;as&nbsp;string</tt></dd></dl>
+@return&nbsp;-&nbsp;&lt;str&gt;&nbsp;Formatted&nbsp;html<br />
+&nbsp;<br />
+@see&nbsp;getHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;original&nbsp;whitespace<br />
+&nbsp;<br />
+@see&nbsp;getMiniHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;remaining</tt></dd></dl>
 
-<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
+
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getMiniHTML" ><strong >getMiniHTML</strong></a>(self)</dt><dd ><tt >getMiniHTML&nbsp;-&nbsp;Gets&nbsp;the&nbsp;HTML&nbsp;representation&nbsp;of&nbsp;this&nbsp;document&nbsp;without&nbsp;any&nbsp;pretty&nbsp;formatting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;disregarding&nbsp;original&nbsp;whitespace&nbsp;beyond&nbsp;the&nbsp;functional.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;str&gt;&nbsp;-&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;present</tt></dd></dl>
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-getRoot" ><strong >getRoot</strong></a>(self)</dt><dd ><tt >getRoot&nbsp;-&nbsp;returns&nbsp;the&nbsp;root&nbsp;Tag.<br />
 &nbsp;<br />
@@ -2619,8 +2723,15 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-setRoot" ><strong >setRoot</strong></a>(self, root)</dt><dd ><tt >Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes</tt></dd></dl>
 
-<dl ><dt ><a name="ValidatingAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-unknown_decl" ><strong >unknown_decl</strong></a>(self, decl)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
@@ -2788,6 +2899,6 @@ Data descriptors inherited from <a href="_markupbase.html#ParserBase" >_markupba
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
 <td width="100%" ><strong >__all__</strong> = ('AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection', 'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'MultipleRootNodeException', 'StyleAttribute', 'toggleAttributesDOM', 'isTextNode', 'isTagNode')<br />
-<strong >__int_version_tuple__</strong> = (8, 0, 1)<br />
-<strong >__version_tuple__</strong> = ('8', '0', '1')</td></tr></table>
+<strong >__int_version_tuple__</strong> = (8, 1, 0)<br />
+<strong >__version_tuple__</strong> = ('8', '1', '0')</td></tr></table>
 </p></p></p></p></body></html>

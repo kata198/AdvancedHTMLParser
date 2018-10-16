@@ -7,7 +7,7 @@
 <tr bgcolor="#7799ee" >
 <td valign="bottom" >&nbsp;<br />
 <font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong ><a href="AdvancedHTMLParser.html" ><font color="#ffffff" >AdvancedHTMLParser</font></a>.Formatter</strong></big></big></font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
-    <p ><tt >#&nbsp;Copyright&nbsp;(c)&nbsp;2015,&nbsp;2017&nbsp;Tim&nbsp;Savannah&nbsp;under&nbsp;LGPLv3.&nbsp;<br />
+    <p ><tt >#&nbsp;Copyright&nbsp;(c)&nbsp;2015,&nbsp;2017,&nbsp;2018&nbsp;Tim&nbsp;Savannah&nbsp;under&nbsp;LGPLv3.&nbsp;<br />
 #&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
 #&nbsp;&nbsp;&nbsp;HTML&nbsp;formatting&nbsp;(HTML-&gt;XHTML&nbsp;conversion&nbsp;as&nbsp;well)</tt></p>
 <p >
@@ -31,7 +31,12 @@
 </font></dt><dd >
 <dl >
 <dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.Formatter.html#AdvancedHTMLFormatter" >AdvancedHTMLFormatter</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.Formatter.html#AdvancedHTMLMiniFormatter" >AdvancedHTMLMiniFormatter</a>
 </font></dt></dl>
+</dd>
+</dl>
 </dd>
 </dl>
  <p >
@@ -41,7 +46,9 @@
 <font color="#000000" face="helvetica, arial" ><a name="AdvancedHTMLFormatter" >class <strong >AdvancedHTMLFormatter</strong></a>(<a href="html.parser.html#HTMLParser" >html.parser.HTMLParser</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt >A&nbsp;formatter&nbsp;for&nbsp;HTML.&nbsp;Note&nbsp;this&nbsp;does&nbsp;not&nbsp;understand&nbsp;CSS,&nbsp;so&nbsp;if&nbsp;you&nbsp;are&nbsp;enabling&nbsp;preformatted&nbsp;text&nbsp;based&nbsp;on&nbsp;css&nbsp;rules,&nbsp;it&nbsp;will&nbsp;not&nbsp;work.<br />
+<td colspan="2" ><tt ><a href="#AdvancedHTMLFormatter" >AdvancedHTMLFormatter</a>(indent='&nbsp;&nbsp;',&nbsp;encoding='utf-8')<br />
+&nbsp;<br />
+A&nbsp;formatter&nbsp;for&nbsp;HTML.&nbsp;Note&nbsp;this&nbsp;does&nbsp;not&nbsp;understand&nbsp;CSS,&nbsp;so&nbsp;if&nbsp;you&nbsp;are&nbsp;enabling&nbsp;preformatted&nbsp;text&nbsp;based&nbsp;on&nbsp;css&nbsp;rules,&nbsp;it&nbsp;will&nbsp;not&nbsp;work.<br />
 It&nbsp;does,&nbsp;however,&nbsp;understand&nbsp;"pre",&nbsp;"code"&nbsp;and&nbsp;"script"&nbsp;tags&nbsp;and&nbsp;will&nbsp;not&nbsp;try&nbsp;to&nbsp;format&nbsp;their&nbsp;contents.<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
@@ -52,10 +59,11 @@ It&nbsp;does,&nbsp;however,&nbsp;understand&nbsp;"pre",&nbsp;"code"&nbsp;and&nbs
 </dl>
 <hr />
 Methods defined here:<br />
-<dl ><dt ><a name="AdvancedHTMLFormatter-__init__" ><strong >__init__</strong></a>(self, indent='  ', encoding='utf-8')</dt><dd ><tt >Create&nbsp;a&nbsp;formatter.<br />
+<dl ><dt ><a name="AdvancedHTMLFormatter-__init__" ><strong >__init__</strong></a>(self, indent='  ', encoding='utf-8')</dt><dd ><tt >Create&nbsp;a&nbsp;pretty&nbsp;formatter.<br />
 &nbsp;<br />
-@param&nbsp;indent&nbsp;-&nbsp;Either&nbsp;a&nbsp;space/tab/newline&nbsp;that&nbsp;represents&nbsp;one&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;an&nbsp;integer&nbsp;to&nbsp;use&nbsp;that&nbsp;number&nbsp;of&nbsp;spaces<br />
-@param&nbsp;encoding&nbsp;-&nbsp;Use&nbsp;this&nbsp;encoding&nbsp;for&nbsp;the&nbsp;document.</tt></dd></dl>
+@param&nbsp;indent&nbsp;&lt;str/int&gt;,&nbsp;Default&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;[4&nbsp;spaces]&nbsp;-&nbsp;Either&nbsp;a&nbsp;space/tab/newline&nbsp;that&nbsp;represents&nbsp;one&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;an&nbsp;integer&nbsp;to&nbsp;use&nbsp;that&nbsp;number&nbsp;of&nbsp;spaces<br />
+&nbsp;<br />
+@param&nbsp;encoding&nbsp;&lt;str/None&gt;,&nbsp;Default&nbsp;'utf-8',&nbsp;-&nbsp;Use&nbsp;this&nbsp;encoding&nbsp;for&nbsp;the&nbsp;document.&nbsp;None&nbsp;to&nbsp;not&nbsp;mess&nbsp;with&nbsp;encoding</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLFormatter-feed" ><strong >feed</strong></a>(self, contents)</dt><dd ><tt >feed&nbsp;-&nbsp;Load&nbsp;contents<br />
 &nbsp;<br />
@@ -171,12 +179,153 @@ Data descriptors inherited from <a href="_markupbase.html#ParserBase" >_markupba
 <dl ><dt ><strong >__weakref__</strong></dt>
 <dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
-</td></tr></table></p></td></tr></table><p >
+</td></tr></table> <p >
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="AdvancedHTMLMiniFormatter" >class <strong >AdvancedHTMLMiniFormatter</strong></a>(<a href="AdvancedHTMLParser.Formatter.html#AdvancedHTMLFormatter" >AdvancedHTMLFormatter</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#AdvancedHTMLMiniFormatter" >AdvancedHTMLMiniFormatter</a>(encoding='utf-8')<br />
+&nbsp;<br />
+<a href="#AdvancedHTMLMiniFormatter" >AdvancedHTMLMiniFormatter</a>&nbsp;-&nbsp;A&nbsp;formatter&nbsp;that&nbsp;will&nbsp;reformat&nbsp;a&nbsp;document,&nbsp;keeping&nbsp;only&nbsp;functional<br />
+&nbsp;&nbsp;&nbsp;&nbsp;whitespace&nbsp;and&nbsp;removing&nbsp;any&nbsp;and&nbsp;all&nbsp;indentation&nbsp;and&nbsp;nesting&nbsp;spaces.<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.Formatter.html#AdvancedHTMLMiniFormatter" >AdvancedHTMLMiniFormatter</a></dd>
+<dd ><a href="AdvancedHTMLParser.Formatter.html#AdvancedHTMLFormatter" >AdvancedHTMLFormatter</a></dd>
+<dd ><a href="html.parser.html#HTMLParser" >html.parser.HTMLParser</a></dd>
+<dd ><a href="_markupbase.html#ParserBase" >_markupbase.ParserBase</a></dd>
+<dd ><a href="builtins.html#object" >builtins.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-__init__" ><strong >__init__</strong></a>(self, encoding='utf-8')</dt><dd ><tt >Create&nbsp;a&nbsp;mini&nbsp;formatter.<br />
+&nbsp;<br />
+@param&nbsp;encoding&nbsp;&lt;str/None&gt;,&nbsp;Default&nbsp;'utf-8',&nbsp;-&nbsp;Use&nbsp;this&nbsp;encoding&nbsp;for&nbsp;the&nbsp;document.&nbsp;None&nbsp;to&nbsp;not&nbsp;mess&nbsp;with&nbsp;encoding</tt></dd></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.Formatter.html#AdvancedHTMLFormatter" >AdvancedHTMLFormatter</a>:<br />
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-feed" ><strong >feed</strong></a>(self, contents)</dt><dd ><tt >feed&nbsp;-&nbsp;Load&nbsp;contents<br />
+&nbsp;<br />
+@param&nbsp;contents&nbsp;-&nbsp;HTML&nbsp;contents</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree,&nbsp;converted&nbsp;to&nbsp;&nbsp;valid&nbsp;XHTML<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-getRoot" ><strong >getRoot</strong></a>(self)</dt><dd ><tt >getRoot&nbsp;-&nbsp;returns&nbsp;the&nbsp;root&nbsp;Tag&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;AdvancedTag&nbsp;at&nbsp;root.&nbsp;If&nbsp;you&nbsp;provided&nbsp;multiple&nbsp;root&nbsp;nodes,&nbsp;this&nbsp;will&nbsp;be&nbsp;a&nbsp;"holder"&nbsp;with&nbsp;tagName&nbsp;value&nbsp;as&nbsp;constants.INVISIBLE_ROOT_TAG</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-getRootNodes" ><strong >getRootNodes</strong></a>(self)</dt><dd ><tt >getRootNodes&nbsp;-&nbsp;Gets&nbsp;all&nbsp;objects&nbsp;at&nbsp;the&nbsp;"root"&nbsp;(first&nbsp;level;&nbsp;no&nbsp;parent).&nbsp;Use&nbsp;this&nbsp;if&nbsp;you&nbsp;may&nbsp;have&nbsp;multiple&nbsp;roots&nbsp;(not&nbsp;children&nbsp;of&nbsp;&lt;html&gt;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Use&nbsp;this&nbsp;method&nbsp;to&nbsp;get&nbsp;objects,&nbsp;for&nbsp;example,&nbsp;in&nbsp;an&nbsp;AJAX&nbsp;request&nbsp;where&nbsp;&lt;html&gt;&nbsp;may&nbsp;not&nbsp;be&nbsp;your&nbsp;root.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Note:&nbsp;If&nbsp;there&nbsp;are&nbsp;multiple&nbsp;root&nbsp;nodes&nbsp;(i.e.&nbsp;no&nbsp;&lt;html&gt;&nbsp;at&nbsp;the&nbsp;top),&nbsp;getRoot&nbsp;will&nbsp;return&nbsp;a&nbsp;special&nbsp;tag.&nbsp;This&nbsp;function&nbsp;automatically<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handles&nbsp;that,&nbsp;and&nbsp;returns&nbsp;all&nbsp;root&nbsp;nodes.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;AdvancedTags&nbsp;which&nbsp;are&nbsp;at&nbsp;the&nbsp;root&nbsp;level&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-handle_charref" ><strong >handle_charref</strong></a>(self, charRef)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-handle_comment" ><strong >handle_comment</strong></a>(self, comment)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-handle_data" ><strong >handle_data</strong></a>(self, data)</dt><dd ><tt >handle_data&nbsp;-&nbsp;Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-handle_decl" ><strong >handle_decl</strong></a>(self, decl)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-handle_endtag" ><strong >handle_endtag</strong></a>(self, tagName)</dt><dd ><tt >handle_endtag&nbsp;-&nbsp;Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-handle_entityref" ><strong >handle_entityref</strong></a>(self, entity)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-handle_startendtag" ><strong >handle_startendtag</strong></a>(self, tagName, attributeList)</dt><dd ><tt >handle_startendtag&nbsp;-&nbsp;Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-handle_starttag" ><strong >handle_starttag</strong></a>(self, tagName, attributeList, isSelfClosing=False)</dt><dd ><tt >handle_starttag&nbsp;-&nbsp;Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-parseFile" ><strong >parseFile</strong></a>(self, filename)</dt><dd ><tt >parseFile&nbsp;-&nbsp;Parses&nbsp;a&nbsp;file&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;filename&nbsp;&lt;str/file&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;to&nbsp;a&nbsp;filename&nbsp;or&nbsp;a&nbsp;file&nbsp;object.&nbsp;If&nbsp;file&nbsp;object,&nbsp;it&nbsp;will&nbsp;not&nbsp;be&nbsp;closed,&nbsp;you&nbsp;must&nbsp;close.</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-parseStr" ><strong >parseStr</strong></a>(self, html)</dt><dd ><tt >parseStr&nbsp;-&nbsp;Parses&nbsp;a&nbsp;string&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-setRoot" ><strong >setRoot</strong></a>(self, root)</dt><dd ><tt >setRoot&nbsp;-&nbsp;Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes<br />
+&nbsp;<br />
+@param&nbsp;root&nbsp;-&nbsp;AdvancedTag&nbsp;to&nbsp;be&nbsp;new&nbsp;root</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-unknown_decl" ><strong >unknown_decl</strong></a>(self, decl)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
+
+<hr />
+Methods inherited from <a href="html.parser.html#HTMLParser" >html.parser.HTMLParser</a>:<br />
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-check_for_whole_start_tag" ><strong >check_for_whole_start_tag</strong></a>(self, i)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;check&nbsp;to&nbsp;see&nbsp;if&nbsp;we&nbsp;have&nbsp;a&nbsp;complete&nbsp;starttag;&nbsp;return&nbsp;end<br />
+#&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete.</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-clear_cdata_mode" ><strong >clear_cdata_mode</strong></a>(self)</dt></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-close" ><strong >close</strong></a>(self)</dt><dd ><tt >Handle&nbsp;any&nbsp;buffered&nbsp;data.</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-get_starttag_text" ><strong >get_starttag_text</strong></a>(self)</dt><dd ><tt >Return&nbsp;full&nbsp;source&nbsp;of&nbsp;start&nbsp;tag:&nbsp;'&lt;...&gt;'.</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-goahead" ><strong >goahead</strong></a>(self, end)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;handle&nbsp;data&nbsp;as&nbsp;far&nbsp;as&nbsp;reasonable.&nbsp;&nbsp;May&nbsp;leave&nbsp;state<br />
+#&nbsp;and&nbsp;data&nbsp;to&nbsp;be&nbsp;processed&nbsp;by&nbsp;a&nbsp;subsequent&nbsp;call.&nbsp;&nbsp;If&nbsp;'end'&nbsp;is<br />
+#&nbsp;true,&nbsp;force&nbsp;handling&nbsp;all&nbsp;data&nbsp;as&nbsp;if&nbsp;followed&nbsp;by&nbsp;EOF&nbsp;marker.</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-handle_pi" ><strong >handle_pi</strong></a>(self, data)</dt><dd ><tt >#&nbsp;Overridable&nbsp;--&nbsp;handle&nbsp;processing&nbsp;instruction</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-parse_bogus_comment" ><strong >parse_bogus_comment</strong></a>(self, i, report=1)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;bogus&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br />
+#&nbsp;see&nbsp;<a href="http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state" >http://www.w3.org/TR/html5/tokenization.html#bogus-comment-state</a></tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-parse_endtag" ><strong >parse_endtag</strong></a>(self, i)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;endtag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;incomplete</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-parse_html_declaration" ><strong >parse_html_declaration</strong></a>(self, i)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;html&nbsp;declarations,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated<br />
+#&nbsp;See&nbsp;w3.org/TR/html5/tokenization.html#markup-declaration-open-state<br />
+#&nbsp;See&nbsp;also&nbsp;parse_declaration&nbsp;in&nbsp;_markupbase</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-parse_pi" ><strong >parse_pi</strong></a>(self, i)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;processing&nbsp;instr,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-parse_starttag" ><strong >parse_starttag</strong></a>(self, i)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;handle&nbsp;starttag,&nbsp;return&nbsp;end&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-reset" ><strong >reset</strong></a>(self)</dt><dd ><tt >Reset&nbsp;this&nbsp;instance.&nbsp;&nbsp;Loses&nbsp;all&nbsp;unprocessed&nbsp;data.</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-set_cdata_mode" ><strong >set_cdata_mode</strong></a>(self, elem)</dt></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-unescape" ><strong >unescape</strong></a>(self, s)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;helper&nbsp;to&nbsp;remove&nbsp;special&nbsp;character&nbsp;quoting</tt></dd></dl>
+
+<hr />
+Data and other attributes inherited from <a href="html.parser.html#HTMLParser" >html.parser.HTMLParser</a>:<br />
+<dl ><dt ><strong >CDATA_CONTENT_ELEMENTS</strong> = ('script', 'style')</dt></dl>
+
+<hr />
+Methods inherited from <a href="_markupbase.html#ParserBase" >_markupbase.ParserBase</a>:<br />
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-error" ><strong >error</strong></a>(self, message)</dt></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-getpos" ><strong >getpos</strong></a>(self)</dt><dd ><tt >Return&nbsp;current&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-parse_comment" ><strong >parse_comment</strong></a>(self, i, report=1)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;comment,&nbsp;return&nbsp;length&nbsp;or&nbsp;-1&nbsp;if&nbsp;not&nbsp;terminated</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-parse_declaration" ><strong >parse_declaration</strong></a>(self, i)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;declaration&nbsp;(for&nbsp;use&nbsp;by&nbsp;subclasses).</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-parse_marked_section" ><strong >parse_marked_section</strong></a>(self, i, report=1)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;parse&nbsp;a&nbsp;marked&nbsp;section<br />
+#&nbsp;Override&nbsp;this&nbsp;to&nbsp;handle&nbsp;MS-word&nbsp;extension&nbsp;syntax&nbsp;&lt;![if&nbsp;word]&gt;content&lt;![endif]&gt;</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLMiniFormatter-updatepos" ><strong >updatepos</strong></a>(self, i, j)</dt><dd ><tt >#&nbsp;Internal&nbsp;--&nbsp;update&nbsp;line&nbsp;number&nbsp;and&nbsp;offset.&nbsp;&nbsp;This&nbsp;should&nbsp;be<br />
+#&nbsp;called&nbsp;for&nbsp;each&nbsp;piece&nbsp;of&nbsp;data&nbsp;exactly&nbsp;once,&nbsp;in&nbsp;order&nbsp;--&nbsp;in&nbsp;other<br />
+#&nbsp;words&nbsp;the&nbsp;concatenation&nbsp;of&nbsp;all&nbsp;the&nbsp;input&nbsp;strings&nbsp;to&nbsp;this<br />
+#&nbsp;function&nbsp;should&nbsp;be&nbsp;exactly&nbsp;the&nbsp;entire&nbsp;input.</tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="_markupbase.html#ParserBase" >_markupbase.ParserBase</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></p></p></td></tr></table><p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
 <tr bgcolor="#55aa55" >
 <td colspan="3" valign="bottom" >&nbsp;<br />
 <font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
-<td width="100%" ><strong >__all__</strong> = ('AdvancedHTMLFormatter',)</td></tr></table>
+<td width="100%" ><strong >__all__</strong> = ('AdvancedHTMLFormatter', 'AdvancedHTMLMiniFormatter')</td></tr></table>
 </p></p></p></body></html>

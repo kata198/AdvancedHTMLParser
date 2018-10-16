@@ -7,7 +7,7 @@
 <tr bgcolor="#7799ee" >
 <td valign="bottom" >&nbsp;<br />
 <font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong ><a href="AdvancedHTMLParser.html" ><font color="#ffffff" >AdvancedHTMLParser</font></a>.Parser</strong></big></big></font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
-    <p ><tt >#&nbsp;Copyright&nbsp;(c)&nbsp;2015,&nbsp;2016,&nbsp;2017&nbsp;Tim&nbsp;Savannah&nbsp;under&nbsp;LGPLv3.&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
+    <p ><tt >#&nbsp;Copyright&nbsp;(c)&nbsp;2015,&nbsp;2016,&nbsp;2017,&nbsp;2018&nbsp;Tim&nbsp;Savannah&nbsp;under&nbsp;LGPLv3.&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
 #<br />
 #&nbsp;&nbsp;&nbsp;Parser&nbsp;implementation</tt></p>
 <p >
@@ -48,7 +48,9 @@
 <font color="#000000" face="helvetica, arial" ><a name="AdvancedHTMLParser" >class <strong >AdvancedHTMLParser</strong></a>(<a href="html.parser.html#HTMLParser" >html.parser.HTMLParser</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;-&nbsp;This&nbsp;class&nbsp;parses&nbsp;and&nbsp;allows&nbsp;searching&nbsp;of&nbsp;&nbsp;documents<br />&nbsp;</tt></td></tr>
+<td colspan="2" ><tt ><a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>(filename=None,&nbsp;encoding='utf-8')<br />
+&nbsp;<br />
+<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;-&nbsp;This&nbsp;class&nbsp;parses&nbsp;and&nbsp;allows&nbsp;searching&nbsp;of&nbsp;&nbsp;documents<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
 <dd ><a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser" >AdvancedHTMLParser</a></dd>
@@ -205,14 +207,31 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 @return&nbsp;-&nbsp;An&nbsp;AdvancedTag&nbsp;of&nbsp;the&nbsp;node&nbsp;that&nbsp;matched,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;match.</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br />
+<dl ><dt ><a name="AdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document,&nbsp;replacing&nbsp;the&nbsp;original&nbsp;whitespace<br />
+&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;pretty-printed&nbsp;version<br />
 &nbsp;<br />
 @param&nbsp;indent&nbsp;-&nbsp;space/tab/newline&nbsp;of&nbsp;each&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;integer&nbsp;for&nbsp;how&nbsp;many&nbsp;spaces&nbsp;per&nbsp;level<br />
 &nbsp;<br />
-@return&nbsp;-&nbsp;Formatted&nbsp;html&nbsp;as&nbsp;string</tt></dd></dl>
+@return&nbsp;-&nbsp;&lt;str&gt;&nbsp;Formatted&nbsp;html<br />
+&nbsp;<br />
+@see&nbsp;getHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;original&nbsp;whitespace<br />
+&nbsp;<br />
+@see&nbsp;getMiniHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;remaining</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="AdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLParser-getMiniHTML" ><strong >getMiniHTML</strong></a>(self)</dt><dd ><tt >getMiniHTML&nbsp;-&nbsp;Gets&nbsp;the&nbsp;HTML&nbsp;representation&nbsp;of&nbsp;this&nbsp;document&nbsp;without&nbsp;any&nbsp;pretty&nbsp;formatting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;disregarding&nbsp;original&nbsp;whitespace&nbsp;beyond&nbsp;the&nbsp;functional.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;str&gt;&nbsp;-&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;present</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getRoot" ><strong >getRoot</strong></a>(self)</dt><dd ><tt >getRoot&nbsp;-&nbsp;returns&nbsp;the&nbsp;root&nbsp;Tag.<br />
 &nbsp;<br />
@@ -396,7 +415,9 @@ Data descriptors inherited from <a href="_markupbase.html#ParserBase" >_markupba
 <font color="#000000" face="helvetica, arial" ><a name="IndexedAdvancedHTMLParser" >class <strong >IndexedAdvancedHTMLParser</strong></a>(<a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser" >AdvancedHTMLParser</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt >An&nbsp;<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;that&nbsp;indexes&nbsp;for&nbsp;much&nbsp;much&nbsp;faster&nbsp;searching.&nbsp;If&nbsp;you&nbsp;are&nbsp;doing&nbsp;searching/validation,&nbsp;this&nbsp;is&nbsp;your&nbsp;bet.<br />
+<td colspan="2" ><tt ><a href="#IndexedAdvancedHTMLParser" >IndexedAdvancedHTMLParser</a>(filename=None,&nbsp;encoding='utf-8',&nbsp;indexIDs=True,&nbsp;indexNames=True,&nbsp;indexClassNames=True,&nbsp;indexTagNames=True)<br />
+&nbsp;<br />
+An&nbsp;<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;that&nbsp;indexes&nbsp;for&nbsp;much&nbsp;much&nbsp;faster&nbsp;searching.&nbsp;If&nbsp;you&nbsp;are&nbsp;doing&nbsp;searching/validation,&nbsp;this&nbsp;is&nbsp;your&nbsp;bet.<br />
 &nbsp;&nbsp;If&nbsp;you&nbsp;are&nbsp;writing/modifying,&nbsp;you&nbsp;may&nbsp;use&nbsp;this,&nbsp;but&nbsp;be&nbsp;sure&nbsp;to&nbsp;call&nbsp;<a href="#IndexedAdvancedHTMLParser-reindex" >reindex</a>()&nbsp;after&nbsp;changes.<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
@@ -499,8 +520,15 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;state&nbsp;&lt;dict&gt;&nbsp;-&nbsp;The&nbsp;state</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-contains" ><strong >contains</strong></a>(self, em)</dt><dd ><tt >Checks&nbsp;if&nbsp;#em&nbsp;is&nbsp;found&nbsp;anywhere&nbsp;within&nbsp;this&nbsp;element&nbsp;tree<br />
 &nbsp;<br />
@@ -613,14 +641,31 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 @return&nbsp;-&nbsp;An&nbsp;AdvancedTag&nbsp;of&nbsp;the&nbsp;node&nbsp;that&nbsp;matched,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;match.</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document<br />
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-getFormattedHTML" ><strong >getFormattedHTML</strong></a>(self, indent='  ')</dt><dd ><tt >getFormattedHTML&nbsp;-&nbsp;Get&nbsp;formatted&nbsp;and&nbsp;xhtml&nbsp;of&nbsp;this&nbsp;document,&nbsp;replacing&nbsp;the&nbsp;original&nbsp;whitespace<br />
+&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;pretty-printed&nbsp;version<br />
 &nbsp;<br />
 @param&nbsp;indent&nbsp;-&nbsp;space/tab/newline&nbsp;of&nbsp;each&nbsp;level&nbsp;of&nbsp;indent,&nbsp;or&nbsp;integer&nbsp;for&nbsp;how&nbsp;many&nbsp;spaces&nbsp;per&nbsp;level<br />
 &nbsp;<br />
-@return&nbsp;-&nbsp;Formatted&nbsp;html&nbsp;as&nbsp;string</tt></dd></dl>
+@return&nbsp;-&nbsp;&lt;str&gt;&nbsp;Formatted&nbsp;html<br />
+&nbsp;<br />
+@see&nbsp;getHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;original&nbsp;whitespace<br />
+&nbsp;<br />
+@see&nbsp;getMiniHTML&nbsp;-&nbsp;Get&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;remaining</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-getHTML" ><strong >getHTML</strong></a>(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
+
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-getMiniHTML" ><strong >getMiniHTML</strong></a>(self)</dt><dd ><tt >getMiniHTML&nbsp;-&nbsp;Gets&nbsp;the&nbsp;HTML&nbsp;representation&nbsp;of&nbsp;this&nbsp;document&nbsp;without&nbsp;any&nbsp;pretty&nbsp;formatting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;disregarding&nbsp;original&nbsp;whitespace&nbsp;beyond&nbsp;the&nbsp;functional.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;str&gt;&nbsp;-&nbsp;HTML&nbsp;with&nbsp;only&nbsp;functional&nbsp;whitespace&nbsp;present</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getRoot" ><strong >getRoot</strong></a>(self)</dt><dd ><tt >getRoot&nbsp;-&nbsp;returns&nbsp;the&nbsp;root&nbsp;Tag.<br />
 &nbsp;<br />
@@ -660,8 +705,15 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;String</tt></dd></dl>
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-unknown_decl" ><strong >unknown_decl</strong></a>(self, decl)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
