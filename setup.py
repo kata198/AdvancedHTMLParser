@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2015, 2016, 2017 Timothy Savannah under terms of LGPLv3.
+# Copyright (c) 2015, 2016, 2017, 2018 Timothy Savannah under terms of LGPLv3.
 # You should have received a copy of this with this distribution as "LICENSE"
 #
 #  NOTE: - If you pass --no-deps, you can get a standalone install of AdvancedHTMLParser
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         long_description = summary
 
     setup(name='AdvancedHTMLParser',
-            version='8.0.1',
+            version='8.1.0',
             packages=['AdvancedHTMLParser'],
             scripts=['formatHTML'],
             author='Tim Savannah',
