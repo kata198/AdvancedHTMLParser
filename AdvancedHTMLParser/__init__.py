@@ -5,7 +5,7 @@
 
 from .Parser import AdvancedHTMLParser, IndexedAdvancedHTMLParser
 from .Tags import AdvancedTag, TagCollection, toggleAttributesDOM, isTextNode, isTagNode
-from .Formatter import AdvancedHTMLFormatter
+from .Formatter import AdvancedHTMLFormatter, AdvancedHTMLMiniFormatter
 from .Validator import ValidatingAdvancedHTMLParser
 from .exceptions import InvalidCloseException, MissedCloseException, HTMLValidationException, MultipleRootNodeException
 from .SpecialAttributes import StyleAttribute
