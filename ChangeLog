@@ -1,3 +1,18 @@
+* 8.1.1 - Oct 15 2018
+
+- Add AdvancedHTMLMiniFormatter to top-module level (so from AdvancedHTMLParser import AdvancedHTMLMiniFormatter works as well as from AdvancedHTMLParser.Formatter import AdvancedHTMLMiniFormatter)
+
+- Update "formatHTML" program
+
+  * Expand --help - Now documents the options better.
+
+  * Document the previously-implemented but unadvertised --indent='    ' argument to formatHTML, to set the level-indentation
+
+  * Add "-p" or "--pretty" to toggle pretty-printer on formatHTML program (default mode)
+
+  * Add "-m" or "--mini" to toggle the mini-printer on formatHTML program (new)
+
+
 * 8.1.0 - Oct 15 2018
 
 - Fix an issue where .classNames became no longer an attribute. [ Bug report and solution validation found by github user mninc [ https://github.com/mninc] ]
