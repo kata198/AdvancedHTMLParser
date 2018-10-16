@@ -1,14 +1,37 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+'''
+    Copyright (c) 2015, 2016, 2017, 2018 Timothy Savannah All Rights Reserved
+
+    Licensed under terms of the Lesser GNU General Purpose License Version 2.1
+
+    See LICENSE for more information
+'''
 
 import os
 import sys
 
-from AdvancedHTMLParser import AdvancedHTMLFormatter
+from AdvancedHTMLParser import AdvancedHTMLFormatter, AdvancedHTMLMiniFormatter
 
 
 def printUsage():
-    sys.stderr.write('''Usage: %s (optional: -e [encoding] ) (optional: /path/to/in.html) (optional: [/path/to/output.html])
+    sys.stderr.write('''Usage: %s (Optional Arguments) (optional: /path/to/in.html) (optional: [/path/to/output.html])
   Formats HTML on input and writes to output.
+
+ Optional Arguments:
+ -------------------
+
+    -e [encoding]        - Specify an encoding to use. Default is utf-8
+
+    -m  or --mini        - Output "mini" HTML (only retain functional whitespace,
+                            strip the rest and no indentation)
+
+    -p  or --pretty      - Output "pretty" HTML [This is the defualt mode]
+
+
+    --indent='    '      - Use the provided string [default 4-spaces] to represent each
+                            level of nesting. Use --indent="\t" for 1 tab insead, for example.
+                           Affects pretty printing mode only
+
 
  If output filename is not specified or is empty string, output will be to stdout.
  If input filename is not specified or is empty string, input will be from stdin
@@ -21,6 +44,8 @@ if __name__ == '__main__':
     indent = '  '
     inFilename  = None
     outFilename = None
+
+    isMini = False
 
     args = sys.argv[1:]
     tmpArgs = args[:]
@@ -42,15 +67,19 @@ if __name__ == '__main__':
                 break
 
 
-    for arg in args:
+    for arg in args[:]:
         if arg.startswith('--indent='):
-            indent = arg[len('--indent='):]
+            indent = arg[len('--indent='):].replace('\\t', '\t').replace('\\r', '\r').replace('\\n', '\n')
             if indent.isdigit():
                 indent = ' ' * indent
             elif len(indent.replace(' ', '').replace('\t', '').replace('\r', '').replace('\n', '')) > 0:
                 sys.stderr.write('Supported values for indent are: # of spaces, or a string of tabs, spaces, newlines which represent one level of indentation.\n')
                 sys.exit(1)
             args.remove(arg)
+        elif arg in ('-m', '--mini'):
+            isMini = True
+        elif arg in ('-p', '--pretty'):
+            isMini = False
         elif arg == '--help':
             printUsage()
             sys.exit(1)
@@ -76,8 +105,12 @@ if __name__ == '__main__':
         except IOError:
             sys.stderr.write('Cannot open output file %s\n' %(outFilename,))
         
+    
+    if not isMini:
+        formatter = AdvancedHTMLFormatter(indent=indent, encoding=encoding)
+    else:
+        formatter = AdvancedHTMLMiniFormatter(encoding=encoding)
 
-    formatter = AdvancedHTMLFormatter(indent=indent, encoding=encoding)
     if inFilename:
         formatter.parseFile(inFilename)
     else:
