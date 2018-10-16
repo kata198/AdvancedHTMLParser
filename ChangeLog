@@ -1,8 +1,11 @@
 * 8.1.0 - ??? ?? ????
 
-- Fix an issue where .classNames became no longer an attribute.
+- Fix an issue where .classNames became no longer an attribute. [ Bug report and solution validation found by github user mninc [ https://github.com/mninc] ]
 
-- Fix an issue where under certain conditions binary attributes would have a value of string 'None' (like hidden="None" instead of just hidden in the output)
+- Fix an issue where under certain conditions binary attributes would have a value of string 'None' (like hidden="None" instead of just hidden in the output) [ Bug report and solution validation found by github user UntoSten [ https://github.com/UntoSten ] ]
+
+- Expand unit tests to explicitly test the above two scenarios
+
 
 * 8.0.1 - Nov 30 2017
 
