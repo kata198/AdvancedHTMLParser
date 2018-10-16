@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # Copyright (c) 2015, 2016, 2017, 2018 Tim Savannah All Rights Rserved under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #
+# See: https://github.com/kata198/AdvancedHTMLParser for full information
+
+
+#
 # In general below, all "tag names" (body, div, etc) should be lowercase. The parser will lowercase internally. All attribute names (like `id` in id="123") provided to search functions should be lowercase. Values are not lowercase. This is because doing tons of searches, lowercasing every search can quickly build up. Lowercase it once in your code, not every time you call a function.
 
 from .Parser import AdvancedHTMLParser, IndexedAdvancedHTMLParser
