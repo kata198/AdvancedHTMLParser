@@ -1,3 +1,25 @@
+* 8.1.2 - Oct 16 2018
+
+- Add two new formatters to AdvancedHTMLParser.Formatter - AdvancedHTMLSlimTagFormatter and AdvancedHTMLSlimTagMiniFormatter
+
+  * These represent the pretty-printer and mini-printer respectively, but will omit the trailing space on start tags,
+
+    e.x.  <span id="abc" > will become <span id="abc">
+
+  * By default, self-closing tags will retain their trailing space, e.x. <hr class="bigline" />.
+    This is for xhtml compatibility so that the "/" does not become part of the previous attribute or its own attribute
+
+    This can be toggled-off by passing "slimSelfClosing=True" to either of the new formatters, and your output will be <hr class="bigline"/>
+
+- Added tests and documentation for the two new formatter types
+
+- Ensure that AdvancedHTMLMiniFormatter is exported by the AdvancedHTMLParser.__init__.py
+
+- Add both new SlimTag formatters to be exported by AdvancedHTMLParser.__init__.py
+
+- Update the version reference within the pydoc url within the READMEs to bypass caching of previous versions
+
+
 * 8.1.1 - Oct 15 2018
 
 - Add AdvancedHTMLMiniFormatter to top-module level (so from AdvancedHTMLParser import AdvancedHTMLMiniFormatter works as well as from AdvancedHTMLParser.Formatter import AdvancedHTMLMiniFormatter)
