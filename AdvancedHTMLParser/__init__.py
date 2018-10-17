@@ -20,6 +20,7 @@ __int_version_tuple__ = (8, 1, 1)
 
 __all__ = ( 'AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection',
     'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'MultipleRootNodeException',
-    'StyleAttribute', 'toggleAttributesDOM', 'isTextNode', 'isTagNode' )
+    'StyleAttribute', 'toggleAttributesDOM', 'isTextNode', 'isTagNode',
+    'AdvancedHTMLMiniFormatter', )
 
 #vim: set ts=4 sw=4 expandtab
