@@ -412,6 +412,57 @@ Use this when pretty-printing doesn't matter and you'd like to save space.
 You can access this same formatting off an AdvancedHTMLParser.AdvancedHTMLParser (or IndexedAdvancedHTMLParser) by calling .getMiniHTML()
 
 
+**AdvancedHTMLSlimTagFormatter and AdvancedHTMLSlimTagMiniFormatter**
+
+In order to support some less-leniant parsers, AdvancedHTMLParser will by default include a space prior to the close-tag '>' character in HTML output.
+
+For example:
+
+	<span id="abc" >Blah</span>
+
+	<br />
+
+	<hr class="bigline" />
+
+
+It is recommended to keep these extra spaces, but if for some reason you feel you need to get rid of them, you can use either *AdvancedHTMLSlimTagFormatter* or *AdvancedHTMLSlimTagMiniFormatter*.
+
+
+*AdvancedHTMLSlimTagFormatter* will do pretty-printing (like getFormattedHTML / AdvancedHTMLFormatter.getHTML output)
+
+*AdvancedHTMLSlimTagMiniFormatter* will do mini-printing (like getMiniHTML / AdvancedHTMLMiniFormatter.getHTML output)
+
+
+Feeding in your HTML via formatter.parseStr(htmlStr) [where htmlStr can be parser.getHTML()] will cause it to be output without the start-tag padding.
+
+For example:
+
+	<span id="abc">Blah</span>
+
+By default, self-closing tags will retain their padding so that an xhtml-compliant parser doesn't treat "/" as either an attribute or part of the attribute-value of the preceding attribute.
+
+For example:
+
+	<hr class="bigline"/>
+
+Could be interpreted as a horizontal rule with a class name of "bigline/". Most modern browsers work around this and will not have issue, but some parsers will.
+
+You may pass an optional keyword-argument to the formatter constructor, slimSelfClosing=True, in order to force removal of this padding from self-closing tags.
+
+For example:
+
+	myHtml = '<hr class="bigline" />'
+
+	formatter = AdvancedHTMLSlimTagMiniFormatter(slimSelfClosing=True)
+
+	formatter.parseStr(myHtml)
+
+	miniHtml = formatter.getHTML()
+
+	# miniHtml will now contain '<hr class="bigline"/>'
+
+.
+
 **formatHTML script**
 
 
