@@ -9,7 +9,7 @@
 
 from .Parser import AdvancedHTMLParser, IndexedAdvancedHTMLParser
 from .Tags import AdvancedTag, TagCollection, toggleAttributesDOM, isTextNode, isTagNode
-from .Formatter import AdvancedHTMLFormatter, AdvancedHTMLMiniFormatter
+from .Formatter import AdvancedHTMLFormatter, AdvancedHTMLMiniFormatter, AdvancedHTMLSlimTagFormatter, AdvancedHTMLSlimTagMiniFormatter
 from .Validator import ValidatingAdvancedHTMLParser
 from .exceptions import InvalidCloseException, MissedCloseException, HTMLValidationException, MultipleRootNodeException
 from .SpecialAttributes import StyleAttribute
@@ -21,6 +21,6 @@ __int_version_tuple__ = (8, 1, 1)
 __all__ = ( 'AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection',
     'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'MultipleRootNodeException',
     'StyleAttribute', 'toggleAttributesDOM', 'isTextNode', 'isTagNode',
-    'AdvancedHTMLMiniFormatter', )
+    'AdvancedHTMLMiniFormatter', 'AdvancedHTMLSlimTagFormatter', 'AdvancedHTMLSlimTagMiniFormatter' )
 
 #vim: set ts=4 sw=4 expandtab
