@@ -9,10 +9,19 @@ import tempfile
 
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser
 
+from AdvancedHTMLParser.Formatter import AdvancedHTMLSlimTagFormatter, AdvancedHTMLSlimTagMiniFormatter
+
 TEST_HTML = '''<html><head><title>Hello World</title></head>
  <body>
  <div>Hello world <span>And welcome to the show.</span>
  </div>
+ </body></html>'''
+
+
+TEST_HTML_2 = '''<html><head></head>
+    <body>  <div>Hello world<br> Welcome to <span id="abc" >The Show</span>
+    <hr class="whatever">
+    </div>
  </body></html>'''
 
 class TestFormatting(object):
@@ -62,7 +71,46 @@ class TestFormatting(object):
 
         assert miniHTML == '<html ><head ><title >Hello World</title></head> <body > <div >Hello world <span >And welcome to the show.</span> </div> </body></html>'
 
-        
+    def test_slimTagFormatter(self):
+        '''
+            test_slimTagFormatter - Test the AdvancedHTMLSlimTagFormatter
+        '''
+
+        parser = AdvancedHTMLSlimTagFormatter()
+        parser.parseStr(TEST_HTML_2)
+
+        prettyHTML = parser.getHTML()
+
+        assert prettyHTML == '\n<html>\n    <head>\n    </head> \n    <body> \n        <div>Hello world\n            <br /> Welcome to \n            <span id="abc">The Show\n            </span> \n            <hr class="whatever" /> \n        </div> \n    </body>\n</html>' , 'Got unexpected HTML output for slim-tag pretty printer with slimSelfClosing=False'
+
+        parser = AdvancedHTMLSlimTagFormatter(slimSelfClosing=True)
+        parser.parseStr(TEST_HTML_2)
+
+        prettyHTML = parser.getHTML()
+        assert prettyHTML == '\n<html>\n    <head>\n    </head> \n    <body> \n        <div>Hello world\n            <br/> Welcome to \n            <span id="abc">The Show\n            </span> \n            <hr class="whatever"/> \n        </div> \n    </body>\n</html>' , 'Got unexpected HTML output for slim-tag pretty printer with slimSelfClosing=True'
+
+
+    def test_slimTagMiniFormatter(self):
+        '''
+            test_slimTagMiniFormatter - Test the AdvancedHTMLSlimTagMiniFormatter
+        '''
+
+        parser = AdvancedHTMLSlimTagMiniFormatter()
+        parser.parseStr(TEST_HTML_2)
+
+        prettyHTML = parser.getHTML()
+
+        print ( repr(prettyHTML) )
+
+        assert prettyHTML == '<html><head></head> <body> <div>Hello world<br /> Welcome to <span id="abc">The Show</span> <hr class="whatever" /> </div> </body></html>' , 'Got unexpected HTML output for slim-tag mini printer with slimSelfClosing=False'
+
+
+        parser = AdvancedHTMLSlimTagMiniFormatter(slimSelfClosing=True)
+        parser.parseStr(TEST_HTML_2)
+
+        prettyHTML = parser.getHTML()
+        assert prettyHTML == '<html><head></head> <body> <div>Hello world<br/> Welcome to <span id="abc">The Show</span> <hr class="whatever"/> </div> </body></html>' , 'Got unexpected HTML output for slim-tag mini printer with slimSelfClosing=True'
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
