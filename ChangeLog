@@ -1,3 +1,8 @@
+* 8.1.3 - Oct 16 2018
+
+- Fix python2 inheritance issue with new SlimTag formatters
+
+
 * 8.1.2 - Oct 16 2018
 
 - Add two new formatters to AdvancedHTMLParser.Formatter - AdvancedHTMLSlimTagFormatter and AdvancedHTMLSlimTagMiniFormatter
