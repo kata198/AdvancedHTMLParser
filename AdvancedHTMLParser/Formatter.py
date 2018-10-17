@@ -27,7 +27,7 @@ from .utils import addStartTag, stripIEConditionals
 import codecs
 
 
-__all__ = ('AdvancedHTMLFormatter', 'AdvancedHTMLMiniFormatter')
+__all__ = ('AdvancedHTMLFormatter', 'AdvancedHTMLMiniFormatter', 'AdvancedHTMLSlimTagFormatter', 'AdvancedHTMLSlimTagMiniFormatter')
 
 class AdvancedHTMLFormatter(HTMLParser):
     '''
@@ -204,7 +204,7 @@ class AdvancedHTMLFormatter(HTMLParser):
             if not foundIt:
                 sys.stderr.write('WARNING: found close tag with no matching start.\n')
                 return
-                
+
             while inTag[-1].tagName != tagName:
                 oldTag = inTag.pop()
                 if oldTag.tagName in PREFORMATTED_TAGS:
@@ -284,7 +284,7 @@ class AdvancedHTMLFormatter(HTMLParser):
     def parseFile(self, filename):
         '''
             parseFile - Parses a file and creates the DOM tree and indexes
-    
+
                 @param filename <str/file> - A string to a filename or a file object. If file object, it will not be closed, you must close.
         '''
         self.reset()
@@ -325,5 +325,147 @@ class AdvancedHTMLMiniFormatter(AdvancedHTMLFormatter):
 
     def _getIndent(self):
         return ''
+
+
+class AdvancedTagSlim(AdvancedTag):
+    '''
+        AdvancedTagSlim - A special class which extends AdvancedTag, but uses
+
+            slim-endings (which may have parsing issues on some old/strange parsers)
+
+            I.e. instead of <span id="blah" > you would have <span id="blah">
+
+            We still by default keep <br /> as having the space because of xhtml attribute rules,
+              but can be disabled y passing slimSelfClosing=True to __init__
+
+
+            @NOTE: You should NOT use this directly, they are for use by the SlimTagFormatter s
+    '''
+
+    def __init__(self, *args, **kwargs):
+        '''
+            __init__ - Create an AdvancedTagSlim object.
+
+                @see AdvancedTag
+
+                Extra arguments:
+
+                  slimSelfClosing <bool> default False - If True, will use slim-endings on self-closing tags,
+
+                    i.e. <br/> instead of <br />
+
+                    This may break xhtml compatibility but modern browsers are okay with it.
+        '''
+        if 'slimSelfClosing' in kwargs:
+            slimSelfClosing = kwargs.pop('slimSelfClosing')
+        else:
+            slimSelfClosing = False
+        AdvancedTag.__init__(self, *args, **kwargs)
+
+        object.__setattr__(self, 'slimSelfClosing', slimSelfClosing)
+
+
+    def getStartTag(self, *args, **kwargs):
+        '''
+            getStartTag - Override the end-spacing rules
+
+              @see AdvancedTag.getStartTag
+        '''
+
+        ret = AdvancedTag.getStartTag(self, *args, **kwargs)
+
+        if ret.endswith(' >'):
+            ret = ret[:-2] + '>'
+        elif object.__getattribute__(self, 'slimSelfClosing') and ret.endswith(' />'):
+            ret = ret[:-3] + '/>'
+
+        return ret
+
+
+class AdvancedHTMLSlimTagFormatter(AdvancedHTMLFormatter):
+    '''
+        AdvancedHTMLSlimTagFormatter - Formats HTML with slim start tags,
+            which may break some xhtml-compatible parsers.
+
+        For example <span id="abc" > will become <span id="abc">.
+
+        Remainder will be pretty-printed. For mini-printing, @see AdvancedHTMLSlimTagMiniFormatter
+
+        If slimSelfClosing=True on __init__, <br /> will become <br/> as well
+    '''
+
+
+    def __init__(self, indent='    ', encoding='utf-8', slimSelfClosing=False):
+        '''
+            __init__ - Construct an AdvancedHTMLSlimTagFormatter
+
+                @see AdvancedHTMLFormatter
+
+                @param slimSelfClosing <bool> Default False - If True, will use slim self-closing tags,
+
+                    e.x. <br /> becomes <br/>
+        '''
+
+        AdvancedHTMLFormatter.__init__(self, indent=indent, encoding=encoding)
+
+        self.slimSelfClosing = slimSelfClosing
+
+    def handle_starttag(self, tagName, attributeList, isSelfClosing=False):
+        '''
+            handle_starttag - Handles parsing a start tag.
+
+                @see AdvancedHTMLFormatter.handle_starttag
+        '''
+        tagName = tagName.lower()
+        inTag = self._inTag
+
+        if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
+            isSelfClosing = True
+
+        newTag = AdvancedTagSlim(tagName, attributeList, isSelfClosing, slimSelfClosing=self.slimSelfClosing)
+        if self.root is None:
+            self.root = newTag
+        elif len(inTag) > 0:
+            inTag[-1].appendChild(newTag)
+        else:
+            raise MultipleRootNodeException()
+
+        if self.inPreformatted is 0:
+            newTag._indent = self._getIndent()
+
+        if tagName in PREFORMATTED_TAGS:
+            self.inPreformatted += 1
+
+        if isSelfClosing is False:
+            inTag.append(newTag)
+            if tagName != INVISIBLE_ROOT_TAG:
+                self.currentIndentLevel += 1
+
+
+class AdvancedHTMLSlimTagMiniFormatter(AdvancedHTMLMiniFormatter):
+    '''
+        AdvancedHTMLSlimTagMiniFormatter - A "mini" formatter that
+            removes all non-functional whitespace (including all indentations)
+
+        Also uses "slim" start tags, @see AdvancedHTMLSlimTagFormatter for more info
+    '''
+
+    def __init__(self, encoding='utf-8', slimSelfClosing=False):
+        '''
+            __init__ - Create an AdvancedHTMLSlimTagMiniFormatter
+
+                @see AdvancedHTMLMiniFormatter
+
+                @param slimSelfClosing <bool> Default False - If True, will use slim self-closing tags,
+
+                    e.x. <br /> becomes <br/>
+        '''
+
+        AdvancedHTMLMiniFormatter.__init__(self, encoding=encoding)
+
+        self.slimSelfClosing = slimSelfClosing
+
+    handle_starttag = AdvancedHTMLSlimTagFormatter.handle_starttag
+
 
 #vim: set ts=4 sw=4 expandtab
