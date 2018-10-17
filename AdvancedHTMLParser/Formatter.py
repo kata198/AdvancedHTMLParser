@@ -381,6 +381,37 @@ class AdvancedTagSlim(AdvancedTag):
 
         return ret
 
+def handle_starttag_slim(self, tagName, attributeList, isSelfClosing=False):
+    '''
+        handle_starttag_slim - Handles parsing a start tag, but with "slim" start tags
+
+            @see AdvancedHTMLFormatter.handle_starttag
+    '''
+    tagName = tagName.lower()
+    inTag = self._inTag
+
+    if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
+        isSelfClosing = True
+
+    newTag = AdvancedTagSlim(tagName, attributeList, isSelfClosing, slimSelfClosing=self.slimSelfClosing)
+    if self.root is None:
+        self.root = newTag
+    elif len(inTag) > 0:
+        inTag[-1].appendChild(newTag)
+    else:
+        raise MultipleRootNodeException()
+
+    if self.inPreformatted is 0:
+        newTag._indent = self._getIndent()
+
+    if tagName in PREFORMATTED_TAGS:
+        self.inPreformatted += 1
+
+    if isSelfClosing is False:
+        inTag.append(newTag)
+        if tagName != INVISIBLE_ROOT_TAG:
+            self.currentIndentLevel += 1
+
 
 class AdvancedHTMLSlimTagFormatter(AdvancedHTMLFormatter):
     '''
@@ -410,36 +441,8 @@ class AdvancedHTMLSlimTagFormatter(AdvancedHTMLFormatter):
 
         self.slimSelfClosing = slimSelfClosing
 
-    def handle_starttag(self, tagName, attributeList, isSelfClosing=False):
-        '''
-            handle_starttag - Handles parsing a start tag.
 
-                @see AdvancedHTMLFormatter.handle_starttag
-        '''
-        tagName = tagName.lower()
-        inTag = self._inTag
-
-        if isSelfClosing is False and tagName in IMPLICIT_SELF_CLOSING_TAGS:
-            isSelfClosing = True
-
-        newTag = AdvancedTagSlim(tagName, attributeList, isSelfClosing, slimSelfClosing=self.slimSelfClosing)
-        if self.root is None:
-            self.root = newTag
-        elif len(inTag) > 0:
-            inTag[-1].appendChild(newTag)
-        else:
-            raise MultipleRootNodeException()
-
-        if self.inPreformatted is 0:
-            newTag._indent = self._getIndent()
-
-        if tagName in PREFORMATTED_TAGS:
-            self.inPreformatted += 1
-
-        if isSelfClosing is False:
-            inTag.append(newTag)
-            if tagName != INVISIBLE_ROOT_TAG:
-                self.currentIndentLevel += 1
+    handle_starttag = handle_starttag_slim
 
 
 class AdvancedHTMLSlimTagMiniFormatter(AdvancedHTMLMiniFormatter):
@@ -465,7 +468,7 @@ class AdvancedHTMLSlimTagMiniFormatter(AdvancedHTMLMiniFormatter):
 
         self.slimSelfClosing = slimSelfClosing
 
-    handle_starttag = AdvancedHTMLSlimTagFormatter.handle_starttag
+    handle_starttag = handle_starttag_slim
 
 
 #vim: set ts=4 sw=4 expandtab
