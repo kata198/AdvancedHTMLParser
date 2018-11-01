@@ -1057,5 +1057,79 @@ class TestAttributes(object):
         assert maxLengthValue == -1 , 'Expected invalid attribute value to return "-1" on .maxLength access, but got: ' + repr(maxLengthValue)
 
 
+    def test_getElementsByClassName(self):
+        '''
+            test_getElementsByClassName - Test the getElementsByClassName method
+        '''
+
+        html = '''<html><head><title>Page</title></head>
+<body class="background">
+  <div id="outer" class="outer">
+   <div class="inner special">Hello</div>
+   <div class="inner cheese">
+     <div class="blah" id="blahdiv1">One</div>
+       <span>
+         <div class="blah" id="blahdiv2" >
+         </div>
+       </span>
+     </div>
+   </div>
+  </div>
+</body>
+</html>
+        '''
+        document = AdvancedHTMLParser()
+        document.parseStr(html)
+
+        tags = document.getElementsByClassName('background')
+        assert len(tags) == 1 and tags[0].tagName == 'body' , 'Expected to get body tag for getElementsByClassName("background")'
+
+        tags = document.getElementsByClassName("inner")
+        assert len(tags) == 2 and tags[0].tagName == 'div' and tags[1].tagName == 'div' , 'Expected to find 2 div tags with class="inner"'
+
+        assert "inner" in tags[0].classNames and "inner" in tags[1].classNames , 'Expected to find "inner" in the classNames list'
+
+        assert issubclass(tags[0].classNames.__class__, (list, tuple)) , 'Expected .classNames to be a list of class names'
+
+
+        assert tags[0].className.startswith("inner") and tags[1].className.startswith("inner") , 'Expected to find "inner" at start of className string'
+
+        specialDiv = None
+        cheeseDiv = None
+        for tag in tags:
+            if "cheese" in tag.classNames:
+                cheeseDiv = tag
+            elif "special" in tag.classNames:
+                specialDiv = tag
+
+        assert specialDiv , 'Failed to find div with "special" in className'
+        assert cheeseDiv , 'Failed to find div with "cheese" in className'
+
+        assert 'Hello' in specialDiv.innerHTML , 'Expected "Hello" to be inside special div'
+
+        assert specialDiv.getElementsByClassName('bogus') == [] , 'Expected to get no results for specialDiv.getElementsByClassName("bogus")'
+
+        blahDivsDocument = document.getElementsByClassName("blah")
+        blahDivsCheese = cheeseDiv.getElementsByClassName("blah")
+
+        assert len(blahDivsDocument) == 2 , 'Expected to get 2 class="blah" divs from document, but got ' + str(len(blahDivsDocument))
+
+        assert len(blahDivsCheese) == 2 , 'Expected to get 2 class="blah" divs from cheeseDiv, but got ' + str(len(blahDivsCheese))
+
+        blahDiv1 = None
+        blahDiv2 = None
+
+        for blahDiv in blahDivsDocument:
+            if blahDiv.id == 'blahdiv1':
+                blahDiv1 = blahDiv
+            elif blahDiv.id == 'blahdiv2':
+                blahDiv2 = blahDiv
+
+        assert blahDiv1 , 'Failed to find id="blahdiv1" on one of the class="blah" divs'
+        assert blahDiv2 , 'Failed to find id="blahdiv2" on one of the class="blah" divs'
+
+        assert blahDiv1 in blahDivsCheese , 'Expected id="blahdiv1" div to also be in results from root=cheese div'
+        assert blahDiv2 in blahDivsCheese , 'Expected id="blahdiv2" div to also be in results from root=cheese div'
+
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
