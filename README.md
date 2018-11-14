@@ -149,7 +149,7 @@ The naming conventions are the same as in javascript, like "element.style.paddin
 
 **TagCollection**
 
-A TagCollection can be used like a list.
+A TagCollection can be used like a list. Every element has a unique uuid associated with it, and a TagCollection will ensure that the same element does not appear twice within its list (so it acts like an ordered set)
 
 It also exposes the various getElement\* functions which operate on the elements within the list (and their children).
 
