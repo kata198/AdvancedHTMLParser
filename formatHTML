@@ -14,6 +14,10 @@ import sys
 
 from AdvancedHTMLParser import AdvancedHTMLFormatter, AdvancedHTMLMiniFormatter, AdvancedHTMLSlimTagFormatter, AdvancedHTMLSlimTagMiniFormatter
 
+from AdvancedHTMLParser import __version__ as VERSION
+
+def printVersion():
+    sys.stdout.write ( 'AdvancedHTMLParser and formatHTML by Timothy Savannah (c) 2015-2018 Version %s\n\n' %(VERSION, ))
 
 def printUsage():
     sys.stderr.write('''Usage: %s (Optional Arguments) (optional: /path/to/in.html) (optional: [/path/to/output.html])
@@ -37,11 +41,17 @@ def printUsage():
                             level of nesting. Use --indent="\t" for 1 tab insead, for example.
                            Affects pretty printing mode only
 
+    --version            - Print version info on AdvancedHTMLParser suite and exit
+
+    --help               - Print this message and exit
+
 
  If output filename is not specified or is empty string, output will be to stdout.
  If input filename is not specified or is empty string, input will be from stdin
  If -e is provided, will use that as the encoding. Defaults to utf-8
+
 ''' %(os.path.basename(sys.argv[0])))
+    printVersion()
 
 if __name__ == '__main__':
 
@@ -90,7 +100,10 @@ if __name__ == '__main__':
             isSlim = True
         elif arg == '--help':
             printUsage()
-            sys.exit(1)
+            sys.exit(0)
+        elif arg == '--version':
+            printVersion()
+            sys.exit(0)
         elif inFilename is None:
             inFilename = arg
         elif outFilename is None:
