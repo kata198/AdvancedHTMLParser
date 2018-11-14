@@ -563,7 +563,7 @@ Notes
 
 * In general, for tag names and attribute names, you should use lowercase values. During parsing, the parser will lowercase attribute names (like NAME="Abc" becomes name="Abc"). During searching, however, for performance reasons, it is assumed you are passing in already-lowercased strings. If you can't trust the input to be lowercase, then it is your responsibility to call .lower() before calling .getElementsBy\*
 
-* If you are using this to construct HTML and not search, I recommend either setting the index params to False in the constructor, or calling  AdvancedHTMLParser.disableIndexing()
+* If you are using IndexedAdvancedHTMLParser (instead of AdvancedHTMLParser) to construct HTML and not search, I recommend either setting the index params to False in the constructor, or calling  IndexedAdvancedHTMLParser.disableIndexing(). When you are finished and want to go back to searching, you can call IndexedAdvancedHTMLParser.reindex and set to True what you want to reindex.
 
 * There are additional functions and usages not documented here, check the file for more information.
 
@@ -572,7 +572,7 @@ Performance and Indexing
 
 Performance is very good using either AdvancedHTMLParser, and even better (for scraping) using IndexedAdvancedHTMLParser class. The performance can be further enhanced on IndexedAdvancedHTMLParser via several indexing tunables:
 
-Firstly, in the constructor of IndexedAdvancedHTMLParser and in the reindex method is a boolean to be set which determines if each field is indexed (e.x. indexIDs will make getElementByID use an index).
+First, in the constructor of IndexedAdvancedHTMLParser and in the reindex method is a boolean to be set which determines if each field is indexed (e.x. indexIDs will make getElementByID use an index).
 
 If an index is used, parsing time slightly goes up, but searches become O(1) (from root node, slightly less efficent from other nodes) instead of O(n) [n=num elements].
 
