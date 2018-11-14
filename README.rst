@@ -289,7 +289,7 @@ You can append raw HTML to a tag by calling:
 
 which acts like, in javascript:
 
-	tagEm.innerHTML += '<div id="Some sample HTML"> <span> Yes </span> </div>
+	tagEm.innerHTML += '<div id="Some sample HTML"> <span> Yes </span> </div>';
 
 
 **Creating Tags from HTML**
