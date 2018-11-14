@@ -12,7 +12,7 @@
 import os
 import sys
 
-from AdvancedHTMLParser import AdvancedHTMLFormatter, AdvancedHTMLMiniFormatter
+from AdvancedHTMLParser import AdvancedHTMLFormatter, AdvancedHTMLMiniFormatter, AdvancedHTMLSlimTagFormatter, AdvancedHTMLSlimTagMiniFormatter
 
 
 def printUsage():
@@ -28,6 +28,9 @@ def printUsage():
                             strip the rest and no indentation)
 
     -p  or --pretty      - Output "pretty" HTML [This is the defualt mode]
+
+    -s or --slim         - Use the "slim" formatter to strip trailing-space in
+                            start tags <span id="x"> vs <span id="x" >
 
 
     --indent='    '      - Use the provided string [default 4-spaces] to represent each
@@ -48,6 +51,7 @@ if __name__ == '__main__':
     outFilename = None
 
     isMini = False
+    isSlim = False
 
     args = sys.argv[1:]
     tmpArgs = args[:]
@@ -82,6 +86,8 @@ if __name__ == '__main__':
             isMini = True
         elif arg in ('-p', '--pretty'):
             isMini = False
+        elif arg in ('-s', '--slim'):
+            isSlim = True
         elif arg == '--help':
             printUsage()
             sys.exit(1)
@@ -109,9 +115,15 @@ if __name__ == '__main__':
         
     
     if not isMini:
-        formatter = AdvancedHTMLFormatter(indent=indent, encoding=encoding)
+        if not isSlim:
+            formatter = AdvancedHTMLFormatter(indent=indent, encoding=encoding)
+        else:
+            formatter = AdvancedHTMLSlimTagFormatter(indent=indent, encoding=encoding)
     else:
-        formatter = AdvancedHTMLMiniFormatter(encoding=encoding)
+        if not isSlim:
+            formatter = AdvancedHTMLMiniFormatter(encoding=encoding)
+        else:
+            formatter = AdvancedHTMLSlimTagMiniFormatter(encoding=encoding)
 
     if inFilename:
         formatter.parseFile(inFilename)
