@@ -1,3 +1,12 @@
+* 8.1.4 - Nov 14 2018
+
+- Expand documentation in README
+
+- Add "slim" option to formatHTML, available with either -s or --slim. This will use either the AdvancedHTMLSlimTagFormatter (if in pretty mode, default) or AdvancedHTMLSlimTagMiniFormatter (if in mini mode, -m or --mini)
+
+- Intercept control+c in formatHTML when reading from stdin and exit cleanly instead of displaying error message
+
+
 * 8.1.3 - Oct 16 2018
 
 - Fix python2 inheritance issue with new SlimTag formatters
