@@ -105,7 +105,11 @@ if __name__ == '__main__':
             sys.stderr.write('Input file "%s" does not exist.\n' %(inFilename,))
             sys.exit(1)
     else:
-        inData = sys.stdin.read()
+        try:
+            inData = sys.stdin.read()
+        except KeyboardInterrupt:
+            # Intercept control+c and exit cleanly
+            sys.exit(1)
 
     if outFilename:
         try:
