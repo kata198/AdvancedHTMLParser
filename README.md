@@ -363,7 +363,13 @@ A full explanation of the various filter modes that QueryableList supports can b
 
 Special keys are: "tagname" for the tag name, and "text" for the inner text of a node.
 
-An attribute that is unset has a value of None, which is different than a set attribute with an empty value ''. 
+An attribute that is unset has a value of None, which is different than a set attribute with an empty value ''.
+
+
+For example:
+
+	cheddarElements = parser.filter(name='items', text__icontains='cheddar')
+
 
 The AdvancedHTMLParser has:
 
