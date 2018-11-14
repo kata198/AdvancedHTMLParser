@@ -87,7 +87,9 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 	getMiniHTML             - Returns a "mini" HTML representation which disregards all whitespace and indentation beyond the functional single-space
 
 
-The results of all of these getElement\* functions are TagCollection objects. These objects can be modified, and will be reflected in the parent DOM.
+The results of all of these getElement\* functions are TagCollection objects. This is a special kind of list which contains additional functions. See the "TagCollection" section below for more info.
+
+These objects can be modified, and will be reflected in the parent DOM.
 
 
 The parser also contains some expected properties, like
@@ -151,8 +153,29 @@ A TagCollection can be used like a list.
 
 It also exposes the various getElement\* functions which operate on the elements within the list (and their children).
 
+For example:
+
+	
+	# Filter off the parser all tags with "item" in class
+	tagCollection = document.getElementsByClassName('item')
+
+	# Return all nodes which are nested within any class="item" object
+	#  and also contains the class name "onsale"
+	itemsWithOnSaleClass = tagCollection.getElementsByClassName('onsale')
+
 
 To operate just on items in the list, you can use filterCollection which takes a lambda/function and returns True to retain that tag in the return.
+
+For example:
+
+	# Filter off the parser all tags with "item" in class
+	tagCollection = document.getElementsByClassName('item')
+
+	# Provide a lambda to filter this collection, returning in tagCollection2
+	#   those items which have a "value" attribute > 20 and contains at least
+	#   1 child element with "specialPrice" class
+	tagCollection2 = tagCollection.filterCollection( lambda node : int(node.getAttribute('value') or 0) > 20 and len(node.getElementsByClassName('specialPrice')) > 1 )
+
 
 **AdvancedTag**
 
