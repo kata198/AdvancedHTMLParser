@@ -164,7 +164,7 @@ For example:
 	itemsWithOnSaleClass = tagCollection.getElementsByClassName('onsale')
 
 
-To operate just on items in the list, you can use filterCollection which takes a lambda/function and returns True to retain that tag in the return.
+To operate just on items in the list, you can use the TagCollection method, *filterCollection*, which takes a lambda/function and returns True to retain that tag in the return.
 
 For example:
 
