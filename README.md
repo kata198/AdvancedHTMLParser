@@ -177,6 +177,9 @@ For example:
 	tagCollection2 = tagCollection.filterCollection( lambda node : int(node.getAttribute('value') or 0) > 20 and len(node.getElementsByClassName('specialPrice')) > 1 )
 
 
+TagCollections also support advanced filtering (find/filter methods), see "Advanced Filtering" section below.
+
+
 **AdvancedTag**
 
 The AdvancedTag represents a single tag and its inner text. It exposes many of the functions and properties you would expect to be present if using javascript.
