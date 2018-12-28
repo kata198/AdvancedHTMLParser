@@ -1075,6 +1075,15 @@ class TestAttributes(object):
      </div>
    </div>
   </div>
+  <div id="outer2" >
+    <div class="yes-dash cheese" >Hello</div>
+  </div>
+  <div id="outer3" >
+    <div class="class-dash CDONE" >One</div>
+    <div class="CDBEFORE class-dash CDAFTER class-dash2" >Two</div>
+    <div class="class-dash">Three
+      <div class="class-dash pickle">Nested Four</div>
+    </div>
 </body>
 </html>
         '''
@@ -1130,6 +1139,26 @@ class TestAttributes(object):
 
         assert blahDiv1 in blahDivsCheese , 'Expected id="blahdiv1" div to also be in results from root=cheese div'
         assert blahDiv2 in blahDivsCheese , 'Expected id="blahdiv2" div to also be in results from root=cheese div'
+
+
+        # Test dash in class name - ( Reported as Issue #6, but cannot reproduce. )
+        dashDivs = document.getElementsByClassName('yes-dash')
+        assert dashDivs , 'Failed to find any results for getElementsByClassName with dash.'
+        assert len(dashDivs) == 1 , 'Expected to find one result for class="yes-dash", but got %d. %s' %(len(dashDivs), repr(dashDivs))
+
+        dashDiv = dashDivs[0]
+        assert dashDiv.innerText.strip() == 'Hello' , 'Expected innerText="Hello", but got: %s' %(repr(dashDiv.innerText.strip()), )
+        assert dashDiv.tagName == 'div' , 'Expected to find a div, but got %s' %(dashDiv.tagName, )
+
+
+        classDashEms = document.getElementsByClassName('class-dash')
+        assert classDashEms , 'Failed to find elements with class name = "class-dash"'
+        assert len(classDashEms) == 4 , 'Expected to find 4 elements with class name = "class-dash" but got %d. %s' %( len(classDashEms), repr(classDashEms))
+
+        classDash2Ems = document.getElementsByClassName('class-dash2')
+        assert classDash2Ems , 'Failed to find elements with class name = "class-dash2"'
+        assert len(classDash2Ems) == 1 , 'Expected to find 1 element with class name = "class-dash2" but got %d. %s' %( len(classDash2Ems), repr(classDash2Ems))
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
