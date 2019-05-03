@@ -1,3 +1,18 @@
+* 8.1.5 - May 3 2019
+
+- Expand some docstrings, fix copyright notices
+
+- Add attribute-name validation. The base HTML parser will feed us invalid names, for example <div id="abc"; name="hello"> will feed us a name ';'.
+
+  * The standard AdvancedHTMLParser remains best-effort, and will ignore any invalid attribute names when parsing a file/string, but will raise KeyError if you use the .setAttribute method with an invalid name. This allows us to survive parsing more error-ridden files.
+
+  * ValidatingAdvancedHTMLParser will now raise a new kind of exception - InvalidAttributeNameException if an invalid attribute name is encountered during parsing.
+
+- Update tests for new validating and attribute name issues
+
+- Strip trailing whitespace from all files
+
+
 * 8.1.4 - Nov 14 2018
 
 - Expand documentation in README
