@@ -7,9 +7,12 @@
 <tr bgcolor="#7799ee" >
 <td valign="bottom" >&nbsp;<br />
 <font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong ><a href="AdvancedHTMLParser.html" ><font color="#ffffff" >AdvancedHTMLParser</font></a>.Parser</strong></big></big></font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
-    <p ><tt >#&nbsp;Copyright&nbsp;(c)&nbsp;2015,&nbsp;2016,&nbsp;2017,&nbsp;2018&nbsp;Tim&nbsp;Savannah&nbsp;under&nbsp;LGPLv3.&nbsp;See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
-#<br />
-#&nbsp;&nbsp;&nbsp;Parser&nbsp;implementation</tt></p>
+    <p ><tt >Copyright&nbsp;(c)&nbsp;2015,&nbsp;2016,&nbsp;2017,&nbsp;2018&nbsp;Tim&nbsp;Savannah&nbsp;under&nbsp;LGPLv3.&nbsp;All&nbsp;Rights&nbsp;Reserved.<br />
+&nbsp;<br />
+See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
+&nbsp;<br />
+&nbsp;<br />
+Parser&nbsp;Implementation</tt></p>
 <p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
 <tr bgcolor="#aa55cc" >
@@ -160,29 +163,29 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 @return&nbsp;TagCollection&lt;AdvancedTag&gt;</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementById" ><strong >getElementById</strong></a>(self, _id, root='root')</dt><dd ><tt >getElementById&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;the&nbsp;first&nbsp;(should&nbsp;only&nbsp;be&nbsp;one)&nbsp;element&nbsp;with&nbsp;the&nbsp;given&nbsp;ID.<br />
-&nbsp;&nbsp;&nbsp;<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;id&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;of&nbsp;the&nbsp;id&nbsp;attribute.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsByAttr" ><strong >getElementsByAttr</strong></a>(self, attrName, attrValue, root='root')</dt><dd ><tt >getElementsByAttr&nbsp;-&nbsp;Searches&nbsp;the&nbsp;full&nbsp;tree&nbsp;for&nbsp;elements&nbsp;with&nbsp;a&nbsp;given&nbsp;attribute&nbsp;name&nbsp;and&nbsp;value&nbsp;combination.&nbsp;This&nbsp;is&nbsp;always&nbsp;a&nbsp;full&nbsp;scan.<br />
-&nbsp;&nbsp;&nbsp;<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrValue&nbsp;&lt;str&gt;&nbsp;-&nbsp;Expected&nbsp;value&nbsp;of&nbsp;attribute<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsByClassName" ><strong >getElementsByClassName</strong></a>(self, className, root='root')</dt><dd ><tt >getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br />
-&nbsp;&nbsp;&nbsp;<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;one-word&nbsp;class&nbsp;name<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsByName" ><strong >getElementsByName</strong></a>(self, name, root='root')</dt><dd ><tt >getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br />
-&nbsp;&nbsp;&nbsp;<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;name&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;of&nbsp;the&nbsp;name&nbsp;attribute<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsByTagName" ><strong >getElementsByTagName</strong></a>(self, tagName, root='root')</dt><dd ><tt >getElementsByTagName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;tag&nbsp;name.<br />
-&nbsp;&nbsp;&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsCustomFilter" ><strong >getElementsCustomFilter</strong></a>(self, filterFunc, root='root')</dt><dd ><tt >getElementsCustomFilter&nbsp;-&nbsp;Scan&nbsp;elements&nbsp;using&nbsp;a&nbsp;provided&nbsp;function<br />
@@ -194,7 +197,7 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsWithAttrValues" ><strong >getElementsWithAttrValues</strong></a>(self, attrName, attrValues, root='root')</dt><dd ><tt >getElementsWithAttrValues&nbsp;-&nbsp;Returns&nbsp;elements&nbsp;with&nbsp;an&nbsp;attribute,&nbsp;named&nbsp;by&nbsp;#attrName&nbsp;contains&nbsp;one&nbsp;of&nbsp;the&nbsp;values&nbsp;in&nbsp;the&nbsp;list,&nbsp;#values<br />
 &nbsp;<br />
 @param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br />
-@param&nbsp;attrValues&nbsp;set&lt;str&gt;&nbsp;-&nbsp;A&nbsp;set&nbsp;of&nbsp;all&nbsp;valid&nbsp;values.&nbsp;<br />
+@param&nbsp;attrValues&nbsp;set&lt;str&gt;&nbsp;-&nbsp;A&nbsp;set&nbsp;of&nbsp;all&nbsp;valid&nbsp;values.<br />
 &nbsp;<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements</tt></dd></dl>
@@ -281,7 +284,7 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 
 <hr />
 Class methods defined here:<br />
-<dl ><dt ><a name="AdvancedHTMLParser-createBlocksFromHTML" ><strong >createBlocksFromHTML</strong></a>(html, encoding='utf-8')<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >createBlocksFromHTML&nbsp;-&nbsp;Returns&nbsp;the&nbsp;root&nbsp;level&nbsp;node&nbsp;(unless&nbsp;multiple&nbsp;nodes),&nbsp;and&nbsp;<br />
+<dl ><dt ><a name="AdvancedHTMLParser-createBlocksFromHTML" ><strong >createBlocksFromHTML</strong></a>(html, encoding='utf-8')<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >createBlocksFromHTML&nbsp;-&nbsp;Returns&nbsp;the&nbsp;root&nbsp;level&nbsp;node&nbsp;(unless&nbsp;multiple&nbsp;nodes),&nbsp;and<br />
 &nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;of&nbsp;"blocks"&nbsp;added&nbsp;(text&nbsp;and&nbsp;nodes).<br />
 &nbsp;<br />
 @return&nbsp;list&lt;&nbsp;str/AdvancedTag&nbsp;&gt;&nbsp;-&nbsp;List&nbsp;of&nbsp;blocks&nbsp;created.&nbsp;May&nbsp;be&nbsp;strings&nbsp;(text&nbsp;nodes)&nbsp;or&nbsp;AdvancedTag&nbsp;(tags)<br />
@@ -452,34 +455,34 @@ Methods defined here:<br />
 &nbsp;&nbsp;and&nbsp;do&nbsp;a&nbsp;bunch&nbsp;of&nbsp;searching.</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementById" ><strong >getElementById</strong></a>(self, _id, root='root', useIndex=True)</dt><dd ><tt >getElementById&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;the&nbsp;first&nbsp;(should&nbsp;only&nbsp;be&nbsp;one)&nbsp;element&nbsp;with&nbsp;the&nbsp;given&nbsp;ID.<br />
-&nbsp;&nbsp;&nbsp;<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;id&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;of&nbsp;the&nbsp;id&nbsp;attribute.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;ids&nbsp;are&nbsp;indexed&nbsp;[see&nbsp;constructor]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementsByAttr" ><strong >getElementsByAttr</strong></a>(self, attrName, attrValue, root='root', useIndex=True)</dt><dd ><tt >getElementsByAttr&nbsp;-&nbsp;Searches&nbsp;the&nbsp;full&nbsp;tree&nbsp;for&nbsp;elements&nbsp;with&nbsp;a&nbsp;given&nbsp;attribute&nbsp;name&nbsp;and&nbsp;value&nbsp;combination.&nbsp;If&nbsp;you&nbsp;want&nbsp;multiple&nbsp;potential&nbsp;values,&nbsp;see&nbsp;getElementsWithAttrValues<br />
 &nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;want&nbsp;an&nbsp;index&nbsp;on&nbsp;a&nbsp;random&nbsp;attribute,&nbsp;use&nbsp;the&nbsp;addIndexOnAttribute&nbsp;function.<br />
-&nbsp;&nbsp;&nbsp;<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;attribute&nbsp;name<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrValue&nbsp;&lt;str&gt;&nbsp;-&nbsp;Expected&nbsp;value&nbsp;of&nbsp;attribute<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;this&nbsp;specific&nbsp;attribute&nbsp;is&nbsp;indexed&nbsp;[see&nbsp;addIndexOnAttribute]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementsByClassName" ><strong >getElementsByClassName</strong></a>(self, className, root='root', useIndex=True)</dt><dd ><tt >getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br />
-&nbsp;&nbsp;&nbsp;<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;one-word&nbsp;class&nbsp;name<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;class&nbsp;names&nbsp;are&nbsp;indexed&nbsp;[see&nbsp;constructor]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementsByName" ><strong >getElementsByName</strong></a>(self, name, root='root', useIndex=True)</dt><dd ><tt >getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br />
-&nbsp;&nbsp;&nbsp;<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;name&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;of&nbsp;the&nbsp;name&nbsp;attribute<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;names&nbsp;are&nbsp;indexed&nbsp;[see&nbsp;constructor]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementsByTagName" ><strong >getElementsByTagName</strong></a>(self, tagName, root='root', useIndex=True)</dt><dd ><tt >getElementsByTagName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;tag&nbsp;name.<br />
-&nbsp;&nbsp;&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;-&nbsp;If&nbsp;True&nbsp;[default]&nbsp;and&nbsp;tag&nbsp;names&nbsp;are&nbsp;set&nbsp;to&nbsp;be&nbsp;indexed&nbsp;[default,&nbsp;see&nbsp;constructor],&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;If&nbsp;False,&nbsp;all&nbsp;tags<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;be&nbsp;searched.</tt></dd></dl>
@@ -520,15 +523,7 @@ Methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParse
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;state&nbsp;&lt;dict&gt;&nbsp;-&nbsp;The&nbsp;state</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-asHTML" ><strong >asHTML</strong></a> = <a href="#IndexedAdvancedHTMLParser-getHTML" >getHTML</a>(self)</dt></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-contains" ><strong >contains</strong></a>(self, em)</dt><dd ><tt >Checks&nbsp;if&nbsp;#em&nbsp;is&nbsp;found&nbsp;anywhere&nbsp;within&nbsp;this&nbsp;element&nbsp;tree<br />
 &nbsp;<br />
@@ -569,22 +564,7 @@ Special&nbsp;Keys:<br />
 &nbsp;<br />
 @return&nbsp;TagCollection&lt;AdvancedTag&gt;</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-filterAnd" ><strong >filterAnd</strong></a> = filter(self, **kwargs)</dt><dd ><tt >filter&nbsp;aka&nbsp;filterAnd&nbsp;-&nbsp;Filter&nbsp;ALL&nbsp;the&nbsp;elements&nbsp;in&nbsp;this&nbsp;DOM.<br />
-&nbsp;<br />
-Results&nbsp;must&nbsp;match&nbsp;ALL&nbsp;the&nbsp;filter&nbsp;criteria.&nbsp;for&nbsp;ANY,&nbsp;use&nbsp;the&nbsp;*Or&nbsp;methods<br />
-&nbsp;<br />
-Requires&nbsp;the&nbsp;QueryableList&nbsp;module&nbsp;to&nbsp;be&nbsp;installed&nbsp;(i.e.&nbsp;<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>&nbsp;was&nbsp;installed<br />
-&nbsp;&nbsp;without&nbsp;'--no-deps'&nbsp;flag.)<br />
-&nbsp;<br />
-For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
-&nbsp;&nbsp;consider&nbsp;#<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>.<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>.find&nbsp;method&nbsp;or&nbsp;the&nbsp;getElement*&nbsp;methods<br />
-&nbsp;<br />
-Special&nbsp;Keys:<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;tagname&nbsp;-&nbsp;The&nbsp;tag&nbsp;name<br />
-&nbsp;&nbsp;&nbsp;text&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;inner&nbsp;text<br />
-&nbsp;<br />
-@return&nbsp;TagCollection&lt;AdvancedTag&gt;</tt></dd></dl>
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-filterAnd" ><strong >filterAnd</strong></a> = <a href="#IndexedAdvancedHTMLParser-filter" >filter</a>(self, **kwargs)</dt></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-filterOr" ><strong >filterOr</strong></a>(self, **kwargs)</dt><dd ><tt >filterOr&nbsp;-&nbsp;Perform&nbsp;a&nbsp;filter&nbsp;operation&nbsp;on&nbsp;this&nbsp;node&nbsp;and&nbsp;all&nbsp;children&nbsp;(and&nbsp;their&nbsp;children,&nbsp;onto&nbsp;the&nbsp;end)<br />
 &nbsp;<br />
@@ -705,21 +685,13 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
 
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = getHTML(self)</dt><dd ><tt >getHTML&nbsp;-&nbsp;Get&nbsp;the&nbsp;full&nbsp;HTML&nbsp;as&nbsp;contained&nbsp;within&nbsp;this&nbsp;tree.<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;parsed&nbsp;from&nbsp;a&nbsp;document,&nbsp;this&nbsp;will&nbsp;contain&nbsp;the&nbsp;original&nbsp;whitespacing.<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@returns&nbsp;-&nbsp;&lt;str&gt;&nbsp;of&nbsp;html<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getFormattedHTML<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;getMiniHTML</tt></dd></dl>
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = <a href="#IndexedAdvancedHTMLParser-getHTML" >getHTML</a>(self)</dt></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-unknown_decl" ><strong >unknown_decl</strong></a>(self, decl)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
 
 <hr />
 Class methods inherited from <a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser" >AdvancedHTMLParser</a>:<br />
-<dl ><dt ><a name="IndexedAdvancedHTMLParser-createBlocksFromHTML" ><strong >createBlocksFromHTML</strong></a>(html, encoding='utf-8')<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >createBlocksFromHTML&nbsp;-&nbsp;Returns&nbsp;the&nbsp;root&nbsp;level&nbsp;node&nbsp;(unless&nbsp;multiple&nbsp;nodes),&nbsp;and&nbsp;<br />
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-createBlocksFromHTML" ><strong >createBlocksFromHTML</strong></a>(html, encoding='utf-8')<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >createBlocksFromHTML&nbsp;-&nbsp;Returns&nbsp;the&nbsp;root&nbsp;level&nbsp;node&nbsp;(unless&nbsp;multiple&nbsp;nodes),&nbsp;and<br />
 &nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;of&nbsp;"blocks"&nbsp;added&nbsp;(text&nbsp;and&nbsp;nodes).<br />
 &nbsp;<br />
 @return&nbsp;list&lt;&nbsp;str/AdvancedTag&nbsp;&gt;&nbsp;-&nbsp;List&nbsp;of&nbsp;blocks&nbsp;created.&nbsp;May&nbsp;be&nbsp;strings&nbsp;(text&nbsp;nodes)&nbsp;or&nbsp;AdvancedTag&nbsp;(tags)<br />
