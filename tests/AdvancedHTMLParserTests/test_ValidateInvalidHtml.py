@@ -7,7 +7,7 @@ import sys
 import subprocess
 
 from AdvancedHTMLParser.Validator import ValidatingAdvancedHTMLParser
-from AdvancedHTMLParser.exceptions import InvalidCloseException, MissedCloseException
+from AdvancedHTMLParser.exceptions import InvalidCloseException, MissedCloseException, InvalidAttributeNameException
 
 
 MULTIPLE_ROOT = """
@@ -49,7 +49,59 @@ CATCH_OPTIONAL_CLOSE = """
     </html>
 """
 
+
+VALUE_OUTSIDE_QUOTES = """
+    <html>
+        <div id="one" class="hello world"; name="blah">
+            <span> hey </span>
+        </div>
+    </html>
+"""
+
+
+INVALID_ATTR_NAME = """
+    <html>
+        <div id="one" 9gag="two" >
+            <span> Yo </span>
+        </div>
+    </html>
+"""
+
 class TestValidateInvalidHtml(object):
+    '''
+        TestValidateInvalidHtml - Test class for ValidatingAdvancedHTMLParser
+    '''
+
+
+    def test_handleValueOutsideQuotes(self):
+        '''
+            test_handleValueOutsideQuotes - Assert we validate properly when an invalid character outside quotes
+        '''
+        parser = ValidatingAdvancedHTMLParser()
+
+        gotException = False
+        try:
+            parser.parseStr(VALUE_OUTSIDE_QUOTES)
+        except InvalidAttributeNameException:
+            gotException = True
+
+        assert gotException is True , 'Failed to raise validation error on symbol, ";" ,  outside quotes of value.'
+
+
+    def test_handleInvalidAttributeName(self):
+        '''
+            test_handleInvalidAttributeName - Tests that we raise validation error on invalid attribute name
+        '''
+        parser = ValidatingAdvancedHTMLParser()
+
+        gotException = False
+        try:
+            parser.parseStr(INVALID_ATTR_NAME)
+        except InvalidAttributeNameException:
+            gotException = True
+
+        assert gotException is True , 'Failed to raise validation error on invalid attribute name, "9gag". Cannot start with integer.'
+
 
     def test_HandleMultipleRoot(self):
         '''
