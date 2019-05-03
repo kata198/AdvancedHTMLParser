@@ -1,5 +1,12 @@
-#!/usr/bin/env python
-# Copyright (c) 2015, 2019 Tim Savannah All Rights Rserved under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+'''
+    Copyright (c) 2015, 2019 Tim Savannah under LGPLv3. All Rights Reserved.
+
+
+    See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+
+
+    Validator - A validating version of the HTML parser (vs the normal 'best effort' parser)
+'''
 
 from .Parser import AdvancedHTMLParser
 from .Tags import isValidAttributeName

@@ -1,8 +1,9 @@
 '''
- Copyright (c)  2017 Tim Savannah under LGPLv3.
-  See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+    Copyright (c)  2017 Tim Savannah under LGPLv3. All Rights Reserved.
 
-   Value-conversion methods
+    See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+
+    Value-conversion methods
 '''
 
 __all__ = ('convertToIntOrNegativeOneIfUnset', 'convertToBooleanString', 'convertBooleanStringToBoolean',

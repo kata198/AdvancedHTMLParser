@@ -1,13 +1,17 @@
 #!/usr/bin/env python
-#
-# Copyright (c) 2015, 2016, 2017, 2018 Timothy Savannah under terms of LGPLv3.
-# You should have received a copy of this with this distribution as "LICENSE"
-#
-#  NOTE: - If you pass --no-deps, you can get a standalone install of AdvancedHTMLParser
-#   (aka no deps), but the .filter method will be unavailable
+'''
+    Copyright (c) 2015, 2016, 2017, 2018, 2019 Timothy Savannah under terms of LGPLv3. All Rights Reserved.
 
 
-#vim: set ts=4 sw=4 expandtab
+    You should have received a copy of this with this distribution as "LICENSE"
+      If you did not, the current license can be found at: https://github.com/kata198/AdvancedHTMLParser/blob/master/LICENSE
+
+
+  NOTE: - If you pass --no-deps, you can get a standalone install of AdvancedHTMLParser
+   (aka no deps), but the .filter method will be unavailable
+'''
+
+
 
 import os
 import sys
@@ -147,3 +151,4 @@ for item in items:
 
 """
 
+#vim: set ts=4 sw=4 expandtab

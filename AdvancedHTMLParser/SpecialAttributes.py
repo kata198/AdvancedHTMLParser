@@ -1,7 +1,11 @@
-# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3.
-# See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
-#
-# These are various helpers for "special" attributes
+'''
+    Copyright (c) 2015, 2017, 2018, 2019 Tim Savannah under LGPLv3. All Rights Reserved.
+
+    See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+
+
+    These are various helpers for "special" attributes
+'''
 
 import copy
 import weakref

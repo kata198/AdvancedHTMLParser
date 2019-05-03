@@ -1,6 +1,10 @@
-# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3.
-# See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
-#  Exceptions used
+'''
+    Copyright (c) 2015, 2017, 2019 Tim Savannah under LGPLv3. All Rights Reserved.
+
+    See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+
+    Exceptions used by AdvancedHTMLParser
+'''
 
 __all__ = ('MultipleRootNodeException', 'HTMLValidationException', 'InvalidCloseException', 'MissedCloseException', 'IndexSizeErrorException')
 

@@ -1,6 +1,11 @@
-# Copyright (c) 2015, 2016, 2017, 2018, 2019 Tim Savannah under LGPLv3.
-# See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
-#  AdvancedTag and TagCollection which represent tags and their data.
+'''
+    Copyright (c) 2015, 2016, 2017, 2018, 2019 Tim Savannah under LGPLv3. All Rights Reserved.
+
+    See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+
+
+    AdvancedTag and TagCollection, which represent tags and their data, and other related functions.
+'''
 
 from collections import OrderedDict
 

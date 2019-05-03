@@ -1,5 +1,11 @@
-# Copyright (c) 2015, 2017 Tim Savannah  under terms of LGPLv3
-#  Some misc utils and regular expressions
+'''
+    Copyright (c) 2015, 2017, 2019 Tim Savannah  under terms of LGPLv3. All Rights Reserved.
+
+    See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+
+
+    Some misc utils and regular expressions
+'''
 
 import sys
 import re

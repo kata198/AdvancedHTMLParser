@@ -1,6 +1,11 @@
-# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3.
-#  See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
-#   Constants in AdvancedHTMLParser
+'''
+    Copyright (c) 2015, 2017 Tim Savannah under LGPLv3. All Rights Reserved.
+
+    See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+
+
+    Constants in AdvancedHTMLParser
+'''
 
 from .conversions import ( convertToIntOrNegativeOneIfUnset, convertToPositiveInt,
     convertPossibleValues, convertToIntRange, convertToIntRangeCapped, EMPTY_IS_INVALID

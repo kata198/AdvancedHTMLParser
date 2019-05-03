@@ -1,6 +1,11 @@
-# Copyright (c) 2015, 2017, 2018 Tim Savannah under LGPLv3.
-# See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
-#   HTML formatting (HTML->XHTML conversion as well)
+'''
+    Copyright (c) 2015, 2017, 2018 Tim Savannah under LGPLv3. All Rights Reserved.
+
+    See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+
+    HTML formatting (HTML->XHTML conversion as well)
+'''
+
 
 import sys
 

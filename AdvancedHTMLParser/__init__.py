@@ -1,6 +1,8 @@
-#!/usr/bin/env python
 '''
-    Copyright (c) 2015, 2016, 2017, 2018, 2019 Tim Savannah All Rights Rserved under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+    Copyright (c) 2015, 2016, 2017, 2018, 2019 Tim Savannah All Rights Rserved under LGPLv3. All Rights Reserved.
+
+
+    See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 
     See: https://github.com/kata198/AdvancedHTMLParser for full information
 '''
