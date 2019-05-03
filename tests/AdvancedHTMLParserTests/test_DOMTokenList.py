@@ -18,7 +18,7 @@ class TestDOMTokenList(object):
         '''
             test_general - Test basic listy operations of a DOMTokenList
         '''
-        
+
         tl = DOMTokenList( [ 'hello', 'world'] )
 
         assert len(tl) == 2 , 'Expected len to work.'
@@ -33,7 +33,7 @@ class TestDOMTokenList(object):
         '''
             test_createFromString - Test that we can create a DOMTokenList from a string
         '''
-        
+
         myStr = 'hello world'
 
         tl = DOMTokenList(myStr)
@@ -50,7 +50,7 @@ class TestDOMTokenList(object):
         '''
             test_createFromCrazyString - Test that we properly strip before splitting a TokenString from string
         '''
-        
+
         myStr = '    hello         world '
 
         tl = DOMTokenList(myStr)

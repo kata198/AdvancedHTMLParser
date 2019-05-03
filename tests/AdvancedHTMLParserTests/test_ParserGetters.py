@@ -40,7 +40,7 @@ class TestParserGetters(object):
         '''
             Test method access of parsed style  attribute
         '''
-        item = self.item 
+        item = self.item
 
         assert item.getStyle('display') == 'block'
 

@@ -42,7 +42,7 @@ class TestStyle(object):
         '''
             Test method access of parsed style  attribute
         '''
-        item = self.item 
+        item = self.item
 
         assert item.getStyle('display') == 'block'
 
@@ -170,7 +170,7 @@ class TestStyle(object):
             sys.stderr.write('\nDiffering from javascript standard, identical style attributes on different tags equal eachother (with property set test)\n')
 
     def test_styleAttributeHTML(self):
-        
+
         tag1 = AdvancedHTMLParser.AdvancedTag('div')
 
         tag1.style = 'display: block'
@@ -231,7 +231,7 @@ class TestStyle(object):
         styleAttr.setProperty('font-weight', 'bold')
 
         assert styleAttr.fontWeight == 'bold' , 'Expected to be able to use dash-name like "font-weight"'
-        
+
 
     def test_styleCopy(self):
         '''
@@ -380,7 +380,7 @@ class TestStyle(object):
         tag.setAttribute('style', '')
 
         tagHTML = str(tag)
-        
+
         assert "style" not in tagHTML , "Expected setAttribute('style', '') to clear style from html, but did not. Got: " + tagHTML
 
         tag = tagCopy

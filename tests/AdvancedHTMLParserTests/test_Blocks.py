@@ -40,7 +40,7 @@ class TestBlocks(object):
         existingDivEm = document.getElementById('existingDiv')
 
         assert existingDivEm , 'Failed to get id="existingDiv"'
-        
+
         innerHTML = existingDivEm.innerHTML
 
         assert 'Start Text' in innerHTML , 'Expected to find "Start Text", before any child elements'
@@ -56,7 +56,7 @@ class TestBlocks(object):
         existingDivEm = document.getElementById('existingDiv')
 
         assert existingDivEm , 'Failed to get id="existingDiv"'
-        
+
         textBlock = 'Blah Text'
 
         existingDivEm.append(textBlock)
@@ -113,7 +113,7 @@ class TestBlocks(object):
         existingDivEm = document.getElementById('existingDiv')
 
         assert existingDivEm , 'Failed to get id="existingDiv"'
-        
+
         textBlock = 'Blah Text'
 
         existingDivEm.appendBlock(textBlock)
@@ -189,7 +189,7 @@ class TestBlocks(object):
 
         assert len( missingTexts ) == 0  , "Could not find expected strings in the text nodes: %s" %( repr(missingTexts), )
 
-    
+
     def test_text(self):
         '''
             test_text - Test innerText and textContent properties
@@ -201,7 +201,7 @@ class TestBlocks(object):
     <div id="main">Hello world <span>this is cool </span><div>and the text just keeps going <span>and going</span> on and on forever.</div> Have a good night!</div>
 </body>
 </html>''')
-        
+
         def stripExtraWhitespace(text):
             text = text.strip()
 
@@ -223,7 +223,7 @@ class TestBlocks(object):
 
         textContentStripped = stripExtraWhitespace(textContent)
 
-    
+
         expectedStr = 'Hello world this is cool and the text just keeps going and going on and on forever. Have a good night!'
 
         assert textContentStripped == expectedStr , 'Expected .textContent to collate ALL text, and have a stripped value of "%s" but got: %s' %(expectedStr, textContentStripped)

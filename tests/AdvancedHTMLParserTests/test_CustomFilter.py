@@ -36,7 +36,7 @@ class TestCustomFilter(object):
         parser = AdvancedHTMLParser()
         parser.parseStr(someHTML)
         self.parser = parser
-        
+
 
 
     def test_CustomFilter(self):
@@ -120,7 +120,7 @@ class TestCustomFilter(object):
         assert results[1].innerHTML.strip() == 'Hi'
 
         item1 = parser.getElementById('item1')
-        
+
         results = item1.getElementsCustomFilter(searchFunc)
 
         assert len(results) == 1

@@ -4,9 +4,9 @@
 import sys
 import re
 
-__all__ = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 
+__all__ = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH',
     'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr', 'isstr',
-    'stripWordsOnly', 
+    'stripWordsOnly',
 )
 
 IE_CONDITIONAL_PATTERN = re.compile('[<][!][-][-][ \t\r\n]*[\[][ \t\r\n]*if.*-->', re.MULTILINE)
@@ -89,6 +89,6 @@ if sys.version_info.major < 3:
 else:
     def tostr(value):
         return str(value)
- 
+
     def isstr(value):
         return isinstance(value, str)

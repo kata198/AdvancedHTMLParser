@@ -55,7 +55,7 @@ class AdvancedHTMLParser(HTMLParser):
 
                 @param filename <str>         - Optional filename to parse. Otherwise use parseFile or parseStr methods.
                 @param encoding <str>         - Specifies the document encoding. Default utf-8
-                                            
+
         '''
         HTMLParser.__init__(self)
         # Do not automatically convert charrefs in python3
@@ -111,8 +111,8 @@ class AdvancedHTMLParser(HTMLParser):
         return self._hasTagInParentLine(tag.parentNode, root)
 
     def _handleRootArg(self, root):
-        # Check if tag is string of root and apply to real root. 
-        # If real root is unparsed: raise an error. 
+        # Check if tag is string of root and apply to real root.
+        # If real root is unparsed: raise an error.
         # Otherwise: return passed arg.
         # Return is tuple (root, isRoot)
         if root == 'root' or root == self.root:
@@ -286,8 +286,8 @@ class AdvancedHTMLParser(HTMLParser):
     def getElementsByTagName(self, tagName, root='root'):
         '''
             getElementsByTagName - Searches and returns all elements with a specific tag name.
-               
-                @param tagName <lowercase str> - A lowercase string of the tag name. 
+
+                @param tagName <lowercase str> - A lowercase string of the tag name.
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root', the root of the parsed tree will be used.
         '''
         (root, isFromRoot) = self._handleRootArg(root)
@@ -310,7 +310,7 @@ class AdvancedHTMLParser(HTMLParser):
     def getElementsByName(self, name, root='root'):
         '''
             getElementsByName - Searches and returns all elements with a specific name.
-               
+
                 @param name <str> - A string of the name attribute
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root' [default], the root of the parsed tree will be used.
         '''
@@ -334,7 +334,7 @@ class AdvancedHTMLParser(HTMLParser):
     def getElementById(self, _id, root='root'):
         '''
             getElementById - Searches and returns the first (should only be one) element with the given ID.
-               
+
                 @param id <str> - A string of the id attribute.
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root' [default], the root of the parsed tree will be used.
         '''
@@ -358,7 +358,7 @@ class AdvancedHTMLParser(HTMLParser):
     def getElementsByClassName(self, className, root='root'):
         '''
             getElementsByClassName - Searches and returns all elements containing a given class name.
-               
+
                 @param className <str> - A one-word class name
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root' [default], the root of the parsed tree will be used.
         '''
@@ -382,7 +382,7 @@ class AdvancedHTMLParser(HTMLParser):
     def getElementsByAttr(self, attrName, attrValue, root='root'):
         '''
             getElementsByAttr - Searches the full tree for elements with a given attribute name and value combination. This is always a full scan.
-               
+
                 @param attrName <lowercase str> - A lowercase attribute name
                 @param attrValue <str> - Expected value of attribute
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root', the root of the parsed tree will be used.
@@ -409,7 +409,7 @@ class AdvancedHTMLParser(HTMLParser):
             getElementsWithAttrValues - Returns elements with an attribute, named by #attrName contains one of the values in the list, #values
 
             @param attrName <lowercase str> - A lowercase attribute name
-            @param attrValues set<str> - A set of all valid values. 
+            @param attrValues set<str> - A set of all valid values.
 
 
             @return - TagCollection of all matching elements
@@ -419,7 +419,7 @@ class AdvancedHTMLParser(HTMLParser):
 
         if type(attrValues) != set:
             attrValues = set(attrValues)
-        
+
         return root.getElementsWithAttrValues(attrName, attrValues)
 
 
@@ -555,7 +555,7 @@ class AdvancedHTMLParser(HTMLParser):
 
             Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
               without '--no-deps' flag.)
-            
+
             For alternative without QueryableList,
               consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
 
@@ -587,7 +587,7 @@ class AdvancedHTMLParser(HTMLParser):
 
             Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
               without '--no-deps' flag.)
-            
+
             For alternative, consider AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
 
             @return TagCollection<AdvancedTag>
@@ -604,7 +604,7 @@ class AdvancedHTMLParser(HTMLParser):
     def find(self, **kwargs):
         '''
             find - Perform a search of elements using attributes as keys and potential values as values
-            
+
                (i.e.  parser.find(name='blah', tagname='span')  will return all elements in this document
                  with the name "blah" of the tag type "span" )
 
@@ -810,7 +810,7 @@ class AdvancedHTMLParser(HTMLParser):
                 with a pretty-printed version
 
             @param indent - space/tab/newline of each level of indent, or integer for how many spaces per level
-        
+
             @return - <str> Formatted html
 
             @see getHTML - Get HTML with original whitespace
@@ -862,7 +862,7 @@ class AdvancedHTMLParser(HTMLParser):
     def parseFile(self, filename):
         '''
             parseFile - Parses a file and creates the DOM tree and indexes
-    
+
                 @param filename <str/file> - A string to a filename or a file object. If file object, it will not be closed, you must close.
         '''
         self.reset()
@@ -921,7 +921,7 @@ class AdvancedHTMLParser(HTMLParser):
 
               Also, if you are just appending to an existing tag, use AdvancedTag.appendInnerHTML
         '''
-        
+
         parser = cls(encoding=encoding)
 
         html = stripIEConditionals(html)
@@ -971,7 +971,7 @@ class AdvancedHTMLParser(HTMLParser):
     @classmethod
     def createBlocksFromHTML(cls, html, encoding='utf-8'):
         '''
-            createBlocksFromHTML - Returns the root level node (unless multiple nodes), and 
+            createBlocksFromHTML - Returns the root level node (unless multiple nodes), and
                 a list of "blocks" added (text and nodes).
 
             @return list< str/AdvancedTag > - List of blocks created. May be strings (text nodes) or AdvancedTag (tags)
@@ -983,7 +983,7 @@ class AdvancedHTMLParser(HTMLParser):
 
                 If True, block is a tag, otherwise, it is a text node
         '''
-        
+
         parser = cls(encoding=encoding)
 
         parser.parseStr(html)
@@ -1015,7 +1015,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
                 @param indexTagNames <bool>   - True to create an index for tag names. <default True>
 
                 For indexing other attributes, see the more generic addIndexOnAttribute
-                                            
+
         '''
         self.indexFunctions = []
         self.otherAttributeIndexFunctions = {}
@@ -1061,7 +1061,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         _id = tag.getAttribute('id')
         if _id:
             self._idMap[_id] = tag
-        
+
     def _indexName(self, tag):
         name = tag.getAttribute('name')
         if name:
@@ -1113,7 +1113,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         self.reindex()
 
 ##########################################################
-#                 Public 
+#                 Public
 ##########################################################
 
     # This should be called if you modify a parsed tree at an element level, then search it.
@@ -1151,7 +1151,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         '''
             addIndexOnAttribute - Add an index for an arbitrary attribute. This will be used by the getElementsByAttr function.
                 You should do this prior to parsing, or call reindex. Otherwise it will be blank. "name" and "id" will have no effect.
-    
+
                 @param attributeName <lowercase str> - An attribute name. Will be lowercased.
         '''
         attributeName = attributeName.lower()
@@ -1178,13 +1178,13 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
                 del self.otherAttributeIndexFunctions[attributeName]
         if attributeName in self._otherAttributeIndexes:
                 del self._otherAttributeIndexes[attributeName]
-    
+
 
     def getElementsByTagName(self, tagName, root='root', useIndex=True):
         '''
             getElementsByTagName - Searches and returns all elements with a specific tag name.
-               
-                @param tagName <lowercase str> - A lowercase string of the tag name. 
+
+                @param tagName <lowercase str> - A lowercase string of the tag name.
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root', the root of the parsed tree will be used.
                 @param useIndex - If True [default] and tag names are set to be indexed [default, see constructor], only the index will be used. If False, all tags
                   will be searched.
@@ -1205,7 +1205,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     def getElementsByName(self, name, root='root', useIndex=True):
         '''
             getElementsByName - Searches and returns all elements with a specific name.
-               
+
                 @param name <str> - A string of the name attribute
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root', the root of the parsed tree will be used.
                 @param useIndex <bool> If useIndex is True and names are indexed [see constructor] only the index will be used. Otherwise a full search is performed.
@@ -1229,7 +1229,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     def getElementById(self, _id, root='root', useIndex=True):
         '''
             getElementById - Searches and returns the first (should only be one) element with the given ID.
-               
+
                 @param id <str> - A string of the id attribute.
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root', the root of the parsed tree will be used.
                 @param useIndex <bool> If useIndex is True and ids are indexed [see constructor] only the index will be used. Otherwise a full search is performed.
@@ -1244,7 +1244,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
 
                 if self._hasTagInParentLine(element, root) is False:
                     element = None
-                    
+
             return element
 
 
@@ -1254,7 +1254,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
     def getElementsByClassName(self, className, root='root', useIndex=True):
         '''
             getElementsByClassName - Searches and returns all elements containing a given class name.
-               
+
                 @param className <str> - A one-word class name
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root', the root of the parsed tree will be used.
                 @param useIndex <bool> If useIndex is True and class names are indexed [see constructor] only the index will be used. Otherwise a full search is performed.
@@ -1278,7 +1278,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         '''
             getElementsByAttr - Searches the full tree for elements with a given attribute name and value combination. If you want multiple potential values, see getElementsWithAttrValues
                If you want an index on a random attribute, use the addIndexOnAttribute function.
-               
+
                 @param attrName <lowercase str> - A lowercase attribute name
                 @param attrValue <str> - Expected value of attribute
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root', the root of the parsed tree will be used.
@@ -1295,7 +1295,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
                 elements = [x for x in elements if _hasTagInParentLine(x, root)]
 
             return TagCollection(elements)
-        
+
         return AdvancedHTMLParser.getElementsByAttr(self, attrName, attrValue, root)
 
 

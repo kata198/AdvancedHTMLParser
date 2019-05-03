@@ -29,7 +29,7 @@ class TestInsertions(object):
         newItem =  AdvancedTag('div')
         newItem.setAttributes( {
             'name' : 'item',
-            'id' : 'item1point5' 
+            'id' : 'item1point5'
             }
         )
 
@@ -51,7 +51,7 @@ class TestInsertions(object):
 
         assert blocksBefore == itemsEm.blocks , 'Expected blocks to NOT be changed on insertBefore error case'
         assert childrenBefore == itemsEm.children , 'Expected children to NOT be changed on insertBefore error case'
-            
+
 
         ret = itemsEm.insertBefore(newItem, itemsEm.getElementById('item2'))
         assert ret == newItem , 'Expected insertBefore to return the added element'
@@ -60,11 +60,11 @@ class TestInsertions(object):
 
         assert childIds == ['item1', 'item1point5', 'item2'] , 'Expected items to be ordered. Got: %s' %(str(childIds,))
         newItem =  AdvancedTag('div')
-        
+
 
         newItem.setAttributes( {
             'name' : 'item',
-            'id' : 'item3' 
+            'id' : 'item3'
             }
         )
 
@@ -86,7 +86,7 @@ class TestInsertions(object):
         item2Em = parser.getElementById('item2')
 
         assert itemsEm , 'Failed to get id="items"'
-        
+
         childBlockText = 'BlArGie Buff$$'
 
         blocksBefore = copy.copy(itemsEm.blocks)
@@ -153,7 +153,7 @@ class TestInsertions(object):
 
         assert blocksBefore == itemsEm.blocks , 'Expected blocks to NOT be changed on insertBefore error case'
         assert childrenBefore == itemsEm.children , 'Expected children to NOT be changed on insertBefore error case'
-            
+
 
 
         ret = itemsEm.insertAfter(newItem,  itemsEm.getElementById('item1'))
@@ -166,7 +166,7 @@ class TestInsertions(object):
         newItem =  AdvancedTag('div')
         newItem.setAttributes( {
             'name' : 'item',
-            'id' : 'item3' 
+            'id' : 'item3'
             }
         )
 
@@ -176,7 +176,7 @@ class TestInsertions(object):
 
         assert childIds == ['item1', 'item1point5', 'item2','item3'] , 'Expected items to be ordered. Got: %s' %(str(childIds,))
         newItem =  AdvancedTag('div')
-     
+
 
     def test_insertAfterWithText(self):
         '''
@@ -189,7 +189,7 @@ class TestInsertions(object):
         item2Em = parser.getElementById('item2')
 
         assert itemsEm , 'Failed to get id="items"'
-        
+
         childBlockText = 'BlArGie Buff$$'
 
         blocksBefore = copy.copy(itemsEm.blocks)
@@ -227,7 +227,7 @@ class TestInsertions(object):
     def test_previousSibling(self):
         parser = AdvancedHTMLParser()
         parser.parseStr('<div>Head Text<div id="one">An item</div><div id="two">Another item</div>More Text<div id="three">Last  item</div></div>')
-        
+
         root = parser.getRoot()
 
         assert root.getElementById('one').previousSibling == 'Head Text' , 'Expected to get "Head Text" as first sibling'
@@ -240,7 +240,7 @@ class TestInsertions(object):
     def test_nextSibling(self):
         parser = AdvancedHTMLParser()
         parser.parseStr('<div>Head Text<div id="one">An item</div><div id="two">Another item</div>More Text<div id="three">Last  item</div></div>')
-        
+
         root = parser.getRoot()
 
         assert root.getElementById('one').nextSibling.id == 'two' , 'Expected to get element with id "two"'
@@ -258,14 +258,14 @@ class TestInsertions(object):
 
     def test_firstLastChild(self):
         '''
-            test_firstChild - test 
-                
+            test_firstChild - test
+
                 AdvancedTag.firstChild and AdvancedTag.firstElementChild
                 AdvancedTag.lastChild and AdvancedTag.lastElementChild
         '''
         document = AdvancedHTMLParser()
         document.parseStr('<div id="main">Hello<div id="two">Blah</div><div id="emptyDiv"></div><div id="three">Three</div>End Text</div>')
-        
+
 
         mainEm = document.getElementById('main')
 
@@ -280,7 +280,7 @@ class TestInsertions(object):
         firstChildEm = mainEm.firstElementChild
 
         assert issubclass(firstChildEm.__class__, AdvancedTag) , 'Expected firstElementChild to return an AdvancedTag object. Got: ' + firstChildEm.__class__.__name__
-        
+
         assert firstChildEm.tagName == 'div' and firstChildEm.id == 'two' , 'Expected to get div id="two" as firstElementChild. Got: %s(%s)' %( firstChildEm.__class__.__name__, repr(firstChildEm))
 
         lastChild = mainEm.lastChild

@@ -180,7 +180,7 @@ class TestBuilding(object):
         assert divEm.tagName == 'div' , 'Expected createElement to set tag name properly'
 
     def test_createElementFromHtml(self):
-        
+
         divEm = AdvancedHTMLParser.createElementFromHTML('<div class="hello world" id="xdiv"> <span id="subSpan1"> Sub element </span> <span id="subSpan2"> Sub element2 </span> </div>')
 
         assert isinstance(divEm, AdvancedTag) , 'Expected createElementFromHtml to return an AdvancedTag element'
@@ -215,7 +215,7 @@ class TestBuilding(object):
         assert 'Hello World' in divEm.innerHTML , 'Expected text to be added to innerHTML'
 
     def test_createElementsFromHtml(self):
-        
+
         divEms = AdvancedHTMLParser.createElementsFromHTML('<div class="hello world" id="xdiv"> <span id="subSpan1"> Sub element </span> <span id="subSpan2"> Sub element2 </span> </div>')
 
         assert issubclass(divEms.__class__, (list, tuple)) , 'Expected to get a list returned from createElementsFromHTML'

@@ -20,7 +20,7 @@ class TestTagClass(object):
         '''
             test_setClassNameString - Test setting the "className" attribute on an AdvancedTag and it being reflected.
         '''
-        
+
         tag = AdvancedTag('div')
 
         assert "class=" not in tag.getHTML() , "Expected to not find 'class=' when none is set. Got: " + tag.getHTML()
@@ -138,7 +138,7 @@ class TestTagClass(object):
         assert 'class="hello world"' in str(tag) , 'Expected .classList return to be independent of source tag, but changing affected class in HTML representation'
 
         assert tag.classList == ['hello', 'world'] , 'Expected .classList return to be independent of source tag, but changing affected return of .classList'
-       
+
 
     def test_tagClassMethods(self):
         '''
@@ -188,14 +188,14 @@ class TestTagClass(object):
 
         assert tag.classList == ['hello', 'welcome' ] , "Expected addClass to not add duplicate class, but did not return expected ordered classList. Got: " + repr(tag.classList)
 
-        
+
 
     def test_parsing(self):
         '''
             test_parsing - Test that the parser properly handles several cases of class attribute,
                              and that they are mutable in expected ways thereafter.
         '''
-        
+
         someHtml = '''<html><body>
         <div class="one two three" id="firstDiv">Some text</div>
         <div id="secondDiv">This one is empty</div>
@@ -265,7 +265,7 @@ class TestTagClass(object):
 
         assert x.classList == ["hello"] , "Expected 'class' to be stripped in 'classList' after addClass. Got: " + repr(x.classList)
 
-        
+
         x = AdvancedTag('div')
 
         x.className = "  hello   goodbye"

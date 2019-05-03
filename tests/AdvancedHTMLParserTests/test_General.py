@@ -74,7 +74,7 @@ class TestGeneral(object):
         titleEms =  parser.getElementsByTagName('title')
         assert titleEms, 'Failed to find elements with tag name, "Title"'
         assert len(titleEms) == 1, 'More than one element with name title found (%d), expected  1.'  %(len(titleEms),)
-        
+
         titleEm  =  titleEms[0]
         assert titleEm.innerHTML.strip() ==  'HEllo', 'Bad innerHTML attribute, expected "HEllo"'
 
@@ -105,7 +105,7 @@ class TestGeneral(object):
         assert len(itemNames) == 1, 'Expected 1 item name  elements, got %d'  %(len(itemNames),)
 
         return itemNames[0].innerHTML.strip()
-        
+
 
 
     def test_advancedSearching(self):
@@ -119,7 +119,7 @@ class TestGeneral(object):
         names = [self._getItemName(item) for item in itemsUnderFour]
         for name in names:
             assert name , 'Expected name not to be blank'
-        
+
         names = set(names)
 
         assert 'Sponges' in names , 'Expected to find Sponges'
@@ -189,11 +189,11 @@ class TestGeneral(object):
 
         parser = AdvancedHTMLParser.AdvancedHTMLParser()
         parser.parseStr('<div id="hello"> <span> One </span> </div>')
-        
+
         bodyEm = parser.body
-        
+
         assert not bodyEm , 'Expected to find no "body" when no <body> tag is present.'
-        
+
         parser = AdvancedHTMLParser.AdvancedHTMLParser()
         parser.parseStr('<div id="hello"> <span> One </span> </div> <div id="other">Cheese</div>')
 
@@ -213,11 +213,11 @@ class TestGeneral(object):
 
         parser = AdvancedHTMLParser.AdvancedHTMLParser()
         parser.parseStr('<div id="hello"> <span> One </span> </div>')
-        
+
         headEm = parser.head
-        
+
         assert not headEm , 'Expected to find no "head" when no <head> tag is present.'
-        
+
         parser = AdvancedHTMLParser.AdvancedHTMLParser()
         parser.parseStr('<div id="hello"> <span> One </span> </div> <div id="other">Cheese</div>')
 

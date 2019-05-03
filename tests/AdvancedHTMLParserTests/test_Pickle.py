@@ -26,7 +26,7 @@ class TestPickle(object):
         tag = AdvancedHTMLParser.AdvancedTag('div')
         tag.id = 'myDiv'
         tag.className = 'one two'
-        
+
         pickleStr = pickle.dumps(tag)
 
         assert pickleStr , "Failed to get a pickle dump from AdvancedTag"
@@ -51,7 +51,7 @@ class TestPickle(object):
         mainDivTag = AdvancedTag('div')
         mainDivTag.id = 'mainDiv'
         mainDivTag.setAttribute('x-cheese', 'cheddar')
-        
+
         subspan1 = AdvancedTag('span')
         subspan1.setAttribute('id', 'subspan1')
         subspan1.name = 'subspans'
@@ -77,7 +77,7 @@ class TestPickle(object):
 
 
         pickleStr = pickle.dumps(mainDivTag)
-        
+
         assert pickleStr , "Was unable to get a pickle string from complex AdvancedTag"
 
         loadedMainDivTag = pickle.loads(pickleStr)
@@ -86,7 +86,7 @@ class TestPickle(object):
 
         assert loadedMainDivTag.id == "mainDiv" , "Loaded pickle did not retain id on mainDiv"
         assert loadedMainDivTag.getAttribute("x-cheese") == "cheddar" , "Loaded pickle did not retain 'x-cheese' attribute."
-        
+
         assert len(loadedMainDivTag.children) == 2 , "Loaded pickle did not retain 2 children. children property is: " + repr(loadedMainDivTag.children)
 
         loadedChild1 = loadedMainDivTag.children[0]
@@ -97,10 +97,10 @@ class TestPickle(object):
         for styleName, styleValue in [ ('display', 'block'), ('float', 'left'), ('clear', 'both') ]:
             loadedChild1StyleVal = getattr(loadedChild1.style, styleName)
             assert loadedChild1StyleVal == styleValue , 'Wrong value for style property "%s" on first child. Expected "%s" but got "%s"' %(styleName, styleValue, loadedChild1StyleVal)
-        
+
         loadedChild1StartTag = loadedChild1.getStartTag()
         assert "display: block" in loadedChild1StartTag , 'style.display missing in HTML representation after pickle load. Got: ' + repr(loadedChild1StartTag)
-        
+
         assert "<span" in loadedChild1StartTag, "Missing correct tag name in HTML representation after pickle load. Got: " + repr(loadedChild1StartTag)
 
         assert "My Text" in loadedChild1.text , "Expected 'My Text' to appear in .text attribute. Got: " + repr(loadedChild1.text)
@@ -123,7 +123,7 @@ class TestPickle(object):
 
         assert loadedImgTag.tagName == 'img' , 'Expected tagName="img" but got: ' + repr(loadedImgTag.tagName)
         assert loadedImgTag.src == '/images/cheese.png' , 'Got unexpected "src" attribute. Got: ' + repr(loadedImgTag.src)
-        
+
         loadedImgTagStyle = loadedImgTag.style
         assert loadedImgTagStyle.width == '80px' , 'Expected width: 80px but got: ' + repr(loadedImgTagStyle.width)
         assert loadedImgTagStyle.height == '60px' , 'Expected height: 60px but got: ' + repr(loadedImgTagStyle.height)
@@ -197,14 +197,14 @@ class TestPickle(object):
     def test_pickleThenModify(self):
         '''
             test_pickleThenModify - Ensure that unpickled tags can be modified,
-                
+
                 those modifications take hold, and do not affect the originals
         '''
         mainDivTag = AdvancedTag('div')
         mainDivTag.id = 'mainDiv'
         mainDivTag.className = 'firstClass second-class'
         mainDivTag.setAttribute('x-cheese', 'cheddar')
-        
+
         subspan1 = AdvancedTag('span')
         subspan1.setAttribute('id', 'subspan1')
         subspan1.name = 'subspans'
@@ -245,7 +245,7 @@ class TestPickle(object):
         loadedSubspan1.style.display = 'inline'
 
         assert 'display: inline' in str(loadedSubspan1.style) , 'Expected to be able to change style, display -> inline, on unpickled tag. Got: ' + repr(str(loadedSubspan1.style))
-        
+
         assert 'display: block' in str(subspan1.style) and 'display: inline' not in str(subspan1.style) , 'Expected to be able to change style, display -> inline, on unpickled tag without affecting original. Got: ' + repr(str(subspan1.style))
 
 

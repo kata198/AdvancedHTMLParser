@@ -22,7 +22,7 @@ MULTIPLE_ROOT = """
         </span>
     </div>
 """
- 
+
 
 INVALID_CLOSE = """
     <html>

@@ -104,7 +104,7 @@ class TestChildren(object):
             child = children[i]
             assert isTagNode(child) , 'Expected all nodes returned to be AdvancedTag\'s. On object %d got:  %s' %(i, child.__class__.__name__)
 
-        
+
 
 
 

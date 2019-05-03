@@ -1,8 +1,8 @@
-# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3. 
+# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3.
 #  See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #   Constants in AdvancedHTMLParser
 
-from .conversions import ( convertToIntOrNegativeOneIfUnset, convertToPositiveInt, 
+from .conversions import ( convertToIntOrNegativeOneIfUnset, convertToPositiveInt,
     convertPossibleValues, convertToIntRange, convertToIntRangeCapped, EMPTY_IS_INVALID
 )
 
@@ -27,7 +27,7 @@ INVISIBLE_ROOT_TAG_START = '<%s>' %(INVISIBLE_ROOT_TAG,)
 INVISIBLE_ROOT_TAG_END = '</%s>' %(INVISIBLE_ROOT_TAG,)
 
 # Tag names with attributes that are not common to all, but exist on certain elements
-TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = { 
+TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES = {
     'a'     : { 'href', 'target', },
     'area'  : { 'alt', 'coords', 'download', 'href', 'rel', 'shape', 'target', },
     'audio' : { 'autoplay', 'controls', 'loop', 'muted', 'preload', 'src', },
@@ -166,16 +166,16 @@ COMMON_JAVASCRIPT_ATTRIBUTES = { 'onkeydown', 'onkeyup', 'onkeypress', 'onfocus'
                                     'onclick', 'ondblclick', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover', \
                                     'onmouseup', 'onmousewheel', 'onwheel', 'oncopy', 'onpaste', 'oncut', \
                                     'ondrag', 'ondragend', 'ondragenter', 'ondragleave', 'ondragover', 'ondragstop', 'ondrop', 'onscroll',
-                                    'onchange', 
+                                    'onchange',
 }
 
 # All javascript attributes known by AdvancedHTMLParser
-ALL_JAVASCRIPT_EVENT_ATTRIBUTES = COMMON_JAVASCRIPT_ATTRIBUTES.union( 
-    set([value for values in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.values() for value in values if value.startswith('on')]) 
+ALL_JAVASCRIPT_EVENT_ATTRIBUTES = COMMON_JAVASCRIPT_ATTRIBUTES.union(
+    set([value for values in TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES.values() for value in values if value.startswith('on')])
 )
 
 # object-access that link directly to an attribute on the tag
-TAG_ITEM_ATTRIBUTE_LINKS = { 'id', 'name', 'title', 'dir', 'align', 'tabIndex', 'className', 
+TAG_ITEM_ATTRIBUTE_LINKS = { 'id', 'name', 'title', 'dir', 'align', 'tabIndex', 'className',
     'hidden', 'spellcheck', 'lang', }
 
 # Add all javascript event attributes
@@ -221,10 +221,10 @@ TAG_ITEM_CHANGE_NAME_FROM_ITEM = {
 }
 
 # These attributes are binary (only accept true/false)
-TAG_ITEM_BINARY_ATTRIBUTES = { 'hidden', 'checked', 'selected', 
+TAG_ITEM_BINARY_ATTRIBUTES = { 'hidden', 'checked', 'selected',
     'autoplay', 'controls', 'loop', 'muted',
     'compact', 'novalidate', 'noresize', 'autofocus', 'disabled', 'formnovalidate', 'multiple', 'readOnly', 'required',
-    'declare', 'reversed', 'async', 'defer', 'nowrap', 'default', 
+    'declare', 'reversed', 'async', 'defer', 'nowrap', 'default',
     }
 
 # These attributes are binary for dot-access, but have the value "true" or "false" in the HTML representation
@@ -293,7 +293,7 @@ class NOT_PROVIDED_TYPE(object):
             (since None, empty string, etc are legitimate possible values
     '''
     pass
- 
+
 # NOT_PROVIDED - Singleton of NOT_PROVIDED_TYPE, used to indicate that an argument is not provided
 NOT_PROVIDED = NOT_PROVIDED_TYPE()
 
@@ -306,10 +306,10 @@ def _special_value_maxLength(em, newValue=NOT_PROVIDED):
             @param newValue - Default NOT_PROVIDED, if provided will use that value instead of the
 
                 current .getAttribute value on the tag. This is because this method can be used for both validation
-                 
+
                 and getting/setting
     '''
-    
+
     if newValue is NOT_PROVIDED:
         if not em.hasAttribute('maxlength'):
             return -1
@@ -331,7 +331,7 @@ def _special_value_maxLength(em, newValue=NOT_PROVIDED):
 def _DOMTokenList_type(*args):
     '''
         _DOMTokenList_type - A method which imports and returns SpecialAttributes.DOMTokenList
-            
+
             for late-binding reasons
 
             If arguments are passed, will construct a DOMTokenList object, otherwise will return the type itself

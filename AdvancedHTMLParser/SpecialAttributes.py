@@ -1,4 +1,4 @@
-# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3. 
+# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3.
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #
 # These are various helpers for "special" attributes
@@ -82,7 +82,7 @@ class SpecialAttributesDict(dict):
             return None #  TODO: support undefined?
 
     def __setitem__(self, key, value):
-        
+
         key = key.lower()
 
         tag = self.tag
@@ -109,7 +109,7 @@ class SpecialAttributesDict(dict):
 
                 @param key <str> - The attribute key to delete
         '''
-        
+
         key = key.lower()
 
         if key == 'style':
@@ -231,7 +231,7 @@ class SpecialAttributesDict(dict):
         self._handleClassAttr()
 
         reprStr = dict.__repr__(self)
-        
+
         return 'SpecialAttributesDict( %s )' %(reprStr, )
 
     # __str__ already calls __repr__
@@ -376,7 +376,7 @@ class AttributeNodeMap(object):
     def __getitem__(self, name):
         if isinstance(name, int):
             return self.getNamedItem(self._attributesDict.keys()[name])
-        
+
         return self.getNamedItem(name)
 
     def __iter__(self):
@@ -428,7 +428,7 @@ class StyleAttribute(object):
     def tag(self):
         '''
             tag - Property (dot-access variable) which will return the associated tag, if any.
-            
+
               This method should be used for access to handle the weakref.
 
               @see setTag - Method to set or remove the tag association
@@ -445,7 +445,7 @@ class StyleAttribute(object):
     def setTag(self, tag):
         '''
             setTag - Set the tag association for this style.
-            
+
               This will handle the underlying weakref to the tag.
 
               Call setTag(None) to clear the association, otherwise setTag(tag) to associate this style to that tag.
@@ -455,7 +455,7 @@ class StyleAttribute(object):
                     becomes associated with this style.
 
         '''
-                
+
         if tag:
             self._tagRef = weakref.ref(tag)
         else:
@@ -497,7 +497,7 @@ class StyleAttribute(object):
         if name in StyleAttribute.RESERVED_ATTRIBUTES:
             return object.__setattr__(self, name, val)
 
-        
+
         attrName = StyleAttribute.camelCaseToDashName(name)
 
         styleDict = self._styleDict
@@ -513,12 +513,12 @@ class StyleAttribute(object):
 
         # Okay, since we don't want empty style="" on every tag, we have to attach and remove as properties change
         self._ensureHtmlAttribute()
-                
+
         return val
 
     def _ensureHtmlAttribute(self):
         '''
-            _ensureHtmlAttribute - INTERNAL METHOD. 
+            _ensureHtmlAttribute - INTERNAL METHOD.
                                     Ensure the "style" attribute is present in the html attributes when
                                         is has a value, and absent when it does not.
 
@@ -535,7 +535,7 @@ class StyleAttribute(object):
                 return
 
             # If we have any styles set, ensure we have the style="whatever" in the HTML representation,
-            #   otherwise ensure we don't have style="" 
+            #   otherwise ensure we don't have style=""
             if not styleDict:
                 tagAttributes._direct_del('style')
             else: #if 'style' not in tagAttributes.keys():
@@ -575,7 +575,7 @@ class StyleAttribute(object):
                 pass
         else:
             styleDict[name] = str(value)
-                
+
 
 #            if newValue:
 #                # If replacing, just set/override it
@@ -662,7 +662,7 @@ class StyleAttribute(object):
 
 #    def getStyleDict(self):
 #        '''
-#            getStyleDict - Returns a dictionary of style attribute name:value. 
+#            getStyleDict - Returns a dictionary of style attribute name:value.
 #
 #            @return dict <str:str> style attribute names to values. Impl is OrderedDict and will match positioning in string value
 #        '''
@@ -679,13 +679,13 @@ class StyleAttribute(object):
 #            @return - String of the value of the style. '' is no value.
 #        '''
 #        return self.getStyleDict().get(styleName.lower()) or ''
-#        
+#
 #
 #    def setStyle(self, styleName, styleValue):
 #        '''
 #            setStyle - Sets a style param. Example: "display", "block"
 #
-#                If you need to set many styles on an element, use setStyles instead. 
+#                If you need to set many styles on an element, use setStyles instead.
 #                It takes a dictionary of attribute, value pairs and applies it all in one go (faster)
 #
 #                To remove a style, set its value to empty string.
@@ -703,7 +703,7 @@ class StyleAttribute(object):
 #
 #    def setStyles(self, styleUpdatesDict):
 #        '''
-#            setStyles - Sets one or more style params. 
+#            setStyles - Sets one or more style params.
 #                This all happens in one shot, so it is much much faster than calling setStyle for every value.
 #
 #                To remove a style, set its value to empty string.
@@ -757,14 +757,14 @@ class StyleAttribute(object):
 
                       I don't understand how that is useful, but in a future version we may choose to adopt
                         that "feature" and export comparison into a different "isSaneAs(otherStyle)" function
-                
+
                 @param other<StyleAttribute> - The other style attribute map.
         '''
 
         selfDict = self._styleDict
 
         # Check if "other" is a string and convert it to a StyleAttribute if so, for comparison
-        #   (this also allows any-order, i.e. 
+        #   (this also allows any-order, i.e.
         #     StyleAttribute("float: left; font-weight: bold") == StyleAttribute("font-weight: bold; float: left")
         try:
             otherDict = other._styleDict
@@ -831,7 +831,7 @@ class DOMTokenList(list):
     def __str__(self):
         '''
             __str__ - String this element. Equivilant to a javascript DOMTokenList.toString(),
-                
+
                 and will join by ' '
         '''
         return ' '.join(self)

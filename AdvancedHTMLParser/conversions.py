@@ -1,11 +1,11 @@
 '''
- Copyright (c)  2017 Tim Savannah under LGPLv3. 
+ Copyright (c)  2017 Tim Savannah under LGPLv3.
   See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 
    Value-conversion methods
 '''
 
-__all__ = ('convertToIntOrNegativeOneIfUnset', 'convertToBooleanString', 'convertBooleanStringToBoolean', 
+__all__ = ('convertToIntOrNegativeOneIfUnset', 'convertToBooleanString', 'convertBooleanStringToBoolean',
             'convertPossibleValues', 'convertToIntRange', 'convertToIntRangeCapped', 'EMPTY_IS_INVALID',
 )
 
@@ -23,9 +23,9 @@ EMPTY_IS_INVALID = _EMPTY_IS_INVALID_TYPE()
 def convertToIntOrNegativeOneIfUnset(val=None):
     '''
         convertToIntOrNegativeOneIfUnset - Converts value to an integer, or -1 if unset
-        
+
         @param val <int/str/None> - Value
-        
+
         Takes a value, if not set returns -1. If not an integer, returns 0
     '''
     if val in (None, ''):
@@ -50,7 +50,7 @@ def convertToBooleanString(val=None):
             return 'false'
         else:
             return 'true'
-    
+
     try:
         if bool(val):
             return "true"
@@ -130,7 +130,7 @@ def _handleInvalid(invalidDefault):
 def convertPossibleValues(val, possibleValues, invalidDefault, emptyValue=''):
     '''
         convertPossibleValues - Convert input value to one of several possible values,
-            
+
                                     with a default for invalid entries
 
             @param val <None/str> - The input value
@@ -147,7 +147,7 @@ def convertPossibleValues(val, possibleValues, invalidDefault, emptyValue=''):
                      Otherwise, use this raw value
 
             @param emptyValue Default '', used for an empty value (empty string or None)
-                
+
 
     '''
     from .utils import tostr
@@ -177,7 +177,7 @@ def convertPossibleValues(val, possibleValues, invalidDefault, emptyValue=''):
 def convertToIntRange(val, minValue, maxValue, invalidDefault, emptyValue=''):
     '''
         converToIntRange - Convert input value to an integer within a certain range
-            
+
             @param val <None/str/int/float> - The input value
 
             @param minValue <None/int> - The minimum value (inclusive), or None if no minimum
@@ -194,7 +194,7 @@ def convertToIntRange(val, minValue, maxValue, invalidDefault, emptyValue=''):
                      Otherwise, use this raw value
 
             @param emptyValue Default '', used for an empty value (empty string or None)
-                
+
 
     '''
     from .utils import tostr
@@ -220,7 +220,7 @@ def convertToIntRange(val, minValue, maxValue, invalidDefault, emptyValue=''):
 def convertToIntRangeCapped(val, minValue, maxValue, invalidDefault, emptyValue=''):
     '''
         converToIntRangeCapped - Convert input value to an integer within a certain range, capping the value potentially at a minimum or maximum
-            
+
             @param val <None/str/int/float> - The input value
 
             @param minValue <None/int> - The minimum value (inclusive), or None if no minimum
@@ -237,7 +237,7 @@ def convertToIntRangeCapped(val, minValue, maxValue, invalidDefault, emptyValue=
                      Otherwise, use this raw value
 
             @param emptyValue Default '', used for an empty value (empty string or None)
-                
+
 
     '''
     from .utils import tostr

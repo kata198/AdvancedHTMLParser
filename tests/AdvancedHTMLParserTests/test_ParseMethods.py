@@ -45,9 +45,9 @@ class TestParseMethods(object):
         assert testEm , 'Failed to extract data from file parsing'
         assert len(testEm.children) == 2 , 'Invalid data from file parsing'
         assert testEm.children[0].innerHTML.strip() == 'Moo' , 'Invalid data from file parsing'
-    
 
-    
+
+
 
 
     def test_ParseStr(self):
@@ -82,7 +82,7 @@ class TestParseMethods(object):
             gotException = True
 
         assert gotException is True, 'Should have failed to parse unicode characters in ascii codec, probably not using passed encoding'
-        
+
 
 
 

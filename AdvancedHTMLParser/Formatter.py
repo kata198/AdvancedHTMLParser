@@ -1,4 +1,4 @@
-# Copyright (c) 2015, 2017, 2018 Tim Savannah under LGPLv3. 
+# Copyright (c) 2015, 2017, 2018 Tim Savannah under LGPLv3.
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #   HTML formatting (HTML->XHTML conversion as well)
 
@@ -106,7 +106,7 @@ class AdvancedHTMLFormatter(HTMLParser):
 
     def getRoot(self):
         '''
-            getRoot - returns the root Tag 
+            getRoot - returns the root Tag
                 @return - AdvancedTag at root. If you provided multiple root nodes, this will be a "holder" with tagName value as constants.INVISIBLE_ROOT_TAG
         '''
         return self.root

@@ -1,4 +1,4 @@
-# Copyright (c) 2015, 2016, 2017, 2018, 2019 Tim Savannah under LGPLv3. 
+# Copyright (c) 2015, 2016, 2017, 2018, 2019 Tim Savannah under LGPLv3.
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #  AdvancedTag and TagCollection which represent tags and their data.
 
@@ -85,7 +85,7 @@ def isValidAttributeName(attrName):
 def uniqueTags(tagList):
     '''
         uniqueTags - Returns the unique tags in tagList.
-        
+
             @param tagList list<AdvancedTag> : A list of tag objects.
     '''
     ret = []
@@ -234,9 +234,9 @@ class AdvancedTag(object):
             if name in TAG_ITEM_ATTRIBUTES_SPECIAL_VALIDATION:
                 TAG_ITEM_ATTRIBUTES_SPECIAL_VALIDATION[name](self, value)
 
-            # Check if we need to adjust the name fpr setting this html attribute - 
+            # Check if we need to adjust the name fpr setting this html attribute -
             #   these javascript names differ from the html attribute name, e.x.  "className" -> "class"
-            if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM: 
+            if name in TAG_ITEM_CHANGE_NAME_FROM_ITEM:
                 name = TAG_ITEM_CHANGE_NAME_FROM_ITEM[name]
 
             if name in TAG_ITEM_BINARY_ATTRIBUTES_STRING_ATTR:
@@ -266,7 +266,7 @@ class AdvancedTag(object):
         #   or if already a StyleAttribute object, make a copy (e.x.  tag2.style = tag1.style )
         #
         if name == 'style':
-            
+
             # Check that we aren't trying to assign our own style to ourself to prevent
             #   a copy when we shouldn't and other bad stuff
             if id(value) != id(self.style):
@@ -278,7 +278,7 @@ class AdvancedTag(object):
                 oldStyle = self.__rawGet('style')
                 if issubclass(oldStyle.__class__, StyleAttribute):
                     oldStyle.setTag(None)
-            
+
             ret = object.__setattr__(self, 'style', value)
 
             # Adjust the presence of the style="..." in the html attributes
@@ -301,7 +301,7 @@ class AdvancedTag(object):
             return object.__getattribute__(self, name)
         except:
             pass
-        
+
         # Check if this is one of the special items which map directly to attributes
         #    TAG_ITEM_ATTRIBUTE_LINKS - These attributes link directly to an html attribute, e.x. "id" or "name"
         #    TAG_NAMES_TO_ADDITIONAL_ATTRIBUTES - This is a map for specific dot-access attributes specific to
@@ -446,7 +446,7 @@ class AdvancedTag(object):
         #        self.className = value
         #    else:
         #        myAttributes._direct_set(key, value)
-                
+
 
     def appendText(self, text):
         '''
@@ -485,7 +485,7 @@ class AdvancedTag(object):
 
             if text in block:
                 # We have a block that matches.
-                
+
                 # Create a copy of the old text in this block for return
                 removedBlock = block[:]
                 # Remove first occurance of #text from matched block
@@ -527,11 +527,11 @@ class AdvancedTag(object):
             if text in block:
                 # Got a match, save a copy of the text block pre-replace for the return
                 removedBlocks.append( block[:] )
-                
+
                 # And replace the text within this matched block
                 blocks[i] = block.replace(text, '')
 
-        
+
         # Regenerate self.text
         self.text = ''.join([thisBlock for thisBlock in blocks if not issubclass(thisBlock.__class__, AdvancedTag)])
 
@@ -625,7 +625,7 @@ class AdvancedTag(object):
             self.appendNode(block)
         else:
             self.appendText(block)
-        
+
         return block
 
     # append - Alias (official API name) for appendBlock
@@ -730,14 +730,14 @@ class AdvancedTag(object):
             ret.append( self.removeChild(child) )
 
         return ret
-            
+
 
     def removeBlock(self, block):
         '''
             removeBlock - Removes a single block (text node or AdvancedTag) which is a child of this object.
 
             @param block <str/AdvancedTag> - The block (text node or AdvancedTag) to remove.
-            
+
             @return Returns the removed block if one was removed, or None if requested block is not a child of this node.
 
             NOTE: If you know you are going to remove an AdvancedTag, @see removeChild
@@ -750,7 +750,7 @@ class AdvancedTag(object):
         else:
             return self.removeText(block)
 
-            
+
 
     def insertBefore(self, child, beforeChild):
         '''
@@ -784,13 +784,13 @@ class AdvancedTag(object):
         except ValueError:
             # #beforeChild is not a child of this element. Raise error.
             raise ValueError('Provided "beforeChild" is not a child of element, cannot insert.')
-        
+
         # Add to blocks in the right spot
         self.blocks = myBlocks[:blocksIdx] + [child] + myBlocks[blocksIdx:]
         # Add to child in the right spot
-        if isChildTag: 
+        if isChildTag:
             self.children = myChildren[:childrenIdx] + [child] + myChildren[childrenIdx:]
-        
+
         return child
 
     def insertAfter(self, child, afterChild):
@@ -859,13 +859,13 @@ class AdvancedTag(object):
             attributes - Return a NamedNodeMap of the attributes on this object.
 
               This is a horrible method and is not used in practice anywhere sane.
-              
+
               Please use setAttribute, getAttribute, hasAttribute methods instead.
 
               @see SpecialAttributes.NamedNodeMap
 
               This is NOT the default provider of the "attributes" property. Can be toggled to use the DOM-matching version, see @toggleAttributesDOM
-        
+
             @return AttributeNodeMap
         '''
         return AttributeNodeMap(self._attributes, self, ownerDocument=self.ownerDocument)
@@ -893,7 +893,7 @@ class AdvancedTag(object):
             attributesList - Returns a copy of internal attributes as a list. Same as getAttributesList method.
 
                 @return list<tuple> - List of (key, value) tuples representing each attribute on this node
-                
+
 
               @see getAttributesList
               @see attributesDict
@@ -968,7 +968,7 @@ class AdvancedTag(object):
         if len(children) == 0:
             return None
         return children[-1]
-        
+
 
     @property
     def nextSibling(self):
@@ -1020,14 +1020,14 @@ class AdvancedTag(object):
 
         # Else, return the next child in parent
         return parentNode.children[myElementIdx+1]
-        
+
     nextSiblingElement = nextElementSibling
-        
+
     @property
     def previousSibling(self):
         '''
             previousSibling - Returns the previous sibling. This would be the previous node (text or tag) in the parent's list
-            
+
                 This could be text or an element. use previousSiblingElement to ensure element
 
 
@@ -1042,7 +1042,7 @@ class AdvancedTag(object):
 
         # Determine block index on parent of this node
         myBlockIdx = parentNode.blocks.index(self)
-        
+
         # If we are the first, no previous sibling
         if myBlockIdx == 0:
             return None
@@ -1053,7 +1053,7 @@ class AdvancedTag(object):
     @property
     def previousElementSibling(self):
         '''
-            previousElementSibling - Returns the previous  sibling  that is an element. 
+            previousElementSibling - Returns the previous  sibling  that is an element.
 
                                         This is the previous tag node in the parent's list of children
 
@@ -1070,7 +1070,7 @@ class AdvancedTag(object):
 
         # Determine this node's index in the children of parent
         myElementIdx = parentNode.children.index(self)
-        
+
         # If we are the first child, no previous element
         if myElementIdx == 0:
             return None
@@ -1084,7 +1084,7 @@ class AdvancedTag(object):
     @property
     def tagBlocks(self):
         '''
-            tagBlocks - Property. 
+            tagBlocks - Property.
                         Returns all the blocks which are direct children of this node, where that block is a tag (not text)
 
                 NOTE: This is similar to .children , and you should probably use .children instead except within this class itself
@@ -1112,7 +1112,7 @@ class AdvancedTag(object):
     @property
     def textBlocks(self):
         '''
-            textBlocks - Property. 
+            textBlocks - Property.
                         Returns all the blocks which are direct children of this node, where that block is a text (not a tag)
 
                 @return list<AdvancedTag> - A list of direct children which are text.
@@ -1154,7 +1154,7 @@ class AdvancedTag(object):
                     @return list<str> - A list of strings in order. Join using '' to obtain text
                                             as it would appear
             '''
-                   
+
             curStrLst = []
             blocks = object.__getattribute__(curNode, 'blocks')
 
@@ -1194,7 +1194,7 @@ class AdvancedTag(object):
 
     def hasChild(self, child):
         '''
-            hasChild - Returns if #child is a DIRECT child (tag) of this node. 
+            hasChild - Returns if #child is a DIRECT child (tag) of this node.
 
             @param child <AdvancedTag> - The tag to check
 
@@ -1202,7 +1202,7 @@ class AdvancedTag(object):
         '''
         return bool(child in self.children)
 
-    
+
     def hasChildNodes(self):
         '''
             hasChildNodes - Checks if this node has any children (tags).
@@ -1244,9 +1244,9 @@ class AdvancedTag(object):
 
     def getAllChildNodes(self):
         '''
-            getAllChildNodes - Gets all the children, and their children, 
+            getAllChildNodes - Gets all the children, and their children,
                and their children, and so on, all the way to the end as a TagCollection.
-               
+
                Use .childNodes for a regular list
 
             @return TagCollection<AdvancedTag> - A TagCollection of all children (and their children recursive)
@@ -1282,7 +1282,7 @@ class AdvancedTag(object):
 
     def getAllChildNodeUids(self):
         '''
-            getAllChildNodeUids - Returns all the unique internal IDs for all children, and there children, 
+            getAllChildNodeUids - Returns all the unique internal IDs for all children, and there children,
               so on and so forth until the end.
 
               For performing "contains node" kind of logic, this is more efficent than copying the entire nodeset
@@ -1473,7 +1473,7 @@ class AdvancedTag(object):
             return "%s<%s%s >" %(self._indent, self.tagName, attributeString)
         else:
             return "%s<%s%s />" %(self._indent, self.tagName, attributeString)
-    
+
     def getEndTag(self):
         '''
             getEndTag - returns the end tag representation as HTML string
@@ -1577,21 +1577,21 @@ class AdvancedTag(object):
 
               @return <dict ( str(name), str(value) )> - A dict of attrName to attrValue , all as strings and copies.
         '''
-            
+
         return { tostr(name)[:] : tostr(value)[:] for name, value in self._attributes.items() }
 
 
     def setAttribute(self, attrName, attrValue):
         '''
             setAttribute - Sets an attribute. Be wary using this for classname, maybe use addClass/removeClass. Attribute names are all lowercase.
-        
+
             @param attrName <str> - The name of the attribute
 
             @param attrValue <str> - The value of the attribute
 
 
             @raises -
-                
+
                 KeyError if #attrName is invalid name for an attribute
         '''
         if not isValidAttributeName(attrName):
@@ -1606,19 +1606,19 @@ class AdvancedTag(object):
             @param  attributesDict - <str:str> - New attribute names -> values
 
             @raises -
-                
+
         '''
         for attrName, attrValue in attributesDict.items():
-            
+
             self.setAttribute(attrName, attrValue)
 
 
     def hasAttribute(self, attrName):
         '''
             hasAttribute - Checks for the existance of an attribute. Attribute names are all lowercase.
-   
+
                 @param attrName <str> - The attribute name
-                
+
                 @return <bool> - True or False if attribute exists by that name
         '''
         attrName = attrName.lower()
@@ -1629,7 +1629,7 @@ class AdvancedTag(object):
     def removeAttribute(self, attrName):
         '''
             removeAttribute - Removes an attribute, by name.
-            
+
             @param attrName <str> - The attribute name
 
         '''
@@ -1746,13 +1746,13 @@ class AdvancedTag(object):
             @return - String of the value of the style. '' is no value.
         '''
         return getattr(self.style, styleName.lower())
-        
+
 
     def setStyle(self, styleName, styleValue):
         '''
             setStyle - Sets a style param. Example: "display", "block"
 
-                If you need to set many styles on an element, use setStyles instead. 
+                If you need to set many styles on an element, use setStyles instead.
                 It takes a dictionary of attribute, value pairs and applies it all in one go (faster)
 
                 To remove a style, set its value to empty string.
@@ -1773,7 +1773,7 @@ class AdvancedTag(object):
 
     def setStyles(self, styleUpdatesDict):
         '''
-            setStyles - Sets one or more style params. 
+            setStyles - Sets one or more style params.
                 This all happens in one shot, so it is much much faster than calling setStyle for every value.
 
                 To remove a style, set its value to empty string.
@@ -2012,7 +2012,7 @@ class AdvancedTag(object):
 
     def getPeersWithAttrValues(self, attrName, attrValues):
         '''
-            getPeersWithAttrValues - Gets peers (elements on same level) whose attribute given by #attrName 
+            getPeersWithAttrValues - Gets peers (elements on same level) whose attribute given by #attrName
                 are in the list of possible vaues #attrValues
 
             @param attrName - Name of attribute
@@ -2118,7 +2118,7 @@ class AdvancedTag(object):
 
             Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
               without '--no-deps' flag.)
-            
+
             For alternative without QueryableList,
               consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
 
@@ -2145,7 +2145,7 @@ class AdvancedTag(object):
 
             Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
               without '--no-deps' flag.)
-            
+
             For alternative without QueryableList,
               consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
 
@@ -2164,8 +2164,8 @@ class AdvancedTag(object):
 
     def __eq__(self, other):
         '''
-            __eq__ - Test if this and other are THE SAME TAG. 
-            
+            __eq__ - Test if this and other are THE SAME TAG.
+
             Note: this does NOT test if the tags have the same name, attributes, etc.
                 Use isTagEqual to test if a tag has the same data (other than children)
 
@@ -2295,7 +2295,7 @@ class TagCollection(list):
             if hasTag(other) is True:
                 self.remove(other)
         return self
-            
+
 
     def _hasTag(self, tag):
         return tag.uid in self.uids
@@ -2358,13 +2358,13 @@ class TagCollection(list):
 
         tagName = tagName.lower()
         _cmpFunc = lambda tag : bool(tag.tagName == tagName)
-        
+
         for tag in self:
             TagCollection._subset(ret, _cmpFunc, tag)
 
         return ret
 
-            
+
     def getElementsByName(self, name):
         '''
             getElementsByName - Get elements within this collection having a specific name
@@ -2396,7 +2396,7 @@ class TagCollection(list):
         _cmpFunc = lambda tag : tag.hasClass(className)
         for tag in self:
             TagCollection._subset(ret, _cmpFunc, tag)
-        
+
         return ret
 
     def getElementById(self, _id):
@@ -2433,7 +2433,7 @@ class TagCollection(list):
         _cmpFunc = lambda tag : tag.getAttribute(attr) == value
         for tag in self:
             TagCollection._subset(ret, _cmpFunc, tag)
-        
+
         return ret
 
     def getElementsWithAttrValues(self, attr, values):
@@ -2456,7 +2456,7 @@ class TagCollection(list):
         _cmpFunc = lambda tag : tag.getAttribute(attr) in values
         for tag in self:
             TagCollection._subset(ret, _cmpFunc, tag)
-        
+
         return ret
 
     def getElementsCustomFilter(self, filterFunc):
@@ -2508,7 +2508,7 @@ class TagCollection(list):
                number of levels down.
 
                To check if JUST an element is contained within this list directly, use the "in" operator.
-            
+
             @param em <AdvancedTag> - Element of interest
 
             @return <bool> - True if contained, otherwise False
@@ -2525,7 +2525,7 @@ class TagCollection(list):
             containsUid - Check if #uid is the uid (unique internal identifier) of any of the elements within this list,
               as themselves or as a child, any number of levels down.
 
-           
+
             @param uid <uuid.UUID> - uuid of interest
 
             @return <bool> - True if contained, otherwise False
@@ -2549,7 +2549,7 @@ class TagCollection(list):
 
             Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
               without '--no-deps' flag.)
-            
+
             For alternative without QueryableList,
               consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
 
@@ -2578,7 +2578,7 @@ class TagCollection(list):
 
             Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
               without '--no-deps' flag.)
-            
+
             For alternative without QueryableList,
               consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
 
@@ -2604,7 +2604,7 @@ class TagCollection(list):
 
             Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
               without '--no-deps' flag.)
-            
+
             For alternative without QueryableList,
               consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
 
@@ -2630,7 +2630,7 @@ class TagCollection(list):
 
             Requires the QueryableList module to be installed (i.e. AdvancedHTMLParser was installed
               without '--no-deps' flag.)
-            
+
             For alternative without QueryableList,
               consider #AdvancedHTMLParser.AdvancedHTMLParser.find method or the getElement* methods
 

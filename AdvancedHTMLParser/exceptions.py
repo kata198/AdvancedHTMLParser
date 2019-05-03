@@ -1,4 +1,4 @@
-# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3. 
+# Copyright (c) 2015, 2017 Tim Savannah under LGPLv3.
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #  Exceptions used
 
@@ -28,7 +28,7 @@ class HTMLValidationException(Exception):
         HTMLValidationException - common baseclass for invalid-HTML validation errors
     '''
     pass
-        
+
 
 class InvalidCloseException(HTMLValidationException):
     '''
@@ -44,13 +44,13 @@ class InvalidCloseException(HTMLValidationException):
             message = 'Attempted to close "%s", but it does not match any of the open tags: %s' %(triedToClose, str([x.tagName for x in stillOpen]),)
 
         Exception.__init__(self, message)
-       
+
 
 class MissedCloseException(HTMLValidationException):
     '''
         MissedCloseException - Raised when a close was missed
     '''
-    
+
     def __init__(self, triedToClose, stillOpen):
         self.triedToClose = triedToClose
         self.stillOpen = stillOpen
@@ -61,7 +61,7 @@ class MissedCloseException(HTMLValidationException):
 
 
 class IndexSizeErrorException(ValueError):
-    
+
     def __init__(self, *args, **kwargs):
         if len(args) == 0 and len(kwargs) == 0:
             ValueError.__init__(self, "Index or size is negative or greater than the allowed amount")

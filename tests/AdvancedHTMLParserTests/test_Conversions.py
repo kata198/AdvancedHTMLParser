@@ -9,7 +9,7 @@ import sys
 
 import AdvancedHTMLParser
 
-from AdvancedHTMLParser.conversions import (convertToIntOrNegativeOneIfUnset, convertToBooleanString, 
+from AdvancedHTMLParser.conversions import (convertToIntOrNegativeOneIfUnset, convertToBooleanString,
     convertBooleanStringToBoolean, convertPossibleValues, convertToIntRange, convertToIntRangeCapped
 )
 
@@ -32,7 +32,7 @@ class TestConversions(object):
 
                 @param expectedValue <anything> - Expected value after conversion
         '''
-        
+
         convertedValue = method(inputValue)
 
         try:
@@ -78,7 +78,7 @@ class TestConversions(object):
         '''
             test_convertToIntOrNegativeOneIfInset - Test the convertToIntOrNegativeOneIfUnset conversion method
         '''
-        
+
         doTest = lambda inputValue, expectedValue : self._test_convert(convertToIntOrNegativeOneIfUnset, inputValue, expectedValue)
 
         doTest( None, -1)

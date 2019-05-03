@@ -15,7 +15,7 @@ from setuptools import setup
 
 
 if __name__ == '__main__':
- 
+
 
     dirName = os.path.dirname(__file__)
     if dirName and os.getcwd() != dirName:
@@ -137,9 +137,9 @@ for item in items:
 
 
 # OUTPUT:
-# Items less than $4.00: 
+# Items less than $4.00:
 # -----------------------
-# 
+#
 # Sponges - $1.96
 # Turtles - $3.55
 # Coop - $1.44
