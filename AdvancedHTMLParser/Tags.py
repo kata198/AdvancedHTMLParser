@@ -1,4 +1,4 @@
-# Copyright (c) 2015, 2016, 2017 Tim Savannah under LGPLv3. 
+# Copyright (c) 2015, 2016, 2017, 2018, 2019 Tim Savannah under LGPLv3. 
 # See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 #  AdvancedTag and TagCollection which represent tags and their data.
 
@@ -20,7 +20,9 @@ from .SpecialAttributes import SpecialAttributesDict, StyleAttribute, AttributeN
 
 from .utils import escapeQuotes, tostr, stripWordsOnly
 
-__all__ = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection', 'toggleAttributesDOM', 'isTextNode', 'isTagNode')
+__all__ = ('AdvancedTag', 'uniqueTags', 'TagCollection', 'FilterableTagCollection', 'toggleAttributesDOM', 'isTextNode', \
+    'isTagNode', 'isValidAttributeName', \
+)
 
 
 def isTextNode(node):
@@ -42,6 +44,42 @@ def isTagNode(node):
         @return bool
     '''
     return issubclass(node.__class__, AdvancedTag)
+
+
+def isValidAttributeName(attrName):
+    '''
+        isValidAttributeName - Validate that an attribute name is valid.
+
+          AdvancedHTMLParser will silently drop invalid attributes,
+            ValidatingHTMLParser will raise exception
+
+            @param attrName <str> - The attribute name to test
+
+
+            @return <bool> - True if is valid name, otherwise False
+    '''
+    # Attribute name must start with an alpha or underscore
+    if not attrName or ( not attrName[0].isalpha() and attrName[0] != '_' ):
+        return False
+
+    for thisCh in attrName:
+
+        if thisCh.isalnum():
+            # Alpha and numerics are supported
+            continue
+
+        elif thisCh in ('-', '_'):
+            # Dash and underscore are allowed
+            continue
+
+        # All others are invalid
+        return False
+
+    # Validation passed
+    return True
+
+
+
 
 
 def uniqueTags(tagList):
@@ -145,6 +183,11 @@ class AdvancedTag(object):
 
             for key, value in attrList:
                 key = key.lower()
+
+                if not isValidAttributeName(key):
+                    # Silently drop this invalid key -- symbol out of place, etc.
+                    continue
+
                 myAttributes[key] = value
 
 
@@ -541,6 +584,8 @@ class AdvancedTag(object):
 
             @param child <AdvancedTag> - Append a child element to this element
         '''
+        if child is None:
+            raise KeyError('appendChild passed non-element')
 
         # Associate parentNode of #child to this tag
         child.parentNode = self
@@ -1473,8 +1518,12 @@ class AdvancedTag(object):
                 ret.append(block.outerHTML)
             else:
                 ret.append(block)
-        
-        return ''.join(ret)
+
+        try:
+            return ''.join(ret)
+        except:
+            import pdb; pdb.set_trace()
+            return ''.join(ret)
 
     @property
     def outerHTML(self):
@@ -1537,8 +1586,16 @@ class AdvancedTag(object):
             setAttribute - Sets an attribute. Be wary using this for classname, maybe use addClass/removeClass. Attribute names are all lowercase.
         
             @param attrName <str> - The name of the attribute
+
             @param attrValue <str> - The value of the attribute
+
+
+            @raises -
+                
+                KeyError if #attrName is invalid name for an attribute
         '''
+        if not isValidAttributeName(attrName):
+            raise KeyError('Attribute name "%s" is not valid. Must start with alpha character, and contain only alphanumeric or "-" or "_".' %(attrName, ))
         self._attributes[attrName] = attrValue
 
 
@@ -1547,8 +1604,13 @@ class AdvancedTag(object):
             setAttributes - Sets  several attributes at once, using a dictionary of attrName : attrValue
 
             @param  attributesDict - <str:str> - New attribute names -> values
+
+            @raises -
+                
         '''
-        self._attributes.update(attributesDict)
+        for attrName, attrValue in attributesDict.items():
+            
+            self.setAttribute(attrName, attrValue)
 
 
     def hasAttribute(self, attrName):
