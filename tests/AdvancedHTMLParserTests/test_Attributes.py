@@ -6,7 +6,7 @@
 import sys
 import subprocess
 
-from AdvancedHTMLParser.Tags import AdvancedTag
+from AdvancedHTMLParser.Tags import AdvancedTag, isValidAttributeName
 from AdvancedHTMLParser.Parser import AdvancedHTMLParser
 from AdvancedHTMLParser.SpecialAttributes import StyleAttribute
 
@@ -17,6 +17,9 @@ class TestAttributes(object):
     '''
 
     def test_setAttribute(self):
+        '''
+            test_setAttribute - Tests the AdvancedTag.setAttribute function
+        '''
         tag = AdvancedTag('div')
 
         tag.setAttribute('id', 'abc')
@@ -25,7 +28,69 @@ class TestAttributes(object):
 
         assert tag.getAttribute('blah') == None , 'Expected unset attribute to return None, actually returned %s' %(tag.getAttribute('blah'),)
 
+        # Try to set some invalid attribute names, and assure we get a KeyError
+
+        # Invalid symbol
+        gotRightException = False
+        try:
+            tag.setAttribute('x;', 'hello')
+        except KeyError:
+            gotRightException = True
+
+        assert gotRightException is True, 'Failed to raise KeyError on setAttribute of invalid name: "x;"'
+
+        # Does not start with alpha
+        gotRightException = False
+        try:
+            tag.setAttribute('9chan', 'yes')
+        except KeyError:
+            gotRightException = True
+
+        assert gotRightException is True, 'Failed to raise KeyError on setAttribute of invalid name: "9chan"'
+
+
+    def test_isValidAttributeName(self):
+        '''
+            test_isValidAttributeName - Tests the attribute name validator
+        '''
+        def testExpectValid(validNames):
+            '''
+                testExpectValid - Expect names to be valid
+            '''
+
+            for validName in validNames:
+
+                assert isValidAttributeName(validName) is True , 'Expected attribute name validator to return that "%s" IS a valid attribute name, but it failed validation.' %(validName, )
+
+
+        def testExpectInvalid(invalidNames):
+            '''
+                testExpectInvalid - Expect names to be invalid
+            '''
+
+            for invalidName in invalidNames:
+
+                assert isValidAttributeName(invalidName) is False , 'Expected attribute name validator to return that "%s" is not a valid attribute name, but it passed validation.' %(invalidName, )
+
+
+        # Test a few common valid names
+        testExpectValid( ('id', 'name', 'class', 'aria-data') )
+
+        # Test a few less common but still valid names
+        testExpectValid( ('attr99', '_', '_test', 'x-', 'my_attr') )
+
+        # Must start with alpha or underscore
+        testExpectInvalid( ('9chan', '-world', '+3', ';') )
+
+        # Must not contain invalid characters
+        testExpectInvalid( ( 'r&b', 'k+a', 'hello/world', 'cheese(mega)', 'blah[4]') )
+
+
+
     def test_getElementsByAttr(self):
+        '''
+            test_getElementsByAttr - Tests the getElementsByAttr function
+        '''
         html = """<html> <head> <title> Hello </title> </head>
 <body>
     <div cheese="cheddar" id="cheddar1" >
@@ -41,7 +106,7 @@ class TestAttributes(object):
 
         elements = parser.getElementsByAttr('cheese', 'cheddar')
         assert len(elements) == 2
-        
+
         foundCheese1 = foundCheese2 = False
         for element in elements:
             myID = element.getAttribute('id')
@@ -76,12 +141,12 @@ class TestAttributes(object):
 
                 foundId = True
             elif attrName == 'style':
-                
+
                 style = StyleAttribute(attrValue)
                 assert style.display == 'none', 'Got unexpected value for display in style copy. Expected "none", got "%s"' %(style.display,)
                 assert style.width == '500px' , 'Got unexpected value for width in style copy. Expected "500px", got "%s"' %(style.width,)
                 assert style.paddingLeft == '15px', 'Got unexpected value for padding-left. Expected "15px", got "%s"' %(style.paddingLeft, )
-                
+
                 foundStyle = True
             elif attrName == 'class':
 
@@ -115,7 +180,7 @@ class TestAttributes(object):
                 style.paddingTop = '10px'
 
 
-        
+
         # These should not be modified in the original element
         assert 'padding-top' not in str(helloEm.style)
 #        parser.parseStr('<div id="hello" style="display: none; width: 500px; padding-left: 15px;" class="One Two" data="Yes">Hello</div>')
@@ -500,7 +565,7 @@ class TestAttributes(object):
 
 
         tag.spellcheck = "yes"
-        
+
         assert tag.spellcheck is True , 'Expected after setting spellcheck to "yes", dot-access reutrns True. Got: ' + repr(tag.spellcheck)
         tagHTML = str(tag)
 
@@ -545,7 +610,7 @@ class TestAttributes(object):
 
         assert td.colSpan == 8 , 'Expected colSpan to be an integer value. Got: ' + str(type(td.colSpan))
 
-        
+
         td = AdvancedTag('td', attrList=[ ('colspan', '5') ])
 
         assert td.colSpan == 5 , 'Expected setting "colspan" in attrList sets colSpan'
@@ -694,7 +759,7 @@ class TestAttributes(object):
         formEm.method = 'get'
 
         assert formEm.method == 'get' , 'Expected to be able to set form.method to "get". Got: ' + repr(formEm.method)
-        
+
         formHTML = str(formEm)
 
         assert 'method="get"' in formHTML , 'Expected html attribute method to be set in html representation. Got: ' + repr(formHTML)
@@ -703,7 +768,7 @@ class TestAttributes(object):
         formHTML = str(formEm)
 
         assert formEm.method == 'post' , 'Expected to be able to set form.method to "post". Got: ' + repr(formEm.method)
-        
+
 
         assert 'method="post"' in formHTML , 'Expected html attribute method to be set in html representation. Got: ' + repr(formHTML)
 
@@ -711,7 +776,7 @@ class TestAttributes(object):
         formHTML = str(formEm)
 
         assert formEm.method == 'post' , 'Expected to be able to set form.method to "POST" and it be converted to lowercase for dot-access. Got: ' + repr(formEm.method)
-        
+
 
         assert 'method="POST"' in formHTML , 'Expected html attribute method to be set in html representation as given (i.e. not lowercased). Got: ' + repr(formHTML)
 
@@ -773,7 +838,7 @@ class TestAttributes(object):
 
         assert tdEm.colSpan == 10 , 'Expected to be able to set colSpan to 10, but value returned was: ' + repr(tdEm.colSpan)
         assert 'colspan="10"' in tdEmHTML , 'Expected colspan="10" to be in HTML string after setting, but got: ' + tdEmHTML
-        
+
         tdEm.colSpan = -5
         assert tdEm.colSpan == 1 , 'Expected colSpan to be clamped to a minimum of 1, but got: ' + repr(tdEm.colSpan)
 
@@ -972,13 +1037,13 @@ class TestAttributes(object):
         assert 'kind="blah"' in trackEmHTML , 'Expected when an "invalid" value is provided for track->kind, that the value is put into the HTML attribute as-is, but got: ' + str(trackEmHTML)
 
         for possibleKind in TRACK_POSSIBLE_KINDS:
-            
+
             trackEm.kind = possibleKind
 
             assert trackEm.kind == possibleKind , 'Expected to be able to set track->kind to "%s", but after doing so got %s as the return.' %( possibleKind, repr(trackEm.kind))
 
         trackEm.kind = ''
-        
+
         assert trackEm.kind == 'metadata' , 'Expected setting kind to an empty string returns "metadata" (the invalid result), but got: ' + repr(trackEm.kind)
 
 
