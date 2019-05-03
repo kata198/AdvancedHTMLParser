@@ -826,7 +826,7 @@ class TestAttributes(object):
 
         colEm.span = 1500
 
-        assert colEm.span == 1000 , 'Expected col.span to be clamped to a maximum of 1000. Got: ' + repr(ColEm.span)
+        assert colEm.span == 1000 , 'Expected col.span to be clamped to a maximum of 1000. Got: ' + repr(colEm.span)
 
 
     def test_colsAttribute(self):
