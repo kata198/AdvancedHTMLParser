@@ -406,6 +406,9 @@ InvalidCloseException - Tried to close a tag that shouldn't have been closed
 
 MissedCloseException  - Missed a non-optional close of a tag that would lead to causing an assumption during parsing.
 
+InvalidAttributeNameException - An attribute name was found that contained an invalid character, or broke a naming rule.
+
+
 IndexedAdvancedHTMLParser
 =========================
 
