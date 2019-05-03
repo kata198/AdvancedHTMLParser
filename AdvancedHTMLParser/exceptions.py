@@ -32,7 +32,7 @@ class HTMLValidationException(Exception):
 
 class InvalidCloseException(HTMLValidationException):
     '''
-        InvalidCloseException - Raised when a tag is closed that shouldn't be closed.
+        InvalidCloseException - Raised when a tag is closed that shouldn't be closed in validating parser
     '''
 
     def __init__(self, triedToClose, stillOpen):
@@ -48,7 +48,7 @@ class InvalidCloseException(HTMLValidationException):
 
 class MissedCloseException(HTMLValidationException):
     '''
-        MissedCloseException - Raised when a close was missed
+        MissedCloseException - Raised when a close was missed in validating parser
     '''
 
     def __init__(self, triedToClose, stillOpen):
@@ -56,6 +56,29 @@ class MissedCloseException(HTMLValidationException):
         self.stillOpen = stillOpen
 
         message = 'Attempted to close "%s" prior to closing: %s' %(triedToClose , str([x.tagName for x in stillOpen]))
+
+        Exception.__init__(self, message)
+
+
+class InvalidAttributeNameException(HTMLValidationException):
+    '''
+        InvalidAttributeNameException - Raised when an invalid attribute name is found when parsing via validating parser
+    '''
+
+    def __init__(self, tagName, badAttributeName, badAttributeValue):
+        '''
+            __init__ - Create this object
+
+                @param tagName <str> - Tag name
+
+                @param badAttributeName <str> - Bad attribute name
+
+                @param badAttributeValue <str> - Bad attribute value
+        '''
+
+        message = 'Parsed a tag %s  which contains an invalid attribute, %s = %s . ( Maybe characters outside quotes in tag? )' % ( \
+            tagName, repr(badAttributeName), repr(badAttributeValue) \
+        )
 
         Exception.__init__(self, message)
 

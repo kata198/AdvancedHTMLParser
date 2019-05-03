@@ -2,10 +2,13 @@
 # Copyright (c) 2015, 2019 Tim Savannah All Rights Rserved under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 
 from .Parser import AdvancedHTMLParser
+from .Tags import isValidAttributeName
 
-from .exceptions import InvalidCloseException, MissedCloseException
+from .exceptions import InvalidCloseException, MissedCloseException, InvalidAttributeNameException
 
-__all__ = ('InvalidCloseException', 'MissedCloseException', 'ValidatingAdvancedHTMLParser')
+__all__ = ('InvalidCloseException', 'MissedCloseException', 'InvalidAttributeNameException',
+    'ValidatingAdvancedHTMLParser',
+)
 
 class ValidatingAdvancedHTMLParser(AdvancedHTMLParser):
     '''
@@ -15,6 +18,27 @@ class ValidatingAdvancedHTMLParser(AdvancedHTMLParser):
         exceptions.InvalidCloseException - The parsed string/file tried to close something it shouldn't have.
         exceptions.MissedCloseException  - The parsed string/file missed closing an item.
     '''
+
+    def handle_starttag(self, tagName, attributeList, isSelfClosing=False):
+        '''
+            handle_starttag - internal for parsing,
+
+                ValidatingAdvancedHTMLParser will run through the attributes list and make sure
+                  none have an invalid name, or will raise an error.
+
+
+                @raises - InvalidAttributeNameException if an attribute name is passed with invalid character(s)
+        '''
+
+        # Iterate over the passed attributes, and validate them.
+        for (attrName, attrValue) in attributeList:
+
+            if isValidAttributeName(attrName) is False:
+
+                raise InvalidAttributeNameException(tagName, attrName, attrValue)
+
+        # Done validating, feed to parent.
+        return AdvancedHTMLParser.handle_starttag(self, tagName, attributeList, isSelfClosing)
 
 
     def handle_endtag(self, tagName):
