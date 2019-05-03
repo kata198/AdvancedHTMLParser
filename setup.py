@@ -38,7 +38,7 @@ if __name__ == '__main__':
         long_description = summary
 
     setup(name='AdvancedHTMLParser',
-            version='8.1.4',
+            version='8.1.5',
             packages=['AdvancedHTMLParser'],
             scripts=['formatHTML'],
             author='Tim Savannah',

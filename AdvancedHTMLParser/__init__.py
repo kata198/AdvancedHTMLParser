@@ -1,7 +1,9 @@
 #!/usr/bin/env python
-# Copyright (c) 2015, 2016, 2017, 2018 Tim Savannah All Rights Rserved under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
-#
-# See: https://github.com/kata198/AdvancedHTMLParser for full information
+'''
+    Copyright (c) 2015, 2016, 2017, 2018, 2019 Tim Savannah All Rights Rserved under LGPLv3. See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
+
+    See: https://github.com/kata198/AdvancedHTMLParser for full information
+'''
 
 
 #
@@ -14,9 +16,9 @@ from .Validator import ValidatingAdvancedHTMLParser
 from .exceptions import InvalidCloseException, MissedCloseException, HTMLValidationException, MultipleRootNodeException
 from .SpecialAttributes import StyleAttribute
 
-__version__ = '8.1.4'
-__version_tuple__ = ('8', '1', '4')
-__int_version_tuple__ = (8, 1, 4)
+__version__ = '8.1.5'
+__version_tuple__ = ('8', '1', '5')
+__int_version_tuple__ = (8, 1, 5)
 
 __all__ = ( 'AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection',
     'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'MultipleRootNodeException',
