@@ -58,6 +58,8 @@ The AdvancedHTMLParser can read in a file (or string) of HTML, and will create a
 
 To populate an AdvancedHTMLParser from existing HTML:
 
+	import AdvancedHTMLParser
+
 	parser = AdvancedHTMLParser.AdvancedHTMLParser()
 
 	# Parse an HTML string into the document
