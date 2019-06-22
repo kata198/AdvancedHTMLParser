@@ -257,6 +257,27 @@ class TestGeneral(object):
         except ImportError:
             sys.stderr.write('WARNING: .filter is disabled via ImportError. QueryableList not installed?\n\n')
 
+    def test_doctype(self):
+        '''
+            test_doctype - Test doctype stuff
+        '''
+
+        parser = AdvancedHTMLParser.AdvancedHTMLParser()
+        parser.parseStr('''<!DOCTYPE html>\n<html><head></head><body></body></html>''')
+
+        assert '<!DOCTYPE html>' in parser.getHTML(), 'Parsed html string with doctype, but lost doctype in getHTML output'
+
+        parser = AdvancedHTMLParser.AdvancedHTMLParser()
+        parser.parseStr('''<html><head></head><body></body></html>''')
+
+        assert '<!DOCTYPE html>' not in parser.getHTML(), 'Parsed html stripg without doctype, but one got added and was present in getHTML output'
+
+        parser.setDoctype('DOCTYPE html')
+        assert '<!DOCTYPE html>' in parser.getHTML(), 'called setDoctype to set a doctype, but it was not in the getHTML output, as expected.'
+
+        parser.setDoctype(None)
+        assert '<!DOCTYPE html>' not in parser.getHTML(), 'called setDoctype to clear a doctype, but it was still in the getHTML output'
+
 
 
 if __name__ == '__main__':
