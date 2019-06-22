@@ -6,7 +6,7 @@
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="heading" >
 <tr bgcolor="#7799ee" >
 <td valign="bottom" >&nbsp;<br />
-<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong >AdvancedHTMLParser</strong></big></big> (version 8.1.5)</font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
+<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong >AdvancedHTMLParser</strong></big></big> (version 8.1.6)</font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
     <p ><tt >Copyright&nbsp;(c)&nbsp;2015,&nbsp;2016,&nbsp;2017,&nbsp;2018,&nbsp;2019&nbsp;Tim&nbsp;Savannah&nbsp;All&nbsp;Rights&nbsp;Rserved&nbsp;under&nbsp;LGPLv3.&nbsp;All&nbsp;Rights&nbsp;Reserved.<br />
 &nbsp;<br />
 &nbsp;<br />
@@ -600,6 +600,16 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 <dl ><dt ><a name="AdvancedHTMLParser-parseStr" ><strong >parseStr</strong></a>(self, html)</dt><dd ><tt >parseStr&nbsp;-&nbsp;Parses&nbsp;a&nbsp;string&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes.<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLParser-setDoctype" ><strong >setDoctype</strong></a>(self, newDoctype)</dt><dd ><tt >setDoctype&nbsp;-&nbsp;Set&nbsp;the&nbsp;doctype&nbsp;for&nbsp;this&nbsp;document,&nbsp;or&nbsp;clear&nbsp;it.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newDoctype&nbsp;&lt;str/None&gt;&nbsp;-<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;None,&nbsp;will&nbsp;clear&nbsp;the&nbsp;doctype&nbsp;and&nbsp;not&nbsp;return&nbsp;one&nbsp;with&nbsp;#getHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;a&nbsp;string&nbsp;of&nbsp;the&nbsp;full&nbsp;doctype&nbsp;tag.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;example,&nbsp;the&nbsp;HTML5&nbsp;doctype&nbsp;would&nbsp;be&nbsp;"DOCTYPE&nbsp;html"</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-setRoot" ><strong >setRoot</strong></a>(self, root)</dt><dd ><tt >Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes</tt></dd></dl>
 
@@ -2161,6 +2171,16 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
 
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-setDoctype" ><strong >setDoctype</strong></a>(self, newDoctype)</dt><dd ><tt >setDoctype&nbsp;-&nbsp;Set&nbsp;the&nbsp;doctype&nbsp;for&nbsp;this&nbsp;document,&nbsp;or&nbsp;clear&nbsp;it.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newDoctype&nbsp;&lt;str/None&gt;&nbsp;-<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;None,&nbsp;will&nbsp;clear&nbsp;the&nbsp;doctype&nbsp;and&nbsp;not&nbsp;return&nbsp;one&nbsp;with&nbsp;#getHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;a&nbsp;string&nbsp;of&nbsp;the&nbsp;full&nbsp;doctype&nbsp;tag.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;example,&nbsp;the&nbsp;HTML5&nbsp;doctype&nbsp;would&nbsp;be&nbsp;"DOCTYPE&nbsp;html"</tt></dd></dl>
+
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = <a href="#IndexedAdvancedHTMLParser-getHTML" >getHTML</a>(self)</dt></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-unknown_decl" ><strong >unknown_decl</strong></a>(self, decl)</dt><dd ><tt >Internal&nbsp;for&nbsp;parsing</tt></dd></dl>
@@ -3139,6 +3159,16 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
 
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-setDoctype" ><strong >setDoctype</strong></a>(self, newDoctype)</dt><dd ><tt >setDoctype&nbsp;-&nbsp;Set&nbsp;the&nbsp;doctype&nbsp;for&nbsp;this&nbsp;document,&nbsp;or&nbsp;clear&nbsp;it.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newDoctype&nbsp;&lt;str/None&gt;&nbsp;-<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;None,&nbsp;will&nbsp;clear&nbsp;the&nbsp;doctype&nbsp;and&nbsp;not&nbsp;return&nbsp;one&nbsp;with&nbsp;#getHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;a&nbsp;string&nbsp;of&nbsp;the&nbsp;full&nbsp;doctype&nbsp;tag.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;example,&nbsp;the&nbsp;HTML5&nbsp;doctype&nbsp;would&nbsp;be&nbsp;"DOCTYPE&nbsp;html"</tt></dd></dl>
+
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-setRoot" ><strong >setRoot</strong></a>(self, root)</dt><dd ><tt >Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes</tt></dd></dl>
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = <a href="#ValidatingAdvancedHTMLParser-getHTML" >getHTML</a>(self)</dt></dl>
@@ -3309,6 +3339,6 @@ Data descriptors inherited from <a href="_markupbase.html#ParserBase" >_markupba
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
 <td width="100%" ><strong >__all__</strong> = ('AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection', 'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'MultipleRootNodeException', 'StyleAttribute', 'toggleAttributesDOM', 'isTextNode', 'isTagNode', 'AdvancedHTMLMiniFormatter', 'AdvancedHTMLSlimTagFormatter', 'AdvancedHTMLSlimTagMiniFormatter')<br />
-<strong >__int_version_tuple__</strong> = (8, 1, 5)<br />
-<strong >__version_tuple__</strong> = ('8', '1', '5')</td></tr></table>
+<strong >__int_version_tuple__</strong> = (8, 1, 6)<br />
+<strong >__version_tuple__</strong> = ('8', '1', '6')</td></tr></table>
 </p></p></p></p></body></html>

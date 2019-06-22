@@ -276,6 +276,16 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
 
+<dl ><dt ><a name="AdvancedHTMLParser-setDoctype" ><strong >setDoctype</strong></a>(self, newDoctype)</dt><dd ><tt >setDoctype&nbsp;-&nbsp;Set&nbsp;the&nbsp;doctype&nbsp;for&nbsp;this&nbsp;document,&nbsp;or&nbsp;clear&nbsp;it.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newDoctype&nbsp;&lt;str/None&gt;&nbsp;-<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;None,&nbsp;will&nbsp;clear&nbsp;the&nbsp;doctype&nbsp;and&nbsp;not&nbsp;return&nbsp;one&nbsp;with&nbsp;#getHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;a&nbsp;string&nbsp;of&nbsp;the&nbsp;full&nbsp;doctype&nbsp;tag.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;example,&nbsp;the&nbsp;HTML5&nbsp;doctype&nbsp;would&nbsp;be&nbsp;"DOCTYPE&nbsp;html"</tt></dd></dl>
+
 <dl ><dt ><a name="AdvancedHTMLParser-setRoot" ><strong >setRoot</strong></a>(self, root)</dt><dd ><tt >Sets&nbsp;the&nbsp;root&nbsp;node,&nbsp;and&nbsp;reprocesses&nbsp;the&nbsp;indexes</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = <a href="#AdvancedHTMLParser-getHTML" >getHTML</a>(self)</dt></dl>
@@ -684,6 +694,16 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-parseStr" ><strong >parseStr</strong></a>(self, html)</dt><dd ><tt >parseStr&nbsp;-&nbsp;Parses&nbsp;a&nbsp;string&nbsp;and&nbsp;creates&nbsp;the&nbsp;DOM&nbsp;tree&nbsp;and&nbsp;indexes.<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;html&nbsp;&lt;str&gt;&nbsp;-&nbsp;valid&nbsp;HTML</tt></dd></dl>
+
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-setDoctype" ><strong >setDoctype</strong></a>(self, newDoctype)</dt><dd ><tt >setDoctype&nbsp;-&nbsp;Set&nbsp;the&nbsp;doctype&nbsp;for&nbsp;this&nbsp;document,&nbsp;or&nbsp;clear&nbsp;it.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newDoctype&nbsp;&lt;str/None&gt;&nbsp;-<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;None,&nbsp;will&nbsp;clear&nbsp;the&nbsp;doctype&nbsp;and&nbsp;not&nbsp;return&nbsp;one&nbsp;with&nbsp;#getHTML<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;a&nbsp;string&nbsp;of&nbsp;the&nbsp;full&nbsp;doctype&nbsp;tag.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;example,&nbsp;the&nbsp;HTML5&nbsp;doctype&nbsp;would&nbsp;be&nbsp;"DOCTYPE&nbsp;html"</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-toHTML" ><strong >toHTML</strong></a> = <a href="#IndexedAdvancedHTMLParser-getHTML" >getHTML</a>(self)</dt></dl>
 
