@@ -287,6 +287,22 @@ class AdvancedHTMLParser(HTMLParser):
         '''
         self.root = root
 
+
+    def setDoctype(self, newDoctype):
+        '''
+            setDoctype - Set the doctype for this document, or clear it.
+
+                @param newDoctype <str/None> -
+
+                    If None, will clear the doctype and not return one with #getHTML
+
+                    Otherwise, a string of the full doctype tag.
+
+                      For example, the HTML5 doctype would be "DOCTYPE html"
+        '''
+        self.doctype = newDoctype
+
+
     def getElementsByTagName(self, tagName, root='root'):
         '''
             getElementsByTagName - Searches and returns all elements with a specific tag name.
@@ -1119,6 +1135,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
 ##########################################################
 #                 Public
 ##########################################################
+
 
     # This should be called if you modify a parsed tree at an element level, then search it.
     def reindex(self, newIndexIDs=None, newIndexNames=None, newIndexClassNames=None, newIndexTagNames=None):
