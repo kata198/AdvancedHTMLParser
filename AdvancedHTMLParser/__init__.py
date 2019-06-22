@@ -18,9 +18,9 @@ from .Validator import ValidatingAdvancedHTMLParser
 from .exceptions import InvalidCloseException, MissedCloseException, HTMLValidationException, MultipleRootNodeException
 from .SpecialAttributes import StyleAttribute
 
-__version__ = '8.1.5'
-__version_tuple__ = ('8', '1', '5')
-__int_version_tuple__ = (8, 1, 5)
+__version__ = '8.1.6'
+__version_tuple__ = ('8', '1', '6')
+__int_version_tuple__ = (8, 1, 6)
 
 __all__ = ( 'AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection',
     'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'MultipleRootNodeException',
