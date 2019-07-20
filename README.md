@@ -68,7 +68,7 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 
 	getElementById         - Returns a single AdvancedTag (or None) if found an element matching the provided ID
 
-	getElementsByClassName - Returns a list of all elements containing a class name
+	getElementsByClassName - Returns a list of all elements containing one or more space-separated class names
 
 	getElementsByAttr       - Returns a list of all elements matching a paticular attribute/value pair.
 
