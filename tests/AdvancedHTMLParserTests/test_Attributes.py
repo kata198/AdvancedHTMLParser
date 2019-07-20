@@ -1225,5 +1225,99 @@ class TestAttributes(object):
         assert len(classDash2Ems) == 1 , 'Expected to find 1 element with class name = "class-dash2" but got %d. %s' %( len(classDash2Ems), repr(classDash2Ems))
 
 
+    def test_getElementsByClassNameMultipleClasses(self):
+        '''
+            test_getElementsByClassNameMultipleClasses -
+
+                This will test that the "getElementsByClassName" method supports a space-separated list of classes in which to match via AND
+        '''
+
+        htmlStr = '''<html><head></head><body>
+
+        <div id="em1" class="outer blue one" name="outerDiv" >
+
+            <div id="em2" class="inner blue one" >One</div>
+            <div id="em3" class="inner blue two" >Two</div>
+            <div id="em4" class="inner green one" >G One</div>
+        </div>
+    </body>
+</html>
+'''
+
+        document = AdvancedHTMLParser()
+        document.parseStr(htmlStr)
+
+        # Test a regular query, one element
+        oneEms = document.getElementsByClassName('one')
+        oneIds = [ em.id for em in oneEms ]
+
+        assert 'em1' in oneIds , 'Expected to find id="em1" (contains class "one") but did not. Matched: ' + repr(oneIds)
+        assert 'em2' in oneIds , 'Expected to find id="em2" (contains class "one") but did not. Matched: ' + repr(oneIds)
+
+
+        # Test multiple, sequential
+        blueOneEms = document.getElementsByClassName('blue one')
+        blueOneIds = [ em.id for em in blueOneEms ]
+
+        assert 'em1' in blueOneIds , 'Expected to find id="em1" via "blue one" (contains classes "blue" and "one") but did not. Matched: ' + repr(blueOneIds)
+        assert 'em2' in blueOneIds , 'Expected to find id="em2" via "blue one" (contains classes "blue" and "one") but did not. Matched: ' + repr(blueOneIds)
+
+
+        # Test from a tag
+        blueOneEms = document.body.getElementsByClassName('blue one')
+        blueOneIds = [ em.id for em in blueOneEms ]
+        assert 'em1' in blueOneIds , 'Expected to find id="em1" via "blue one" (contains classes "blue" and "one") from a tag but did not. Matched: ' + repr(blueOneIds)
+        assert 'em2' in blueOneIds , 'Expected to find id="em2" via "blue one" (contains classes "blue" and "one") from a tag but did not. Matched: ' + repr(blueOneIds)
+
+
+        # Test from a tag collection
+        divs = document.getElementsByTagName('div')
+        blueOneEms = divs.getElementsByClassName('blue one')
+        blueOneIds = [ em.id for em in blueOneEms ]
+        assert 'em1' in blueOneIds , 'Expected to find id="em1" via "blue one" (contains classes "blue" and "one") through tag collection but did not. Matched: ' + repr(blueOneIds)
+        assert 'em2' in blueOneIds , 'Expected to find id="em2" via "blue one" (contains classes "blue" and "one") through tag collection but did not. Matched: ' + repr(blueOneIds)
+
+
+
+        # Try reverse order
+        oneBlueEms = document.getElementsByClassName('one blue')
+        oneBlueIds = [ em.id for em in oneBlueEms ]
+
+
+        assert 'em1' in oneBlueIds, 'Expected to find id="em1" via "one blue" (contains classes "blue" and "one") but did not. Matched: ' + repr(oneBlueIds)
+        assert 'em2' in oneBlueIds, 'Expected to find id="em2" via "one blue" (contains classes "blue" and "one") but did not. Matched: ' + repr(oneBlueIds)
+
+
+        # Try reverse order from a tag
+        oneBlueEms = document.body.getElementsByClassName('one blue')
+        oneBlueIds = [ em.id for em in oneBlueEms ]
+
+        assert 'em1' in oneBlueIds, 'Expected to find id="em1" via "one blue" (contains classes "blue" and "one") from a tag but did not. Matched: ' + repr(oneBlueIds)
+        assert 'em2' in oneBlueIds, 'Expected to find id="em2" via "one blue" (contains classes "blue" and "one") from a tag but did not. Matched: ' + repr(oneBlueIds)
+
+
+        # Try reverse order from a tagcollection
+        divs = document.getElementsByTagName('div')
+        oneBlueEms = divs.getElementsByClassName('one blue')
+        oneBlueIds = [ em.id for em in oneBlueEms ]
+
+        assert 'em1' in oneBlueIds, 'Expected to find id="em1" via "one blue" (contains classes "blue" and "one") from a tagcollection but did not. Matched: ' + repr(oneBlueIds)
+        assert 'em2' in oneBlueIds, 'Expected to find id="em2" via "one blue" (contains classes "blue" and "one") from a tagcollection but did not. Matched: ' + repr(oneBlueIds)
+
+
+
+        # Try others
+        innerBlueEms = document.getElementsByClassName('inner blue')
+        innerBlueIds = [ em.id for em in innerBlueEms ]
+
+        assert 'em2' in innerBlueIds , 'Expected to find id="em2" via "inner blue" ( contains classes "blue" and "inner") but did not. Matched: ' + repr(innerBlueIds)
+        assert 'em3' in innerBlueIds , 'Expected to find id="em3" via "inner blue" ( contains classes "blue" and "inner") but did not. Matched: ' + repr(innerBlueIds)
+
+        # Now validate on tag collection
+        outerDivNames = document.getElementsByName('outerDiv')
+
+        assert len(outerDivNames) == 1 , 'Expected to find div name="outerDiv" but did not.'
+
+
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())

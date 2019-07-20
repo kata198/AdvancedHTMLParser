@@ -379,12 +379,19 @@ class AdvancedHTMLParser(HTMLParser):
         '''
             getElementsByClassName - Searches and returns all elements containing a given class name.
 
-                @param className <str> - A one-word class name
+                @param className <str> - One or more space-separated class names
+
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root' [default], the root of the parsed tree will be used.
         '''
         (root, isFromRoot) = self._handleRootArg(root)
 
         elements = []
+
+        # Generate list of all classnames to match
+        classNames = [x.strip() for x in className.strip().split(' ') if x.strip()]
+
+        # Run through entire tree on the first
+        className = classNames.pop(0)
 
         if isFromRoot is True and className in root.classNames:
             elements.append(root)
@@ -396,6 +403,11 @@ class AdvancedHTMLParser(HTMLParser):
                 elements.append(child)
 
             elements += getElementsByClassName(className, child)
+
+
+        # Check if we need to match against any other names
+        if len(classNames) > 0:
+            elements = [ em for em in elements for matchClassName in classNames  if matchClassName in em.classList ]
 
         return TagCollection(elements)
 
@@ -1276,8 +1288,11 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         '''
             getElementsByClassName - Searches and returns all elements containing a given class name.
 
-                @param className <str> - A one-word class name
+
+                @param className <str> - One or more space-separated class names
+
                 @param root <AdvancedTag/'root'> - Search starting at a specific node, if provided. if string 'root', the root of the parsed tree will be used.
+
                 @param useIndex <bool> If useIndex is True and class names are indexed [see constructor] only the index will be used. Otherwise a full search is performed.
         '''
         (root, isFromRoot) = self._handleRootArg(root)

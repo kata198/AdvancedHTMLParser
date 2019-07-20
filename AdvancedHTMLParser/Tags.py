@@ -1891,15 +1891,27 @@ class AdvancedTag(object):
         '''
             getElementsByClassName - Search children of this tag for tags containing a given class name
 
-            @param className - Class name
+            @param className <str> - One or more space-separated class names
 
             @return - TagCollection of matching elements
         '''
         elements = []
+
+        # Generate list of all classnames to match
+        classNames = [x.strip() for x in className.strip().split(' ') if x.strip()]
+
+        # Run through entire tree on the first
+        className = classNames.pop(0)
+
         for child in self.children:
             if child.hasClass(className) is True:
                 elements.append(child)
             elements += child.getElementsByClassName(className)
+
+        # Check if we need to match against any other names
+        if len(classNames) > 0:
+            elements = [ em for em in elements for matchClassName in classNames  if matchClassName in em.classList ]
+
         return TagCollection(elements)
 
     def getElementsWithAttrValues(self, attrName, attrValues):
@@ -2391,14 +2403,30 @@ class TagCollection(list):
         '''
             getElementsByClassName - Get elements within this collection containing a specific class name
 
-            @param className - A single class name
+            @param className <str> - One or more space-separated class names
 
             @return - TagCollection of unique elements within this collection tagged with a specific class name
         '''
         ret = TagCollection()
         if len(self) == 0:
             return ret
-        _cmpFunc = lambda tag : tag.hasClass(className)
+
+        # Check for multiple class names
+        classNames = className.split(' ')
+        if len(classNames) <= 1:
+            # Simple - 1 class name
+            _cmpFunc = lambda tag : tag.hasClass(className)
+        else:
+            # Multiple class names
+            def _cmpFunc(tag):
+                tagClassList = tag.classList
+
+                for cName in classNames:
+                    if cName not in tagClassList:
+                        return False
+
+                return True
+
         for tag in self:
             TagCollection._subset(ret, _cmpFunc, tag)
 
