@@ -175,7 +175,8 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsByClassName" ><strong >getElementsByClassName</strong></a>(self, className, root='root')</dt><dd ><tt >getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;one-word&nbsp;class&nbsp;name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;One&nbsp;or&nbsp;more&nbsp;space-separated&nbsp;class&nbsp;names<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsByName" ><strong >getElementsByName</strong></a>(self, name, root='root')</dt><dd ><tt >getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br />
@@ -480,8 +481,11 @@ Methods defined here:<br />
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementsByClassName" ><strong >getElementsByClassName</strong></a>(self, className, root='root', useIndex=True)</dt><dd ><tt >getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;one-word&nbsp;class&nbsp;name<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;One&nbsp;or&nbsp;more&nbsp;space-separated&nbsp;class&nbsp;names<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;class&nbsp;names&nbsp;are&nbsp;indexed&nbsp;[see&nbsp;constructor]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementsByName" ><strong >getElementsByName</strong></a>(self, name, root='root', useIndex=True)</dt><dd ><tt >getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br />

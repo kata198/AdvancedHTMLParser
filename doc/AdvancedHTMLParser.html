@@ -6,7 +6,7 @@
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="heading" >
 <tr bgcolor="#7799ee" >
 <td valign="bottom" >&nbsp;<br />
-<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong >AdvancedHTMLParser</strong></big></big> (version 8.1.6)</font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
+<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong >AdvancedHTMLParser</strong></big></big> (version 8.1.7)</font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
     <p ><tt >Copyright&nbsp;(c)&nbsp;2015,&nbsp;2016,&nbsp;2017,&nbsp;2018,&nbsp;2019&nbsp;Tim&nbsp;Savannah&nbsp;All&nbsp;Rights&nbsp;Rserved&nbsp;under&nbsp;LGPLv3.&nbsp;All&nbsp;Rights&nbsp;Reserved.<br />
 &nbsp;<br />
 &nbsp;<br />
@@ -500,7 +500,8 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsByClassName" ><strong >getElementsByClassName</strong></a>(self, className, root='root')</dt><dd ><tt >getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;one-word&nbsp;class&nbsp;name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;One&nbsp;or&nbsp;more&nbsp;space-separated&nbsp;class&nbsp;names<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsByName" ><strong >getElementsByName</strong></a>(self, name, root='root')</dt><dd ><tt >getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br />
@@ -1317,7 +1318,7 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 
 <dl ><dt ><a name="AdvancedTag-getElementsByClassName" ><strong >getElementsByClassName</strong></a>(self, className)</dt><dd ><tt >getElementsByClassName&nbsp;-&nbsp;Search&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;tags&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name<br />
 &nbsp;<br />
-@param&nbsp;className&nbsp;-&nbsp;Class&nbsp;name<br />
+@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;One&nbsp;or&nbsp;more&nbsp;space-separated&nbsp;class&nbsp;names<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;matching&nbsp;elements</tt></dd></dl>
 
@@ -1956,8 +1957,11 @@ Methods defined here:<br />
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementsByClassName" ><strong >getElementsByClassName</strong></a>(self, className, root='root', useIndex=True)</dt><dd ><tt >getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;one-word&nbsp;class&nbsp;name<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;One&nbsp;or&nbsp;more&nbsp;space-separated&nbsp;class&nbsp;names<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;useIndex&nbsp;&lt;bool&gt;&nbsp;If&nbsp;useIndex&nbsp;is&nbsp;True&nbsp;and&nbsp;class&nbsp;names&nbsp;are&nbsp;indexed&nbsp;[see&nbsp;constructor]&nbsp;only&nbsp;the&nbsp;index&nbsp;will&nbsp;be&nbsp;used.&nbsp;Otherwise&nbsp;a&nbsp;full&nbsp;search&nbsp;is&nbsp;performed.</tt></dd></dl>
 
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementsByName" ><strong >getElementsByName</strong></a>(self, name, root='root', useIndex=True)</dt><dd ><tt >getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br />
@@ -2798,7 +2802,7 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 
 <dl ><dt ><a name="TagCollection-getElementsByClassName" ><strong >getElementsByClassName</strong></a>(self, className)</dt><dd ><tt >getElementsByClassName&nbsp;-&nbsp;Get&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;containing&nbsp;a&nbsp;specific&nbsp;class&nbsp;name<br />
 &nbsp;<br />
-@param&nbsp;className&nbsp;-&nbsp;A&nbsp;single&nbsp;class&nbsp;name<br />
+@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;One&nbsp;or&nbsp;more&nbsp;space-separated&nbsp;class&nbsp;names<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;unique&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;tagged&nbsp;with&nbsp;a&nbsp;specific&nbsp;class&nbsp;name</tt></dd></dl>
 
@@ -3062,7 +3066,8 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-getElementsByClassName" ><strong >getElementsByClassName</strong></a>(self, className, root='root')</dt><dd ><tt >getElementsByClassName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;containing&nbsp;a&nbsp;given&nbsp;class&nbsp;name.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;one-word&nbsp;class&nbsp;name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;className&nbsp;&lt;str&gt;&nbsp;-&nbsp;One&nbsp;or&nbsp;more&nbsp;space-separated&nbsp;class&nbsp;names<br />
+&nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root'&nbsp;[default],&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-getElementsByName" ><strong >getElementsByName</strong></a>(self, name, root='root')</dt><dd ><tt >getElementsByName&nbsp;-&nbsp;Searches&nbsp;and&nbsp;returns&nbsp;all&nbsp;elements&nbsp;with&nbsp;a&nbsp;specific&nbsp;name.<br />
@@ -3339,6 +3344,6 @@ Data descriptors inherited from <a href="_markupbase.html#ParserBase" >_markupba
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
 <td width="100%" ><strong >__all__</strong> = ('AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection', 'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'MultipleRootNodeException', 'StyleAttribute', 'toggleAttributesDOM', 'isTextNode', 'isTagNode', 'AdvancedHTMLMiniFormatter', 'AdvancedHTMLSlimTagFormatter', 'AdvancedHTMLSlimTagMiniFormatter')<br />
-<strong >__int_version_tuple__</strong> = (8, 1, 6)<br />
-<strong >__version_tuple__</strong> = ('8', '1', '6')</td></tr></table>
+<strong >__int_version_tuple__</strong> = (8, 1, 7)<br />
+<strong >__version_tuple__</strong> = ('8', '1', '7')</td></tr></table>
 </p></p></p></p></body></html>
