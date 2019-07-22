@@ -12,7 +12,62 @@
 # NOTE: Since version 1.2.3, you can also import this (like from a graphical application) and call the "main()" function.
 #  All of the following globals are the defaults,  but can be overridden when calling main() (params have the same name as the globals).
 
-import imp
+# Assign a local function, "find_mod" to the interface to search
+#  PYTHONPATH for importable module
+try:
+    # imp.find_module has been deprecated as of python 3.7, so
+    #   prefer some alternate/newer interfaces first.
+    import importlib
+
+    try:
+        # If we have the newest and therefore least-deprecated
+        #   way, use it.
+        _findModSpec = importlib.util.find_spec
+        def find_mod(modName):
+            '''
+                find_mod - Find a module by name.
+
+                  Similar to import #modName but only finds importable module,
+                   does not actually import.
+
+                 @raises ImportError on failure
+            '''
+            modSpec = _findModSpec(modName)
+            if not modSpec:
+                # imp.find_module raises import error if cannot find,
+                #   but find_spec just returns None
+                # So simulate the ImportError for common interface
+                raise ImportError('No module named %s' %(modName, ))
+
+            return modSpec
+
+    except AttributeError:
+        # We have importlib, but don't have importlib.util.find_spec
+
+        # We could use importlib.import_module which is present in
+        #  python 2.7, but that changes behaviour by actually
+        #  importing (and thus additionally checking syntax/other).
+        #
+        # So just fall back to the old imp.find_module in this case
+
+        try:
+            # Clean up namespace
+            del importlib
+        except:
+            pass
+        # Fall back to imp.find_module implementation below
+        raise ImportError('importlib but no importlib.util')
+        #find_mod = lambda modName : importlib.import_module(modName)
+
+except:
+    # importlib is not present or has an unknown/dated interface,
+    #   so fallback to the deprecated but oldest form
+    import imp
+
+    # Use a lambda to ensure only one arg is passed as that is
+    #   our standard interface
+    find_mod = lambda modName : imp.find_module(modName)
+
 import os
 
 import subprocess
@@ -32,8 +87,8 @@ ALLOW_SITE_INSTALL = False
 # This is the test directory that should contain all your tests. This should be a directory in your "tests" folder
 MY_TEST_DIRECTORY = 'AdvancedHTMLParserTests'
 
-__version__ = '2.2.0'
-__version_tuple__ = (2, 2, 0)
+__version__ = '3.0.4'
+__version_tuple__ = (3, 0, 4)
 
 def findGoodTests():
     '''
@@ -270,7 +325,7 @@ def main(thisDir=None, additionalArgs=[], MY_PACKAGE_MODULE=None, ALLOW_SITE_INS
     elif dirName == '':
         inCurrentDir = False
         try:
-            imp.find_module(MY_PACKAGE_MODULE)
+            find_mod(MY_PACKAGE_MODULE)
             inCurrentDir = True
         except ImportError:
             # COMPAT WITH PREVIOUS runTests.py: Try plain module in parent directory
@@ -278,7 +333,7 @@ def main(thisDir=None, additionalArgs=[], MY_PACKAGE_MODULE=None, ALLOW_SITE_INS
             oldSysPath = sys.path[:]
             sys.path = [os.path.realpath(os.getcwd() + os.sep + '..' + os.sep)]
             try:
-                imp.find_module(MY_PACKAGE_MODULE)
+                find_mod(MY_PACKAGE_MODULE)
                 foundIt = True
                 sys.path = oldSysPath
             except ImportError as e:
