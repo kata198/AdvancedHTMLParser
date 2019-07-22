@@ -1,3 +1,7 @@
+* 8.1.8 - Jul 22 2019
+
+- Fix accidental re-release of 8.1.6 to github, bump version to signify
+
 * 8.1.7 - Jul 20 2019
 
 - Update all forms of getElementsByClassName to support multiple classes in a single call, space-separated in a string, per update to spec.
