@@ -364,8 +364,15 @@ def main(thisDir=None, additionalArgs=[], MY_PACKAGE_MODULE=None, ALLOW_SITE_INS
         if baseName.endswith(('.py', '.pyc', '.pyo')):
             MY_PACKAGE_MODULE = baseName[ : baseName.rindex('.')]
 
-        if e.name != MY_PACKAGE_MODULE:
-            sys.stderr.write('Error while importing %s: %s\n Likely this is another dependency that needs to be installed\nPerhaps run "pip install %s" or install the providing package.\n\n' %(e.name, str(e), e.name))
+        try:
+            eName = e.name
+        except AttributeError as noNameE:
+            # Some platforms python2 does not have this attribute
+            #   so pull it from the message
+            eName = e.message.split()[-1]
+
+        if eName != MY_PACKAGE_MODULE:
+            sys.stderr.write('Error while importing %s: %s\n Likely this is another dependency that needs to be installed\nPerhaps run "pip install %s" or install the providing package.\n\n' %(eName, str(e), eName))
             return 1
         sys.stderr.write('Could not import %s. Either install it or otherwise add to PYTHONPATH\n%s\n' %(MY_PACKAGE_MODULE, str(e)))
         return 1
