@@ -3,6 +3,12 @@
 - Update runTests from 3.0.4 to 3.0.5 to fix potential issue on python2 with
 missing dependencies
 
+- Add short section to the READMEs which specify package layout, note that all
+examples are written with the assumption of the top-level module (import
+AdvancedHTMLParser) has already been performed.
+
+- Strip trailing whitespace in READMEs
+
 * 8.1.8 - Jul 22 2019
 
 - Fix accidental re-release of 8.1.6 to github, bump version to signify
