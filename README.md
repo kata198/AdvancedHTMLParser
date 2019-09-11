@@ -2,7 +2,7 @@
 AdvancedHTMLParser
 ==================
 
-AdvancedHTMLParser is an Advanced HTML Parser, with support for adding, removing, modifying, and formatting HTML. 
+AdvancedHTMLParser is an Advanced HTML Parser, with support for adding, removing, modifying, and formatting HTML.
 
 It aims to provide the same interface as you would find in a compliant browser through javascript ( i.e. all the getElement methods, appendChild, etc), as well as many more complex and sophisticated features not available through a browser. And most importantly, it's in python!
 
@@ -27,7 +27,7 @@ Another useful scenario is creating automated testing suites which can operate m
 Full API
 --------
 
-Can be found  http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html?vers=8.1.2 .
+Can be found  http://htmlpreview.github.io/?https://github.com/kata198/AdvancedHTMLParser/blob/master/doc/AdvancedHTMLParser.html?vers=8.1.8 .
 
 
 Examples
@@ -38,6 +38,41 @@ Various examples can be found in the "tests" directory. A very old, simple examp
 
 Short Doc
 ---------
+
+
+**The Package and Modules**
+
+The top-level module in this package is "*AdvancedHTMLParser*."
+
+
+	import AdvancedHTMLParser
+
+
+Most everything "public" is available through this top-level module, but some corner-case usages may require importing from a submodule. All of these associations can be found through the pydocs.
+
+
+For example, to access AdvancedTag, the recommended path is just to import the top-level, and use dot-access:
+
+	import AdvancedHTMLParser
+
+	myTag = AdvancedHTMLParser.AdvancedTag('div')
+
+
+However, you can also import AdvancedTag through this top-level module:
+
+	import AdvancedHTMLParser
+
+	from AdvancedHTMLParser import AdvancedTag
+
+
+Or, you can import from the specific sub-module, directly:
+
+	import AdvancedHTMLParser
+
+	from AdvancedHTMLParser.Tags import AdvancedTag
+
+
+All examples below are written as if "import AdvancedHTMLParser" has already been performed, and all relations in examples are based off usages from the top-level import, only.
 
 
 **AdvancedHTMLParser**
@@ -155,7 +190,7 @@ It also exposes the various getElement\* functions which operate on the elements
 
 For example:
 
-	
+
 	# Filter off the parser all tags with "item" in class
 	tagCollection = document.getElementsByClassName('item')
 
@@ -217,7 +252,7 @@ some of these include:
 
 	getPeersByAttr          - Gets peers by an arbitrary attribute/value combination
 
-	getPeersWithAttrValues  - Gets peers by an arbitrary attribute/values combination. 
+	getPeersWithAttrValues  - Gets peers by an arbitrary attribute/values combination.
 
 	getPeersByClassName   - Gets peers that contain a given class name
 
@@ -412,7 +447,7 @@ InvalidAttributeNameException - An attribute name was found that contained an in
 IndexedAdvancedHTMLParser
 =========================
 
-IndexedAdvancedHTMLParser provides the ability to use indexing for faster search. If you are just parsing and not modifying, this is your best bet. If you are modifying the DOM tree, make sure you call IndexedAdvancedHTMLParser.reindex() before relying on them. 
+IndexedAdvancedHTMLParser provides the ability to use indexing for faster search. If you are just parsing and not modifying, this is your best bet. If you are modifying the DOM tree, make sure you call IndexedAdvancedHTMLParser.reindex() before relying on them.
 
 Each of the get\* functions above takes an additional "useIndex" function, which can also be set to False to skip index. See constructor for more information, and "Performance and Indexing" section below.
 
