@@ -1252,7 +1252,7 @@ class AdvancedTag(object):
             getAllChildNodes - Gets all the children, and their children,
                and their children, and so on, all the way to the end as a TagCollection.
 
-               Use .childNodes for a regular list
+               Use .childNodes for a regular list of direct children
 
             @return TagCollection<AdvancedTag> - A TagCollection of all children (and their children recursive)
         '''
