@@ -2492,6 +2492,33 @@ class TagCollection(list):
 
         return ret
 
+
+    def getElementsByXPathExpression(self, xpathExprStr):
+        '''
+            getElementsByXPathExpression - Evaluate an XPath expression string against the elements in this collection
+
+
+                @param xpathExprStr <str> - An XPath expression string (e.x. """//div[@name="someName"]/span[3]""" )
+
+
+                @return <TagCollection> - TagCollection of all matching elements
+
+
+                @see AdvancedHTMLParser.xpath.XPathExpression.evaluate for additional @throws and similar
+        '''
+        # Late-binding import
+        from . import xpath as axpath
+
+        if len(self) == 0:
+            return TagCollection()
+
+        # May raise a parsing error, if invalid xpath expression string
+        xpathExpression = axpath.XPathExpression(xpathExprStr)
+
+
+        return xpathExpression.evaluate(self)
+
+
     def getElementsCustomFilter(self, filterFunc):
         '''
             getElementsCustomFilter - Get elements within this collection that match a user-provided function.

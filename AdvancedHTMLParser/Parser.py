@@ -1,5 +1,5 @@
 '''
-    Copyright (c) 2015, 2016, 2017, 2018 Tim Savannah under LGPLv3. All Rights Reserved.
+    Copyright (c) 2015, 2016, 2017, 2018, 2019 Tim Savannah under LGPLv3. All Rights Reserved.
 
     See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 
@@ -10,7 +10,7 @@
 # In general below, all "tag names" (body, div, etc) should be lowercase. The parser will lowercase internally. All attribute names (like `id` in id="123") provided to search functions should be lowercase. Values are not lowercase. This is because doing tons of searches, lowercasing every search can quickly build up. Lowercase it once in your code, not every time you call a function.
 
 import re
-import sys
+#import sys
 import uuid
 
 # Python 2/3 compatibility:
@@ -481,6 +481,32 @@ class AdvancedHTMLParser(HTMLParser):
         return TagCollection(elements)
 
 
+
+    def getElementsByXPathExpression(self, xpathExprStr):
+        '''
+            getElementsByXPathExpression - Evaluate an XPath expression string against this document
+
+
+                @param xpathExprStr <str> - An XPath expression string (e.x. """//div[@name="someName"]/span[3]""" )
+
+
+                @return <TagCollection> - TagCollection of all matching elements
+
+
+                @see AdvancedHTMLParser.xpath.XPathExpression.evaluate for @throws and similar
+        '''
+        rootNodes = self.getRootNodes()
+
+        # Late-binding import
+        from . import xpath as axpath
+
+        # May raise a parsing error, if invalid xpath expression string
+        xpathExpression = axpath.XPathExpression(xpathExprStr)
+
+        # TODO: From multiple root nodes??
+        return xpathExpression.evaluate(rootNodes)
+
+
     def getFirstElementCustomFilter(self, filterFunc, root='root'):
         '''
             getFirstElementCustomFilter - Scan elements using a provided function, stop and return the first match.
@@ -493,7 +519,7 @@ class AdvancedHTMLParser(HTMLParser):
         '''
         (root, isFromRoot) = self._handleRootArg(root)
 
-        elements = []
+        #elements = []
 
         if isFromRoot is True and filterFunc(root) is True:
             return root
@@ -511,6 +537,38 @@ class AdvancedHTMLParser(HTMLParser):
                 return subRet
 
         return None
+
+
+    def evaluate(self, xpathExprStr, whichDoc=None):
+        '''
+            evaluate - Evaluate an xpath expression against this document
+
+                @param xpathExprStr <str> - An XPath expression string (e.x. """//div[@name="someName"]/span[3]""" )
+
+                @param whichDoc <None/Parser.AdvancedHTMLParser> Default None - Which document.
+
+                    NOTE: This is for compatibility with the JS DOM interface.
+
+                      This must be None (Default) to refer to the current document, or "self" to refer to the same.
+
+                      May allow other values in the future.
+
+
+                @return <TagCollection> - TagCollection of all matching elements
+
+                    NOTE: JS DOM returns an iterable object for this function's return. May in the future match that interface.
+
+                      For now the XPath engine does not run off a generator, so this will likely at first be a wrapper for interface compatibility sake
+
+                @see AdvancedHTMLParser.xpath.XPathExpression.evaluate for @throws and similar
+        '''
+        # Just validate for interface sake right now
+        if whichDoc is not None and whichDoc is not self:
+            raise ValueError('Parser.AdvancedHTMLParser.evaluate must be called with None/default as second argument, or self.')
+
+        # Break from interface and just return the straight tag collection
+        return self.getElementsByXPathExpression(xpathExprStr)
+
 
     @property
     def body(self):
@@ -1357,6 +1415,9 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
             return elements
 
         return AdvancedHTMLParser.getElementsWithAttrValues(self, attrName, values, root, useIndex)
+
+
+    # TODO: Write indexed alternates for XPath?
 
     def _reset(self):
         '''
