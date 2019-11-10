@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html ><head ><title >Python: module AdvancedHTMLParser.Tags</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
 </head><body bgcolor="#f0f0f8" >
 
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="heading" >
@@ -32,19 +32,19 @@ See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more
     
 <tr ><td bgcolor="#ee77aa" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
 <td width="100%" ><dl >
-<dt ><font face="helvetica, arial" ><a href="QueryableList.Base.html#QueryableListBase" >QueryableList.Base.QueryableListBase</a>(<a href="builtins.html#list" >builtins.list</a>)
+<dt ><font face="helvetica, arial" ><a href="QueryableList.Base.html#QueryableListBase" >QueryableList.Base.QueryableListBase</a>(<a href="__builtin__.html#list" >__builtin__.list</a>)
 </font></dt><dd >
 <dl >
 <dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.Tags.html#FilterableTagCollection" >FilterableTagCollection</a>
 </font></dt></dl>
 </dd>
-<dt ><font face="helvetica, arial" ><a href="builtins.html#list" >builtins.list</a>(<a href="builtins.html#object" >builtins.object</a>)
+<dt ><font face="helvetica, arial" ><a href="__builtin__.html#list" >__builtin__.list</a>(<a href="__builtin__.html#object" >__builtin__.object</a>)
 </font></dt><dd >
 <dl >
 <dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.Tags.html#TagCollection" >TagCollection</a>
 </font></dt></dl>
 </dd>
-<dt ><font face="helvetica, arial" ><a href="builtins.html#object" >builtins.object</a>
+<dt ><font face="helvetica, arial" ><a href="__builtin__.html#object" >__builtin__.object</a>
 </font></dt><dd >
 <dl >
 <dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.Tags.html#AdvancedTag" >AdvancedTag</a>
@@ -55,12 +55,10 @@ See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
 <tr bgcolor="#ffc8d8" >
 <td colspan="3" valign="bottom" >&nbsp;<br />
-<font color="#000000" face="helvetica, arial" ><a name="AdvancedTag" >class <strong >AdvancedTag</strong></a>(<a href="builtins.html#object" >builtins.object</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial" ><a name="AdvancedTag" >class <strong >AdvancedTag</strong></a>(<a href="__builtin__.html#object" >__builtin__.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#AdvancedTag" >AdvancedTag</a>(tagName,&nbsp;attrList=None,&nbsp;isSelfClosing=False,&nbsp;ownerDocument=None)<br />
-&nbsp;<br />
-<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;-&nbsp;Represents&nbsp;a&nbsp;Tag.&nbsp;Used&nbsp;with&nbsp;AdvancedHTMLParser&nbsp;to&nbsp;create&nbsp;a&nbsp;DOM-model<br />
+<td colspan="2" ><tt ><a href="#AdvancedTag" >AdvancedTag</a>&nbsp;-&nbsp;Represents&nbsp;a&nbsp;Tag.&nbsp;Used&nbsp;with&nbsp;AdvancedHTMLParser&nbsp;to&nbsp;create&nbsp;a&nbsp;DOM-model<br />
 &nbsp;<br />
 Keep&nbsp;tag&nbsp;names&nbsp;lowercase.<br />
 &nbsp;<br />
@@ -88,7 +86,7 @@ So&nbsp;for&nbsp;example:<br />
 &nbsp;&nbsp;&nbsp;&nbsp;tag1&nbsp;==&nbsp;tag2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;This&nbsp;is&nbsp;False<br />
 &nbsp;&nbsp;&nbsp;&nbsp;tag1.<a href="#AdvancedTag-isTagEqual" >isTagEqual</a>(tag2)&nbsp;#&nbsp;This&nbsp;is&nbsp;True</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-__getattribute__" ><strong >__getattribute__</strong></a>(self, name)</dt><dd ><tt >Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+<dl ><dt ><a name="AdvancedTag-__getattribute__" ><strong >__getattribute__</strong></a>(self, name)</dt></dl>
 
 <dl ><dt ><a name="AdvancedTag-__getitem__" ><strong >__getitem__</strong></a>(self, key)</dt></dl>
 
@@ -96,12 +94,12 @@ So&nbsp;for&nbsp;example:<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;dict&gt;</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-__hash__" ><strong >__hash__</strong></a>(self)</dt><dd ><tt >Return&nbsp;hash(self).</tt></dd></dl>
+<dl ><dt ><a name="AdvancedTag-__hash__" ><strong >__hash__</strong></a>(self)</dt></dl>
 
-<dl ><dt ><a name="AdvancedTag-__init__" ><strong >__init__</strong></a>(self, tagName, attrList=None, isSelfClosing=False, ownerDocument=None)</dt><dd ><tt >__init__&nbsp;-&nbsp;Construct<br />
+<dl ><dt ><a name="AdvancedTag-__init__" ><strong >__init__</strong></a>(self, tagName, attrList<font color="#909090" >=None</font>, isSelfClosing<font color="#909090" >=False</font>, ownerDocument<font color="#909090" >=None</font>)</dt><dd ><tt >__init__&nbsp;-&nbsp;Construct<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;-&nbsp;String&nbsp;of&nbsp;tag&nbsp;name.&nbsp;This&nbsp;will&nbsp;be&nbsp;lowercased!<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrList&nbsp;-&nbsp;A&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;(key,&nbsp;value)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attrList&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;(key,&nbsp;value)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;isSelfClosing&nbsp;-&nbsp;True&nbsp;if&nbsp;self-closing&nbsp;tag&nbsp;(&nbsp;&lt;tagName&nbsp;attrs&nbsp;/&gt;&nbsp;)&nbsp;will&nbsp;be&nbsp;set&nbsp;to&nbsp;False&nbsp;if&nbsp;text&nbsp;or&nbsp;children&nbsp;are&nbsp;added.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;ownerDocument&nbsp;&lt;None/AdvancedHTMLParser&gt;&nbsp;-&nbsp;The&nbsp;parser&nbsp;(document)&nbsp;associated&nbsp;with&nbsp;this&nbsp;tag,&nbsp;or&nbsp;None&nbsp;for&nbsp;no&nbsp;association</tt></dd></dl>
 
@@ -167,7 +165,7 @@ NOTE:&nbsp;To&nbsp;add&nbsp;multiple&nbsp;blocks,&nbsp;@see&nbsp;appendBlocks<br
 
 <dl ><dt ><a name="AdvancedTag-appendBlocks" ><strong >appendBlocks</strong></a>(self, blocks)</dt><dd ><tt >appendBlocks&nbsp;-&nbsp;Append&nbsp;blocks&nbsp;to&nbsp;this&nbsp;element.&nbsp;A&nbsp;block&nbsp;can&nbsp;be&nbsp;a&nbsp;string&nbsp;(text&nbsp;node),&nbsp;or&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;(tag&nbsp;node)<br />
 &nbsp;<br />
-@param&nbsp;blocks&nbsp;<a href="builtins.html#list" >list</a>&lt;str/<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;A&nbsp;<a href="builtins.html#list" >list</a>,&nbsp;in&nbsp;order&nbsp;to&nbsp;append,&nbsp;of&nbsp;blocks&nbsp;to&nbsp;add.<br />
+@param&nbsp;blocks&nbsp;<a href="__builtin__.html#list" >list</a>&lt;str/<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list" >list</a>,&nbsp;in&nbsp;order&nbsp;to&nbsp;append,&nbsp;of&nbsp;blocks&nbsp;to&nbsp;add.<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;#blocks<br />
 &nbsp;<br />
@@ -251,7 +249,7 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 <dl ><dt ><a name="AdvancedTag-getAllChildNodes" ><strong >getAllChildNodes</strong></a>(self)</dt><dd ><tt >getAllChildNodes&nbsp;-&nbsp;Gets&nbsp;all&nbsp;the&nbsp;children,&nbsp;and&nbsp;their&nbsp;children,<br />
 &nbsp;&nbsp;&nbsp;and&nbsp;their&nbsp;children,&nbsp;and&nbsp;so&nbsp;on,&nbsp;all&nbsp;the&nbsp;way&nbsp;to&nbsp;the&nbsp;end&nbsp;as&nbsp;a&nbsp;<a href="#TagCollection" >TagCollection</a>.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;Use&nbsp;.childNodes&nbsp;for&nbsp;a&nbsp;regular&nbsp;<a href="builtins.html#list" >list</a><br />
+&nbsp;&nbsp;&nbsp;Use&nbsp;.childNodes&nbsp;for&nbsp;a&nbsp;regular&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;direct&nbsp;children<br />
 &nbsp;<br />
 @return&nbsp;<a href="#TagCollection" >TagCollection</a>&lt;<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;A&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;all&nbsp;children&nbsp;(and&nbsp;their&nbsp;children&nbsp;recursive)</tt></dd></dl>
 
@@ -263,7 +261,7 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;<br />
 @return&nbsp;<a href="#TagCollection" >TagCollection</a>&lt;<a href="#AdvancedTag" >AdvancedTag</a>&gt;</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-getAttribute" ><strong >getAttribute</strong></a>(self, attrName, defaultValue=None)</dt><dd ><tt >getAttribute&nbsp;-&nbsp;Gets&nbsp;an&nbsp;attribute&nbsp;on&nbsp;this&nbsp;tag.&nbsp;Be&nbsp;wary&nbsp;using&nbsp;this&nbsp;for&nbsp;classname,&nbsp;maybe&nbsp;use&nbsp;addClass/removeClass.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br />
+<dl ><dt ><a name="AdvancedTag-getAttribute" ><strong >getAttribute</strong></a>(self, attrName, defaultValue<font color="#909090" >=None</font>)</dt><dd ><tt >getAttribute&nbsp;-&nbsp;Gets&nbsp;an&nbsp;attribute&nbsp;on&nbsp;this&nbsp;tag.&nbsp;Be&nbsp;wary&nbsp;using&nbsp;this&nbsp;for&nbsp;classname,&nbsp;maybe&nbsp;use&nbsp;addClass/removeClass.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;The&nbsp;attribute&nbsp;value,&nbsp;or&nbsp;None&nbsp;if&nbsp;none&nbsp;exists.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-getAttributesDict" ><strong >getAttributesDict</strong></a>(self)</dt><dd ><tt >getAttributesDict&nbsp;-&nbsp;Get&nbsp;a&nbsp;copy&nbsp;of&nbsp;all&nbsp;attributes&nbsp;as&nbsp;a&nbsp;dict&nbsp;map&nbsp;of&nbsp;name&nbsp;-&gt;&nbsp;value<br />
@@ -273,26 +271,26 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;<br />
 &nbsp;&nbsp;@return&nbsp;&lt;dict&nbsp;(&nbsp;str(name),&nbsp;str(value)&nbsp;)&gt;&nbsp;-&nbsp;A&nbsp;dict&nbsp;of&nbsp;attrName&nbsp;to&nbsp;attrValue&nbsp;,&nbsp;all&nbsp;as&nbsp;strings&nbsp;and&nbsp;copies.</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-getAttributesList" ><strong >getAttributesList</strong></a>(self)</dt><dd ><tt >getAttributesList&nbsp;-&nbsp;Get&nbsp;a&nbsp;copy&nbsp;of&nbsp;all&nbsp;attributes&nbsp;as&nbsp;a&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;(name,&nbsp;value)<br />
+<dl ><dt ><a name="AdvancedTag-getAttributesList" ><strong >getAttributesList</strong></a>(self)</dt><dd ><tt >getAttributesList&nbsp;-&nbsp;Get&nbsp;a&nbsp;copy&nbsp;of&nbsp;all&nbsp;attributes&nbsp;as&nbsp;a&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;(name,&nbsp;value)<br />
 &nbsp;<br />
 &nbsp;&nbsp;ALL&nbsp;values&nbsp;are&nbsp;converted&nbsp;to&nbsp;string&nbsp;and&nbsp;copied,&nbsp;so&nbsp;modifications&nbsp;will&nbsp;not&nbsp;affect&nbsp;the&nbsp;original&nbsp;attributes.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;want&nbsp;types&nbsp;like&nbsp;"style"&nbsp;to&nbsp;work&nbsp;as&nbsp;before,&nbsp;you'll&nbsp;need&nbsp;to&nbsp;recreate&nbsp;those&nbsp;elements&nbsp;(like&nbsp;StyleAttribute(strValue)&nbsp;).<br />
 &nbsp;<br />
-&nbsp;&nbsp;@return&nbsp;<a href="builtins.html#list" >list</a>&lt;&nbsp;tuple&lt;&nbsp;str(name),&nbsp;str(value)&nbsp;&gt;&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;of&nbsp;attrName,&nbsp;attrValue&nbsp;pairs,&nbsp;all&nbsp;converted&nbsp;to&nbsp;strings.<br />
+&nbsp;&nbsp;@return&nbsp;<a href="__builtin__.html#list" >list</a>&lt;&nbsp;tuple&lt;&nbsp;str(name),&nbsp;str(value)&nbsp;&gt;&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;of&nbsp;attrName,&nbsp;attrValue&nbsp;pairs,&nbsp;all&nbsp;converted&nbsp;to&nbsp;strings.<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;suitable&nbsp;for&nbsp;passing&nbsp;back&nbsp;into&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>&nbsp;when&nbsp;creating&nbsp;a&nbsp;new&nbsp;tag.</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-getBlocksTags" ><strong >getBlocksTags</strong></a>(self)</dt><dd ><tt >getBlocksTags&nbsp;-&nbsp;Returns&nbsp;a&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;referencing&nbsp;the&nbsp;blocks&nbsp;which&nbsp;are&nbsp;direct&nbsp;children&nbsp;of&nbsp;this&nbsp;node,&nbsp;and&nbsp;the&nbsp;block&nbsp;is&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>.<br />
+<dl ><dt ><a name="AdvancedTag-getBlocksTags" ><strong >getBlocksTags</strong></a>(self)</dt><dd ><tt >getBlocksTags&nbsp;-&nbsp;Returns&nbsp;a&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;referencing&nbsp;the&nbsp;blocks&nbsp;which&nbsp;are&nbsp;direct&nbsp;children&nbsp;of&nbsp;this&nbsp;node,&nbsp;and&nbsp;the&nbsp;block&nbsp;is&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>.<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;tuples&nbsp;are&nbsp;(&nbsp;block,&nbsp;blockIdx&nbsp;)&nbsp;where&nbsp;"blockIdx"&nbsp;is&nbsp;the&nbsp;index&nbsp;of&nbsp;self.<strong >blocks</strong>&nbsp;wherein&nbsp;the&nbsp;tag&nbsp;resides.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;<a href="builtins.html#list" >list</a>&lt;&nbsp;tuple(block,&nbsp;blockIdx)&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;of&nbsp;child&nbsp;blocks&nbsp;which&nbsp;are&nbsp;tags&nbsp;and&nbsp;their&nbsp;index&nbsp;in&nbsp;the&nbsp;self.<strong >blocks</strong>&nbsp;<a href="builtins.html#list" >list</a></tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;<a href="__builtin__.html#list" >list</a>&lt;&nbsp;tuple(block,&nbsp;blockIdx)&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;of&nbsp;child&nbsp;blocks&nbsp;which&nbsp;are&nbsp;tags&nbsp;and&nbsp;their&nbsp;index&nbsp;in&nbsp;the&nbsp;self.<strong >blocks</strong>&nbsp;<a href="__builtin__.html#list" >list</a></tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-getBlocksText" ><strong >getBlocksText</strong></a>(self)</dt><dd ><tt >getBlocksText&nbsp;-&nbsp;Returns&nbsp;a&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;referencing&nbsp;the&nbsp;blocks&nbsp;which&nbsp;are&nbsp;direct&nbsp;children&nbsp;of&nbsp;this&nbsp;node,&nbsp;and&nbsp;the&nbsp;block&nbsp;is&nbsp;a&nbsp;text&nbsp;node&nbsp;(not&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>)<br />
+<dl ><dt ><a name="AdvancedTag-getBlocksText" ><strong >getBlocksText</strong></a>(self)</dt><dd ><tt >getBlocksText&nbsp;-&nbsp;Returns&nbsp;a&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;referencing&nbsp;the&nbsp;blocks&nbsp;which&nbsp;are&nbsp;direct&nbsp;children&nbsp;of&nbsp;this&nbsp;node,&nbsp;and&nbsp;the&nbsp;block&nbsp;is&nbsp;a&nbsp;text&nbsp;node&nbsp;(not&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>)<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;tuples&nbsp;are&nbsp;(&nbsp;block,&nbsp;blockIdx&nbsp;)&nbsp;where&nbsp;"blockIdx"&nbsp;is&nbsp;the&nbsp;index&nbsp;of&nbsp;self.<strong >blocks</strong>&nbsp;wherein&nbsp;the&nbsp;text&nbsp;resides.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;<a href="builtins.html#list" >list</a>&lt;&nbsp;tuple(block,&nbsp;blockIdx)&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;of&nbsp;child&nbsp;blocks&nbsp;which&nbsp;are&nbsp;not&nbsp;tags&nbsp;and&nbsp;their&nbsp;index&nbsp;in&nbsp;the&nbsp;self.<strong >blocks</strong>&nbsp;<a href="builtins.html#list" >list</a></tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;<a href="__builtin__.html#list" >list</a>&lt;&nbsp;tuple(block,&nbsp;blockIdx)&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;tuples&nbsp;of&nbsp;child&nbsp;blocks&nbsp;which&nbsp;are&nbsp;not&nbsp;tags&nbsp;and&nbsp;their&nbsp;index&nbsp;in&nbsp;the&nbsp;self.<strong >blocks</strong>&nbsp;<a href="__builtin__.html#list" >list</a></tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-getChildBlocks" ><strong >getChildBlocks</strong></a>(self)</dt><dd ><tt >getChildBlocks&nbsp;-&nbsp;Gets&nbsp;the&nbsp;child&nbsp;blocks,&nbsp;both&nbsp;text&nbsp;and&nbsp;tags.<br />
 &nbsp;<br />
@@ -300,7 +298,7 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 
 <dl ><dt ><a name="AdvancedTag-getChildren" ><strong >getChildren</strong></a>(self)</dt><dd ><tt >getChildren&nbsp;-&nbsp;returns&nbsp;child&nbsp;nodes&nbsp;as&nbsp;a&nbsp;searchable&nbsp;<a href="#TagCollection" >TagCollection</a>.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;a&nbsp;plain&nbsp;<a href="builtins.html#list" >list</a>,&nbsp;use&nbsp;.children&nbsp;instead<br />
+&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;a&nbsp;plain&nbsp;<a href="__builtin__.html#list" >list</a>,&nbsp;use&nbsp;.children&nbsp;instead<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;the&nbsp;immediate&nbsp;children&nbsp;to&nbsp;this&nbsp;tag.</tt></dd></dl>
 
@@ -401,7 +399,7 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;<a href="#TagCollection" >TagCollection</a>&gt;&nbsp;-&nbsp;Resulting&nbsp;peers,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;parent&nbsp;node.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-getPeersWithAttrValues" ><strong >getPeersWithAttrValues</strong></a>(self, attrName, attrValues)</dt><dd ><tt >getPeersWithAttrValues&nbsp;-&nbsp;Gets&nbsp;peers&nbsp;(elements&nbsp;on&nbsp;same&nbsp;level)&nbsp;whose&nbsp;attribute&nbsp;given&nbsp;by&nbsp;#attrName<br />
-&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;in&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;possible&nbsp;vaues&nbsp;#attrValues<br />
+&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;in&nbsp;the&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;possible&nbsp;vaues&nbsp;#attrValues<br />
 &nbsp;<br />
 @param&nbsp;attrName&nbsp;-&nbsp;Name&nbsp;of&nbsp;attribute<br />
 @param&nbsp;attrValues&nbsp;-&nbsp;List&nbsp;of&nbsp;possible&nbsp;values&nbsp;which&nbsp;will&nbsp;match<br />
@@ -434,8 +432,8 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;used&nbsp;internally&nbsp;to&nbsp;prevent&nbsp;duplicates,&nbsp;for&nbsp;example&nbsp;a&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;does&nbsp;not&nbsp;allow&nbsp;multiple&nbsp;tags&nbsp;with&nbsp;the&nbsp;same&nbsp;uid<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;uuid.UUID&nbsp;<a href="builtins.html#object" >object</a>,&nbsp;representing&nbsp;a&nbsp;uuid&nbsp;as&nbsp;specified&nbsp;by&nbsp;<a href="http://www.rfc-editor.org/rfc/rfc4122.txt" >RFC&nbsp;4122</a>,&nbsp;version&nbsp;4.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;<a href="builtins.html#object" >object</a>&nbsp;is&nbsp;optimized&nbsp;for&nbsp;comparison.&nbsp;For&nbsp;a&nbsp;string&nbsp;representation,&nbsp;str()&nbsp;the&nbsp;result,&nbsp;or&nbsp;use&nbsp;.hex&nbsp;or&nbsp;.variant</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;-&nbsp;uuid.UUID&nbsp;<a href="__builtin__.html#object" >object</a>,&nbsp;representing&nbsp;a&nbsp;uuid&nbsp;as&nbsp;specified&nbsp;by&nbsp;<a href="http://www.rfc-editor.org/rfc/rfc4122.txt" >RFC&nbsp;4122</a>,&nbsp;version&nbsp;4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;<a href="__builtin__.html#object" >object</a>&nbsp;is&nbsp;optimized&nbsp;for&nbsp;comparison.&nbsp;For&nbsp;a&nbsp;string&nbsp;representation,&nbsp;str()&nbsp;the&nbsp;result,&nbsp;or&nbsp;use&nbsp;.hex&nbsp;or&nbsp;.variant</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-hasAttribute" ><strong >hasAttribute</strong></a>(self, attrName)</dt><dd ><tt >hasAttribute&nbsp;-&nbsp;Checks&nbsp;for&nbsp;the&nbsp;existance&nbsp;of&nbsp;an&nbsp;attribute.&nbsp;Attribute&nbsp;names&nbsp;are&nbsp;all&nbsp;lowercase.<br />
 &nbsp;<br />
@@ -509,7 +507,7 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;<br />
 @param&nbsp;attrName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;attribute&nbsp;name</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-removeBlock" ><strong >removeBlock</strong></a>(self, block)</dt><dd ><tt >removeBlock&nbsp;-&nbsp;Removes&nbsp;a&nbsp;single&nbsp;block&nbsp;(text&nbsp;node&nbsp;or&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>)&nbsp;which&nbsp;is&nbsp;a&nbsp;child&nbsp;of&nbsp;this&nbsp;<a href="builtins.html#object" >object</a>.<br />
+<dl ><dt ><a name="AdvancedTag-removeBlock" ><strong >removeBlock</strong></a>(self, block)</dt><dd ><tt >removeBlock&nbsp;-&nbsp;Removes&nbsp;a&nbsp;single&nbsp;block&nbsp;(text&nbsp;node&nbsp;or&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>)&nbsp;which&nbsp;is&nbsp;a&nbsp;child&nbsp;of&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a>.<br />
 &nbsp;<br />
 @param&nbsp;block&nbsp;&lt;str/<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;The&nbsp;block&nbsp;(text&nbsp;node&nbsp;or&nbsp;<a href="#AdvancedTag" >AdvancedTag</a>)&nbsp;to&nbsp;remove.<br />
 &nbsp;<br />
@@ -520,9 +518,9 @@ NOTE:&nbsp;If&nbsp;you&nbsp;know&nbsp;you&nbsp;are&nbsp;going&nbsp;to&nbsp;remov
 &nbsp;<br />
 If&nbsp;removing&nbsp;multiple&nbsp;blocks,&nbsp;@see&nbsp;removeBlocks</tt></dd></dl>
 
-<dl ><dt ><a name="AdvancedTag-removeBlocks" ><strong >removeBlocks</strong></a>(self, blocks)</dt><dd ><tt >removeBlock&nbsp;-&nbsp;Removes&nbsp;a&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;blocks&nbsp;(the&nbsp;first&nbsp;occurance&nbsp;of&nbsp;each)&nbsp;from&nbsp;the&nbsp;direct&nbsp;children&nbsp;of&nbsp;this&nbsp;node.<br />
+<dl ><dt ><a name="AdvancedTag-removeBlocks" ><strong >removeBlocks</strong></a>(self, blocks)</dt><dd ><tt >removeBlock&nbsp;-&nbsp;Removes&nbsp;a&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;blocks&nbsp;(the&nbsp;first&nbsp;occurance&nbsp;of&nbsp;each)&nbsp;from&nbsp;the&nbsp;direct&nbsp;children&nbsp;of&nbsp;this&nbsp;node.<br />
 &nbsp;<br />
-@param&nbsp;blocks&nbsp;&nbsp;<a href="builtins.html#list" >list</a>&lt;str/<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;List&nbsp;of&nbsp;AdvancedTags&nbsp;for&nbsp;tag&nbsp;nodes,&nbsp;else&nbsp;strings&nbsp;for&nbsp;text&nbsp;nodes<br />
+@param&nbsp;blocks&nbsp;&nbsp;<a href="__builtin__.html#list" >list</a>&lt;str/<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;List&nbsp;of&nbsp;AdvancedTags&nbsp;for&nbsp;tag&nbsp;nodes,&nbsp;else&nbsp;strings&nbsp;for&nbsp;text&nbsp;nodes<br />
 &nbsp;<br />
 @return&nbsp;The&nbsp;removed&nbsp;blocks&nbsp;in&nbsp;each&nbsp;slot,&nbsp;or&nbsp;None&nbsp;if&nbsp;None&nbsp;removed.<br />
 &nbsp;<br />
@@ -546,7 +544,7 @@ For&nbsp;multiple,&nbsp;@see&nbsp;removeBlocks</tt></dd></dl>
 &nbsp;<br />
 @see&nbsp;removeChild<br />
 &nbsp;<br />
-@return&nbsp;<a href="builtins.html#list" >list</a>&lt;<a href="#AdvancedTag" >AdvancedTag</a>/None&gt;&nbsp;-&nbsp;A&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;all&nbsp;tags&nbsp;removed&nbsp;in&nbsp;same&nbsp;order&nbsp;as&nbsp;passed.<br />
+@return&nbsp;<a href="__builtin__.html#list" >list</a>&lt;<a href="#AdvancedTag" >AdvancedTag</a>/None&gt;&nbsp;-&nbsp;A&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;all&nbsp;tags&nbsp;removed&nbsp;in&nbsp;same&nbsp;order&nbsp;as&nbsp;passed.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;Item&nbsp;is&nbsp;"None"&nbsp;if&nbsp;it&nbsp;was&nbsp;not&nbsp;attached&nbsp;to&nbsp;this&nbsp;node,&nbsp;and&nbsp;thus&nbsp;was&nbsp;not&nbsp;removed.</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-removeClass" ><strong >removeClass</strong></a>(self, className)</dt><dd ><tt >removeClass&nbsp;-&nbsp;remove&nbsp;a&nbsp;class&nbsp;name&nbsp;if&nbsp;present.&nbsp;Returns&nbsp;the&nbsp;class&nbsp;name&nbsp;if&nbsp;&nbsp;removed,&nbsp;otherwise&nbsp;None.<br />
@@ -571,8 +569,8 @@ NOTE:&nbsp;To&nbsp;remove&nbsp;ALL&nbsp;occuraces&nbsp;of&nbsp;text,&nbsp;@see&n
 &nbsp;<br />
 @param&nbsp;text&nbsp;&lt;str&gt;&nbsp;-&nbsp;text&nbsp;to&nbsp;remove<br />
 &nbsp;<br />
-@return&nbsp;<a href="builtins.html#list" >list</a>&nbsp;&lt;str&gt;&nbsp;-&nbsp;All&nbsp;text&nbsp;node&nbsp;containing&nbsp;#text&nbsp;BEFORE&nbsp;the&nbsp;text&nbsp;was&nbsp;removed.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;Empty&nbsp;<a href="builtins.html#list" >list</a>&nbsp;if&nbsp;no&nbsp;text&nbsp;removed<br />
+@return&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;&lt;str&gt;&nbsp;-&nbsp;All&nbsp;text&nbsp;node&nbsp;containing&nbsp;#text&nbsp;BEFORE&nbsp;the&nbsp;text&nbsp;was&nbsp;removed.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Empty&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;if&nbsp;no&nbsp;text&nbsp;removed<br />
 &nbsp;<br />
 NOTE:&nbsp;To&nbsp;remove&nbsp;a&nbsp;node,&nbsp;@see&nbsp;removeChild<br />
 NOTE:&nbsp;To&nbsp;remove&nbsp;a&nbsp;block&nbsp;(maybe&nbsp;a&nbsp;node,&nbsp;maybe&nbsp;text),&nbsp;@see&nbsp;removeBlock<br />
@@ -842,40 +840,20 @@ NOTE:&nbsp;Unlike&nbsp;JS&nbsp;DOM,&nbsp;this&nbsp;returns&nbsp;ONLY&nbsp;tags,&
 <td colspan="3" valign="bottom" >&nbsp;<br />
 <font color="#000000" face="helvetica, arial" ><a name="FilterableTagCollection" >class <strong >FilterableTagCollection</strong></a>(<a href="QueryableList.Base.html#QueryableListBase" >QueryableList.Base.QueryableListBase</a>)</font></td></tr>
     
-<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#FilterableTagCollection" >FilterableTagCollection</a>(iterable=(),&nbsp;/)<br />
-&nbsp;<br />
-<a href="QueryableList.Base.html#QueryableListBase" >QueryableListBase</a>&nbsp;-&nbsp;The&nbsp;base&nbsp;implementation&nbsp;of&nbsp;a&nbsp;QueryableList.&nbsp;<br />
-&nbsp;<br />
-Any&nbsp;implementing&nbsp;classes&nbsp;should&nbsp;only&nbsp;have&nbsp;to&nbsp;implement&nbsp;the&nbsp;"_get_item_value(item,&nbsp;fieldName)"&nbsp;method,&nbsp;to&nbsp;return&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;given&nbsp;field&nbsp;on&nbsp;an&nbsp;item.<br />
-&nbsp;<br />
-You&nbsp;cannot&nbsp;use&nbsp;this&nbsp;directly,&nbsp;instead&nbsp;use&nbsp;one&nbsp;of&nbsp;the&nbsp;implementing&nbsp;classes&nbsp;(like&nbsp;QueryableListDicts&nbsp;or&nbsp;QueryableListObjs),&nbsp;or&nbsp;your&nbsp;own&nbsp;implementing&nbsp;class.<br />&nbsp;</tt></td></tr>
-<tr ><td >&nbsp;</td>
+<tr ><td bgcolor="#ffc8d8" ><tt >&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
 <dd ><a href="AdvancedHTMLParser.Tags.html#FilterableTagCollection" >FilterableTagCollection</a></dd>
 <dd ><a href="QueryableList.Base.html#QueryableListBase" >QueryableList.Base.QueryableListBase</a></dd>
-<dd ><a href="builtins.html#list" >builtins.list</a></dd>
-<dd ><a href="builtins.html#object" >builtins.object</a></dd>
+<dd ><a href="__builtin__.html#list" >__builtin__.list</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
 </dl>
 <hr />
 Methods defined here:<br />
 <dl ><dt ><a name="FilterableTagCollection-filter" ><strong >filter</strong></a> = <a href="#FilterableTagCollection-filterAnd" >filterAnd</a>(self, **kwargs)</dt></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-filterAnd" ><strong >filterAnd</strong></a>(self, **kwargs)</dt><dd ><tt >filter/filterAnd&nbsp;-&nbsp;Performs&nbsp;a&nbsp;filter&nbsp;and&nbsp;returns&nbsp;a&nbsp;QueryableList&nbsp;<a href="builtins.html#object" >object</a>&nbsp;of&nbsp;the&nbsp;same&nbsp;type.<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;All&nbsp;the&nbsp;provided&nbsp;filters&nbsp;must&nbsp;match&nbsp;for&nbsp;the&nbsp;item&nbsp;to&nbsp;be&nbsp;returned.<br />
-&nbsp;<br />
-@params&nbsp;are&nbsp;in&nbsp;the&nbsp;format&nbsp;of&nbsp;fieldName__operation=value&nbsp;&nbsp;where&nbsp;fieldName&nbsp;is&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;field&nbsp;on&nbsp;any&nbsp;given&nbsp;item,&nbsp;"operation"&nbsp;is&nbsp;one&nbsp;of&nbsp;the&nbsp;given&nbsp;operations&nbsp;(@see&nbsp;main&nbsp;documentation)&nbsp;(e.x.&nbsp;eq,&nbsp;ne,&nbsp;isnull),&nbsp;and&nbsp;value&nbsp;is&nbsp;what&nbsp;is&nbsp;used&nbsp;in&nbsp;the&nbsp;operation.<br />
-&nbsp;<br />
-@return&nbsp;-&nbsp;A&nbsp;QueryableList&nbsp;<a href="builtins.html#object" >object</a>&nbsp;of&nbsp;the&nbsp;same&nbsp;type,&nbsp;with&nbsp;only&nbsp;the&nbsp;matching&nbsp;objects&nbsp;returned.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-filterAnd" ><strong >filterAnd</strong></a>(self, **kwargs)</dt></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-filterOr" ><strong >filterOr</strong></a>(self, **kwargs)</dt><dd ><tt >filterOr&nbsp;-&nbsp;Performs&nbsp;a&nbsp;filter&nbsp;and&nbsp;returns&nbsp;a&nbsp;QueryableList&nbsp;<a href="builtins.html#object" >object</a>&nbsp;of&nbsp;the&nbsp;same&nbsp;type.<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;Anythe&nbsp;provided&nbsp;filters&nbsp;can&nbsp;match&nbsp;for&nbsp;the&nbsp;item&nbsp;to&nbsp;be&nbsp;returned.<br />
-&nbsp;<br />
-@params&nbsp;are&nbsp;in&nbsp;the&nbsp;format&nbsp;of&nbsp;fieldName__operation=value&nbsp;&nbsp;where&nbsp;fieldName&nbsp;is&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;field&nbsp;on&nbsp;any&nbsp;given&nbsp;item,&nbsp;"operation"&nbsp;is&nbsp;one&nbsp;of&nbsp;the&nbsp;given&nbsp;operations&nbsp;(@see&nbsp;main&nbsp;documentation)&nbsp;(e.x.&nbsp;eq,&nbsp;ne,&nbsp;isnull),&nbsp;and&nbsp;value&nbsp;is&nbsp;what&nbsp;is&nbsp;used&nbsp;in&nbsp;the&nbsp;operation.<br />
-&nbsp;<br />
-@return&nbsp;-&nbsp;A&nbsp;QueryableList&nbsp;<a href="builtins.html#object" >object</a>&nbsp;of&nbsp;the&nbsp;same&nbsp;type,&nbsp;with&nbsp;only&nbsp;the&nbsp;matching&nbsp;objects&nbsp;returned.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-filterOr" ><strong >filterOr</strong></a>(self, **kwargs)</dt></dl>
 
 <hr />
 Methods inherited from <a href="QueryableList.Base.html#QueryableListBase" >QueryableList.Base.QueryableListBase</a>:<br />
@@ -947,15 +925,15 @@ Works&nbsp;inline&nbsp;and&nbsp;modifies&nbsp;#self</tt></dd></dl>
 @param&nbsp;filterFunc&nbsp;&lt;lambda/function&lt;&nbsp;-&nbsp;A&nbsp;lambda/function&nbsp;that&nbsp;is&nbsp;passed&nbsp;an&nbsp;item,&nbsp;and<br />
 &nbsp;&nbsp;&nbsp;returns&nbsp;True&nbsp;if&nbsp;the&nbsp;item&nbsp;matches&nbsp;(will&nbsp;be&nbsp;returned),&nbsp;otherwise&nbsp;False.<br />
 &nbsp;<br />
-@return&nbsp;-&nbsp;A&nbsp;QueryableList&nbsp;<a href="builtins.html#object" >object</a>&nbsp;of&nbsp;the&nbsp;same&nbsp;type,&nbsp;with&nbsp;only&nbsp;the&nbsp;matching&nbsp;objects&nbsp;returned.</tt></dd></dl>
+@return&nbsp;-&nbsp;A&nbsp;QueryableList&nbsp;<a href="__builtin__.html#object" >object</a>&nbsp;of&nbsp;the&nbsp;same&nbsp;type,&nbsp;with&nbsp;only&nbsp;the&nbsp;matching&nbsp;objects&nbsp;returned.</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-sort_by" ><strong >sort_by</strong></a>(self, fieldName, reverse=False)</dt><dd ><tt >sort_by&nbsp;-&nbsp;Return&nbsp;a&nbsp;copy&nbsp;of&nbsp;this&nbsp;collection,&nbsp;sorted&nbsp;by&nbsp;the&nbsp;given&nbsp;fieldName.<br />
+<dl ><dt ><a name="FilterableTagCollection-sort_by" ><strong >sort_by</strong></a>(self, fieldName, reverse<font color="#909090" >=False</font>)</dt><dd ><tt >sort_by&nbsp;-&nbsp;Return&nbsp;a&nbsp;copy&nbsp;of&nbsp;this&nbsp;collection,&nbsp;sorted&nbsp;by&nbsp;the&nbsp;given&nbsp;fieldName.<br />
 &nbsp;<br />
 &nbsp;&nbsp;The&nbsp;fieldName&nbsp;is&nbsp;accessed&nbsp;the&nbsp;same&nbsp;way&nbsp;as&nbsp;other&nbsp;filtering,&nbsp;so&nbsp;it&nbsp;supports&nbsp;custom&nbsp;properties,&nbsp;etc.<br />
 &nbsp;<br />
 &nbsp;&nbsp;@param&nbsp;fieldName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;field&nbsp;on&nbsp;which&nbsp;to&nbsp;sort&nbsp;by<br />
 &nbsp;<br />
-&nbsp;&nbsp;@param&nbsp;reverse&nbsp;&lt;bool&gt;&nbsp;Default&nbsp;False&nbsp;-&nbsp;If&nbsp;True,&nbsp;<a href="builtins.html#list" >list</a>&nbsp;will&nbsp;be&nbsp;in&nbsp;reverse&nbsp;order.<br />
+&nbsp;&nbsp;@param&nbsp;reverse&nbsp;&lt;bool&gt;&nbsp;Default&nbsp;False&nbsp;-&nbsp;If&nbsp;True,&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;will&nbsp;be&nbsp;in&nbsp;reverse&nbsp;order.<br />
 &nbsp;<br />
 &nbsp;&nbsp;@return&nbsp;&lt;QueryableList&gt;&nbsp;-&nbsp;A&nbsp;QueryableList&nbsp;of&nbsp;the&nbsp;same&nbsp;type&nbsp;with&nbsp;the&nbsp;elements&nbsp;sorted&nbsp;based&nbsp;on&nbsp;arguments.</tt></dd></dl>
 
@@ -968,116 +946,114 @@ Data descriptors inherited from <a href="QueryableList.Base.html#QueryableListBa
 <dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
 <hr />
-Methods inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
-<dl ><dt ><a name="FilterableTagCollection-__contains__" ><strong >__contains__</strong></a>(self, key, /)</dt><dd ><tt >Return&nbsp;key&nbsp;in&nbsp;self.</tt></dd></dl>
+Methods inherited from <a href="__builtin__.html#list" >__builtin__.list</a>:<br />
+<dl ><dt ><a name="FilterableTagCollection-__contains__" ><strong >__contains__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__contains__" >__contains__</a>(y)&nbsp;&lt;==&gt;&nbsp;y&nbsp;in&nbsp;x</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__delitem__" ><strong >__delitem__</strong></a>(self, key, /)</dt><dd ><tt >Delete&nbsp;self[key].</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__delitem__" ><strong >__delitem__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__delitem__" >__delitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[y]</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__eq__" ><strong >__eq__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self==value.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__delslice__" ><strong >__delslice__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__delslice__" >__delslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[i:j]<br />
+&nbsp;<br />
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__ge__" ><strong >__ge__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&gt;=value.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__eq__" ><strong >__eq__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__eq__" >__eq__</a>(y)&nbsp;&lt;==&gt;&nbsp;x==y</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__getattribute__" ><strong >__getattribute__</strong></a>(self, name, /)</dt><dd ><tt >Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__ge__" ><strong >__ge__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__ge__" >__ge__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;=y</tt></dd></dl>
+
+<dl ><dt ><a name="FilterableTagCollection-__getattribute__" ><strong >__getattribute__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__getattribute__" >__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
 
 <dl ><dt ><a name="FilterableTagCollection-__getitem__" ><strong >__getitem__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__getitem__" >__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__gt__" ><strong >__gt__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&gt;value.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__gt__" ><strong >__gt__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__gt__" >__gt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;y</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__imul__" ><strong >__imul__</strong></a>(self, value, /)</dt><dd ><tt >Implement&nbsp;self*=value.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__imul__" ><strong >__imul__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__imul__" >__imul__</a>(y)&nbsp;&lt;==&gt;&nbsp;x*=y</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__init__" ><strong >__init__</strong></a>(self, /, *args, **kwargs)</dt><dd ><tt >Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__init__" ><strong >__init__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__init__" >__init__</a>(...)&nbsp;initializes&nbsp;x;&nbsp;see&nbsp;help(type(x))&nbsp;for&nbsp;signature</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__iter__" ><strong >__iter__</strong></a>(self, /)</dt><dd ><tt >Implement&nbsp;iter(self).</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__iter__" ><strong >__iter__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__iter__" >__iter__</a>()&nbsp;&lt;==&gt;&nbsp;iter(x)</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__le__" ><strong >__le__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&lt;=value.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__le__" ><strong >__le__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__le__" >__le__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;=y</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__len__" ><strong >__len__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;len(self).</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__len__" ><strong >__len__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__len__" >__len__</a>()&nbsp;&lt;==&gt;&nbsp;len(x)</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__lt__" ><strong >__lt__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&lt;value.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__lt__" ><strong >__lt__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__lt__" >__lt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;y</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__mul__" ><strong >__mul__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self*value.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__mul__" ><strong >__mul__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__mul__" >__mul__</a>(n)&nbsp;&lt;==&gt;&nbsp;x*n</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__ne__" ><strong >__ne__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self!=value.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__ne__" ><strong >__ne__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__ne__" >__ne__</a>(y)&nbsp;&lt;==&gt;&nbsp;x!=y</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__reversed__" ><strong >__reversed__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__reversed__" ><strong >__reversed__</strong></a>(...)</dt><dd ><tt >L.<a href="#FilterableTagCollection-__reversed__" >__reversed__</a>()&nbsp;--&nbsp;return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;<a href="__builtin__.html#list" >list</a></tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__rmul__" ><strong >__rmul__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;value*self.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__rmul__" ><strong >__rmul__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__rmul__" >__rmul__</a>(n)&nbsp;&lt;==&gt;&nbsp;n*x</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__setitem__" ><strong >__setitem__</strong></a>(self, key, value, /)</dt><dd ><tt >Set&nbsp;self[key]&nbsp;to&nbsp;value.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-__setitem__" ><strong >__setitem__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__setitem__" >__setitem__</a>(i,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i]=y</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-__sizeof__" ><strong >__sizeof__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>&nbsp;in&nbsp;memory,&nbsp;in&nbsp;bytes.</tt></dd></dl>
-
-<dl ><dt ><a name="FilterableTagCollection-append" ><strong >append</strong></a>(self, object, /)</dt><dd ><tt >Append&nbsp;<a href="builtins.html#object" >object</a>&nbsp;to&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>.</tt></dd></dl>
-
-<dl ><dt ><a name="FilterableTagCollection-clear" ><strong >clear</strong></a>(self, /)</dt><dd ><tt >Remove&nbsp;all&nbsp;items&nbsp;from&nbsp;<a href="builtins.html#list" >list</a>.</tt></dd></dl>
-
-<dl ><dt ><a name="FilterableTagCollection-copy" ><strong >copy</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;a&nbsp;shallow&nbsp;copy&nbsp;of&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>.</tt></dd></dl>
-
-<dl ><dt ><a name="FilterableTagCollection-extend" ><strong >extend</strong></a>(self, iterable, /)</dt><dd ><tt >Extend&nbsp;<a href="builtins.html#list" >list</a>&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable.</tt></dd></dl>
-
-<dl ><dt ><a name="FilterableTagCollection-index" ><strong >index</strong></a>(self, value, start=0, stop=9223372036854775807, /)</dt><dd ><tt >Return&nbsp;first&nbsp;index&nbsp;of&nbsp;value.<br />
+<dl ><dt ><a name="FilterableTagCollection-__setslice__" ><strong >__setslice__</strong></a>(...)</dt><dd ><tt >x.<a href="#FilterableTagCollection-__setslice__" >__setslice__</a>(i,&nbsp;j,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i:j]=y<br />
 &nbsp;<br />
+Use&nbsp;&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl ><dt ><a name="FilterableTagCollection-__sizeof__" ><strong >__sizeof__</strong></a>(...)</dt><dd ><tt >L.<a href="#FilterableTagCollection-__sizeof__" >__sizeof__</a>()&nbsp;--&nbsp;size&nbsp;of&nbsp;L&nbsp;in&nbsp;memory,&nbsp;in&nbsp;bytes</tt></dd></dl>
+
+<dl ><dt ><a name="FilterableTagCollection-append" ><strong >append</strong></a>(...)</dt><dd ><tt >L.<a href="#FilterableTagCollection-append" >append</a>(<a href="__builtin__.html#object" >object</a>)&nbsp;--&nbsp;append&nbsp;<a href="__builtin__.html#object" >object</a>&nbsp;to&nbsp;end</tt></dd></dl>
+
+<dl ><dt ><a name="FilterableTagCollection-extend" ><strong >extend</strong></a>(...)</dt><dd ><tt >L.<a href="#FilterableTagCollection-extend" >extend</a>(iterable)&nbsp;--&nbsp;extend&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable</tt></dd></dl>
+
+<dl ><dt ><a name="FilterableTagCollection-index" ><strong >index</strong></a>(...)</dt><dd ><tt >L.<a href="#FilterableTagCollection-index" >index</a>(value,&nbsp;[start,&nbsp;[stop]])&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;first&nbsp;index&nbsp;of&nbsp;value.<br />
 Raises&nbsp;ValueError&nbsp;if&nbsp;the&nbsp;value&nbsp;is&nbsp;not&nbsp;present.</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-insert" ><strong >insert</strong></a>(self, index, object, /)</dt><dd ><tt >Insert&nbsp;<a href="builtins.html#object" >object</a>&nbsp;before&nbsp;index.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-insert" ><strong >insert</strong></a>(...)</dt><dd ><tt >L.<a href="#FilterableTagCollection-insert" >insert</a>(index,&nbsp;<a href="__builtin__.html#object" >object</a>)&nbsp;--&nbsp;insert&nbsp;<a href="__builtin__.html#object" >object</a>&nbsp;before&nbsp;index</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-pop" ><strong >pop</strong></a>(self, index=-1, /)</dt><dd ><tt >Remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last).<br />
-&nbsp;<br />
-Raises&nbsp;IndexError&nbsp;if&nbsp;<a href="builtins.html#list" >list</a>&nbsp;is&nbsp;empty&nbsp;or&nbsp;index&nbsp;is&nbsp;out&nbsp;of&nbsp;range.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-pop" ><strong >pop</strong></a>(...)</dt><dd ><tt >L.<a href="#FilterableTagCollection-pop" >pop</a>([index])&nbsp;-&gt;&nbsp;item&nbsp;--&nbsp;remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last).<br />
+Raises&nbsp;IndexError&nbsp;if&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;is&nbsp;empty&nbsp;or&nbsp;index&nbsp;is&nbsp;out&nbsp;of&nbsp;range.</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-remove" ><strong >remove</strong></a>(self, value, /)</dt><dd ><tt >Remove&nbsp;first&nbsp;occurrence&nbsp;of&nbsp;value.<br />
-&nbsp;<br />
+<dl ><dt ><a name="FilterableTagCollection-remove" ><strong >remove</strong></a>(...)</dt><dd ><tt >L.<a href="#FilterableTagCollection-remove" >remove</a>(value)&nbsp;--&nbsp;remove&nbsp;first&nbsp;occurrence&nbsp;of&nbsp;value.<br />
 Raises&nbsp;ValueError&nbsp;if&nbsp;the&nbsp;value&nbsp;is&nbsp;not&nbsp;present.</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-reverse" ><strong >reverse</strong></a>(self, /)</dt><dd ><tt >Reverse&nbsp;*IN&nbsp;PLACE*.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-reverse" ><strong >reverse</strong></a>(...)</dt><dd ><tt >L.<a href="#FilterableTagCollection-reverse" >reverse</a>()&nbsp;--&nbsp;reverse&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
 
-<dl ><dt ><a name="FilterableTagCollection-sort" ><strong >sort</strong></a>(self, /, *, key=None, reverse=False)</dt><dd ><tt >Stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*.</tt></dd></dl>
-
-<hr />
-Static methods inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
-<dl ><dt ><a name="FilterableTagCollection-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object" >object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl ><dt ><a name="FilterableTagCollection-sort" ><strong >sort</strong></a>(...)</dt><dd ><tt >L.<a href="#FilterableTagCollection-sort" >sort</a>(cmp=None,&nbsp;key=None,&nbsp;reverse=False)&nbsp;--&nbsp;stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*;<br />
+cmp(x,&nbsp;y)&nbsp;-&gt;&nbsp;-1,&nbsp;0,&nbsp;1</tt></dd></dl>
 
 <hr />
-Data and other attributes inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
+Data and other attributes inherited from <a href="__builtin__.html#list" >__builtin__.list</a>:<br />
 <dl ><dt ><strong >__hash__</strong> = None</dt></dl>
+
+<dl ><dt ><strong >__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd ><tt >T.<a href="#FilterableTagCollection-__new__" >__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;<a href="__builtin__.html#object" >object</a>&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dd></dt></dl>
 
 </td></tr></table> <p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
 <tr bgcolor="#ffc8d8" >
 <td colspan="3" valign="bottom" >&nbsp;<br />
-<font color="#000000" face="helvetica, arial" ><a name="TagCollection" >class <strong >TagCollection</strong></a>(<a href="builtins.html#list" >builtins.list</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial" ><a name="TagCollection" >class <strong >TagCollection</strong></a>(<a href="__builtin__.html#list" >__builtin__.list</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan="2" ><tt ><a href="#TagCollection" >TagCollection</a>(values=None)<br />
-&nbsp;<br />
-A&nbsp;collection&nbsp;of&nbsp;AdvancedTags.&nbsp;You&nbsp;may&nbsp;use&nbsp;this&nbsp;like&nbsp;a&nbsp;normal&nbsp;<a href="builtins.html#list" >list</a>,&nbsp;or&nbsp;you&nbsp;can&nbsp;use&nbsp;the&nbsp;various&nbsp;getElements*&nbsp;functions&nbsp;within&nbsp;to&nbsp;operate&nbsp;on&nbsp;the&nbsp;results.<br />
+<td colspan="2" ><tt >A&nbsp;collection&nbsp;of&nbsp;AdvancedTags.&nbsp;You&nbsp;may&nbsp;use&nbsp;this&nbsp;like&nbsp;a&nbsp;normal&nbsp;<a href="__builtin__.html#list" >list</a>,&nbsp;or&nbsp;you&nbsp;can&nbsp;use&nbsp;the&nbsp;various&nbsp;getElements*&nbsp;functions&nbsp;within&nbsp;to&nbsp;operate&nbsp;on&nbsp;the&nbsp;results.<br />
 Generally,&nbsp;this&nbsp;is&nbsp;the&nbsp;return&nbsp;of&nbsp;all&nbsp;get*&nbsp;functions.<br />
 &nbsp;<br />
 All&nbsp;the&nbsp;get*&nbsp;functions&nbsp;called&nbsp;on&nbsp;a&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;search&nbsp;all&nbsp;contained&nbsp;elements&nbsp;and&nbsp;their&nbsp;childrens.&nbsp;If&nbsp;you&nbsp;need&nbsp;to&nbsp;check&nbsp;ONLY&nbsp;the&nbsp;elements&nbsp;in&nbsp;the&nbsp;tag&nbsp;collection,&nbsp;and&nbsp;not&nbsp;their&nbsp;children,<br />
-either&nbsp;provide&nbsp;your&nbsp;own&nbsp;<a href="builtins.html#list" >list</a>&nbsp;comprehension&nbsp;to&nbsp;do&nbsp;so,&nbsp;or&nbsp;use&nbsp;the&nbsp;"filterCollection"&nbsp;method,&nbsp;which&nbsp;takes&nbsp;an&nbsp;arbitrary&nbsp;function/lambda&nbsp;expression&nbsp;and&nbsp;filters&nbsp;just&nbsp;the&nbsp;immediate&nbsp;tags.<br />&nbsp;</tt></td></tr>
+either&nbsp;provide&nbsp;your&nbsp;own&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;comprehension&nbsp;to&nbsp;do&nbsp;so,&nbsp;or&nbsp;use&nbsp;the&nbsp;"filterCollection"&nbsp;method,&nbsp;which&nbsp;takes&nbsp;an&nbsp;arbitrary&nbsp;function/lambda&nbsp;expression&nbsp;and&nbsp;filters&nbsp;just&nbsp;the&nbsp;immediate&nbsp;tags.<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" ><dl ><dt >Method resolution order:</dt>
 <dd ><a href="AdvancedHTMLParser.Tags.html#TagCollection" >TagCollection</a></dd>
-<dd ><a href="builtins.html#list" >builtins.list</a></dd>
-<dd ><a href="builtins.html#object" >builtins.object</a></dd>
+<dd ><a href="__builtin__.html#list" >__builtin__.list</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
 </dl>
 <hr />
 Methods defined here:<br />
-<dl ><dt ><a name="TagCollection-__add__" ><strong >__add__</strong></a>(self, others)</dt><dd ><tt >Return&nbsp;self+value.</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__add__" ><strong >__add__</strong></a>(self, others)</dt></dl>
 
-<dl ><dt ><a name="TagCollection-__iadd__" ><strong >__iadd__</strong></a>(self, others)</dt><dd ><tt >Implement&nbsp;self+=value.</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__iadd__" ><strong >__iadd__</strong></a>(self, others)</dt></dl>
 
-<dl ><dt ><a name="TagCollection-__init__" ><strong >__init__</strong></a>(self, values=None)</dt><dd ><tt >Create&nbsp;this&nbsp;<a href="builtins.html#object" >object</a>.<br />
+<dl ><dt ><a name="TagCollection-__init__" ><strong >__init__</strong></a>(self, values<font color="#909090" >=None</font>)</dt><dd ><tt >Create&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a>.<br />
 &nbsp;<br />
 @param&nbsp;values&nbsp;-&nbsp;Initial&nbsp;values,&nbsp;or&nbsp;None&nbsp;for&nbsp;empty</tt></dd></dl>
 
 <dl ><dt ><a name="TagCollection-__isub__" ><strong >__isub__</strong></a>(self, others)</dt></dl>
 
-<dl ><dt ><a name="TagCollection-__repr__" ><strong >__repr__</strong></a>(self)</dt><dd ><tt >Return&nbsp;repr(self).</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__repr__" ><strong >__repr__</strong></a>(self)</dt></dl>
 
 <dl ><dt ><a name="TagCollection-__sub__" ><strong >__sub__</strong></a>(self, others)</dt></dl>
 
-<dl ><dt ><a name="TagCollection-all" ><strong >all</strong></a>(self)</dt><dd ><tt >all&nbsp;-&nbsp;A&nbsp;plain&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;these&nbsp;elements<br />
+<dl ><dt ><a name="TagCollection-all" ><strong >all</strong></a>(self)</dt><dd ><tt >all&nbsp;-&nbsp;A&nbsp;plain&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;these&nbsp;elements<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;List&nbsp;of&nbsp;these&nbsp;elements</tt></dd></dl>
 
@@ -1085,16 +1061,16 @@ Methods defined here:<br />
 &nbsp;<br />
 @param&nbsp;tag&nbsp;-&nbsp;an&nbsp;<a href="#AdvancedTag" >AdvancedTag</a></tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-contains" ><strong >contains</strong></a>(self, em)</dt><dd ><tt >contains&nbsp;-&nbsp;Check&nbsp;if&nbsp;#em&nbsp;occurs&nbsp;within&nbsp;any&nbsp;of&nbsp;the&nbsp;elements&nbsp;within&nbsp;this&nbsp;<a href="builtins.html#list" >list</a>,&nbsp;as&nbsp;themselves&nbsp;or&nbsp;as&nbsp;a&nbsp;child,&nbsp;any<br />
+<dl ><dt ><a name="TagCollection-contains" ><strong >contains</strong></a>(self, em)</dt><dd ><tt >contains&nbsp;-&nbsp;Check&nbsp;if&nbsp;#em&nbsp;occurs&nbsp;within&nbsp;any&nbsp;of&nbsp;the&nbsp;elements&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#list" >list</a>,&nbsp;as&nbsp;themselves&nbsp;or&nbsp;as&nbsp;a&nbsp;child,&nbsp;any<br />
 &nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;levels&nbsp;down.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;To&nbsp;check&nbsp;if&nbsp;JUST&nbsp;an&nbsp;element&nbsp;is&nbsp;contained&nbsp;within&nbsp;this&nbsp;<a href="builtins.html#list" >list</a>&nbsp;directly,&nbsp;use&nbsp;the&nbsp;"in"&nbsp;operator.<br />
+&nbsp;&nbsp;&nbsp;To&nbsp;check&nbsp;if&nbsp;JUST&nbsp;an&nbsp;element&nbsp;is&nbsp;contained&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;directly,&nbsp;use&nbsp;the&nbsp;"in"&nbsp;operator.<br />
 &nbsp;<br />
 @param&nbsp;em&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;-&nbsp;Element&nbsp;of&nbsp;interest<br />
 &nbsp;<br />
 @return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;True&nbsp;if&nbsp;contained,&nbsp;otherwise&nbsp;False</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-containsUid" ><strong >containsUid</strong></a>(self, uid)</dt><dd ><tt >containsUid&nbsp;-&nbsp;Check&nbsp;if&nbsp;#uid&nbsp;is&nbsp;the&nbsp;uid&nbsp;(unique&nbsp;internal&nbsp;identifier)&nbsp;of&nbsp;any&nbsp;of&nbsp;the&nbsp;elements&nbsp;within&nbsp;this&nbsp;<a href="builtins.html#list" >list</a>,<br />
+<dl ><dt ><a name="TagCollection-containsUid" ><strong >containsUid</strong></a>(self, uid)</dt><dd ><tt >containsUid&nbsp;-&nbsp;Check&nbsp;if&nbsp;#uid&nbsp;is&nbsp;the&nbsp;uid&nbsp;(unique&nbsp;internal&nbsp;identifier)&nbsp;of&nbsp;any&nbsp;of&nbsp;the&nbsp;elements&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#list" >list</a>,<br />
 &nbsp;&nbsp;as&nbsp;themselves&nbsp;or&nbsp;as&nbsp;a&nbsp;child,&nbsp;any&nbsp;number&nbsp;of&nbsp;levels&nbsp;down.<br />
 &nbsp;<br />
 &nbsp;<br />
@@ -1210,6 +1186,17 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;unique&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;with&nbsp;given&nbsp;tag&nbsp;name</tt></dd></dl>
 
+<dl ><dt ><a name="TagCollection-getElementsByXPathExpression" ><strong >getElementsByXPathExpression</strong></a>(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;against&nbsp;the&nbsp;elements&nbsp;in&nbsp;this&nbsp;collection<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;xpathExprStr&nbsp;&lt;str&gt;&nbsp;-&nbsp;An&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;(e.x.&nbsp;"""//div[@name="someName"]/span[3]"""&nbsp;)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;<a href="#TagCollection" >TagCollection</a>&gt;&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;AdvancedHTMLParser.xpath.XPathExpression.evaluate&nbsp;for&nbsp;additional&nbsp;@throws&nbsp;and&nbsp;similar</tt></dd></dl>
+
 <dl ><dt ><a name="TagCollection-getElementsCustomFilter" ><strong >getElementsCustomFilter</strong></a>(self, filterFunc)</dt><dd ><tt >getElementsCustomFilter&nbsp;-&nbsp;Get&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;that&nbsp;match&nbsp;a&nbsp;user-provided&nbsp;function.<br />
 &nbsp;<br />
 @param&nbsp;filterFunc&nbsp;&lt;function&gt;&nbsp;-&nbsp;A&nbsp;function&nbsp;that&nbsp;returns&nbsp;True&nbsp;if&nbsp;the&nbsp;element&nbsp;matches&nbsp;criteria<br />
@@ -1237,78 +1224,84 @@ Data descriptors defined here:<br />
 </dl>
 <hr />
 Data and other attributes defined here:<br />
-<dl ><dt ><strong >filterAllAnd</strong> = &lt;class 'filter'&gt;<dd ><tt ><a href="#TagCollection-filter" >filter</a>(function&nbsp;or&nbsp;None,&nbsp;iterable)&nbsp;--&gt;&nbsp;filter&nbsp;<a href="builtins.html#object" >object</a><br />
+<dl ><dt ><strong >filterAllAnd</strong> = &lt;built-in function filter&gt;<dd ><tt ><a href="#TagCollection-filter" >filter</a>(function&nbsp;or&nbsp;None,&nbsp;sequence)&nbsp;-&gt;&nbsp;<a href="__builtin__.html#list" >list</a>,&nbsp;tuple,&nbsp;or&nbsp;string<br />
 &nbsp;<br />
-Return&nbsp;an&nbsp;iterator&nbsp;yielding&nbsp;those&nbsp;items&nbsp;of&nbsp;iterable&nbsp;for&nbsp;which&nbsp;function(item)<br />
-is&nbsp;true.&nbsp;If&nbsp;function&nbsp;is&nbsp;None,&nbsp;return&nbsp;the&nbsp;items&nbsp;that&nbsp;are&nbsp;true.</tt></dd></dt></dl>
+Return&nbsp;those&nbsp;items&nbsp;of&nbsp;sequence&nbsp;for&nbsp;which&nbsp;function(item)&nbsp;is&nbsp;true.&nbsp;&nbsp;If<br />
+function&nbsp;is&nbsp;None,&nbsp;return&nbsp;the&nbsp;items&nbsp;that&nbsp;are&nbsp;true.&nbsp;&nbsp;If&nbsp;sequence&nbsp;is&nbsp;a&nbsp;tuple<br />
+or&nbsp;string,&nbsp;return&nbsp;the&nbsp;same&nbsp;type,&nbsp;else&nbsp;return&nbsp;a&nbsp;<a href="__builtin__.html#list" >list</a>.</tt></dd></dt></dl>
 
 <hr />
-Methods inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
-<dl ><dt ><a name="TagCollection-__contains__" ><strong >__contains__</strong></a>(self, key, /)</dt><dd ><tt >Return&nbsp;key&nbsp;in&nbsp;self.</tt></dd></dl>
+Methods inherited from <a href="__builtin__.html#list" >__builtin__.list</a>:<br />
+<dl ><dt ><a name="TagCollection-__contains__" ><strong >__contains__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__contains__" >__contains__</a>(y)&nbsp;&lt;==&gt;&nbsp;y&nbsp;in&nbsp;x</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-__delitem__" ><strong >__delitem__</strong></a>(self, key, /)</dt><dd ><tt >Delete&nbsp;self[key].</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__delitem__" ><strong >__delitem__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__delitem__" >__delitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[y]</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-__eq__" ><strong >__eq__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self==value.</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__delslice__" ><strong >__delslice__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__delslice__" >__delslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[i:j]<br />
+&nbsp;<br />
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-__ge__" ><strong >__ge__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&gt;=value.</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__eq__" ><strong >__eq__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__eq__" >__eq__</a>(y)&nbsp;&lt;==&gt;&nbsp;x==y</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-__getattribute__" ><strong >__getattribute__</strong></a>(self, name, /)</dt><dd ><tt >Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-__ge__" ><strong >__ge__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__ge__" >__ge__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;=y</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__getattribute__" ><strong >__getattribute__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__getattribute__" >__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
 
 <dl ><dt ><a name="TagCollection-__getitem__" ><strong >__getitem__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__getitem__" >__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-__gt__" ><strong >__gt__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&gt;value.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__imul__" ><strong >__imul__</strong></a>(self, value, /)</dt><dd ><tt >Implement&nbsp;self*=value.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__iter__" ><strong >__iter__</strong></a>(self, /)</dt><dd ><tt >Implement&nbsp;iter(self).</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__le__" ><strong >__le__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&lt;=value.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__len__" ><strong >__len__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;len(self).</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__lt__" ><strong >__lt__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self&lt;value.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__mul__" ><strong >__mul__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self*value.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__ne__" ><strong >__ne__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;self!=value.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__reversed__" ><strong >__reversed__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__rmul__" ><strong >__rmul__</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;value*self.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__setitem__" ><strong >__setitem__</strong></a>(self, key, value, /)</dt><dd ><tt >Set&nbsp;self[key]&nbsp;to&nbsp;value.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-__sizeof__" ><strong >__sizeof__</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>&nbsp;in&nbsp;memory,&nbsp;in&nbsp;bytes.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-clear" ><strong >clear</strong></a>(self, /)</dt><dd ><tt >Remove&nbsp;all&nbsp;items&nbsp;from&nbsp;<a href="builtins.html#list" >list</a>.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-copy" ><strong >copy</strong></a>(self, /)</dt><dd ><tt >Return&nbsp;a&nbsp;shallow&nbsp;copy&nbsp;of&nbsp;the&nbsp;<a href="builtins.html#list" >list</a>.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-count" ><strong >count</strong></a>(self, value, /)</dt><dd ><tt >Return&nbsp;number&nbsp;of&nbsp;occurrences&nbsp;of&nbsp;value.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-extend" ><strong >extend</strong></a>(self, iterable, /)</dt><dd ><tt >Extend&nbsp;<a href="builtins.html#list" >list</a>&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable.</tt></dd></dl>
-
-<dl ><dt ><a name="TagCollection-index" ><strong >index</strong></a>(self, value, start=0, stop=9223372036854775807, /)</dt><dd ><tt >Return&nbsp;first&nbsp;index&nbsp;of&nbsp;value.<br />
+<dl ><dt ><a name="TagCollection-__getslice__" ><strong >__getslice__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__getslice__" >__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br />
 &nbsp;<br />
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__gt__" ><strong >__gt__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__gt__" >__gt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;y</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__imul__" ><strong >__imul__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__imul__" >__imul__</a>(y)&nbsp;&lt;==&gt;&nbsp;x*=y</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__iter__" ><strong >__iter__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__iter__" >__iter__</a>()&nbsp;&lt;==&gt;&nbsp;iter(x)</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__le__" ><strong >__le__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__le__" >__le__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;=y</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__len__" ><strong >__len__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__len__" >__len__</a>()&nbsp;&lt;==&gt;&nbsp;len(x)</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__lt__" ><strong >__lt__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__lt__" >__lt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;y</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__mul__" ><strong >__mul__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__mul__" >__mul__</a>(n)&nbsp;&lt;==&gt;&nbsp;x*n</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__ne__" ><strong >__ne__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__ne__" >__ne__</a>(y)&nbsp;&lt;==&gt;&nbsp;x!=y</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__reversed__" ><strong >__reversed__</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-__reversed__" >__reversed__</a>()&nbsp;--&nbsp;return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;<a href="__builtin__.html#list" >list</a></tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__rmul__" ><strong >__rmul__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__rmul__" >__rmul__</a>(n)&nbsp;&lt;==&gt;&nbsp;n*x</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__setitem__" ><strong >__setitem__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__setitem__" >__setitem__</a>(i,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i]=y</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__setslice__" ><strong >__setslice__</strong></a>(...)</dt><dd ><tt >x.<a href="#TagCollection-__setslice__" >__setslice__</a>(i,&nbsp;j,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i:j]=y<br />
+&nbsp;<br />
+Use&nbsp;&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-__sizeof__" ><strong >__sizeof__</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-__sizeof__" >__sizeof__</a>()&nbsp;--&nbsp;size&nbsp;of&nbsp;L&nbsp;in&nbsp;memory,&nbsp;in&nbsp;bytes</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-count" ><strong >count</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-count" >count</a>(value)&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;number&nbsp;of&nbsp;occurrences&nbsp;of&nbsp;value</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-extend" ><strong >extend</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-extend" >extend</a>(iterable)&nbsp;--&nbsp;extend&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-index" ><strong >index</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-index" >index</a>(value,&nbsp;[start,&nbsp;[stop]])&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;first&nbsp;index&nbsp;of&nbsp;value.<br />
 Raises&nbsp;ValueError&nbsp;if&nbsp;the&nbsp;value&nbsp;is&nbsp;not&nbsp;present.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-insert" ><strong >insert</strong></a>(self, index, object, /)</dt><dd ><tt >Insert&nbsp;<a href="builtins.html#object" >object</a>&nbsp;before&nbsp;index.</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-insert" ><strong >insert</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-insert" >insert</a>(index,&nbsp;<a href="__builtin__.html#object" >object</a>)&nbsp;--&nbsp;insert&nbsp;<a href="__builtin__.html#object" >object</a>&nbsp;before&nbsp;index</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-pop" ><strong >pop</strong></a>(self, index=-1, /)</dt><dd ><tt >Remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last).<br />
-&nbsp;<br />
-Raises&nbsp;IndexError&nbsp;if&nbsp;<a href="builtins.html#list" >list</a>&nbsp;is&nbsp;empty&nbsp;or&nbsp;index&nbsp;is&nbsp;out&nbsp;of&nbsp;range.</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-pop" ><strong >pop</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-pop" >pop</a>([index])&nbsp;-&gt;&nbsp;item&nbsp;--&nbsp;remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last).<br />
+Raises&nbsp;IndexError&nbsp;if&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;is&nbsp;empty&nbsp;or&nbsp;index&nbsp;is&nbsp;out&nbsp;of&nbsp;range.</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-reverse" ><strong >reverse</strong></a>(self, /)</dt><dd ><tt >Reverse&nbsp;*IN&nbsp;PLACE*.</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-reverse" ><strong >reverse</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-reverse" >reverse</a>()&nbsp;--&nbsp;reverse&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
 
-<dl ><dt ><a name="TagCollection-sort" ><strong >sort</strong></a>(self, /, *, key=None, reverse=False)</dt><dd ><tt >Stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*.</tt></dd></dl>
-
-<hr />
-Static methods inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
-<dl ><dt ><a name="TagCollection-__new__" ><strong >__new__</strong></a>(*args, **kwargs)<font color="#909090" ><font face="helvetica, arial" > from <a href="builtins.html#type" >builtins.type</a></font></font></dt><dd ><tt >Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object" >object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl ><dt ><a name="TagCollection-sort" ><strong >sort</strong></a>(...)</dt><dd ><tt >L.<a href="#TagCollection-sort" >sort</a>(cmp=None,&nbsp;key=None,&nbsp;reverse=False)&nbsp;--&nbsp;stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*;<br />
+cmp(x,&nbsp;y)&nbsp;-&gt;&nbsp;-1,&nbsp;0,&nbsp;1</tt></dd></dl>
 
 <hr />
-Data and other attributes inherited from <a href="builtins.html#list" >builtins.list</a>:<br />
+Data and other attributes inherited from <a href="__builtin__.html#list" >__builtin__.list</a>:<br />
 <dl ><dt ><strong >__hash__</strong> = None</dt></dl>
+
+<dl ><dt ><strong >__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd ><tt >T.<a href="#TagCollection-__new__" >__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;<a href="__builtin__.html#object" >object</a>&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dd></dt></dl>
 
 </td></tr></table></p></p></p></td></tr></table><p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
@@ -1348,7 +1341,7 @@ Data and other attributes inherited from <a href="builtins.html#list" >builtins.
 &nbsp;&nbsp;@param&nbsp;isEnabled&nbsp;&lt;bool&gt;&nbsp;-&nbsp;If&nbsp;True,&nbsp;.attributes&nbsp;will&nbsp;be&nbsp;changed&nbsp;to&nbsp;use&nbsp;the&nbsp;DOM-provider.&nbsp;Otherwise,&nbsp;it&nbsp;will&nbsp;use&nbsp;the&nbsp;dict&nbsp;provider.</tt></dd></dl>
  <dl ><dt ><a name="-uniqueTags" ><strong >uniqueTags</strong></a>(tagList)</dt><dd ><tt >uniqueTags&nbsp;-&nbsp;Returns&nbsp;the&nbsp;unique&nbsp;tags&nbsp;in&nbsp;tagList.<br />
 &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagList&nbsp;<a href="builtins.html#list" >list</a>&lt;<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;:&nbsp;A&nbsp;<a href="builtins.html#list" >list</a>&nbsp;of&nbsp;tag&nbsp;objects.</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagList&nbsp;<a href="__builtin__.html#list" >list</a>&lt;<a href="#AdvancedTag" >AdvancedTag</a>&gt;&nbsp;:&nbsp;A&nbsp;<a href="__builtin__.html#list" >list</a>&nbsp;of&nbsp;tag&nbsp;objects.</tt></dd></dl>
 </td></tr></table><p >
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section" >
 <tr bgcolor="#55aa55" >

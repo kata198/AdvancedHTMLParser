@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html ><head ><title >Python: module AdvancedHTMLParser.utils</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
 </head><body bgcolor="#f0f0f8" >
 
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="heading" >
@@ -39,7 +39,7 @@ Some&nbsp;misc&nbsp;utils&nbsp;and&nbsp;regular&nbsp;expressions</tt></p>
 &nbsp;<br />
 @return&nbsp;&lt;str&gt;&nbsp;-&nbsp;Escaped&nbsp;value</tt></dd></dl>
  <dl ><dt ><a name="-isstr" ><strong >isstr</strong></a>(value)</dt></dl>
- <dl ><dt ><a name="-stripIEConditionals" ><strong >stripIEConditionals</strong></a>(contents, addHtmlIfMissing=True)</dt><dd ><tt >stripIEConditionals&nbsp;-&nbsp;Strips&nbsp;Internet&nbsp;Explorer&nbsp;conditional&nbsp;statements.<br />
+ <dl ><dt ><a name="-stripIEConditionals" ><strong >stripIEConditionals</strong></a>(contents, addHtmlIfMissing<font color="#909090" >=True</font>)</dt><dd ><tt >stripIEConditionals&nbsp;-&nbsp;Strips&nbsp;Internet&nbsp;Explorer&nbsp;conditional&nbsp;statements.<br />
 &nbsp;<br />
 @param&nbsp;contents&nbsp;&lt;str&gt;&nbsp;-&nbsp;Contents&nbsp;String<br />
 @param&nbsp;addHtmlIfMissing&nbsp;&lt;bool&gt;&nbsp;-&nbsp;Since&nbsp;these&nbsp;normally&nbsp;encompass&nbsp;the&nbsp;"html"&nbsp;element,&nbsp;optionally&nbsp;add&nbsp;it&nbsp;back&nbsp;if&nbsp;missing.</tt></dd></dl>
@@ -57,9 +57,9 @@ Some&nbsp;misc&nbsp;utils&nbsp;and&nbsp;regular&nbsp;expressions</tt></p>
 <font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
-<td width="100%" ><strong >DOCTYPE_MATCH</strong> = re.compile('[\n]*[ \t]*(?P&lt;tag&gt;&lt;[!][ \t]*[dD][oO][cC][tT][yY][pP][eE].*[&gt;])')<br />
-<strong >END_HTML</strong> = re.compile('.*&lt;/[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br />
-<strong >IE_CONDITIONAL_PATTERN</strong> = re.compile('[&lt;][!][-][-][ \t\r\n]*[\\[][ \t\r\n]*if.*--&gt;', re.MULTILINE)<br />
-<strong >START_HTML</strong> = re.compile('.*&lt;[ \t\r\n]*[hH][tT][mM][lL][ \t\r\n]*&gt;.*', re.DOTALL)<br />
+<td width="100%" ><strong >DOCTYPE_MATCH</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >END_HTML</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >IE_CONDITIONAL_PATTERN</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >START_HTML</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
 <strong >__all__</strong> = ('IE_CONDITIONAL_PATTERN', 'END_HTML', 'START_HTML', 'DOCTYPE_MATCH', 'stripIEConditionals', 'addStartTag', 'escapeQuotes', 'unescapeQuotes', 'tostr', 'isstr', 'stripWordsOnly')</td></tr></table>
 </p></p></p></body></html>
