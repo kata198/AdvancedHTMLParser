@@ -1252,7 +1252,7 @@ class AdvancedTag(object):
             getAllChildNodes - Gets all the children, and their children,
                and their children, and so on, all the way to the end as a TagCollection.
 
-               Use .childNodes for a regular list
+               Use .childNodes for a regular list of direct children
 
             @return TagCollection<AdvancedTag> - A TagCollection of all children (and their children recursive)
         '''
@@ -2491,6 +2491,33 @@ class TagCollection(list):
             TagCollection._subset(ret, _cmpFunc, tag)
 
         return ret
+
+
+    def getElementsByXPathExpression(self, xpathExprStr):
+        '''
+            getElementsByXPathExpression - Evaluate an XPath expression string against the elements in this collection
+
+
+                @param xpathExprStr <str> - An XPath expression string (e.x. """//div[@name="someName"]/span[3]""" )
+
+
+                @return <TagCollection> - TagCollection of all matching elements
+
+
+                @see AdvancedHTMLParser.xpath.XPathExpression.evaluate for additional @throws and similar
+        '''
+        # Late-binding import
+        from . import xpath as axpath
+
+        if len(self) == 0:
+            return TagCollection()
+
+        # May raise a parsing error, if invalid xpath expression string
+        xpathExpression = axpath.XPathExpression(xpathExprStr)
+
+
+        return xpathExpression.evaluate(self)
+
 
     def getElementsCustomFilter(self, filterFunc):
         '''

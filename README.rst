@@ -4,7 +4,7 @@ AdvancedHTMLParser
 
 AdvancedHTMLParser is an Advanced HTML Parser, with support for adding, removing, modifying, and formatting HTML.
 
-It aims to provide the same interface as you would find in a compliant browser through javascript ( i.e. all the getElement methods, appendChild, etc), as well as many more complex and sophisticated features not available through a browser. And most importantly, it's in python!
+It aims to provide the same interface as you would find in a compliant browser through javascript ( i.e. all the getElement methods, appendChild, etc), an XPath implementation, as well as many more complex and sophisticated features not available through a browser. And most importantly, it's in python!
 
 
 There are many potential applications, not limited to:
@@ -116,6 +116,8 @@ The parser then exposes many "standard" functions as you'd find on the web for a
 	getElementsByClassName \- Returns a list of all elements containing one or more space\-separated class names
 
 	getElementsByAttr       \- Returns a list of all elements matching a paticular attribute/value pair.
+
+	getElementsByXPathExpression \- Return a TagCollection (list) of all elements matching a given XPath expression
 
 	getElementsWithAttrValues \- Returns a list of all elements with a specific attribute name containing one of a list of values
 
@@ -465,6 +467,33 @@ InvalidCloseException - Tried to close a tag that shouldn't have been closed
 MissedCloseException  - Missed a non-optional close of a tag that would lead to causing an assumption during parsing.
 
 InvalidAttributeNameException - An attribute name was found that contained an invalid character, or broke a naming rule.
+
+
+XPath
+-----
+
+**XPath support is still in Alpha phase.**
+
+
+Basic XPath support has been added, which supports searching, attribute matching, positions, indexes, some functions, most axes (such as parent::).
+
+
+Examples of some currently supported expressions:
+
+	//table//tr[last()]/parent::tbody
+
+Find any table, descend to any descendant that is the last tr of its parent, rise to and return the parent tbody of that tr.
+
+	//div[ @name = "Cheese" ]/span[2]
+
+Find any div with attribute name="Cheese" , and return the second direct child which is a span.
+
+	//\*[ normalize\-space() = "Banana" ]
+
+Find and return any tag which contains the inner text, normalized for whitespace, of "Banana"
+
+
+More will be added, soon.
 
 
 IndexedAdvancedHTMLParser
