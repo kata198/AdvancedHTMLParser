@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html ><head ><title >Python: module AdvancedHTMLParser.xpath.expression</title>
+<meta charset="utf-8" />
+</head><body bgcolor="#f0f0f8" >
+
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="heading" >
+<tr bgcolor="#7799ee" >
+<td valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong ><a href="AdvancedHTMLParser.html" ><font color="#ffffff" >AdvancedHTMLParser</font></a>.<a href="AdvancedHTMLParser.xpath.html" ><font color="#ffffff" >xpath</font></a>.expression</strong></big></big></font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
+    <p ><tt >Copyright&nbsp;(c)&nbsp;2019&nbsp;Timothy&nbsp;Savannah&nbsp;under&nbsp;terms&nbsp;of&nbsp;LGPLv3.&nbsp;All&nbsp;Rights&nbsp;Reserved.<br />
+&nbsp;<br />
+See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
+&nbsp;<br />
+See:&nbsp;https://github.com/kata198/AdvancedHTMLParser&nbsp;for&nbsp;full&nbsp;information<br />
+&nbsp;<br />
+&nbsp;<br />
+xpath.expression.py&nbsp;-&nbsp;Module&nbsp;defines&nbsp;some&nbsp;types&nbsp;and&nbsp;features&nbsp;related&nbsp;to&nbsp;expressions</tt></p>
+<p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ee77aa" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" ><big ><strong >Classes</strong></big></font></td></tr>
+    
+<tr ><td bgcolor="#ee77aa" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl >
+<dt ><font face="helvetica, arial" ><a href="__builtin__.html#object" >__builtin__.object</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath.expression.html#XPathExpression" >XPathExpression</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="XPathExpression" >class <strong >XPathExpression</strong></a>(<a href="__builtin__.html#object" >__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#XPathExpression" >XPathExpression</a>&nbsp;-&nbsp;The&nbsp;main&nbsp;class&nbsp;for&nbsp;dealing&nbsp;with&nbsp;XPath&nbsp;expressions<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" >Methods defined here:<br />
+<dl ><dt ><a name="XPathExpression-__init__" ><strong >__init__</strong></a>(self, xpathStr)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a>&nbsp;from&nbsp;a&nbsp;string&nbsp;expression<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;xpathStr&nbsp;&lt;str&gt;&nbsp;-&nbsp;An&nbsp;xpath&nbsp;expression</tt></dd></dl>
+
+<dl ><dt ><a name="XPathExpression-evaluate" ><strong >evaluate</strong></a>(self, pathRoot)</dt><dd ><tt >&nbsp;&nbsp;&nbsp;&nbsp;evaluate&nbsp;-&nbsp;Run&nbsp;this&nbsp;XPath&nbsp;expression&nbsp;against&nbsp;a&nbsp;tree,&nbsp;and&nbsp;return&nbsp;the&nbsp;results.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;pathRoot&nbsp;&lt;<br />
+curResults&nbsp;=&nbsp;[&nbsp;pathRoot&nbsp;]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tags.AdvancedTag&nbsp;[From&nbsp;a&nbsp;single&nbsp;root&nbsp;tag]&nbsp;-or-<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parser.AdvancedHTMLParser&nbsp;[From&nbsp;the&nbsp;root&nbsp;of&nbsp;a&nbsp;document]&nbsp;-or-<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(list/tuple)&lt;Tags.AdvancedTag&gt;&nbsp;[From&nbsp;a&nbsp;list&nbsp;or&nbsp;tuple&nbsp;of&nbsp;tags]&nbsp;-or-<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tags.TagCollecction&nbsp;[From&nbsp;a&nbsp;TagCollection&nbsp;of&nbsp;tags]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;-<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run&nbsp;this&nbsp;XPath&nbsp;expression&nbsp;against&nbsp;this/these&nbsp;given&nbsp;node/nodes/document<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;TagCollection&gt;&nbsp;-&nbsp;A&nbsp;TagCollection&nbsp;of&nbsp;matched&nbsp;tags</tt></dd></dl>
+
+<hr />
+Data descriptors defined here:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></p></td></tr></table><p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#55aa55" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
+    
+<tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><strong >__all__</strong> = ('XPathExpression',)</td></tr></table>
+</p></p></body></html>

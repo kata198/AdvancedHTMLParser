@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html ><head ><title >Python: module AdvancedHTMLParser.xpath._filters</title>
+<meta charset="utf-8" />
+</head><body bgcolor="#f0f0f8" >
+
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="heading" >
+<tr bgcolor="#7799ee" >
+<td valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong ><a href="AdvancedHTMLParser.html" ><font color="#ffffff" >AdvancedHTMLParser</font></a>.<a href="AdvancedHTMLParser.xpath.html" ><font color="#ffffff" >xpath</font></a>._filters</strong></big></big></font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
+    <p ><tt >Copyright&nbsp;(c)&nbsp;2019&nbsp;Timothy&nbsp;Savannah&nbsp;under&nbsp;terms&nbsp;of&nbsp;LGPLv3.&nbsp;All&nbsp;Rights&nbsp;Reserved.<br />
+&nbsp;<br />
+See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
+&nbsp;<br />
+See:&nbsp;https://github.com/kata198/AdvancedHTMLParser&nbsp;for&nbsp;full&nbsp;information<br />
+&nbsp;<br />
+&nbsp;<br />
+==INTERNAL==<br />
+&nbsp;<br />
+xpath._filters.py&nbsp;-&nbsp;Internal&nbsp;module&nbsp;for&nbsp;holding&nbsp;xpath&nbsp;filtering&nbsp;items</tt></p>
+<p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#eeaa77" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" ><big ><strong >Functions</strong></big></font></td></tr>
+    
+<tr ><td bgcolor="#eeaa77" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt ><a name="-_mk_helper_float_comparison_filter_named" ><strong >_mk_helper_float_comparison_filter_named</strong></a>(attributeName, attributeValue, compareTagAttributeValueToTestValueLambda)</dt><dd ><tt >_mk_helper_float_comparison_filter_named&nbsp;-&nbsp;A&nbsp;helper&nbsp;function&nbsp;to&nbsp;make&nbsp;a&nbsp;function&nbsp;which&nbsp;will<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;test&nbsp;a&nbsp;given&nbsp;attribute&nbsp;value,&nbsp;as&nbsp;a&nbsp;float,&nbsp;and&nbsp;compare&nbsp;it&nbsp;using&nbsp;a&nbsp;provided&nbsp;compare&nbsp;function/lambda.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Named&nbsp;version&nbsp;--&nbsp;tests&nbsp;a&nbsp;specific&nbsp;attribute,&nbsp;by&nbsp;name.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attributeName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;attribute&nbsp;to&nbsp;test<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attributeValue&nbsp;&lt;float/int/str&gt;&nbsp;-&nbsp;The&nbsp;attribute&nbsp;value&nbsp;to&nbsp;test<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;compareTagAttributeValueToTestValueLambda&nbsp;&lt;function/lambda&gt;&nbsp;-&nbsp;The&nbsp;comparison&nbsp;function&nbsp;to&nbsp;use,&nbsp;should&nbsp;return&nbsp;bool&nbsp;(True&nbsp;=&nbsp;match,&nbsp;False&nbsp;=&nbsp;no&nbsp;match)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;function&gt;&nbsp;-&nbsp;A&nbsp;special&nbsp;comparitive&nbsp;function&nbsp;to&nbsp;use&nbsp;to&nbsp;compare&nbsp;a&nbsp;provided&nbsp;tag&nbsp;against&nbsp;the&nbsp;given&nbsp;attribute&nbsp;name's&nbsp;value&nbsp;and&nbsp;comparison&nbsp;function</tt></dd></dl>
+ <dl ><dt ><a name="-_mk_helper_float_comparison_filter_wildcard" ><strong >_mk_helper_float_comparison_filter_wildcard</strong></a>(attributeValue, compareTagAttributeValueToTestValueLambda)</dt><dd ><tt >_mk_helper_float_comparison_filter_wildcard&nbsp;-&nbsp;A&nbsp;helper&nbsp;function&nbsp;to&nbsp;make&nbsp;a&nbsp;function&nbsp;which&nbsp;will<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;test&nbsp;a&nbsp;given&nbsp;attribute&nbsp;value,&nbsp;as&nbsp;a&nbsp;float,&nbsp;and&nbsp;compare&nbsp;it&nbsp;using&nbsp;a&nbsp;provided&nbsp;compare&nbsp;function/lambda.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Wildcard&nbsp;version,&nbsp;all&nbsp;attributes.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attributeValue&nbsp;&lt;float/int/str&gt;&nbsp;-&nbsp;The&nbsp;attribute&nbsp;value&nbsp;to&nbsp;test<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;compareTagAttributeValueToTestValueLambda&nbsp;&lt;function/lambda&gt;&nbsp;-&nbsp;The&nbsp;comparison&nbsp;function&nbsp;to&nbsp;use,&nbsp;should&nbsp;return&nbsp;bool&nbsp;(True&nbsp;=&nbsp;match,&nbsp;False&nbsp;=&nbsp;no&nbsp;match)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;function&gt;&nbsp;-&nbsp;A&nbsp;special&nbsp;comparitive&nbsp;function&nbsp;to&nbsp;use&nbsp;to&nbsp;compare&nbsp;a&nbsp;provided&nbsp;tag&nbsp;against&nbsp;the&nbsp;given&nbsp;attribute&nbsp;value&nbsp;and&nbsp;comparison&nbsp;function</tt></dd></dl>
+ <dl ><dt ><a name="-_mk_xpath_op_filter_by_ancestor_or_self_tagname_multi_level_function" ><strong >_mk_xpath_op_filter_by_ancestor_or_self_tagname_multi_level_function</strong></a>(tagName)</dt><dd ><tt >_mk_xpath_op_filter_by_ancestor_or_self_tagname_multi_level_function&nbsp;-&nbsp;Search&nbsp;all&nbsp;ancestors&nbsp;upward&nbsp;of&nbsp;the&nbsp;current&nbsp;level,&nbsp;and&nbsp;self,&nbsp;for&nbsp;tag&nbsp;name&nbsp;matches<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;function&nbsp;will&nbsp;create&nbsp;and&nbsp;return&nbsp;the&nbsp;function&nbsp;to&nbsp;be&nbsp;associated&nbsp;with&nbsp;the&nbsp;XPathOperation<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;tag&nbsp;name&nbsp;on&nbsp;which&nbsp;to&nbsp;filter,&nbsp;or&nbsp;"*"&nbsp;for&nbsp;wildcard<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;all&nbsp;tags&nbsp;which&nbsp;matched&nbsp;this&nbsp;filter&nbsp;operation.</tt></dd></dl>
+ <dl ><dt ><a name="-_mk_xpath_op_filter_by_ancestor_tagname_multi_level_function" ><strong >_mk_xpath_op_filter_by_ancestor_tagname_multi_level_function</strong></a>(tagName)</dt><dd ><tt >_mk_xpath_op_filter_by_ancestor_tagname_multi_level_function&nbsp;-&nbsp;Search&nbsp;all&nbsp;ancestors&nbsp;upward&nbsp;of&nbsp;the&nbsp;current&nbsp;level&nbsp;for&nbsp;tag&nbsp;name&nbsp;matches<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;function&nbsp;will&nbsp;create&nbsp;and&nbsp;return&nbsp;the&nbsp;function&nbsp;to&nbsp;be&nbsp;associated&nbsp;with&nbsp;the&nbsp;XPathOperation<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;tag&nbsp;name&nbsp;on&nbsp;which&nbsp;to&nbsp;filter,&nbsp;or&nbsp;"*"&nbsp;for&nbsp;wildcard<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;all&nbsp;tags&nbsp;which&nbsp;matched&nbsp;this&nbsp;filter&nbsp;operation.</tt></dd></dl>
+ <dl ><dt ><a name="-_mk_xpath_op_filter_by_parent_tagname_one_level_function" ><strong >_mk_xpath_op_filter_by_parent_tagname_one_level_function</strong></a>(tagName)</dt><dd ><tt >_mk_xpath_op_filter_by_parent_tagname_one_level_function&nbsp;-&nbsp;Filter&nbsp;one&nbsp;level&nbsp;up&nbsp;of&nbsp;current&nbsp;level&nbsp;for&nbsp;a&nbsp;parent&nbsp;with&nbsp;a&nbsp;given&nbsp;tag&nbsp;name.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;function&nbsp;will&nbsp;create&nbsp;and&nbsp;return&nbsp;a&nbsp;function&nbsp;to&nbsp;be&nbsp;associated&nbsp;with&nbsp;the&nbsp;XPathOperation<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;tag&nbsp;name&nbsp;for&nbsp;which&nbsp;to&nbsp;filter,&nbsp;or&nbsp;"*"&nbsp;for&nbsp;wildcard.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;AdvancedTag&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;tags&nbsp;which&nbsp;match&nbsp;this&nbsp;operation.</tt></dd></dl>
+ <dl ><dt ><a name="-_mk_xpath_op_filter_by_tagname_multi_level_function" ><strong >_mk_xpath_op_filter_by_tagname_multi_level_function</strong></a>(tagName)</dt><dd ><tt >_mk_xpath_op_filter_by_tagname_multi_level_function&nbsp;-&nbsp;Filter&nbsp;for&nbsp;a&nbsp;given&nbsp;tag&nbsp;name&nbsp;on&nbsp;any&nbsp;number&nbsp;of&nbsp;levels&nbsp;down<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;function&nbsp;will&nbsp;create&nbsp;the&nbsp;function&nbsp;to&nbsp;be&nbsp;associated&nbsp;with&nbsp;the&nbsp;XPathOperation.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;tag&nbsp;name&nbsp;on&nbsp;which&nbsp;to&nbsp;filter,&nbsp;or&nbsp;"*"&nbsp;for&nbsp;wildcard<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;&nbsp;Tags.AdvancedTag&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;tags&nbsp;which&nbsp;match&nbsp;this&nbsp;filter&nbsp;operation</tt></dd></dl>
+ <dl ><dt ><a name="-_mk_xpath_op_filter_by_tagname_multi_level_function_or_self" ><strong >_mk_xpath_op_filter_by_tagname_multi_level_function_or_self</strong></a>(tagName)</dt><dd ><tt >_mk_xpath_op_filter_by_tagname_multi_level_function_or_self&nbsp;-&nbsp;Filter&nbsp;for&nbsp;a&nbsp;given&nbsp;tag&nbsp;name&nbsp;on&nbsp;any&nbsp;number&nbsp;of&nbsp;levels&nbsp;down&nbsp;and&nbsp;self<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;function&nbsp;will&nbsp;create&nbsp;the&nbsp;function&nbsp;to&nbsp;be&nbsp;associated&nbsp;with&nbsp;the&nbsp;XPathOperation.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;tag&nbsp;name&nbsp;on&nbsp;which&nbsp;to&nbsp;filter,&nbsp;or&nbsp;"*"&nbsp;for&nbsp;wildcard<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;&nbsp;Tags.AdvancedTag&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;tags&nbsp;which&nbsp;match&nbsp;this&nbsp;filter&nbsp;operation</tt></dd></dl>
+ <dl ><dt ><a name="-_mk_xpath_op_filter_by_tagname_one_level_function" ><strong >_mk_xpath_op_filter_by_tagname_one_level_function</strong></a>(tagName)</dt><dd ><tt >_mk_xpath_op_filter_by_tagname_one_level_function&nbsp;-&nbsp;Filters&nbsp;one&nbsp;level&nbsp;of&nbsp;descent,&nbsp;by&nbsp;tag&nbsp;name&nbsp;or&nbsp;wildcard.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;function&nbsp;will&nbsp;create&nbsp;and&nbsp;return&nbsp;the&nbsp;function&nbsp;to&nbsp;be&nbsp;used&nbsp;with&nbsp;the&nbsp;associated&nbsp;XPathOperation.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;==INTERNAL==<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;tag&nbsp;name&nbsp;upon&nbsp;which&nbsp;to&nbsp;filter,&nbsp;or&nbsp;"*"&nbsp;for&nbsp;wildcard<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;&nbsp;AdvancedHTMLParser.Tags.AdvancedTag&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;tags&nbsp;which&nbsp;match&nbsp;the&nbsp;provided&nbsp;tagname&nbsp;after&nbsp;descent</tt></dd></dl>
+ <dl ><dt ><a name="-_mk_xpath_op_filter_by_tagname_one_level_function_or_self" ><strong >_mk_xpath_op_filter_by_tagname_one_level_function_or_self</strong></a>(tagName)</dt><dd ><tt >_mk_xpath_op_filter_by_tagname_one_level_function_or_self&nbsp;-&nbsp;Filters&nbsp;one&nbsp;level&nbsp;of&nbsp;descent,&nbsp;by&nbsp;tag&nbsp;name&nbsp;or&nbsp;wildcard,&nbsp;or&nbsp;self.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;function&nbsp;will&nbsp;create&nbsp;and&nbsp;return&nbsp;the&nbsp;function&nbsp;to&nbsp;be&nbsp;used&nbsp;with&nbsp;the&nbsp;associated&nbsp;XPathOperation.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;tag&nbsp;name&nbsp;upon&nbsp;which&nbsp;to&nbsp;filter,&nbsp;or&nbsp;"*"&nbsp;for&nbsp;wildcard<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;&nbsp;AdvancedHTMLParser.Tags.AdvancedTag&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;tags&nbsp;which&nbsp;match&nbsp;the&nbsp;provided&nbsp;tagname&nbsp;after&nbsp;descent</tt></dd></dl>
+ <dl ><dt ><a name="-_mk_xpath_op_filter_tag_is_nth_child_index" ><strong >_mk_xpath_op_filter_tag_is_nth_child_index</strong></a>(tagName, nthIdxOrd1)</dt><dd ><tt >_mk_xpath_op_filter_tag_is_nth_child_index&nbsp;-&nbsp;Filter&nbsp;for&nbsp;the&nbsp;Nth&nbsp;(origin-1)&nbsp;instance&nbsp;of&nbsp;a&nbsp;given&nbsp;tag&nbsp;name,&nbsp;as&nbsp;a&nbsp;child<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;function&nbsp;will&nbsp;create&nbsp;the&nbsp;function&nbsp;to&nbsp;be&nbsp;associated&nbsp;with&nbsp;the&nbsp;XPathOperation.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;tag&nbsp;name&nbsp;on&nbsp;which&nbsp;to&nbsp;filter,&nbsp;or&nbsp;"*"&nbsp;for&nbsp;wildcard<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;nthIdxOrd1&nbsp;&lt;int&gt;&nbsp;-&nbsp;An&nbsp;origin-1&nbsp;number&nbsp;(1&nbsp;=&nbsp;first,&nbsp;2&nbsp;=&nbsp;second)&nbsp;for&nbsp;which&nbsp;child&nbsp;to&nbsp;return,&nbsp;if&nbsp;present.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;&nbsp;Tags.AdvancedTag&nbsp;&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;tags&nbsp;which&nbsp;match&nbsp;this&nbsp;filter&nbsp;operation.</tt></dd></dl>
+</td></tr></table><p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#55aa55" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
+    
+<tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><strong >__all__</strong> = ('_mk_xpath_op_filter_by_tagname_one_level_function', '_mk_xpath_op_filter_by_tagname_one_level_function_or_self', '_mk_xpath_op_filter_by_tagname_multi_level_function', '_mk_xpath_op_filter_by_tagname_multi_level_function_or_self', '_mk_xpath_op_filter_by_parent_tagname_one_level_function', '_mk_xpath_op_filter_by_ancestor_tagname_multi_level_function', '_mk_xpath_op_filter_by_ancestor_or_self_tagname_multi_level_function', '_mk_xpath_op_filter_tag_is_nth_child_index', '_mk_helper_float_comparison_filter_named', '_mk_helper_float_comparison_filter_wildcard')</td></tr></table>
+</p></p></body></html>

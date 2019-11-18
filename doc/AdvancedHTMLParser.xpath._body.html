@@ -1,0 +1,1133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html ><head ><title >Python: module AdvancedHTMLParser.xpath._body</title>
+<meta charset="utf-8" />
+</head><body bgcolor="#f0f0f8" >
+
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="heading" >
+<tr bgcolor="#7799ee" >
+<td valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" >&nbsp;<br /><big ><big ><strong ><a href="AdvancedHTMLParser.html" ><font color="#ffffff" >AdvancedHTMLParser</font></a>.<a href="AdvancedHTMLParser.xpath.html" ><font color="#ffffff" >xpath</font></a>._body</strong></big></big></font></td><td align="right" valign="bottom" ><font color="#ffffff" face="helvetica, arial" ><a href="AdvancedHTMLParser.html" >index</a></font></td></tr></table>
+    <p ><tt >Copyright&nbsp;(c)&nbsp;2019&nbsp;Timothy&nbsp;Savannah&nbsp;under&nbsp;terms&nbsp;of&nbsp;LGPLv3.&nbsp;All&nbsp;Rights&nbsp;Reserved.<br />
+&nbsp;<br />
+See&nbsp;LICENSE&nbsp;(https://gnu.org/licenses/lgpl-3.0.txt)&nbsp;for&nbsp;more&nbsp;information.<br />
+&nbsp;<br />
+See:&nbsp;https://github.com/kata198/AdvancedHTMLParser&nbsp;for&nbsp;full&nbsp;information<br />
+&nbsp;<br />
+&nbsp;<br />
+==INTERNAL==<br />
+&nbsp;<br />
+xpath._body.py&nbsp;-&nbsp;Internal&nbsp;module&nbsp;for&nbsp;dealing&nbsp;with&nbsp;items&nbsp;within&nbsp;the&nbsp;"body"&nbsp;of&nbsp;a&nbsp;filter&nbsp;expression&nbsp;on&nbsp;a&nbsp;tag</tt></p>
+<p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#aa55cc" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" ><big ><strong >Modules</strong></big></font></td></tr>
+    
+<tr ><td bgcolor="#aa55cc" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><table width="100%" summary="list" ><tr ><td width="25%" valign="top" ><a href="copy.html" >copy</a><br />
+</td><td width="25%" valign="top" ><a href="re.html" >re</a><br />
+</td><td width="25%" valign="top" ></td><td width="25%" valign="top" ></td></tr></table></td></tr></table><p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ee77aa" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" ><big ><strong >Classes</strong></big></font></td></tr>
+    
+<tr ><td bgcolor="#ee77aa" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl >
+<dt ><font face="helvetica, arial" ><a href="__builtin__.html#object" >__builtin__.object</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_Equal" >BodyElementComparison_Equal</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_GreaterThan" >BodyElementComparison_GreaterThan</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_GreaterThanOrEqual" >BodyElementComparison_GreaterThanOrEqual</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_LessThan" >BodyElementComparison_LessThan</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_LessThanOrEqual" >BodyElementComparison_LessThanOrEqual</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_NotEqual" >BodyElementComparison_NotEqual</a>
+</font></dt></dl>
+</dd>
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementOperation" >BodyElementOperation</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_Boolean" >BodyElementValue_Boolean</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_Null" >BodyElementValue_Null</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_Number" >BodyElementValue_Number</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_StaticValue" >BodyElementValue_StaticValue</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_StaticValue_Number" >BodyElementValue_StaticValue_Number</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_StaticValue_String" >BodyElementValue_StaticValue_String</a>
+</font></dt></dl>
+</dd>
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_String" >BodyElementValue_String</a>
+</font></dt></dl>
+</dd>
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_ConcatFunction" >BodyElementValueGenerator_ConcatFunction</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_FetchAttribute" >BodyElementValueGenerator_FetchAttribute</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_Last" >BodyElementValueGenerator_Last</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_NormalizeSpace" >BodyElementValueGenerator_NormalizeSpace</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_Position" >BodyElementValueGenerator_Position</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_Text" >BodyElementValueGenerator_Text</a>
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyLevel" >BodyLevel</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyLevel_Top" >BodyLevel_Top</a>
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+</dl>
+ <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElement" >class <strong >BodyElement</strong></a>(<a href="__builtin__.html#object" >__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElement" >BodyElement</a>&nbsp;-&nbsp;Base&nbsp;class&nbsp;of&nbsp;body&nbsp;elements<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" >Data descriptors defined here:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementComparison" >class <strong >BodyElementComparison</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementComparison" >BodyElementComparison</a>&nbsp;-&nbsp;Base&nbsp;class&nbsp;of&nbsp;Comparison&nbsp;operations&nbsp;(such&nbsp;as&nbsp;equals,&nbsp;not&nbsp;equals,&nbsp;greater&nbsp;than,&nbsp;etc.)<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementComparison-doComparison" ><strong >doComparison</strong></a>(self, leftSide, rightSide)</dt><dd ><tt >doComparison&nbsp;-&nbsp;Do&nbsp;the&nbsp;comparison&nbsp;associated&nbsp;with&nbsp;the&nbsp;subclass&nbsp;of&nbsp;<a href="#BodyElementComparison" >BodyElementComparison</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;and&nbsp;return&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;leftSide&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;Left&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;rightSideValue&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/other?&gt;&nbsp;-&nbsp;Right&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;comparison&nbsp;operation</tt></dd></dl>
+
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >COMPARISON_OPERATOR_STR</strong> = 'UNKNOWN'</dt></dl>
+
+<dl ><dt ><strong >NUMERIC_ONLY</strong> = False</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementComparison_Equal" >class <strong >BodyElementComparison_Equal</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>)</font></td></tr>
+    
+<tr ><td bgcolor="#ffc8d8" ><tt >&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_Equal" >BodyElementComparison_Equal</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >COMPARISON_OPERATOR_STR</strong> = '='</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>:<br />
+<dl ><dt ><a name="BodyElementComparison_Equal-doComparison" ><strong >doComparison</strong></a>(self, leftSide, rightSide)</dt><dd ><tt >doComparison&nbsp;-&nbsp;Do&nbsp;the&nbsp;comparison&nbsp;associated&nbsp;with&nbsp;the&nbsp;subclass&nbsp;of&nbsp;<a href="#BodyElementComparison" >BodyElementComparison</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;and&nbsp;return&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;leftSide&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;Left&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;rightSideValue&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/other?&gt;&nbsp;-&nbsp;Right&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;comparison&nbsp;operation</tt></dd></dl>
+
+<hr />
+Data and other attributes inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>:<br />
+<dl ><dt ><strong >NUMERIC_ONLY</strong> = False</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementComparison_GreaterThan" >class <strong >BodyElementComparison_GreaterThan</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>)</font></td></tr>
+    
+<tr ><td bgcolor="#ffc8d8" ><tt >&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_GreaterThan" >BodyElementComparison_GreaterThan</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >COMPARISON_OPERATOR_STR</strong> = '&gt;'</dt></dl>
+
+<dl ><dt ><strong >NUMERIC_ONLY</strong> = True</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>:<br />
+<dl ><dt ><a name="BodyElementComparison_GreaterThan-doComparison" ><strong >doComparison</strong></a>(self, leftSide, rightSide)</dt><dd ><tt >doComparison&nbsp;-&nbsp;Do&nbsp;the&nbsp;comparison&nbsp;associated&nbsp;with&nbsp;the&nbsp;subclass&nbsp;of&nbsp;<a href="#BodyElementComparison" >BodyElementComparison</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;and&nbsp;return&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;leftSide&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;Left&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;rightSideValue&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/other?&gt;&nbsp;-&nbsp;Right&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;comparison&nbsp;operation</tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementComparison_GreaterThanOrEqual" >class <strong >BodyElementComparison_GreaterThanOrEqual</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>)</font></td></tr>
+    
+<tr ><td bgcolor="#ffc8d8" ><tt >&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_GreaterThanOrEqual" >BodyElementComparison_GreaterThanOrEqual</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >COMPARISON_OPERATOR_STR</strong> = '&gt;='</dt></dl>
+
+<dl ><dt ><strong >NUMERIC_ONLY</strong> = True</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>:<br />
+<dl ><dt ><a name="BodyElementComparison_GreaterThanOrEqual-doComparison" ><strong >doComparison</strong></a>(self, leftSide, rightSide)</dt><dd ><tt >doComparison&nbsp;-&nbsp;Do&nbsp;the&nbsp;comparison&nbsp;associated&nbsp;with&nbsp;the&nbsp;subclass&nbsp;of&nbsp;<a href="#BodyElementComparison" >BodyElementComparison</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;and&nbsp;return&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;leftSide&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;Left&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;rightSideValue&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/other?&gt;&nbsp;-&nbsp;Right&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;comparison&nbsp;operation</tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementComparison_LessThan" >class <strong >BodyElementComparison_LessThan</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>)</font></td></tr>
+    
+<tr ><td bgcolor="#ffc8d8" ><tt >&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_LessThan" >BodyElementComparison_LessThan</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >COMPARISON_OPERATOR_STR</strong> = '&lt;'</dt></dl>
+
+<dl ><dt ><strong >NUMERIC_ONLY</strong> = True</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>:<br />
+<dl ><dt ><a name="BodyElementComparison_LessThan-doComparison" ><strong >doComparison</strong></a>(self, leftSide, rightSide)</dt><dd ><tt >doComparison&nbsp;-&nbsp;Do&nbsp;the&nbsp;comparison&nbsp;associated&nbsp;with&nbsp;the&nbsp;subclass&nbsp;of&nbsp;<a href="#BodyElementComparison" >BodyElementComparison</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;and&nbsp;return&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;leftSide&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;Left&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;rightSideValue&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/other?&gt;&nbsp;-&nbsp;Right&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;comparison&nbsp;operation</tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementComparison_LessThanOrEqual" >class <strong >BodyElementComparison_LessThanOrEqual</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>)</font></td></tr>
+    
+<tr ><td bgcolor="#ffc8d8" ><tt >&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_LessThanOrEqual" >BodyElementComparison_LessThanOrEqual</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >COMPARISON_OPERATOR_STR</strong> = '&lt;='</dt></dl>
+
+<dl ><dt ><strong >NUMERIC_ONLY</strong> = True</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>:<br />
+<dl ><dt ><a name="BodyElementComparison_LessThanOrEqual-doComparison" ><strong >doComparison</strong></a>(self, leftSide, rightSide)</dt><dd ><tt >doComparison&nbsp;-&nbsp;Do&nbsp;the&nbsp;comparison&nbsp;associated&nbsp;with&nbsp;the&nbsp;subclass&nbsp;of&nbsp;<a href="#BodyElementComparison" >BodyElementComparison</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;and&nbsp;return&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;leftSide&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;Left&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;rightSideValue&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/other?&gt;&nbsp;-&nbsp;Right&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;comparison&nbsp;operation</tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementComparison_NotEqual" >class <strong >BodyElementComparison_NotEqual</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>)</font></td></tr>
+    
+<tr ><td bgcolor="#ffc8d8" ><tt >&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison_NotEqual" >BodyElementComparison_NotEqual</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >COMPARISON_OPERATOR_STR</strong> = '!='</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>:<br />
+<dl ><dt ><a name="BodyElementComparison_NotEqual-doComparison" ><strong >doComparison</strong></a>(self, leftSide, rightSide)</dt><dd ><tt >doComparison&nbsp;-&nbsp;Do&nbsp;the&nbsp;comparison&nbsp;associated&nbsp;with&nbsp;the&nbsp;subclass&nbsp;of&nbsp;<a href="#BodyElementComparison" >BodyElementComparison</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;and&nbsp;return&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;leftSide&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;Left&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;rightSideValue&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/other?&gt;&nbsp;-&nbsp;Right&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;comparison&nbsp;operation</tt></dd></dl>
+
+<hr />
+Data and other attributes inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>:<br />
+<dl ><dt ><strong >NUMERIC_ONLY</strong> = False</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementOperation" >class <strong >BodyElementOperation</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementOperation" >BodyElementOperation</a>&nbsp;-&nbsp;Base&nbsp;class&nbsp;of&nbsp;BodyElements&nbsp;which&nbsp;perform&nbsp;some&nbsp;operation&nbsp;against&nbsp;the&nbsp;other&nbsp;body&nbsp;elements<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementOperation" >BodyElementOperation</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementOperation-performOperation" ><strong >performOperation</strong></a>(self, leftSide, rightSide)</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValue" >class <strong >BodyElementValue</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValue" >BodyElementValue</a>&nbsp;-&nbsp;Base&nbsp;class&nbsp;of&nbsp;BodyElements&nbsp;which&nbsp;represent&nbsp;a&nbsp;resolved&nbsp;value<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValue-__init__" ><strong >__init__</strong></a>(self, value)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;element&nbsp;as&nbsp;a&nbsp;wrapper&nbsp;around&nbsp;an&nbsp;already-calculated&nbsp;value</tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue-getValue" ><strong >getValue</strong></a>(self)</dt><dd ><tt >getvalue&nbsp;-&nbsp;Get&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue-setValue" ><strong >setValue</strong></a>(self, newValue)</dt><dd ><tt >setValue&nbsp;-&nbsp;Sets&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;This&nbsp;will&nbsp;be&nbsp;called&nbsp;on&nbsp;all&nbsp;value&nbsp;sets,&nbsp;including&nbsp;__init__&nbsp;(and&nbsp;from&nbsp;regex)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newValue&nbsp;&lt;???&gt;&nbsp;-&nbsp;The&nbsp;new&nbsp;value&nbsp;for&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >VALUE_TYPE</strong> = 0</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValueGenerator" >class <strong >BodyElementValueGenerator</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValueGenerator" >BodyElementValueGenerator</a>&nbsp;-&nbsp;Base&nbsp;class&nbsp;of&nbsp;BodyElements&nbsp;which&nbsp;resolve&nbsp;to&nbsp;a&nbsp;BodyValue&nbsp;after&nbsp;execution&nbsp;with&nbsp;context&nbsp;of&nbsp;a&nbsp;tag<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValueGenerator-resolveValueFromTag" ><strong >resolveValueFromTag</strong></a>(self, thisTag)</dt><dd ><tt >resolveValueFromTag&nbsp;-&nbsp;Process&nbsp;"thisTag"&nbsp;to&nbsp;obtain&nbsp;a&nbsp;<a href="#BodyElementValue" >BodyElementValue</a>&nbsp;relative&nbsp;to&nbsp;this&nbsp;tag&nbsp;and&nbsp;the&nbsp;extending&nbsp;class's&nbsp;implementation<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;thisTag&nbsp;&lt;Tags.AdvancedTag&gt;&nbsp;-&nbsp;The&nbsp;tag&nbsp;of&nbsp;relevance<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;The&nbsp;resulting&nbsp;value</tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValueGenerator_ConcatFunction" >class <strong >BodyElementValueGenerator_ConcatFunction</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValueGenerator_ConcatFunction" >BodyElementValueGenerator_ConcatFunction</a>&nbsp;-&nbsp;Implement&nbsp;the&nbsp;'concat(...)'&nbsp;function<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_ConcatFunction" >BodyElementValueGenerator_ConcatFunction</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValueGenerator_ConcatFunction-__init__" ><strong >__init__</strong></a>(self, fnArgsStr)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;fnArgsStr&nbsp;&lt;str&gt;&nbsp;-&nbsp;Arguments&nbsp;to&nbsp;this&nbsp;function,&nbsp;strings&nbsp;to&nbsp;concatenate</tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValueGenerator_ConcatFunction-resolveValueFromTag" ><strong >resolveValueFromTag</strong></a>(self, thisTag)</dt><dd ><tt >resolveValueFromTag&nbsp;-&nbsp;Return&nbsp;the&nbsp;concatenated&nbsp;string<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;thisTag&nbsp;&lt;AdvancedTag&gt;&nbsp;-&nbsp;The&nbsp;tag&nbsp;of&nbsp;interest<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;<a href="#BodyElementValue_String" >BodyElementValue_String</a>&gt;&nbsp;-&nbsp;The&nbsp;concatenated&nbsp;string&nbsp;as&nbsp;a&nbsp;body&nbsp;element&nbsp;value</tt></dd></dl>
+
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >ARG_SPLIT_RE</strong> = &lt;_sre.SRE_Pattern object&gt;</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValueGenerator_FetchAttribute" >class <strong >BodyElementValueGenerator_FetchAttribute</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a>)</font></td></tr>
+    
+<tr ><td bgcolor="#ffc8d8" ><tt >&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_FetchAttribute" >BodyElementValueGenerator_FetchAttribute</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValueGenerator_FetchAttribute-__init__" ><strong >__init__</strong></a>(self, attributeName)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;Value&nbsp;Generator&nbsp;to&nbsp;fetch&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;attribute<br />
+&nbsp;<br />
+&nbsp;&nbsp;on&nbsp;a&nbsp;tag.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;attributeName&nbsp;&lt;str&gt;&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;attribute&nbsp;to&nbsp;fetch</tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValueGenerator_FetchAttribute-resolveValueFromTag" ><strong >resolveValueFromTag</strong></a>(self, thisTag)</dt><dd ><tt >resolveValueFromTag&nbsp;-&nbsp;Fetch&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;given&nbsp;attribute&nbsp;from&nbsp;a&nbsp;tag,&nbsp;and&nbsp;return&nbsp;the&nbsp;value.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;thisTag&nbsp;&lt;Tags.AdvancedTag&gt;&nbsp;-&nbsp;An&nbsp;instance&nbsp;of&nbsp;a&nbsp;tag&nbsp;on&nbsp;which&nbsp;to&nbsp;work<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;The&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute,&nbsp;or&nbsp;Null,&nbsp;wrapped&nbsp;in&nbsp;a&nbsp;<a href="#BodyElementValue" >BodyElementValue</a>&nbsp;container</tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValueGenerator_Last" >class <strong >BodyElementValueGenerator_Last</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValueGenerator_Text" >BodyElementValueGenerator_Text</a>&nbsp;-&nbsp;Implement&nbsp;the&nbsp;'text()'&nbsp;function<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_Last" >BodyElementValueGenerator_Last</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValueGenerator_Last-__init__" ><strong >__init__</strong></a>(self, functionInner<font color="#909090" >=None</font>)</dt></dl>
+
+<dl ><dt ><a name="BodyElementValueGenerator_Last-resolveValueFromTag" ><strong >resolveValueFromTag</strong></a>(self, thisTag)</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValueGenerator_NormalizeSpace" >class <strong >BodyElementValueGenerator_NormalizeSpace</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValueGenerator_NormalizeSpace" >BodyElementValueGenerator_NormalizeSpace</a>&nbsp;-&nbsp;Implement&nbsp;the&nbsp;'normalize-space()'&nbsp;function<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_NormalizeSpace" >BodyElementValueGenerator_NormalizeSpace</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValueGenerator_NormalizeSpace-__init__" ><strong >__init__</strong></a>(self, functionInner<font color="#909090" >=None</font>)</dt></dl>
+
+<dl ><dt ><a name="BodyElementValueGenerator_NormalizeSpace-resolveValueFromTag" ><strong >resolveValueFromTag</strong></a>(self, thisTag)</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValueGenerator_Position" >class <strong >BodyElementValueGenerator_Position</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValueGenerator_Position" >BodyElementValueGenerator_Position</a>&nbsp;-&nbsp;Implement&nbsp;the&nbsp;'position()'&nbsp;function<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_Position" >BodyElementValueGenerator_Position</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValueGenerator_Position-__init__" ><strong >__init__</strong></a>(self, functionInner<font color="#909090" >=None</font>)</dt></dl>
+
+<dl ><dt ><a name="BodyElementValueGenerator_Position-resolveValueFromTag" ><strong >resolveValueFromTag</strong></a>(self, thisTag)</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValueGenerator_Text" >class <strong >BodyElementValueGenerator_Text</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValueGenerator_Text" >BodyElementValueGenerator_Text</a>&nbsp;-&nbsp;Implement&nbsp;the&nbsp;'text()'&nbsp;function<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator_Text" >BodyElementValueGenerator_Text</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValueGenerator" >BodyElementValueGenerator</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValueGenerator_Text-__init__" ><strong >__init__</strong></a>(self, functionInner<font color="#909090" >=None</font>)</dt></dl>
+
+<dl ><dt ><a name="BodyElementValueGenerator_Text-resolveValueFromTag" ><strong >resolveValueFromTag</strong></a>(self, thisTag)</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValue_Boolean" >class <strong >BodyElementValue_Boolean</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValue_Boolean" >BodyElementValue_Boolean</a>&nbsp;-&nbsp;A&nbsp;True/False&nbsp;<a href="#BodyElementValue" >BodyElementValue</a>,&nbsp;like&nbsp;returned&nbsp;by&nbsp;a&nbsp;comparison&nbsp;operation<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_Boolean" >BodyElementValue_Boolean</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValue_Boolean-setValue" ><strong >setValue</strong></a>(self, newValue)</dt><dd ><tt >setValue&nbsp;-&nbsp;Set&nbsp;a&nbsp;boolean&nbsp;value<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newValue&nbsp;&lt;bool&gt;&nbsp;-&nbsp;Boolean&nbsp;value<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;<a href="#BodyElementValue" >BodyElementValue</a>.setValue</tt></dd></dl>
+
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >VALUE_TYPE</strong> = 4</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>:<br />
+<dl ><dt ><a name="BodyElementValue_Boolean-__init__" ><strong >__init__</strong></a>(self, value)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;element&nbsp;as&nbsp;a&nbsp;wrapper&nbsp;around&nbsp;an&nbsp;already-calculated&nbsp;value</tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue_Boolean-getValue" ><strong >getValue</strong></a>(self)</dt><dd ><tt >getvalue&nbsp;-&nbsp;Get&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValue_Null" >class <strong >BodyElementValue_Null</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValue_Null" >BodyElementValue_Null</a>&nbsp;-&nbsp;A&nbsp;null&nbsp;<a href="#BodyElementValue" >BodyElementValue</a><br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_Null" >BodyElementValue_Null</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValue_Null-__init__" ><strong >__init__</strong></a>(self, value<font color="#909090" >=&lt;AdvancedHTMLParser.xpath.null.NullType object&gt;</font>)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a>.&nbsp;Override&nbsp;default&nbsp;to&nbsp;allow&nbsp;passing&nbsp;no&nbsp;value&nbsp;(there&nbsp;is&nbsp;only&nbsp;one)</tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue_Null-setValue" ><strong >setValue</strong></a>(self, newValue<font color="#909090" >=&lt;AdvancedHTMLParser.xpath.null.NullType object&gt;</font>)</dt><dd ><tt >setValue&nbsp;-&nbsp;Set&nbsp;a&nbsp;null&nbsp;value<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newValue&nbsp;&lt;str&gt;&nbsp;-&nbsp;String&nbsp;value<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;<a href="#BodyElementValue" >BodyElementValue</a>.setValue</tt></dd></dl>
+
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >VALUE_TYPE</strong> = 6</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>:<br />
+<dl ><dt ><a name="BodyElementValue_Null-getValue" ><strong >getValue</strong></a>(self)</dt><dd ><tt >getvalue&nbsp;-&nbsp;Get&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValue_Number" >class <strong >BodyElementValue_Number</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValue_Number" >BodyElementValue_Number</a>&nbsp;-&nbsp;A&nbsp;numeric&nbsp;<a href="#BodyElementValue" >BodyElementValue</a><br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_Number" >BodyElementValue_Number</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValue_Number-setValue" ><strong >setValue</strong></a>(self, newValue)</dt><dd ><tt >setValue&nbsp;-&nbsp;Sets&nbsp;the&nbsp;inner&nbsp;value&nbsp;to&nbsp;a&nbsp;float,&nbsp;or&nbsp;raises&nbsp;exception&nbsp;on&nbsp;failure&nbsp;to&nbsp;convert.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newValue&nbsp;&lt;str/float&gt;&nbsp;-&nbsp;A&nbsp;number&nbsp;(positive&nbsp;or&nbsp;negative,&nbsp;integer&nbsp;or&nbsp;float)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@raises&nbsp;XPathRuntimeError&nbsp;-&nbsp;Type&nbsp;passed&nbsp;is&nbsp;not&nbsp;convertable&nbsp;to&nbsp;float<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;<a href="#BodyElementValue_StaticValue" >BodyElementValue_StaticValue</a>.setValue</tt></dd></dl>
+
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >VALUE_TYPE</strong> = 1</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>:<br />
+<dl ><dt ><a name="BodyElementValue_Number-__init__" ><strong >__init__</strong></a>(self, value)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;element&nbsp;as&nbsp;a&nbsp;wrapper&nbsp;around&nbsp;an&nbsp;already-calculated&nbsp;value</tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue_Number-getValue" ><strong >getValue</strong></a>(self)</dt><dd ><tt >getvalue&nbsp;-&nbsp;Get&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValue_StaticValue" >class <strong >BodyElementValue_StaticValue</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValue_StaticValue" >BodyElementValue_StaticValue</a>&nbsp;-&nbsp;Base&nbsp;class&nbsp;of&nbsp;static&nbsp;values&nbsp;(&nbsp;appear&nbsp;in&nbsp;the&nbsp;body&nbsp;string&nbsp;directly,&nbsp;e.x.&nbsp;"hello"&nbsp;or&nbsp;12&nbsp;)<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_StaticValue" >BodyElementValue_StaticValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>:<br />
+<dl ><dt ><a name="BodyElementValue_StaticValue-__init__" ><strong >__init__</strong></a>(self, value)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;element&nbsp;as&nbsp;a&nbsp;wrapper&nbsp;around&nbsp;an&nbsp;already-calculated&nbsp;value</tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue_StaticValue-getValue" ><strong >getValue</strong></a>(self)</dt><dd ><tt >getvalue&nbsp;-&nbsp;Get&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue_StaticValue-setValue" ><strong >setValue</strong></a>(self, newValue)</dt><dd ><tt >setValue&nbsp;-&nbsp;Sets&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;This&nbsp;will&nbsp;be&nbsp;called&nbsp;on&nbsp;all&nbsp;value&nbsp;sets,&nbsp;including&nbsp;__init__&nbsp;(and&nbsp;from&nbsp;regex)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newValue&nbsp;&lt;???&gt;&nbsp;-&nbsp;The&nbsp;new&nbsp;value&nbsp;for&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<hr />
+Data and other attributes inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>:<br />
+<dl ><dt ><strong >VALUE_TYPE</strong> = 0</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValue_StaticValue_Number" >class <strong >BodyElementValue_StaticValue_Number</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_StaticValue" >BodyElementValue_StaticValue</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValue_StaticValue_Number" >BodyElementValue_StaticValue_Number</a>&nbsp;-&nbsp;StaticValue&nbsp;to&nbsp;represent&nbsp;a&nbsp;number<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_StaticValue_Number" >BodyElementValue_StaticValue_Number</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_StaticValue" >BodyElementValue_StaticValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValue_StaticValue_Number-setValue" ><strong >setValue</strong></a>(self, newValue)</dt><dd ><tt >setValue&nbsp;-&nbsp;Sets&nbsp;the&nbsp;inner&nbsp;value&nbsp;to&nbsp;a&nbsp;float,&nbsp;or&nbsp;raises&nbsp;exception&nbsp;on&nbsp;failure&nbsp;to&nbsp;convert.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newValue&nbsp;&lt;str/float&gt;&nbsp;-&nbsp;A&nbsp;number&nbsp;(positive&nbsp;or&nbsp;negative,&nbsp;integer&nbsp;or&nbsp;float)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@raises&nbsp;XPathRuntimeError&nbsp;-&nbsp;Type&nbsp;passed&nbsp;is&nbsp;not&nbsp;convertable&nbsp;to&nbsp;float<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;<a href="#BodyElementValue_StaticValue" >BodyElementValue_StaticValue</a>.setValue</tt></dd></dl>
+
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >VALUE_TYPE</strong> = 1</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>:<br />
+<dl ><dt ><a name="BodyElementValue_StaticValue_Number-__init__" ><strong >__init__</strong></a>(self, value)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;element&nbsp;as&nbsp;a&nbsp;wrapper&nbsp;around&nbsp;an&nbsp;already-calculated&nbsp;value</tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue_StaticValue_Number-getValue" ><strong >getValue</strong></a>(self)</dt><dd ><tt >getvalue&nbsp;-&nbsp;Get&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValue_StaticValue_String" >class <strong >BodyElementValue_StaticValue_String</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_StaticValue" >BodyElementValue_StaticValue</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValue_StaticValue_String" >BodyElementValue_StaticValue_String</a>&nbsp;-&nbsp;StaticValue&nbsp;represents&nbsp;a&nbsp;string<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_StaticValue_String" >BodyElementValue_StaticValue_String</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_StaticValue" >BodyElementValue_StaticValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >VALUE_TYPE</strong> = 3</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>:<br />
+<dl ><dt ><a name="BodyElementValue_StaticValue_String-__init__" ><strong >__init__</strong></a>(self, value)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;element&nbsp;as&nbsp;a&nbsp;wrapper&nbsp;around&nbsp;an&nbsp;already-calculated&nbsp;value</tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue_StaticValue_String-getValue" ><strong >getValue</strong></a>(self)</dt><dd ><tt >getvalue&nbsp;-&nbsp;Get&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue_StaticValue_String-setValue" ><strong >setValue</strong></a>(self, newValue)</dt><dd ><tt >setValue&nbsp;-&nbsp;Sets&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;This&nbsp;will&nbsp;be&nbsp;called&nbsp;on&nbsp;all&nbsp;value&nbsp;sets,&nbsp;including&nbsp;__init__&nbsp;(and&nbsp;from&nbsp;regex)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newValue&nbsp;&lt;???&gt;&nbsp;-&nbsp;The&nbsp;new&nbsp;value&nbsp;for&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementValue_String" >class <strong >BodyElementValue_String</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementValue_String" >BodyElementValue_String</a>&nbsp;-&nbsp;A&nbsp;string&nbsp;<a href="#BodyElementValue" >BodyElementValue</a><br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue_String" >BodyElementValue_String</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementValue_String-setValue" ><strong >setValue</strong></a>(self, newValue)</dt><dd ><tt >setValue&nbsp;-&nbsp;Set&nbsp;a&nbsp;string&nbsp;value<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;newValue&nbsp;&lt;str&gt;&nbsp;-&nbsp;String&nbsp;value<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;<a href="#BodyElementValue" >BodyElementValue</a>.setValue</tt></dd></dl>
+
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >VALUE_TYPE</strong> = 3</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementValue" >BodyElementValue</a>:<br />
+<dl ><dt ><a name="BodyElementValue_String-__init__" ><strong >__init__</strong></a>(self, value)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;element&nbsp;as&nbsp;a&nbsp;wrapper&nbsp;around&nbsp;an&nbsp;already-calculated&nbsp;value</tt></dd></dl>
+
+<dl ><dt ><a name="BodyElementValue_String-getValue" ><strong >getValue</strong></a>(self)</dt><dd ><tt >getvalue&nbsp;-&nbsp;Get&nbsp;the&nbsp;value&nbsp;associated&nbsp;with&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyLevel" >class <strong >BodyLevel</strong></a>(<a href="__builtin__.html#object" >__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyLevel" >BodyLevel</a>&nbsp;-&nbsp;A&nbsp;single&nbsp;"level"&nbsp;of&nbsp;a&nbsp;body<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" >Methods defined here:<br />
+<dl ><dt ><a name="BodyLevel-__init__" ><strong >__init__</strong></a>(self)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<dl ><dt ><a name="BodyLevel-appendBodyElement" ><strong >appendBodyElement</strong></a>(self, bodyElement)</dt><dd ><tt >appendBodyElement&nbsp;-&nbsp;Add&nbsp;a&nbsp;body&nbsp;element&nbsp;to&nbsp;the&nbsp;current&nbsp;tail&nbsp;of&nbsp;this&nbsp;level<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;bodyElement&nbsp;&lt;<a href="#BodyElement" >BodyElement</a>&gt;&nbsp;-&nbsp;The&nbsp;body&nbsp;element&nbsp;to&nbsp;add</tt></dd></dl>
+
+<dl ><dt ><a name="BodyLevel-appendBodyElements" ><strong >appendBodyElements</strong></a>(self, bodyElements)</dt><dd ><tt >addBodyElements&nbsp;-&nbsp;Add&nbsp;a&nbsp;list&nbsp;of&nbsp;body&nbsp;elements&nbsp;to&nbsp;the&nbsp;current&nbsp;tail&nbsp;of&nbsp;this&nbsp;level<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;bodyElements&nbsp;list&lt;<a href="#BodyElement" >BodyElement</a>&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;BodyElements&nbsp;to&nbsp;add</tt></dd></dl>
+
+<dl ><dt ><a name="BodyLevel-evaluate" ><strong >evaluate</strong></a>(self, currentTags)</dt><dd ><tt >evaluate&nbsp;-&nbsp;Evaluate&nbsp;this&nbsp;level,&nbsp;and&nbsp;return&nbsp;the&nbsp;tags&nbsp;which&nbsp;match&nbsp;the&nbsp;criteria<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;currentTags&nbsp;list/TagCollection&nbsp;&lt;&nbsp;AdvancedTag&nbsp;&gt;&nbsp;-&nbsp;The&nbsp;current&nbsp;set&nbsp;of&nbsp;tags&nbsp;to&nbsp;process<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;TagCollection&nbsp;&lt;&nbsp;AdvancedTag&nbsp;&gt;&nbsp;-&nbsp;The&nbsp;tags&nbsp;which&nbsp;"pass"&nbsp;this&nbsp;level</tt></dd></dl>
+
+<hr />
+Data descriptors defined here:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyLevel_Top" >class <strong >BodyLevel_Top</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyLevel" >BodyLevel</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyLevel_Top" >BodyLevel_Top</a>&nbsp;-&nbsp;The&nbsp;topmost&nbsp;level&nbsp;of&nbsp;a&nbsp;body.&nbsp;This&nbsp;is&nbsp;the&nbsp;final&nbsp;evaluation&nbsp;before&nbsp;passing&nbsp;onto&nbsp;the&nbsp;next&nbsp;tag&nbsp;filter<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyLevel_Top" >BodyLevel_Top</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyLevel" >BodyLevel</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyLevel_Top-applyFunction" ><strong >applyFunction</strong></a> = <a href="#BodyLevel_Top-evaluate" >evaluate</a>(self, currentTags)</dt></dl>
+
+<dl ><dt ><a name="BodyLevel_Top-evaluate" ><strong >evaluate</strong></a>(self, currentTags)</dt><dd ><tt >evaluate&nbsp;-&nbsp;Evaluate&nbsp;the&nbsp;topmost&nbsp;level,&nbsp;and&nbsp;return&nbsp;tags&nbsp;to&nbsp;match.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;the&nbsp;topmost&nbsp;level,&nbsp;we&nbsp;run&nbsp;all&nbsp;components&nbsp;left-to-right,&nbsp;and&nbsp;evaluate&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;an&nbsp;integer&nbsp;remains,&nbsp;we&nbsp;use&nbsp;that&nbsp;1-origin&nbsp;Nth&nbsp;child&nbsp;of&nbsp;parent.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;a&nbsp;boolean&nbsp;remains,&nbsp;we&nbsp;use&nbsp;True&nbsp;to&nbsp;retain,&nbsp;False&nbsp;to&nbsp;discard.</tt></dd></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyLevel" >BodyLevel</a>:<br />
+<dl ><dt ><a name="BodyLevel_Top-__init__" ><strong >__init__</strong></a>(self)</dt><dd ><tt >__init__&nbsp;-&nbsp;Create&nbsp;this&nbsp;<a href="__builtin__.html#object" >object</a></tt></dd></dl>
+
+<dl ><dt ><a name="BodyLevel_Top-appendBodyElement" ><strong >appendBodyElement</strong></a>(self, bodyElement)</dt><dd ><tt >appendBodyElement&nbsp;-&nbsp;Add&nbsp;a&nbsp;body&nbsp;element&nbsp;to&nbsp;the&nbsp;current&nbsp;tail&nbsp;of&nbsp;this&nbsp;level<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;bodyElement&nbsp;&lt;<a href="#BodyElement" >BodyElement</a>&gt;&nbsp;-&nbsp;The&nbsp;body&nbsp;element&nbsp;to&nbsp;add</tt></dd></dl>
+
+<dl ><dt ><a name="BodyLevel_Top-appendBodyElements" ><strong >appendBodyElements</strong></a>(self, bodyElements)</dt><dd ><tt >addBodyElements&nbsp;-&nbsp;Add&nbsp;a&nbsp;list&nbsp;of&nbsp;body&nbsp;elements&nbsp;to&nbsp;the&nbsp;current&nbsp;tail&nbsp;of&nbsp;this&nbsp;level<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;bodyElements&nbsp;list&lt;<a href="#BodyElement" >BodyElement</a>&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;BodyElements&nbsp;to&nbsp;add</tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyLevel" >BodyLevel</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></td></tr></table><p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#eeaa77" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" ><big ><strong >Functions</strong></big></font></td></tr>
+    
+<tr ><td bgcolor="#eeaa77" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt ><a name="-parseBodyStringIntoBodyElements" ><strong >parseBodyStringIntoBodyElements</strong></a>(bodyString)</dt><dd ><tt >parseBodyStringIntoBodyElements&nbsp;-&nbsp;Parses&nbsp;the&nbsp;body&nbsp;string&nbsp;of&nbsp;a&nbsp;tag&nbsp;filter&nbsp;expression&nbsp;(between&nbsp;square&nbsp;brackets)<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;individual&nbsp;body&nbsp;elements.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;bodyString&nbsp;&lt;str&gt;&nbsp;-&nbsp;A&nbsp;body&nbsp;string&nbsp;of&nbsp;an&nbsp;XPath&nbsp;expression<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;list&lt;<a href="#BodyElement" >BodyElement</a>&gt;&nbsp;-&nbsp;A&nbsp;list&nbsp;of&nbsp;matched&nbsp;<a href="#BodyElement" >BodyElement</a>&nbsp;items,&nbsp;in&nbsp;order&nbsp;of&nbsp;appearance.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@raises&nbsp;XPathParseError&nbsp;-&nbsp;Failure&nbsp;to&nbsp;parse</tt></dd></dl>
+</td></tr></table><p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#55aa55" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
+    
+<tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><strong >ALL_BODY_ELEMENT_RES</strong> = [(&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_FetchAttribute'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_NormalizeSpace'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Text'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_ConcatFunction'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Last'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Position'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_Equal'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_NotEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_LessThan'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_LessThanOrEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_GreaterThan'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_GreaterThanOrEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_String'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_String'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_Number'&gt;)]<br />
+<strong >BEC_EQUAL_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEC_GREATER_THAN_OR_EQUAL_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEC_GREATER_THAN_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEC_LESS_THAN_OR_EQUAL_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEC_LESS_THAN_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEC_NOT_EQUAL_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEVG_CONCAT_FUNCTION_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEVG_FETCH_ATTRIBUTE_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEVG_LAST_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEVG_NORMALIZE_SPACE_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEVG_POSITION_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEVG_TEXT_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEV_SV_NUMBER_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEV_SV_STRING_DOUBLE_QUOTE_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEV_SV_STRING_SINGLE_QUOTE_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BODY_VALUE_TYPE_BOOLEAN</strong> = 4<br />
+<strong >BODY_VALUE_TYPE_LIST</strong> = 5<br />
+<strong >BODY_VALUE_TYPE_NULL</strong> = 6<br />
+<strong >BODY_VALUE_TYPE_NUMBER</strong> = 1<br />
+<strong >BODY_VALUE_TYPE_STRING</strong> = 3<br />
+<strong >BODY_VALUE_TYPE_UNKNOWN</strong> = 0<br />
+<strong >COMPARISON_RES</strong> = [(&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_Equal'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_NotEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_LessThan'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_LessThanOrEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_GreaterThan'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_GreaterThanOrEqual'&gt;)]<br />
+<strong >Null</strong> = &lt;AdvancedHTMLParser.xpath.null.NullType object&gt;<br />
+<strong >OPERATION_RES</strong> = []<br />
+<strong >STATIC_VALUES_RES</strong> = [(&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_String'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_String'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_Number'&gt;)]<br />
+<strong >VALUE_GENERATOR_RES</strong> = [(&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_FetchAttribute'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_NormalizeSpace'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Text'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_ConcatFunction'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Last'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Position'&gt;)]</td></tr></table>
+</p></p></p></p></body></html>
