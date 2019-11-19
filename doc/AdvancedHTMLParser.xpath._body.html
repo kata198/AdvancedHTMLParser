@@ -40,6 +40,13 @@ xpath._body.py&nbsp;-&nbsp;Internal&nbsp;module&nbsp;for&nbsp;dealing&nbsp;with&
 <dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>
 </font></dt><dd >
 <dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps" >BodyElementBooleanOps</a>
+</font></dt><dd >
+<dl >
+<dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps_And" >BodyElementBooleanOps_And</a>
+</font></dt><dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps_Or" >BodyElementBooleanOps_Or</a>
+</font></dt></dl>
+</dd>
 <dt ><font face="helvetica, arial" ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementComparison" >BodyElementComparison</a>
 </font></dt><dd >
 <dl >
@@ -100,6 +107,124 @@ xpath._body.py&nbsp;-&nbsp;Internal&nbsp;module&nbsp;for&nbsp;dealing&nbsp;with&
 <td colspan="2" ><tt ><a href="#BodyElement" >BodyElement</a>&nbsp;-&nbsp;Base&nbsp;class&nbsp;of&nbsp;body&nbsp;elements<br />&nbsp;</tt></td></tr>
 <tr ><td >&nbsp;</td>
 <td width="100%" >Data descriptors defined here:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementBooleanOps" >class <strong >BodyElementBooleanOps</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8" ><td rowspan="2" ><tt >&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2" ><tt ><a href="#BodyElementBooleanOps" >BodyElementBooleanOps</a>&nbsp;-&nbsp;Base&nbsp;comparison&nbsp;class&nbsp;for&nbsp;boolean&nbsp;comparison&nbsp;operations&nbsp;(e.x.&nbsp;"and"&nbsp;,&nbsp;"or"&nbsp;)<br />&nbsp;</tt></td></tr>
+<tr ><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps" >BodyElementBooleanOps</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Methods defined here:<br />
+<dl ><dt ><a name="BodyElementBooleanOps-doBooleanOp" ><strong >doBooleanOp</strong></a>(self, leftSide, rightSide)</dt><dd ><tt >doBooleanOp&nbsp;-&nbsp;Do&nbsp;the&nbsp;comparison&nbsp;associated&nbsp;with&nbsp;the&nbsp;subclass&nbsp;of&nbsp;<a href="#BodyElementBooleanOps" >BodyElementBooleanOps</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;and&nbsp;return&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;leftSide&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;Left&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;rightSideValue&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/other?&gt;&nbsp;-&nbsp;Right&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;comparison&nbsp;operation</tt></dd></dl>
+
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >BOOLEAN_OP_STR</strong> = 'unknown'</dt></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementBooleanOps_And" >class <strong >BodyElementBooleanOps_And</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps" >BodyElementBooleanOps</a>)</font></td></tr>
+    
+<tr ><td bgcolor="#ffc8d8" ><tt >&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps_And" >BodyElementBooleanOps_And</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps" >BodyElementBooleanOps</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >BOOLEAN_OP_STR</strong> = 'and'</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps" >BodyElementBooleanOps</a>:<br />
+<dl ><dt ><a name="BodyElementBooleanOps_And-doBooleanOp" ><strong >doBooleanOp</strong></a>(self, leftSide, rightSide)</dt><dd ><tt >doBooleanOp&nbsp;-&nbsp;Do&nbsp;the&nbsp;comparison&nbsp;associated&nbsp;with&nbsp;the&nbsp;subclass&nbsp;of&nbsp;<a href="#BodyElementBooleanOps" >BodyElementBooleanOps</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;and&nbsp;return&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;leftSide&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;Left&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;rightSideValue&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/other?&gt;&nbsp;-&nbsp;Right&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;comparison&nbsp;operation</tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
+<dl ><dt ><strong >__dict__</strong></dt>
+<dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl ><dt ><strong >__weakref__</strong></dt>
+<dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#ffc8d8" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#000000" face="helvetica, arial" ><a name="BodyElementBooleanOps_Or" >class <strong >BodyElementBooleanOps_Or</strong></a>(<a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps" >BodyElementBooleanOps</a>)</font></td></tr>
+    
+<tr ><td bgcolor="#ffc8d8" ><tt >&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt >Method resolution order:</dt>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps_Or" >BodyElementBooleanOps_Or</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps" >BodyElementBooleanOps</a></dd>
+<dd ><a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a></dd>
+<dd ><a href="__builtin__.html#object" >__builtin__.object</a></dd>
+</dl>
+<hr />
+Data and other attributes defined here:<br />
+<dl ><dt ><strong >BOOLEAN_OP_STR</strong> = 'or'</dt></dl>
+
+<hr />
+Methods inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElementBooleanOps" >BodyElementBooleanOps</a>:<br />
+<dl ><dt ><a name="BodyElementBooleanOps_Or-doBooleanOp" ><strong >doBooleanOp</strong></a>(self, leftSide, rightSide)</dt><dd ><tt >doBooleanOp&nbsp;-&nbsp;Do&nbsp;the&nbsp;comparison&nbsp;associated&nbsp;with&nbsp;the&nbsp;subclass&nbsp;of&nbsp;<a href="#BodyElementBooleanOps" >BodyElementBooleanOps</a><br />
+&nbsp;<br />
+&nbsp;&nbsp;and&nbsp;return&nbsp;the&nbsp;result.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;leftSide&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/<a href="#BodyElementValue" >BodyElementValue</a>&gt;&nbsp;-&nbsp;Left&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;rightSideValue&nbsp;&lt;<a href="#BodyElementValue" >BodyElementValue</a>/str/float/other?&gt;&nbsp;-&nbsp;Right&nbsp;side&nbsp;of&nbsp;comparison&nbsp;operator<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;bool&gt;&nbsp;-&nbsp;The&nbsp;result&nbsp;of&nbsp;the&nbsp;comparison&nbsp;operation</tt></dd></dl>
+
+<hr />
+Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#BodyElement" >BodyElement</a>:<br />
 <dl ><dt ><strong >__dict__</strong></dt>
 <dd ><tt >dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
@@ -1077,7 +1202,7 @@ Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#Bod
 <dl ><dt ><strong >__weakref__</strong></dt>
 <dd ><tt >list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
-</td></tr></table></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></td></tr></table><p >
+</td></tr></table></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></td></tr></table><p >
 <table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
 <tr bgcolor="#eeaa77" >
 <td colspan="3" valign="bottom" >&nbsp;<br />
@@ -1103,7 +1228,9 @@ Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#Bod
 <font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
     
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
-<td width="100%" ><strong >ALL_BODY_ELEMENT_RES</strong> = [(&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_FetchAttribute'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_NormalizeSpace'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Text'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_ConcatFunction'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Last'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Position'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_Equal'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_NotEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_LessThan'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_LessThanOrEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_GreaterThan'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_GreaterThanOrEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_String'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_String'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_Number'&gt;)]<br />
+<td width="100%" ><strong >ALL_BODY_ELEMENT_RES</strong> = [(&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_FetchAttribute'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_NormalizeSpace'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Text'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_ConcatFunction'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Last'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValueGenerator_Position'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_Equal'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_NotEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_LessThan'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_LessThanOrEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_GreaterThan'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_GreaterThanOrEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementBooleanOps_And'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementBooleanOps_Or'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_String'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_String'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementValue_StaticValue_Number'&gt;)]<br />
+<strong >BEBO_AND_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
+<strong >BEBO_OR_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
 <strong >BEC_EQUAL_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
 <strong >BEC_GREATER_THAN_OR_EQUAL_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
 <strong >BEC_GREATER_THAN_RE</strong> = &lt;_sre.SRE_Pattern object&gt;<br />
@@ -1125,6 +1252,7 @@ Data descriptors inherited from <a href="AdvancedHTMLParser.xpath._body.html#Bod
 <strong >BODY_VALUE_TYPE_NUMBER</strong> = 1<br />
 <strong >BODY_VALUE_TYPE_STRING</strong> = 3<br />
 <strong >BODY_VALUE_TYPE_UNKNOWN</strong> = 0<br />
+<strong >BOOLEAN_OPS_RES</strong> = [(&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementBooleanOps_And'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementBooleanOps_Or'&gt;)]<br />
 <strong >COMPARISON_RES</strong> = [(&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_Equal'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_NotEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_LessThan'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_LessThanOrEqual'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_GreaterThan'&gt;), (&lt;_sre.SRE_Pattern object&gt;, &lt;class 'AdvancedHTMLParser.xpath._body.BodyElementComparison_GreaterThanOrEqual'&gt;)]<br />
 <strong >Null</strong> = &lt;AdvancedHTMLParser.xpath.null.NullType object&gt;<br />
 <strong >OPERATION_RES</strong> = []<br />
