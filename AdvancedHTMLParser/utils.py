@@ -84,6 +84,11 @@ def unescapeQuotes(value):
     '''
     return value.replace('&quot;', '"')
 
+
+# TODO: Use the types in compat.py
+
+# TODO: Evaluate all uses and determine if should be done like this,
+#         or properly encoded/decoded using the encoding specified in the parser
 if sys.version_info.major < 3:
     def tostr(value):
         if not isinstance(value, (str, unicode)):
@@ -98,3 +103,6 @@ else:
 
     def isstr(value):
         return isinstance(value, str)
+
+
+# vim: set ts=4 sw=4 st=4 expandtab :
