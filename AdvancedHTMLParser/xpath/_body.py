@@ -16,6 +16,8 @@ import copy
 import re
 
 from ..Tags import TagCollection
+from ..compat import STRING_TYPES
+from ..utils import tostr
 
 from .exceptions import XPathNotImplementedError, XPathRuntimeError, XPathParseError
 from ._filters import _mk_xpath_op_filter_tag_is_nth_child_index
@@ -506,7 +508,7 @@ class BodyElementValue_String(BodyElementValue):
                 @see BodyElementValue.setValue
         '''
         # TODO: Check type of newValue against str (or str/unicode for py2) ?
-        self.value = str(newValue)
+        self.value = tostr(newValue)
 
 
 class BodyElementValue_Null(BodyElementValue):
@@ -883,10 +885,9 @@ class BodyElementValueGenerator_ConcatFunction(BodyElementValueGenerator):
             elif issubclass(fnArgClass, BodyElementValue):
                 # TODO: Is this right?
                 # TODO: Handle float vs integer?
-                valPart = str( fnArg.getValue() )
+                valPart = tostr( fnArg.getValue() )
 
-            elif issubclass(fnArgClass, str):
-                # TODO: python2 compat w/ unicode
+            elif issubclass(fnArgClass, STRING_TYPES):
                 valPart = fnArg
 
             else:
