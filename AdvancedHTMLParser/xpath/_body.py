@@ -409,6 +409,8 @@ class BodyElement(object):
 ### BodyElementValue types ###
 #####                    #####
 
+# NOTE: Use enum type? Requires additional package under python2
+
 # An enumeration of the possible types a BodyElementValue subclass may hold
 BODY_VALUE_TYPE_UNKNOWN = 0
 BODY_VALUE_TYPE_NUMBER = 1
@@ -418,6 +420,16 @@ BODY_VALUE_TYPE_BOOLEAN = 4
 # List - Unimplemented
 BODY_VALUE_TYPE_LIST = 5
 BODY_VALUE_TYPE_NULL = 6
+
+# BODY_VALUE_TYPE_TO_STR - The value type integer to a string representation.
+BODY_VALUE_TYPE_TO_STR = {
+    BODY_VALUE_TYPE_UNKNOWN : "unknown",
+    BODY_VALUE_TYPE_NUMBER  : "number",
+    BODY_VALUE_TYPE_STRING  : "string",
+    BODY_VALUE_TYPE_BOOLEAN : "boolean",
+    BODY_VALUE_TYPE_LIST    : "list",
+    BODY_VALUE_TYPE_NULL    : "null",
+}
 
 
 class BodyElementValue(BodyElement):
@@ -465,6 +477,17 @@ class BodyElementValue(BodyElement):
                 @param newValue <???> - The new value for this object
         '''
         self.value = newValue
+
+
+    def __repr__(self):
+        '''
+            __repr__ - Get a string representation of this value, with code information
+        '''
+        className = self.__class__.__name__
+        valueType = self.VALUE_TYPE
+        valueTypeStr = BODY_VALUE_TYPE_TO_STR[ valueType ]
+        valueRepr = repr( self.getValue() )
+        return "%s<VALUE_TYPE=%d[%s]>(value=%s)" %( className, valueType, valueTypeStr, valueRepr )
 
 
 class BodyElementValue_Boolean(BodyElementValue):
