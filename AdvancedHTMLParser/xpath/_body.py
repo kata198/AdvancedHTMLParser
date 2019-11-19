@@ -134,7 +134,7 @@ class BodyLevel_Top(BodyLevel):
                         nextElements.append( thisBodyElement )
                         continue
 
-                    elif issubclass(thisBodyElementClass, (BodyElementOperation, BodyElementComparison)):
+                    elif issubclass(thisBodyElementClass, (BodyElementOperation, BodyElementComparison, BodyElementBooleanOps)):
                         # An operation, we will run these after value generators have processed.
                         #  NOTE: Can be optimized further, as we may not need to unroll all value generators before passing/failing a node
                         # Just throw it back onto list for now
@@ -185,7 +185,7 @@ class BodyLevel_Top(BodyLevel):
                     thisBodyElement = curElements[i]
                     thisBodyElementClass = thisBodyElement.__class__
 
-                    if issubclass(thisBodyElementClass, (BodyElementValue, BodyElementComparison)):
+                    if issubclass(thisBodyElementClass, (BodyElementValue, BodyElementComparison, BodyElementBooleanOps)):
 
                         # Throw values and comparisons back on the stack as-is
                         nextElements.append( thisBodyElement )
@@ -248,7 +248,7 @@ class BodyLevel_Top(BodyLevel):
                     thisBodyElement = curElements[i]
                     thisBodyElementClass = thisBodyElement.__class__
 
-                    if issubclass(thisBodyElementClass, BodyElementValue):
+                    if issubclass(thisBodyElementClass, (BodyElementValue, BodyElementBooleanOps)):
 
                         nextElements.append( thisBodyElement )
                         prevValue = thisBodyElement
@@ -279,6 +279,68 @@ class BodyLevel_Top(BodyLevel):
                             # Not a value? Loop again.
                             print ( "WARNING: Got a non-value returned from performOperation" )
                             stillProcessingTagComparisons = True
+
+                        # Pop the last value (left side), drop the operation, load the resolved value in place.
+                        nextElements = nextElements[ : -1 ] + [resolvedValue]
+
+                        # Move past right side
+                        i += 2
+                        continue
+
+                # Update the current set of elements
+                curElements = nextElements
+
+
+            # TODO: Should restructure this per the "levels" design such that we can short circuit
+            stillProcessingTagBooleanOps = True
+
+            while stillProcessingTagBooleanOps is True:
+
+                stillProcessingTagBooleanOps = False
+
+                nextElements = []
+
+                prevValue = None
+
+                numElements = len(curElements)
+                i = 0
+
+                while i < numElements:
+
+                    thisBodyElement = curElements[i]
+                    thisBodyElementClass = thisBodyElement.__class__
+
+                    if issubclass(thisBodyElementClass, BodyElementValue):
+
+                        nextElements.append( thisBodyElement )
+                        prevValue = thisBodyElement
+
+                        i += 1
+                        continue
+
+                    else:
+                        # XXX Must be a BooleanOps all other types exhausted
+
+                        if (i + 1) >= numElements:
+                            # TODO: Better error message?
+                            raise XPathParseError('XPath expression ends in an operation, no right-side to operation.')
+
+                        leftSide = prevValue
+                        if not issubclass(leftSide.__class__, BodyElementValue):
+                            # TODO: Better error message?
+                            raise XPathParseError('XPath expression contains two consecutive operations (left side)')
+
+                        rightSide = curElements[i + 1]
+                        if not issubclass(rightSide.__class__, BodyElementValue):
+                            # TODO: Better error message?
+                            raise XPathParseError('XPath expression contains two consecutive operations (right side)')
+
+                        resolvedValue = thisBodyElement.doBooleanOp(leftSide, rightSide)
+
+                        if not issubclass(resolvedValue.__class__, BodyElementValue):
+                            # Not a value? Loop again.
+                            print ( "WARNING: Got a non-value returned from performOperation" )
+                            stillProcessingTagBooleanOps = True
 
                         # Pop the last value (left side), drop the operation, load the resolved value in place.
                         nextElements = nextElements[ : -1 ] + [resolvedValue]
@@ -877,7 +939,7 @@ class BodyElementComparison(BodyElement):
 
                 @return <bool> - The result of the comparison operation
         '''
-        raise NotImplementedError('BodyElementComparison.doComparison must be implemented by extending subclass, but %s does not implement!' % ( \
+        raise NotImplementedError('BodyElementComparison._doComparison must be implemented by extending subclass, but %s does not implement!' % ( \
                 self.__class__.__name__,
             )
         )
@@ -887,8 +949,25 @@ class BodyElementComparison(BodyElement):
     def _resolveTypesForComparison(cls, leftSide, rightSide):
         '''
             _resolveTypesForComparison - Resolve the given leftSide and rightSide dynamic types for comparison
+
+
+                @param leftSide <BodyElementValue/...> - A value, either wrapped in a BodyElementValue or direct.
+
+                    Represents the left side of the operator
+
+                @param rightSide <BodyElementValue/...> - A value, either wrapped in a BodyElementValue or direct.
+
+                    Represents the right side of the operator
+
+
+                @return tuple(left, right) of either <float, float> if castable, or the original raw pythonic types instead (pulled out of BodyElementValue if provided in one)
+
+
+                @notes - If cls.NUMERIC_ONLY is True, will throw an exception if cannot cast both sides to float. See raises section, below.
+
+                @raises XPathRuntimeError - If NUMERIC_ONLY is True, and cannot cast both sides to a float.
+
         '''
-        # TODO: Static types? hints?
         if issubclass(leftSide.__class__, BodyElementValue):
             leftSideValue = leftSide.getValue()
         else:
@@ -996,7 +1075,150 @@ class BodyElementComparison_GreaterThanOrEqual(BodyElementComparison):
 BEC_GREATER_THAN_OR_EQUAL_RE = re.compile(r'^([ \t]*[>][=][ \t]*)')
 COMPARISON_RES.append( (BEC_GREATER_THAN_OR_EQUAL_RE, BodyElementComparison_GreaterThanOrEqual) )
 
-# XXX: Split Operations and Comparisons into two separate bases? Both are left and right, but one returns bools and the other values
+
+#############################
+##       Boolean Ops       ##
+#############################
+
+
+# BOOLEAN_OPS_RES - A list of tuples, which will be iterated upon parsing a body to create the BooleanOps types
+#                        Tuples are in format: ( re.compile'd expression, BodyElementBooleanOps child class implementing related )
+#
+#                           Where all of the named groups within the compiled regular expression are passed to __init__ of the related class.
+BOOLEAN_OPS_RES = []
+
+
+class BodyElementBooleanOps(BodyElement):
+    '''
+        BodyElementBooleanOps - Base comparison class for boolean comparison operations (e.x. "and" , "or" )
+    '''
+
+    # BOOLEAN_OP_STR - The boolean operation being implemented, should be set by the subclass.
+    BOOLEAN_OP_STR = 'unknown'
+
+
+    def doBooleanOp(self, leftSide, rightSide):
+        '''
+            doBooleanOp - Do the comparison associated with the subclass of BodyElementBooleanOps
+
+              and return the result.
+
+
+                @param leftSide <BodyElementValue/str/float/BodyElementValue> - Left side of comparison operator
+
+                @param rightSideValue <BodyElementValue/str/float/other?> - Right side of comparison operator
+
+
+                @return <bool> - The result of the comparison operation
+        '''
+        (leftSideValue, rightSideValue) = BodyElementBooleanOps._resolveTypesForBooleanOp(leftSide, rightSide)
+
+        return self._doBooleanOp(leftSideValue, rightSideValue)
+
+
+    def _doBooleanOp(self, leftSideValue, rightSideValue):
+        '''
+            _doBooleanOp - TYPE INTERNAL. Do the comparison associated with the subclass of BodyElementBooleanOp
+
+              and return the result.
+
+              This should be implemented by each comparison type, rather than doBooleanOp directly (which prepares arguments)
+
+
+                @param leftSideValue <str/float/other?> - Left side of comparison operator's value
+
+                @param rightSideValue <str/float/other?> - Right side of comparison operator's value
+
+
+                @return <bool> - The result of the comparison operation
+        '''
+        raise NotImplementedError('BodyElementBooleanOps._doBooleanOp must be implemented by extending subclass, but %s does not implement!' % ( \
+                self.__class__.__name__,
+            )
+        )
+
+
+    @classmethod
+    def _resolveTypesForBooleanOp(cls, leftSide, rightSide):
+        '''
+            _resolveTypesForBooleanOp - Resolve the given leftSide and rightSide dynamic types for comparison
+
+                Boolean type overrides the comparison base in order to only accept booleans (instead of numeric / strings)
+
+
+                @param leftSide <BodyElementValue/...> - A value, either wrapped in a BodyElementValue or direct.
+
+                    Represents the left side of the operator.
+
+                    Must be or resolve to a boolean
+
+                @param rightSide <BodyElementValue/...> - A value, either wrapped in a BodyElementValue or direct.
+
+                    Represents the right side of the operator
+
+                    Must be or resolve to a boolean
+
+
+                @return tuple(left<bool>, right<bool>)
+
+
+                @raises XPathRuntimeError - If either side is not a boolean, or a boolean-wrapped BodyElementValue
+
+        '''
+        # Since we are dealining specifically with booleans only here,
+        if issubclass(leftSide.__class__, BodyElementValue):
+            leftSideValue = leftSide.getValue()
+        else:
+            leftSideValue = leftSide
+
+        if issubclass(rightSide.__class__, BodyElementValue):
+            rightSideValue = rightSide.getValue()
+        else:
+            rightSideValue = rightSide
+
+
+        # TODO: Provide better context here of where this operation was in the xpath string?
+        if not isinstance(leftSideValue, bool):
+            # Should this be a parse error? Their expression caused it....
+            raise XPathRuntimeError('XPath Runtime Error: Boolean comparison attempted ( "%s" operator ) but left side was not a boolean! Was: %s . Repr: %s' % ( \
+                    cls.BOOLEAN_OP_STR,
+                    type(leftSideValue).__name__,
+                    repr(leftSideValue),
+                )
+            )
+        if not isinstance(rightSideValue, bool):
+            raise XPathRuntimeError('XPath Runtime Error: Boolean comparison attempted ( "%s" operator ) but right side was not a boolean! Was: %s . Repr: %s' % ( \
+                    cls.BOOLEAN_OP_STR,
+                    type(rightSideValue).__name__,
+                    repr(rightSideValue),
+                )
+            )
+
+        return ( leftSideValue, rightSideValue )
+
+
+class BodyElementBooleanOps_And(BodyElementBooleanOps):
+
+    BOOLEAN_OP_STR = 'and'
+
+    def _doBooleanOp(self, leftSideValue, rightSideValue):
+        return BodyElementValue_Boolean( leftSideValue and rightSideValue )
+
+# NOTE: these requires a whitespace after, unlike other operators.
+BEBO_AND_RE = re.compile(r'^([ \t]*[aA][nN][dD][ \t]+)')
+BOOLEAN_OPS_RES.append( (BEBO_AND_RE, BodyElementBooleanOps_And) )
+
+
+class BodyElementBooleanOps_Or(BodyElementBooleanOps):
+
+    BOOLEAN_OP_STR = 'or'
+
+    def _doBooleanOp(self, leftSideValue, rightSideValue):
+        return BodyElementValue_Boolean( leftSideValue or rightSideValue )
+
+
+BEBO_OR_RE = re.compile(r'^([ \t]*[oO][rR][ \t]+)')
+BOOLEAN_OPS_RES.append( (BEBO_OR_RE, BodyElementBooleanOps_Or) )
 
 
 #############################
@@ -1077,7 +1299,7 @@ class BodyElementValue_StaticValue_Number(BodyElementValue_StaticValue):
 BEV_SV_NUMBER_RE = re.compile(r'''^([ \t]*(?P<value>([-]){0,1}([\d]*[\.][\d]+)|([\d]+))[ \t]*)''')
 STATIC_VALUES_RES.append( (BEV_SV_NUMBER_RE, BodyElementValue_StaticValue_Number) )
 
-ALL_BODY_ELEMENT_RES = VALUE_GENERATOR_RES + COMPARISON_RES + OPERATION_RES + STATIC_VALUES_RES
+ALL_BODY_ELEMENT_RES = VALUE_GENERATOR_RES + COMPARISON_RES + OPERATION_RES + BOOLEAN_OPS_RES + STATIC_VALUES_RES
 
 
 def parseBodyStringIntoBodyElements(bodyString):

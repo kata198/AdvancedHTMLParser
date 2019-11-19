@@ -90,7 +90,7 @@ class TestXpath(object):
         assert len(foundDivItemsWithItemIds) == 5 , 'Expected to find 5 divs from xpath expression "//div" where "id" attribute starts with "item". Got %d, with ids= %s' % \
             ( \
                 len(foundDivItemsWithItemIds),
-                repr( [ (em.id or '') for emm in foundDivItemsWithItemIds ] ),
+                repr( [ (em.id or '') for em in foundDivItemsWithItemIds ] ),
             )
 
         # Iterate over expected item #s and assert we have found the matching div
@@ -144,7 +144,7 @@ class TestXpath(object):
         assert len(foundDivItemsWithItemIds) == 5 , 'Expected to find 5 divs from xpath expression "//div" where "id" attribute starts with "item". Got %d, with ids= %s' % \
             ( \
                 len(foundDivItemsWithItemIds),
-                repr( [ (em.id or '') for emm in foundDivItemsWithItemIds ] ),
+                repr( [ (em.id or '') for em in foundDivItemsWithItemIds ] ),
             )
 
         # Iterate over expected item #s and assert we have found the matching div
@@ -204,9 +204,6 @@ class TestXpath(object):
 
         itemsThatAreTurtles = self.parser.getElementsByXPathExpression('''//*[ @name = "itemName" ][normalize-space() = "Turtles"]/parent::div''')
 
-        # TODO: Need to be able to parse "and" / "or" etc.
-        #itemsThatAreTurtles = self.parser.getElementsByXPathExpression('''//*[ @name = "itemName" and normalize-space() = "Turtles"]/parent::div''')
-
         assert len(itemsThatAreTurtles) == 1 , 'Expected to find one turtle item, but got: %s' %(repr(itemsThatAreTurtles), )
 
         itemThatIsTurtles = itemsThatAreTurtles[0]
@@ -223,6 +220,46 @@ class TestXpath(object):
         itemThatIsTurtles = itemsThatAreTurtles[0]
         assert itemThatIsTurtles.tagName == 'div' , 'Expected parent::div to be a div, but it was a %s' %( itemThatIsTurtles.tagName, )
         assert itemThatIsTurtles.id == 'item2' , 'Expected id="item2" to be the id of the matched element'
+
+
+    def test_xpathBooleanAnd(self):
+        '''
+            test_xpathBooleanAnd - Test the "and" boolean operator
+        '''
+        itemsThatAreTurtles = self.parser.getElementsByXPathExpression('''//*[ @name = "itemName" and normalize-space() = "Turtles"]/parent::div''')
+
+        assert len(itemsThatAreTurtles) == 1 , 'Expected to find one turtle item, but got: %s' %(repr(itemsThatAreTurtles), )
+
+        itemThatIsTurtles = itemsThatAreTurtles[0]
+        assert itemThatIsTurtles.tagName == 'div' , 'Expected parent::div to be a div, but it was a %s' %( itemThatIsTurtles.tagName, )
+        assert itemThatIsTurtles.id == 'item2' , 'Expected id="item2" to be the id of the matched element'
+
+
+        itemsThatAreNotTurtles = self.parser.getElementsByXPathExpression('''//*[ @name = "itemName" and normalize-space() != "Turtles" ]/parent::div''')
+
+        assert len(itemsThatAreNotTurtles) == 4 , 'Expected to find four non-turtle items, but got %d: %s' %( len(itemsThatAreNotTurtles), repr(itemsThatAreNotTurtles))
+
+        assert itemThatIsTurtles not in itemsThatAreNotTurtles , 'Expected not to find the item already identified as turtles in the not turtles list, but did!'
+
+        turtleDoubleCheck = [ itemEm for itemEm in itemsThatAreNotTurtles if itemEm.id == "item2" ]
+        assert len(turtleDoubleCheck) == 0 , 'Expected to not find id="item2" (the turtle) in non-turtles expression, but did!'
+
+
+    def test_xpathBooleanOr(self):
+        '''
+            test_xpathBooleanOr - Test the "or" boolean operator
+        '''
+        items2or3 = self.parser.getElementsByXPathExpression('''//*[ @id = "item2" or @id="item3"      ]''')
+
+        assert len(items2or3) == 2 , 'Expected to find two items for expression ( @id="item2" or @id="item3" ), but found %d. %s' %(len(items2or3), repr(items2or3))
+
+        item2Em = self.parser.getElementById('item2')
+        assert item2Em , 'Expected to find item by id="item2" but did not.'
+        item3Em = self.parser.getElementById('item3')
+        assert item3Em , 'Expected to find item by id="item3" but did not.'
+
+        assert item2Em in items2or3 , 'Expected to find element returned by getElementById("item2") in result for xpath expression of the same, but did not.'
+        assert item3Em in items2or3 , 'Expected to find element returned by getElementById("item3") in result for xpath expression of the same, but did not.'
 
 
     def test_xpathConcat(self):
