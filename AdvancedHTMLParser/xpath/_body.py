@@ -1035,7 +1035,6 @@ class BodyElementOperation_Concat(BodyElementOperation):
                 @return <BodyElementValue_String> - The concatenated string of leftSide + rightSide
 
         '''
-        # TODO: Optimize to handle static values at parse time
         if issubclass(leftSide.__class__, BodyElementValue):
             leftSideValue = leftSide.getValue()
 
@@ -1069,6 +1068,231 @@ class BodyElementOperation_Concat(BodyElementOperation):
 
 BEO_CONCAT_RE = re.compile(r'''^([ \t]*[\|][\|][ \t]*)''')
 OPERATION_RES.append( (BEO_CONCAT_RE, BodyElementOperation_Concat) )
+
+
+class BodyElementOperation_Math(BodyElementOperation):
+    '''
+        BodyElementOperation_Math - Base class for math operators
+    '''
+
+    # MATH_OPERATOR_STR - Override with the math operator (e.x. "+")
+    MATH_OPERATOR_STR = 'unknown'
+
+
+    def _prepareValuesForOperation(self, leftSide, rightSide):
+        '''
+            _prepareValuesForOperation - Prepare values for a numeric operation
+
+
+                @param leftSide <str/BodyElementValue/int/float> - The left side of the operation
+
+                @param rightSide <str/BodyElementValue/int/float> - The right side of the operation
+
+
+                @return tuple( leftSideValue<float>, rightSideValue<float> )
+        '''
+        if issubclass(leftSide.__class__, BodyElementValue):
+            leftSideValue = leftSide.getValue()
+
+        else:
+            leftSideValue = leftSide
+
+        if issubclass(rightSide.__class__, BodyElementValue):
+            rightSideValue = rightSide.getValue()
+
+        else:
+            rightSideValue = rightSide
+
+        try:
+            return ( float(leftSideValue), float(rightSideValue) )
+
+        except:
+
+            raise XPathRuntimeError('Math operation "%s" attempted, but could not convert body sides to numbers!\nLeft side: <%s>  %s\nRight side: <%s>  %s' % ( \
+                    self.MATH_OPERATOR_STR,
+                    type(leftSideValue).__name__,
+                    repr(leftSideValue),
+                    type(rightSideValue).__name__,
+                    repr(rightSideValue),
+                )
+            )
+
+
+    def performOperation(self, leftSide, rightSide):
+        '''
+            performOperation - Perform a math operation (see type for details)
+
+
+                @param leftSide <...> - The left side (must be convertable to float)
+
+                @param rightSide <...> - The right side (must be convertable to float)
+
+
+                @return <BodyElementValue_Number> - The calculated value
+
+        '''
+
+        (leftSideValue, rightSideValue) = self._prepareValuesForOperation(leftSide, rightSide)
+
+        return self.doCalculation(leftSideValue, rightSideValue)
+
+
+
+    def doCalculation(self, leftSideValue, rightSideValue):
+        '''
+            doCalculation - Perform the math operation implemented by this subclas.
+
+              Subclass must override this method.
+
+
+                @param leftSideValue <float> - Left side value
+
+                @param rightSideValue <float> - Right side value
+
+
+                @return <BodyElementValue_Number> - The result of the operation
+        '''
+        raise NotImplementedError('BodyElementOperation_Math class "%s" must implement doCalculation function!' %( self.__class__.__name__, ))
+
+
+class BodyElementOperation_Math_Plus(BodyElementOperation_Math):
+    '''
+        BodyElementOperation_Math_Plus - BodyElementOperation that implements the Math operation "plus" / "addition" / "+"
+    '''
+
+    MATH_OPERATOR_STR = '+'
+
+    def doCalculation(self, leftSideValue, rightSideValue):
+        '''
+            doCalculation - Add two values, return the result.
+
+
+                @param leftSideValue <float> - Left side value
+
+                @param rightSideValue <float> - Right side value
+
+
+                @return <BodyElementValue_Number> - The result of the operation
+        '''
+        result = leftSideValue + rightSideValue
+
+        return BodyElementValue_Number(result)
+
+
+BEO_MATH_PLUS_RE = re.compile(r'''^([ \t]*[+][ \t]*)''')
+OPERATION_RES.append( (BEO_MATH_PLUS_RE, BodyElementOperation_Math_Plus) )
+
+
+class BodyElementOperation_Math_Minus(BodyElementOperation_Math):
+    '''
+        BodyElementOperation_Math_Minus - BodyElementOperation that implements the Math operation "minus" / "subtraction" / "-"
+    '''
+
+    MATH_OPERATOR_STR = '-'
+
+    def doCalculation(self, leftSideValue, rightSideValue):
+        '''
+            doCalculation - Subtract two values, return the result.
+
+
+                @param leftSideValue <float> - Left side value
+
+                @param rightSideValue <float> - Right side value
+
+
+                @return <BodyElementValue_Number> - The result of the operation
+        '''
+        result = leftSideValue - rightSideValue
+
+        return BodyElementValue_Number(result)
+
+
+BEO_MATH_MINUS_RE = re.compile(r'''^([ \t]*[-][ \t]*)''')
+OPERATION_RES.append( (BEO_MATH_MINUS_RE, BodyElementOperation_Math_Minus) )
+
+
+class BodyElementOperation_Math_Multiply(BodyElementOperation_Math):
+    '''
+        BodyElementOperation_Math_Multiply - BodyElementOperation that implements the Math operation "multiply" / "multiplication" / "*"
+    '''
+
+    MATH_OPERATOR_STR = '*'
+
+    def doCalculation(self, leftSideValue, rightSideValue):
+        '''
+            doCalculation - Multiply two values, return the result.
+
+
+                @param leftSideValue <float> - Left side value
+
+                @param rightSideValue <float> - Right side value
+
+
+                @return <BodyElementValue_Number> - The result of the operation
+        '''
+        result = leftSideValue * rightSideValue
+
+        return BodyElementValue_Number(result)
+
+
+BEO_MATH_MULTIPLY_RE = re.compile(r'''^([ \t]*[\*][ \t]*)''')
+OPERATION_RES.append( (BEO_MATH_MULTIPLY_RE, BodyElementOperation_Math_Multiply) )
+
+
+class BodyElementOperation_Math_Divide(BodyElementOperation_Math):
+    '''
+        BodyElementOperation_Math_Divide - BodyElementOperation that implements the Math operation "divide" / "division" / "div"
+    '''
+
+    MATH_OPERATOR_STR = 'div'
+
+    def doCalculation(self, leftSideValue, rightSideValue):
+        '''
+            doCalculation - Divide two values, return the result.
+
+
+                @param leftSideValue <float> - Left side value
+
+                @param rightSideValue <float> - Right side value
+
+
+                @return <BodyElementValue_Number> - The result of the operation
+        '''
+        result = leftSideValue / rightSideValue
+
+        return BodyElementValue_Number(result)
+
+
+BEO_MATH_DIVIDE_RE = re.compile(r'''^([ \t]*[dD][iI][vV][ \t]*)''')
+OPERATION_RES.append( (BEO_MATH_DIVIDE_RE, BodyElementOperation_Math_Divide) )
+
+
+class BodyElementOperation_Math_Modulus(BodyElementOperation_Math):
+    '''
+        BodyElementOperation_Math_Modulus - BodyElementOperation that implements the Math operation "modulus" / "%" / "mod"
+    '''
+
+    MATH_OPERATOR_STR = 'mod'
+
+    def doCalculation(self, leftSideValue, rightSideValue):
+        '''
+            doCalculation - Divide two values, return the remainder.
+
+
+                @param leftSideValue <float> - Left side value
+
+                @param rightSideValue <float> - Right side value
+
+
+                @return <BodyElementValue_Number> - The result of the operation
+        '''
+        result = leftSideValue % rightSideValue
+
+        return BodyElementValue_Number(result)
+
+
+BEO_MATH_MODULUS_RE = re.compile(r'''^([ \t]*[mM][oO][dD][ \t]*)''')
+OPERATION_RES.append( (BEO_MATH_MODULUS_RE, BodyElementOperation_Math_Modulus) )
 
 
 #############################
@@ -1452,8 +1676,9 @@ BEBO_OR_RE = re.compile(r'^([ \t]*[oO][rR][ \t]+)')
 BOOLEAN_OPS_RES.append( (BEBO_OR_RE, BodyElementBooleanOps_Or) )
 
 # ALL_BODY_ELEMENT_RES - All regular expressions used in parsing out a body into individual operations
-ALL_BODY_ELEMENT_RES = VALUE_GENERATOR_RES + COMPARISON_RES + OPERATION_RES + BOOLEAN_OPS_RES + STATIC_VALUES_RES
+ALL_BODY_ELEMENT_RES = VALUE_GENERATOR_RES + STATIC_VALUES_RES + COMPARISON_RES + OPERATION_RES + BOOLEAN_OPS_RES
 
+# NOTE: Static values should come before operations, so negative values match as a static value and not a substract operation
 
 def parseBodyStringIntoBodyElements(bodyString):
     '''
