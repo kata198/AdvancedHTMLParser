@@ -22,18 +22,9 @@ from ._filters import _mk_xpath_op_filter_tag_is_nth_child_index
 from .null import Null
 
 
-# TODO: __all__ not complete
-#__all__ = ('parseBodyStringIntoBodyElements', )
+# __all__ is currently set to what "parsing" imports
+__all__ = ('parseBodyStringIntoBodyElements', 'BodyElement', 'BodyElementOperation', 'BodyElementValue', 'BodyElementValueGenerator', 'BodyLevel_Top')
 
-
-BODY_VALUE_TYPE_UNKNOWN = 0
-BODY_VALUE_TYPE_NUMBER = 1
-# Leave a gap for 2 should we split float/int
-BODY_VALUE_TYPE_STRING = 3
-BODY_VALUE_TYPE_BOOLEAN = 4
-# List - Unimplemented
-BODY_VALUE_TYPE_LIST = 5
-BODY_VALUE_TYPE_NULL = 6
 
 class BodyLevel(object):
     '''
@@ -391,14 +382,49 @@ class BodyLevel_Top(BodyLevel):
 
 class BodyElement(object):
     '''
-        BodyElement - Base class of body elements
+        BodyElement - Base class of body elements.
+
+          Every distinct "unit" within a body, be it a static value or a function call, or otherwise,
+           are subclassed from this type.
     '''
     pass
+
+# TODO: Handle parenthesis grouping of elements to establish an alternate order than strict left-to-right and base type
+
+#############################
+##          Values         ##
+#############################
+
+## Values are calculated (returned from a BodyElementValueGenerator or otherwise),
+#    or static (provided explicitly in body string).
+#   These are given separate bases, and are all subclasses of BodyElement.
+
+# Values are associated with a type (cls.VALUE_TYPE), defined as one of the types below.
+
+# Values are wrapped within the associated BodyElementValue subclasses rather than as native python types
+
+#####                    #####
+### BodyElementValue types ###
+#####                    #####
+
+# An enumeration of the possible types a BodyElementValue subclass may hold
+BODY_VALUE_TYPE_UNKNOWN = 0
+BODY_VALUE_TYPE_NUMBER = 1
+# Leave a gap for 2 should we split float/int
+BODY_VALUE_TYPE_STRING = 3
+BODY_VALUE_TYPE_BOOLEAN = 4
+# List - Unimplemented
+BODY_VALUE_TYPE_LIST = 5
+BODY_VALUE_TYPE_NULL = 6
 
 
 class BodyElementValue(BodyElement):
     '''
-        BodyElementValue - Base class of BodyElements which represent a resolved value
+        BodyElementValue - Base class of BodyElements which represent a static or resolved value.
+
+          These wrap the native python representation of the values.
+
+          A class-level varible, VALUE_TYPE, defines the type associated with the value.
     '''
 
     # VALUE_TYPE - The type of this value. Should be set by subclass
@@ -407,6 +433,11 @@ class BodyElementValue(BodyElement):
     def __init__(self, value):
         '''
             __init__ - Create this element as a wrapper around an already-calculated value
+
+
+                @param value <...> - The python-native value to be held by this element.
+
+                    This will be passed into self.setValue for processing/validation
         '''
         self.value = None
         self.setValue(value)
@@ -415,6 +446,9 @@ class BodyElementValue(BodyElement):
     def getValue(self):
         '''
             getvalue - Get the value associated with this object
+
+
+                @return <...> - The python-native value wrapped by this object
         '''
         return self.value
 
@@ -430,8 +464,6 @@ class BodyElementValue(BodyElement):
         '''
         self.value = newValue
 
-
-# TODO: Stronger type checking on these?
 
 class BodyElementValue_Boolean(BodyElementValue):
     '''
@@ -541,6 +573,85 @@ class BodyElementValue_Number(BodyElementValue):
                     str(fe),
                 )
             )
+
+
+#############################
+##      Static Values      ##
+#############################
+
+
+# STATIC_VALUES_RES - A list of tuples, which will be iterated upon parsing a body to create the BodyElementValue_StaticValue types
+#                        Tuples are in format: ( re.compile'd expression, BodyElementValue_StaticValue child class implementing related )
+#
+#                           Where all of the named groups within the compiled regular expression are passed to __init__ of the related class.
+STATIC_VALUES_RES = []
+
+
+class BodyElementValue_StaticValue(BodyElementValue):
+    '''
+        BodyElementValue_StaticValue - Base class of static values ( appear in the body string directly, e.x. "hello" or 12 )
+    '''
+    pass
+
+
+class BodyElementValue_StaticValue_String(BodyElementValue_StaticValue):
+    '''
+        BodyElementValue_StaticValue_String - A StaticValue which represents a string
+    '''
+
+    VALUE_TYPE = BODY_VALUE_TYPE_STRING
+
+
+## String will have two expressions to generate -- one for single quotes, one for double quotes. Both extract the inner string
+#    Can combine into one, but this is more clear.
+
+# Double quoted string
+#BEV_SV_STRING_DOUBLE_QUOTE_RE = re.compile(r'''^([ \t]*[\"](?P<value>[^"]*)[\"][ \t]*)''')
+BEV_SV_STRING_DOUBLE_QUOTE_RE = re.compile(r'''^([ \t]*[\"](?P<value>([\\]["]|[^"])*)[\"][ \t]*)''')
+STATIC_VALUES_RES.append( (BEV_SV_STRING_DOUBLE_QUOTE_RE, BodyElementValue_StaticValue_String) )
+
+# Single quoted string
+#BEV_SV_STRING_SINGLE_QUOTE_RE = re.compile(r"""^([ \t]*[\'](?P<value>[^']*)[\'][ \t]*)""")
+BEV_SV_STRING_SINGLE_QUOTE_RE = re.compile(r"""^([ \t]*[\'](?P<value>([\\][']|[^'])*)[\'][ \t]*)""")
+STATIC_VALUES_RES.append( (BEV_SV_STRING_SINGLE_QUOTE_RE, BodyElementValue_StaticValue_String) )
+
+
+class BodyElementValue_StaticValue_Number(BodyElementValue_StaticValue):
+    '''
+        BodyElementValue_StaticValue_Number - StaticValue to represent a number
+    '''
+
+    VALUE_TYPE = BODY_VALUE_TYPE_NUMBER
+
+
+    def setValue(self, newValue):
+        '''
+            setValue - Sets the inner value to a float, or raises exception on failure to convert.
+
+
+                @param newValue <str/float> - A number (positive or negative, integer or float)
+
+
+                @raises XPathRuntimeError - Type passed is not convertable to float
+
+
+                @see BodyElementValue_StaticValue.setValue
+        '''
+        try:
+            self.value = float(newValue)
+        except Exception as fe:
+            raise XPathRuntimeError('Runtime Type Error: BodyElementValue_StaticValue_Number was passed a value, <%s> %s  -- but could not convert to float. %s  %s' %( \
+                    type(newValue).__name__,
+                    repr(newValue),
+                    fe.__class__.__name__,
+                    str(fe),
+                )
+            )
+
+
+# NOTE: Look into spaces after negative sign
+BEV_SV_NUMBER_RE = re.compile(r'''^([ \t]*(?P<value>([-]){0,1}([\d]*[\.][\d]+)|([\d]+))[ \t]*)''')
+STATIC_VALUES_RES.append( (BEV_SV_NUMBER_RE, BodyElementValue_StaticValue_Number) )
 
 
 
@@ -896,7 +1007,8 @@ class BodyElementComparison(BodyElement):
         BodyElementComparison - Base class of Comparison operations (such as equals, not equals, greater than, etc.)
     '''
 
-    # NUMERIC_ONLY - Must be representable as a float, or is error
+    # NUMERIC_ONLY - If True, the value must be represenatble as a float (Number), or error.
+    #                If False, other values (e.x. string) are supported.
     NUMERIC_ONLY = False
 
     # COMPARISON_OPERATOR_STR - This should be set to the operator associated with the comparison (e.x. "!=" or "<")
@@ -932,12 +1044,12 @@ class BodyElementComparison(BodyElement):
               This should be implemented by each comparison type, rather than doComparison directly (which prepares arguments)
 
 
-                @param leftSideValue <str/float/other?> - Left side of comparison operator's value
+                @param leftSideValue <str/float/other?> - Left side of comparison operator's value (unrolled from its BodyElementValue wrapper)
 
-                @param rightSideValue <str/float/other?> - Right side of comparison operator's value
+                @param rightSideValue <str/float/other?> - Right side of comparison operator's value (unrolled from its BodyElementValue wrapper)
 
 
-                @return <bool> - The result of the comparison operation
+                @return <BodyElementValue_Boolean> - The result of the comparison operation
         '''
         raise NotImplementedError('BodyElementComparison._doComparison must be implemented by extending subclass, but %s does not implement!' % ( \
                 self.__class__.__name__,
@@ -978,9 +1090,14 @@ class BodyElementComparison(BodyElement):
         else:
             rightSideValue = rightSide
 
+        # Try to represent both sides as floats (Number), if possible
         try:
             return ( float(leftSideValue), float(rightSideValue) )
         except:
+            # If we failed to convert both sides to number (e.x. strings), then check if this is a NUMERIC_ONLY type,
+            #    in which case we will throw an error.
+            #  Otherwise, return the raw python types
+
             if cls.NUMERIC_ONLY is False:
                 return ( leftSideValue, rightSideValue )
             else:
@@ -993,9 +1110,10 @@ class BodyElementComparison(BodyElement):
                 )
 
 
-
-
 class BodyElementComparison_Equal(BodyElementComparison):
+    '''
+        BodyElementComparison_Equal - A BodyElementComparison which represents the "equals" operation, "="
+    '''
 
     COMPARISON_OPERATOR_STR = "="
 
@@ -1008,6 +1126,9 @@ COMPARISON_RES.append( (BEC_EQUAL_RE, BodyElementComparison_Equal) )
 
 
 class BodyElementComparison_NotEqual(BodyElementComparison):
+    '''
+        BodyElementComparison_NotEqual - A BodyElementComparison which represents the "not equals" operation, "!="
+    '''
 
     COMPARISON_OPERATOR_STR = "!="
 
@@ -1021,6 +1142,11 @@ COMPARISON_RES.append( (BEC_NOT_EQUAL_RE, BodyElementComparison_NotEqual) )
 # TODO: Other types of comparison (greater than, less than or equal, etc.)
 
 class BodyElementComparison_LessThan(BodyElementComparison):
+    '''
+        BodyElementComparison_LessThan - A BodyElementComparison which represents the "less than" operation, "<"
+
+            This is a "NUMERIC_ONLY" comparison operation.
+    '''
 
     NUMERIC_ONLY = True
 
@@ -1035,6 +1161,11 @@ COMPARISON_RES.append( (BEC_LESS_THAN_RE, BodyElementComparison_LessThan) )
 
 
 class BodyElementComparison_LessThanOrEqual(BodyElementComparison):
+    '''
+        BodyElementComparison_LessThanOrEqual - A BodyElementComparison which represents the "less than or equal" operation, "<="
+
+            This is a "NUMERIC_ONLY" comparison operation.
+    '''
 
     NUMERIC_ONLY = True
 
@@ -1049,6 +1180,11 @@ COMPARISON_RES.append( (BEC_LESS_THAN_OR_EQUAL_RE, BodyElementComparison_LessTha
 
 
 class BodyElementComparison_GreaterThan(BodyElementComparison):
+    '''
+        BodyElementComparison_GreaterThan - A BodyElementComparison which represents the "greater than" operation, ">"
+
+            This is a "NUMERIC_ONLY" comparison operation.
+    '''
 
     NUMERIC_ONLY = True
 
@@ -1063,6 +1199,11 @@ COMPARISON_RES.append( (BEC_GREATER_THAN_RE, BodyElementComparison_GreaterThan) 
 
 
 class BodyElementComparison_GreaterThanOrEqual(BodyElementComparison):
+    '''
+        BodyElementComparison_GreaterThanOrEqual - A BodyElementComparison which represents the "greater than or equal" operation, ">="
+
+            This is a "NUMERIC_ONLY" comparison operation.
+    '''
 
     NUMERIC_ONLY = True
 
@@ -1165,7 +1306,6 @@ class BodyElementBooleanOps(BodyElement):
                 @raises XPathRuntimeError - If either side is not a boolean, or a boolean-wrapped BodyElementValue
 
         '''
-        # Since we are dealining specifically with booleans only here,
         if issubclass(leftSide.__class__, BodyElementValue):
             leftSideValue = leftSide.getValue()
         else:
@@ -1198,6 +1338,11 @@ class BodyElementBooleanOps(BodyElement):
 
 
 class BodyElementBooleanOps_And(BodyElementBooleanOps):
+    '''
+        BodyElementBooleanOps_And - A BodyElementBooleanOps which represents the "and" operation -
+
+            will check that both the left and right side are True
+    '''
 
     BOOLEAN_OP_STR = 'and'
 
@@ -1210,6 +1355,11 @@ BOOLEAN_OPS_RES.append( (BEBO_AND_RE, BodyElementBooleanOps_And) )
 
 
 class BodyElementBooleanOps_Or(BodyElementBooleanOps):
+    '''
+        BodyElementBooleanOps_Or - A BodyElementBooleanOps which represents the "or" operation -
+
+            will check that either the left and right side are True
+    '''
 
     BOOLEAN_OP_STR = 'or'
 
@@ -1220,85 +1370,7 @@ class BodyElementBooleanOps_Or(BodyElementBooleanOps):
 BEBO_OR_RE = re.compile(r'^([ \t]*[oO][rR][ \t]+)')
 BOOLEAN_OPS_RES.append( (BEBO_OR_RE, BodyElementBooleanOps_Or) )
 
-
-#############################
-##      Static Values      ##
-#############################
-
-
-# STATIC_VALUES_RES - A list of tuples, which will be iterated upon parsing a body to create the BodyElementValue_StaticValue types
-#                        Tuples are in format: ( re.compile'd expression, BodyElementValue_StaticValue child class implementing related )
-#
-#                           Where all of the named groups within the compiled regular expression are passed to __init__ of the related class.
-STATIC_VALUES_RES = []
-
-
-class BodyElementValue_StaticValue(BodyElementValue):
-    '''
-        BodyElementValue_StaticValue - Base class of static values ( appear in the body string directly, e.x. "hello" or 12 )
-    '''
-    pass
-
-
-class BodyElementValue_StaticValue_String(BodyElementValue_StaticValue):
-    '''
-        BodyElementValue_StaticValue_String - StaticValue represents a string
-    '''
-
-    VALUE_TYPE = BODY_VALUE_TYPE_STRING
-
-
-## String will have two expressions to generate -- one for single quotes, one for double quotes. Both extract the inner string
-#    Can combine into one, but this is more clear.
-
-# Double quoted string
-#BEV_SV_STRING_DOUBLE_QUOTE_RE = re.compile(r'''^([ \t]*[\"](?P<value>[^"]*)[\"][ \t]*)''')
-BEV_SV_STRING_DOUBLE_QUOTE_RE = re.compile(r'''^([ \t]*[\"](?P<value>([\\]["]|[^"])*)[\"][ \t]*)''')
-STATIC_VALUES_RES.append( (BEV_SV_STRING_DOUBLE_QUOTE_RE, BodyElementValue_StaticValue_String) )
-
-# Single quoted string
-#BEV_SV_STRING_SINGLE_QUOTE_RE = re.compile(r"""^([ \t]*[\'](?P<value>[^']*)[\'][ \t]*)""")
-BEV_SV_STRING_SINGLE_QUOTE_RE = re.compile(r"""^([ \t]*[\'](?P<value>([\\][']|[^'])*)[\'][ \t]*)""")
-STATIC_VALUES_RES.append( (BEV_SV_STRING_SINGLE_QUOTE_RE, BodyElementValue_StaticValue_String) )
-
-
-class BodyElementValue_StaticValue_Number(BodyElementValue_StaticValue):
-    '''
-        BodyElementValue_StaticValue_Number - StaticValue to represent a number
-    '''
-
-    VALUE_TYPE = BODY_VALUE_TYPE_NUMBER
-
-
-    def setValue(self, newValue):
-        '''
-            setValue - Sets the inner value to a float, or raises exception on failure to convert.
-
-
-                @param newValue <str/float> - A number (positive or negative, integer or float)
-
-
-                @raises XPathRuntimeError - Type passed is not convertable to float
-
-
-                @see BodyElementValue_StaticValue.setValue
-        '''
-        try:
-            self.value = float(newValue)
-        except Exception as fe:
-            raise XPathRuntimeError('Runtime Type Error: BodyElementValue_StaticValue_Number was passed a value, <%s> %s  -- but could not convert to float. %s  %s' %( \
-                    type(newValue).__name__,
-                    repr(newValue),
-                    fe.__class__.__name__,
-                    str(fe),
-                )
-            )
-
-
-# NOTE: Look into spaces after negative sign
-BEV_SV_NUMBER_RE = re.compile(r'''^([ \t]*(?P<value>([-]){0,1}([\d]*[\.][\d]+)|([\d]+))[ \t]*)''')
-STATIC_VALUES_RES.append( (BEV_SV_NUMBER_RE, BodyElementValue_StaticValue_Number) )
-
+# ALL_BODY_ELEMENT_RES - All regular expressions used in parsing out a body into individual operations
 ALL_BODY_ELEMENT_RES = VALUE_GENERATOR_RES + COMPARISON_RES + OPERATION_RES + BOOLEAN_OPS_RES + STATIC_VALUES_RES
 
 
