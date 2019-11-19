@@ -1500,6 +1500,101 @@ def parseBodyStringIntoBodyElements(bodyString):
 
         curString = curString[ matchObj.span()[1] : ].lstrip()
 
+
+    # Optimization: Before returning, run through and perform any operations against static values possible
+    #newRet = _optimizeStaticValueCalculations(ret)
+    ret = _optimizeStaticValueCalculations(ret)
+
+    #print ( "\nPrevious BodyElements(%2d): %s\n\n  New    BodyElements(%2d): %s\n" %( len(ret), repr(ret), len(newRet), repr(newRet)) )
+
+    #return newRet
+    return ret
+
+
+
+def _optimizeStaticValueCalculations(bodyElements):
+    '''
+        _optimizeStaticValueCalculations - Optimize element portions that can be pre-calculated
+
+
+            @param bodyElements - list<BodyElement> - List of BodyElements following parsing of XPath string
+
+
+            @return list<BodyElement> - Optimized list of BodyElements, where pre-calculated operations are ran once at parse-time
+
+                instead of per tag at run-time.
+    '''
+    numOrigElements = len(bodyElements)
+
+    if numOrigElements <= 2:
+        # Nothing to do
+        return bodyElements
+
+
+    # We are already going to hit __class__ on every object, so do it ahead of time
+    #  in a quicker list comprehension, which we will reference later
+    bodyElementClasses = [bodyElement.__class__ for bodyElement in bodyElements]
+
+    # No benefit in checking if we have any BodyElementOperation (or future optimizations) first,
+    #  as we will already iterate over everything. The only thing saved when none would be recreating the list,
+    #  at the expense of O(n) vs O(2n) for the check in the event we can optimize.
+
+    ret = []
+
+    prevElement = bodyElements[0]
+    prevElementClass = bodyElementClasses[0]
+
+    ret.append(prevElement)
+
+    i = 1
+    while i < numOrigElements:
+
+        curElement = bodyElements[i]
+        curElementClass = bodyElementClasses[i]
+
+        if issubclass(curElementClass, (BodyElementOperation, BodyElementComparison)):
+            # If we have an operation to optimize, check if left and right are already values.
+            #  If so, we can run it.
+
+            if (i+1) < numOrigElements and issubclass(prevElementClass, BodyElementValue):
+                # We are not on the last element, and the previous was a value.
+                #  If next is value, run the operation.
+
+                nextElement = bodyElements[i + 1]
+                nextElementClass = bodyElementClasses[i + 1]
+
+                if issubclass(nextElementClass, BodyElementValue):
+
+                    # Score! We can optimize!
+                    if issubclass(curElementClass, BodyElementOperation):
+                        calculatedValue = curElement.performOperation(prevElement, nextElement)
+                    #elif issubclass(curElementClass, BodyElementComparison):
+                    else:
+                        # Only Comparison left
+                        calculatedValue = curElement.doComparison(prevElement, nextElement)
+
+                    # Strip off the previous value, and replace this operation and next value with calculated
+                    ret = ret[ : -1 ] + [calculatedValue]
+
+                    # Set previous value to this value
+                    prevElement = calculatedValue
+                    prevElementClass = prevElement.__class__
+
+                    # And increment past the next element
+                    i += 2
+
+                    continue
+
+        # No optimization available, add the element as-is
+        ret.append(curElement)
+
+        # Update previous element to this element for next round
+        prevElement = curElement
+        prevElementClass = curElementClass
+
+        # Increment to next element
+        i += 1
+
     return ret
 
 

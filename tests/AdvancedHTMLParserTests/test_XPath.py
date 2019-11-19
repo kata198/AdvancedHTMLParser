@@ -8,6 +8,7 @@ import sys
 
 import AdvancedHTMLParser
 
+from AdvancedHTMLParser.xpath._body import parseBodyStringIntoBodyElements, BodyElementValue, BodyElementValue_Boolean
 
 class TestXPath(object):
     '''
@@ -340,6 +341,23 @@ class TestXPath(object):
         for lastSpan in lastSpans:
 
             assert lastSpan in results , 'Got a mismatch of results from xpath vs non-xpath. Node  (  %s  ) was found via non-xpath, but not in the xpath set!' %(repr(lastSpan), )
+
+
+    def test_parseOptimizations1(self):
+        '''
+            test_parseOptimizations1 - Test that we properly optimize xpath strings with values that can be calculated at parse time
+        '''
+
+        bodyElements = parseBodyStringIntoBodyElements('''"hello" || " " || "world" = "hello world"''')
+
+        assert len(bodyElements) == 1 , 'Expected parsed string to be optimized to a single value. Got: %s' %(repr(bodyElements), )
+
+        bodyElement = bodyElements[0]
+
+        assert issubclass(bodyElement.__class__, BodyElementValue) , 'Expected parsed string to be optimized to a single BodyElementValue. Got: %s' %(bodyElement.__class__.__name__, )
+
+        value = bodyElement.getValue()
+        assert value is True , 'Expected the calculated BodyElementValue to be <bool> True. Got: <%s> %s' %( type(value).__name__, repr(value))
 
 
 if __name__ == '__main__':
