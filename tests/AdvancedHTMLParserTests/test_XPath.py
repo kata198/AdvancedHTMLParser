@@ -262,30 +262,56 @@ class TestXPath(object):
         assert item3Em in items2or3 , 'Expected to find element returned by getElementById("item3") in result for xpath expression of the same, but did not.'
 
 
-    def test_xpathConcat(self):
+    def test_xpathConcatFunction(self):
         '''
-            test_xpathConcat - Test string concatenation
+            test_xpathConcatFunction - Test string concatenation via fn::concat
         '''
 
         item2Ems = self.parser.getElementsByXPathExpression('''//*[ @id = concat("ite", "m2") ]''')
-        assert len(item2Ems) == 1 , 'Expected to find one element with "id" attribute as concatenated "ite" + "m2" , or "item2", but got: %s' %(repr(item2Ems), )
+        assert len(item2Ems) == 1 , 'Expected to find one element with "id" attribute as concatenated via function "ite" + "m2" , or "item2", but got: %s' %(repr(item2Ems), )
 
         item2Em = item2Ems[0]
         assert item2Em.id == "item2"
 
 
         item3Ems = self.parser.getElementsByXPathExpression('''//*[ @id = concat("it", "em", "3") ]''')
-        assert len(item3Ems) == 1 , 'Expected to find one element with "id" attribute as concatenated "it" + "em" + "3" , or "item3", but got: %s' %(repr(item3Ems), )
+        assert len(item3Ems) == 1 , 'Expected to find one element with "id" attribute as concatenated via function "it" + "em" + "3" , or "item3", but got: %s' %(repr(item3Ems), )
 
         item3Em = item3Ems[0]
         assert item3Em.id == "item3"
 
         noSuchItemEms = self.parser.getElementsByXPathExpression('''//*[ @id = concat("no", "Such", "Item") ]''')
-        assert len(noSuchItemEms) == 0 , 'Expected to find no elements with "id" attribute as concatenated "no" + "Such" + "Item" , or "noSuchItem", but got: %s' %(noSuchItemEms, )
+        assert len(noSuchItemEms) == 0 , 'Expected to find no elements with "id" attribute as concatenated via function "no" + "Such" + "Item" , or "noSuchItem", but got: %s' %(noSuchItemEms, )
 
 
         allItems = self.parser.getElementsByXPathExpression('''//*[@name = concat("i", "t", "em", "s")]''')
-        assert len(allItems) == 5 , 'Expected to find 5 elements with "name" attribute as concatenated "i" + "t" + "em" + "s" , or "items", but got %d elements. %s' %( len(allItems), repr(allItems) )
+        assert len(allItems) == 5 , 'Expected to find 5 elements with "name" attribute as concatenated via function "i" + "t" + "em" + "s" , or "items", but got %d elements. %s' %( len(allItems), repr(allItems) )
+        for item in allItems:
+            assert item.name == "items" , 'Expected all items returned by concatenated "items" string to have "name" attribute be "items", but element had name %s. Tag was: %s' %( item.name, item.getStartTag() )
+
+
+    def test_xpathConcatOperator(self):
+        '''
+            test_xpathConcatOperator - Test string concatenation via operator "||"
+        '''
+        item2Ems = self.parser.getElementsByXPathExpression('''//*[ @id = "ite" || "m2" ]''')
+        assert len(item2Ems) == 1 , 'Expected to find one element with "id" attribute as concatenated via operator "ite" + "m2" , or "item2", but got: %s' %(repr(item2Ems), )
+
+        item2Em = item2Ems[0]
+        assert item2Em.id == "item2"
+
+        item3Ems = self.parser.getElementsByXPathExpression('''//*[ @id = "it" || "em" || "3" ]''')
+        assert len(item3Ems) == 1 , 'Expected to find one element with "id" attribute as concatenated via operator "it" + "em" + "3" , or "item3", but got: %s' %(repr(item3Ems), )
+
+        item3Em = item3Ems[0]
+        assert item3Em.id == "item3"
+
+        noSuchItemEms = self.parser.getElementsByXPathExpression('''//*[ @id = "no" || "Such" || "Item" ]''')
+        assert len(noSuchItemEms) == 0 , 'Expected to find no elements with "id" attribute as concatenated via operator "no" + "Such" + "Item" , or "noSuchItem", but got: %s' %(noSuchItemEms, )
+
+
+        allItems = self.parser.getElementsByXPathExpression('''//*[@name = "i" || "t" || "em" || "s"]''')
+        assert len(allItems) == 5 , 'Expected to find 5 elements with "name" attribute as concatenated via operator "i" + "t" + "em" + "s" , or "items", but got %d elements. %s' %( len(allItems), repr(allItems) )
         for item in allItems:
             assert item.name == "items" , 'Expected all items returned by concatenated "items" string to have "name" attribute be "items", but element had name %s. Tag was: %s' %( item.name, item.getStartTag() )
 

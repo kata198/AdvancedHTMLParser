@@ -213,6 +213,7 @@ class BodyLevel_Top(BodyLevel):
 
                         # Pop the last value (left side), drop the operation, load the resolved value in place.
                         nextElements = nextElements[ : -1 ] + [resolvedValue]
+                        prevValue = resolvedValue
 
                         # Move past right side
                         i += 2
@@ -275,6 +276,7 @@ class BodyLevel_Top(BodyLevel):
 
                         # Pop the last value (left side), drop the operation, load the resolved value in place.
                         nextElements = nextElements[ : -1 ] + [resolvedValue]
+                        prevValue = resolvedValue
 
                         # Move past right side
                         i += 2
@@ -337,6 +339,7 @@ class BodyLevel_Top(BodyLevel):
 
                         # Pop the last value (left side), drop the operation, load the resolved value in place.
                         nextElements = nextElements[ : -1 ] + [resolvedValue]
+                        prevValue = resolvedValue
 
                         # Move past right side
                         i += 2
@@ -1012,6 +1015,60 @@ class BodyElementOperation(BodyElement):
             )
         )
         pass
+
+
+class BodyElementOperation_Concat(BodyElementOperation):
+    '''
+        BodyElementOperation_Concat - Operation to handle the concat operator, "||"
+    '''
+
+    def performOperation(self, leftSide, rightSide):
+        '''
+            performOperation - Concatenate two strings
+
+
+                @param leftSide <str/BodyElementValue_String> - The left side string (will be the prefix)
+
+                @param rightSide <str/BodyElementValue_String> - The right side string (will be the suffix)
+
+
+                @return <BodyElementValue_String> - The concatenated string of leftSide + rightSide
+
+        '''
+        # TODO: Optimize to handle static values at parse time
+        if issubclass(leftSide.__class__, BodyElementValue):
+            leftSideValue = leftSide.getValue()
+
+        else:
+            leftSideValue = leftSide
+
+        if issubclass(rightSide.__class__, BodyElementValue):
+            rightSideValue = rightSide.getValue()
+
+        else:
+            rightSideValue = rightSide
+
+        if not issubclass(leftSideValue.__class__, STRING_TYPES):
+            raise XPathRuntimeError('Concat operator tried to concatenate, but left side is not a string type! It is a %s . repr: %s' % ( \
+                    type(leftSideValue).__name__,
+                    repr(leftSideValue),
+                )
+            )
+        if not issubclass(rightSideValue.__class__, STRING_TYPES):
+            raise XPathRuntimeError('Concat operator tried to concatenate, but right side is not a string type! It is a %s . repr: %s' % ( \
+                type(rightSideValue).__name__,
+                repr(rightSideValue),
+            )
+        )
+        #print ( "Left: %s\nRight: %s\n" %(repr(leftSideValue), repr(rightSideValue)) )
+
+        val = leftSideValue + rightSideValue
+
+        return BodyElementValue_String(val)
+
+
+BEO_CONCAT_RE = re.compile(r'''^([ \t]*[\|][\|][ \t]*)''')
+OPERATION_RES.append( (BEO_CONCAT_RE, BodyElementOperation_Concat) )
 
 
 #############################
