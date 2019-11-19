@@ -9,7 +9,7 @@ import sys
 import AdvancedHTMLParser
 
 
-class TestXpath(object):
+class TestXPath(object):
     '''
         xpath is way better than ypath
     '''
@@ -56,9 +56,9 @@ class TestXpath(object):
 </html>
 '''
 
-    def setup_TestXpath(self):
+    def setup_TestXPath(self):
         '''
-            setup_TestXpath - Perform a one-time setup of this class (parse the test HTML into a parser.AdvancedHTMLParser document)
+            setup_TestXPath - Perform a one-time setup of this class (parse the test HTML into a parser.AdvancedHTMLParser document)
 
                 Sets self.parser <Parser.AdvancedHTMLParser> = the parsed document
         '''
