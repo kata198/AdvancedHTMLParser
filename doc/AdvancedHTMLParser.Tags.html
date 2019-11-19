@@ -327,6 +327,19 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;matching&nbsp;elements</tt></dd></dl>
 
+<dl ><dt ><a name="AdvancedTag-getElementsByXPath" ><strong >getElementsByXPath</strong></a> = <a href="#AdvancedTag-getElementsByXPathExpression" >getElementsByXPathExpression</a>(self, xpathExprStr)</dt></dl>
+
+<dl ><dt ><a name="AdvancedTag-getElementsByXPathExpression" ><strong >getElementsByXPathExpression</strong></a>(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string,&nbsp;using&nbsp;this&nbsp;node&nbsp;as&nbsp;the&nbsp;root<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;xpathExprStr&nbsp;&lt;str&gt;&nbsp;-&nbsp;An&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;(e.x.&nbsp;"""//div[@name="someName"]/span[3]"""&nbsp;)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;<a href="#TagCollection" >TagCollection</a>&gt;&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;AdvancedHTMLParser.xpath.XPathExpression.evaluate&nbsp;for&nbsp;additional&nbsp;@throws&nbsp;and&nbsp;similar</tt></dd></dl>
+
 <dl ><dt ><a name="AdvancedTag-getElementsCustomFilter" ><strong >getElementsCustomFilter</strong></a>(self, filterFunc)</dt><dd ><tt >getElementsCustomFilter&nbsp;-&nbsp;Searches&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;those&nbsp;matching&nbsp;a&nbsp;provided&nbsp;user&nbsp;function<br />
 &nbsp;<br />
 @param&nbsp;filterFunc&nbsp;&lt;function&gt;&nbsp;-&nbsp;A&nbsp;function&nbsp;or&nbsp;lambda&nbsp;expression&nbsp;that&nbsp;should&nbsp;return&nbsp;"True"&nbsp;if&nbsp;the&nbsp;passed&nbsp;node&nbsp;matches&nbsp;criteria.<br />
@@ -1185,6 +1198,8 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 @param&nbsp;tagName&nbsp;-&nbsp;String&nbsp;of&nbsp;tag&nbsp;name<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;unique&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;with&nbsp;given&nbsp;tag&nbsp;name</tt></dd></dl>
+
+<dl ><dt ><a name="TagCollection-getElementsByXPath" ><strong >getElementsByXPath</strong></a> = <a href="#TagCollection-getElementsByXPathExpression" >getElementsByXPathExpression</a>(self, xpathExprStr)</dt></dl>
 
 <dl ><dt ><a name="TagCollection-getElementsByXPathExpression" ><strong >getElementsByXPathExpression</strong></a>(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;against&nbsp;the&nbsp;elements&nbsp;in&nbsp;this&nbsp;collection<br />
 &nbsp;<br />

@@ -25,11 +25,12 @@ See:&nbsp;https://github.com/kata198/<a href="#AdvancedHTMLParser" >AdvancedHTML
 <a href="AdvancedHTMLParser.SpecialAttributes.html" >SpecialAttributes</a><br />
 </td><td width="25%" valign="top" ><a href="AdvancedHTMLParser.Tags.html" >Tags</a><br />
 <a href="AdvancedHTMLParser.Validator.html" >Validator</a><br />
-<a href="AdvancedHTMLParser.constants.html" >constants</a><br />
-</td><td width="25%" valign="top" ><a href="AdvancedHTMLParser.conversions.html" >conversions</a><br />
+<a href="AdvancedHTMLParser.compat.html" >compat</a><br />
+</td><td width="25%" valign="top" ><a href="AdvancedHTMLParser.constants.html" >constants</a><br />
+<a href="AdvancedHTMLParser.conversions.html" >conversions</a><br />
 <a href="AdvancedHTMLParser.exceptions.html" >exceptions</a><br />
-<a href="AdvancedHTMLParser.utils.html" >utils</a><br />
-</td><td width="25%" valign="top" ><a href="AdvancedHTMLParser.xpath.html" ><strong >xpath</strong>&nbsp;(package)</a><br />
+</td><td width="25%" valign="top" ><a href="AdvancedHTMLParser.utils.html" >utils</a><br />
+<a href="AdvancedHTMLParser.xpath.html" ><strong >xpath</strong>&nbsp;(package)</a><br />
 </td></tr></table></td></tr></table><p >
 <table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
 <tr bgcolor="#ee77aa" >
@@ -514,6 +515,8 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedHTMLParser-getElementsByXPath" ><strong >getElementsByXPath</strong></a> = <a href="#AdvancedHTMLParser-getElementsByXPathExpression" >getElementsByXPathExpression</a>(self, xpathExprStr)</dt></dl>
 
 <dl ><dt ><a name="AdvancedHTMLParser-getElementsByXPathExpression" ><strong >getElementsByXPathExpression</strong></a>(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;against&nbsp;this&nbsp;document<br />
 &nbsp;<br />
@@ -1313,6 +1316,19 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 @param&nbsp;name&nbsp;-&nbsp;name&nbsp;to&nbsp;search<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;matching&nbsp;elements</tt></dd></dl>
+
+<dl ><dt ><a name="AdvancedTag-getElementsByXPath" ><strong >getElementsByXPath</strong></a> = <a href="#AdvancedTag-getElementsByXPathExpression" >getElementsByXPathExpression</a>(self, xpathExprStr)</dt></dl>
+
+<dl ><dt ><a name="AdvancedTag-getElementsByXPathExpression" ><strong >getElementsByXPathExpression</strong></a>(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string,&nbsp;using&nbsp;this&nbsp;node&nbsp;as&nbsp;the&nbsp;root<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;xpathExprStr&nbsp;&lt;str&gt;&nbsp;-&nbsp;An&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;(e.x.&nbsp;"""//div[@name="someName"]/span[3]"""&nbsp;)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;<a href="#TagCollection" >TagCollection</a>&gt;&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>.xpath.XPathExpression.evaluate&nbsp;for&nbsp;additional&nbsp;@throws&nbsp;and&nbsp;similar</tt></dd></dl>
 
 <dl ><dt ><a name="AdvancedTag-getElementsCustomFilter" ><strong >getElementsCustomFilter</strong></a>(self, filterFunc)</dt><dd ><tt >getElementsCustomFilter&nbsp;-&nbsp;Searches&nbsp;children&nbsp;of&nbsp;this&nbsp;tag&nbsp;for&nbsp;those&nbsp;matching&nbsp;a&nbsp;provided&nbsp;user&nbsp;function<br />
 &nbsp;<br />
@@ -2121,6 +2137,17 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 @return&nbsp;<a href="#TagCollection" >TagCollection</a>&lt;<a href="#AdvancedTag" >AdvancedTag</a>&gt;</tt></dd></dl>
 
+<dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementsByXPath" ><strong >getElementsByXPath</strong></a> = getElementsByXPathExpression(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;against&nbsp;this&nbsp;document<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;xpathExprStr&nbsp;&lt;str&gt;&nbsp;-&nbsp;An&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;(e.x.&nbsp;"""//div[@name="someName"]/span[3]"""&nbsp;)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;<a href="#TagCollection" >TagCollection</a>&gt;&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>.xpath.XPathExpression.evaluate&nbsp;for&nbsp;@throws&nbsp;and&nbsp;similar</tt></dd></dl>
+
 <dl ><dt ><a name="IndexedAdvancedHTMLParser-getElementsByXPathExpression" ><strong >getElementsByXPathExpression</strong></a>(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;against&nbsp;this&nbsp;document<br />
 &nbsp;<br />
 &nbsp;<br />
@@ -2836,6 +2863,8 @@ For&nbsp;alternative&nbsp;without&nbsp;QueryableList,<br />
 &nbsp;<br />
 @return&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;unique&nbsp;elements&nbsp;within&nbsp;this&nbsp;collection&nbsp;with&nbsp;given&nbsp;tag&nbsp;name</tt></dd></dl>
 
+<dl ><dt ><a name="TagCollection-getElementsByXPath" ><strong >getElementsByXPath</strong></a> = <a href="#TagCollection-getElementsByXPathExpression" >getElementsByXPathExpression</a>(self, xpathExprStr)</dt></dl>
+
 <dl ><dt ><a name="TagCollection-getElementsByXPathExpression" ><strong >getElementsByXPathExpression</strong></a>(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;against&nbsp;the&nbsp;elements&nbsp;in&nbsp;this&nbsp;collection<br />
 &nbsp;<br />
 &nbsp;<br />
@@ -3155,6 +3184,17 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;<a href="#AdvancedTag" >AdvancedTag</a>/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
+
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getElementsByXPath" ><strong >getElementsByXPath</strong></a> = getElementsByXPathExpression(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;against&nbsp;this&nbsp;document<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;xpathExprStr&nbsp;&lt;str&gt;&nbsp;-&nbsp;An&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;(e.x.&nbsp;"""//div[@name="someName"]/span[3]"""&nbsp;)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;<a href="#TagCollection" >TagCollection</a>&gt;&nbsp;-&nbsp;<a href="#TagCollection" >TagCollection</a>&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;<a href="#AdvancedHTMLParser" >AdvancedHTMLParser</a>.xpath.XPathExpression.evaluate&nbsp;for&nbsp;@throws&nbsp;and&nbsp;similar</tt></dd></dl>
 
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-getElementsByXPathExpression" ><strong >getElementsByXPathExpression</strong></a>(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;against&nbsp;this&nbsp;document<br />
 &nbsp;<br />

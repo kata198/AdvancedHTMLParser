@@ -429,6 +429,17 @@ NOTE:&nbsp;If&nbsp;you&nbsp;installed&nbsp;the&nbsp;QueryableList&nbsp;module&nb
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;tagName&nbsp;&lt;lowercase&nbsp;str&gt;&nbsp;-&nbsp;A&nbsp;lowercase&nbsp;string&nbsp;of&nbsp;the&nbsp;tag&nbsp;name.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;root&nbsp;&lt;AdvancedTag/'root'&gt;&nbsp;-&nbsp;Search&nbsp;starting&nbsp;at&nbsp;a&nbsp;specific&nbsp;node,&nbsp;if&nbsp;provided.&nbsp;if&nbsp;string&nbsp;'root',&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;parsed&nbsp;tree&nbsp;will&nbsp;be&nbsp;used.</tt></dd></dl>
 
+<dl ><dt ><a name="ValidatingAdvancedHTMLParser-getElementsByXPath" ><strong >getElementsByXPath</strong></a> = getElementsByXPathExpression(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;against&nbsp;this&nbsp;document<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;xpathExprStr&nbsp;&lt;str&gt;&nbsp;-&nbsp;An&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;(e.x.&nbsp;"""//div[@name="someName"]/span[3]"""&nbsp;)<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;&lt;TagCollection&gt;&nbsp;-&nbsp;TagCollection&nbsp;of&nbsp;all&nbsp;matching&nbsp;elements<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@see&nbsp;<a href="AdvancedHTMLParser.Parser.html#AdvancedHTMLParser" >AdvancedHTMLParser</a>.xpath.XPathExpression.evaluate&nbsp;for&nbsp;@throws&nbsp;and&nbsp;similar</tt></dd></dl>
+
 <dl ><dt ><a name="ValidatingAdvancedHTMLParser-getElementsByXPathExpression" ><strong >getElementsByXPathExpression</strong></a>(self, xpathExprStr)</dt><dd ><tt >getElementsByXPathExpression&nbsp;-&nbsp;Evaluate&nbsp;an&nbsp;XPath&nbsp;expression&nbsp;string&nbsp;against&nbsp;this&nbsp;document<br />
 &nbsp;<br />
 &nbsp;<br />
