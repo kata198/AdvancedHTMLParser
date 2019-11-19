@@ -1932,6 +1932,31 @@ class AdvancedTag(object):
         return TagCollection(elements)
 
 
+    def getElementsByXPathExpression(self, xpathExprStr):
+        '''
+            getElementsByXPathExpression - Evaluate an XPath expression string, using this node as the root
+
+
+                @param xpathExprStr <str> - An XPath expression string (e.x. """//div[@name="someName"]/span[3]""" )
+
+
+                @return <TagCollection> - TagCollection of all matching elements
+
+
+                @see AdvancedHTMLParser.xpath.XPathExpression.evaluate for additional @throws and similar
+        '''
+        # Late-binding import
+        from . import xpath as axpath
+
+        # May raise a parsing error, if invalid xpath expression string
+        xpathExpression = axpath.XPathExpression(xpathExprStr)
+
+        return xpathExpression.evaluate(self)
+
+
+    getElementsByXPath = getElementsByXPathExpression
+
+
     def getElementsCustomFilter(self, filterFunc):
         '''
             getElementsCustomFilter - Searches children of this tag for those matching a provided user function
@@ -2517,6 +2542,8 @@ class TagCollection(list):
 
 
         return xpathExpression.evaluate(self)
+
+    getElementsByXPath = getElementsByXPathExpression
 
 
     def getElementsCustomFilter(self, filterFunc):

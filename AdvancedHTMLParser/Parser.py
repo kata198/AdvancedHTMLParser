@@ -506,6 +506,7 @@ class AdvancedHTMLParser(HTMLParser):
         # TODO: From multiple root nodes??
         return xpathExpression.evaluate(rootNodes)
 
+    getElementsByXPath = getElementsByXPathExpression
 
     def getFirstElementCustomFilter(self, filterFunc, root='root'):
         '''

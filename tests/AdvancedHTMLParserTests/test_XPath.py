@@ -134,6 +134,24 @@ class TestXPath(object):
         assert len(allItemsDivs) == 5 , 'Expected to find 5 divs in xpath expression  (( //div[@name="items"] )), but found %d. Divs were:  %s' % ( len(allItemsDivs), repr(allItemsDivs) )
 
 
+        # Try from a tag
+        htmlTag = self.parser.getElementsByTagName('html')[0]
+
+        allItemsDivs = htmlTag.getElementsByXPathExpression('''//div[@name="items"]''')
+
+        # Check that return is expected type -- TagCollection
+        assert isinstance(allItemsDivs, AdvancedHTMLParser.TagCollection) is True, \
+                'Expected Parser.AdvancedHTMLParser.getElementsByXPathExpression to return a TagCollection object, but got: < %s . ( %s )' % \
+                    ( \
+                        allItemsDivs.__class__.__name__, \
+                        str( type( allItemsDivs ) ), \
+                    )
+
+        # Check that we got the right number of elements
+        assert len(allItemsDivs) == 5 , 'Expected to find 5 divs in xpath expression  (( //div[@name="items"] )), but found %d. Divs were:  %s' % ( len(allItemsDivs), repr(allItemsDivs) )
+
+
+
         # Now, try with single quotes instead of double quotes
         allItemsDivs2 = self.parser.getElementsByXPathExpression('''//div[@name='items']''')
 
