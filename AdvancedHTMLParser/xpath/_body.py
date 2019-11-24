@@ -1655,6 +1655,9 @@ ALL_BODY_ELEMENT_RES = VALUE_GENERATOR_RES + STATIC_VALUES_RES + COMPARISON_RES 
 
 
 class BodyLevel_Group(BodyLevel):
+    '''
+        BodyLevel_Group - A group of elements
+    '''
 
     def __init__(self, groupMembers=None):
         '''
@@ -1670,12 +1673,22 @@ class BodyLevel_Group(BodyLevel):
 
         self.appendBodyElements(groupMembers)
 
-
+# BODY_ELEMENT_GROUP_OPEN_RE - The opening of a parenthesis group
 BODY_ELEMENT_GROUP_OPEN_RE = re.compile(r'^([ \t]*[\(](?P<restOfBody>.+)[ \t]*)$')
+# BODY_ELEMENT_GROUP_CLOSE_RE - The closing of a parenthesis group
 BODY_ELEMENT_GROUP_CLOSE_RE = re.compile(r'^(?P<endOfGroup>[ \t]*[\)][ \t]*)')
 
 
 def _parseBodyLevelGroup(restOfBody):
+    '''
+        _parseBodyLevelGroup - Parse a group, within parenthesis
+
+
+            @param restOfBody <str> - The remainder of the body string to parse
+
+
+            @return tuple< <BodyLevel_Group>, remainderStr<str> > - The group parsed, and the unused portion of the str on which to continue parsing at parent level
+    '''
     allBodyElementREs = ALL_BODY_ELEMENT_RES
     bodyElementGroupOpenRE = BODY_ELEMENT_GROUP_OPEN_RE
     bodyElementGroupCloseRE = BODY_ELEMENT_GROUP_CLOSE_RE
@@ -1741,6 +1754,7 @@ def _parseBodyLevelGroup(restOfBody):
     #return newRet
 
     return ( BodyLevel_Group(ret), curString )
+
 
 def parseBodyStringIntoBodyElements(bodyString):
     '''
