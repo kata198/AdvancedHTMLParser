@@ -329,8 +329,12 @@ class BodyLevel_Top(BodyLevel):
             else:
                 # This should have already been validated
 
-                # TODO: Make sure is an integer and not a float
-                innerNum = int( finalValue.getValue() )
+                theValue = finalValue.getValue()
+                innerNum = int( theValue )
+
+                if float(innerNum) != theValue:
+                    # Float value, not integer, return nothing.
+                    continue
 
                 # TODO: Better.
                 testFunc = _mk_xpath_op_filter_tag_is_nth_child_index(currentTag.tagName, innerNum)
