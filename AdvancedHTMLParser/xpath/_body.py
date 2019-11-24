@@ -35,6 +35,8 @@ class BodyLevel(object):
         BodyLevel - A single "level" of a body
     '''
 
+    VALIDATE_ONLY_BOOLEAN_OR_STR = False
+
     def __init__(self):
         '''
             __init__ - Create this object
@@ -259,7 +261,7 @@ class BodyLevel(object):
                     )
                 )
 
-            if finalElementValueType not in (BODY_VALUE_TYPE_BOOLEAN, BODY_VALUE_TYPE_NUMBER):
+            if self.VALIDATE_ONLY_BOOLEAN_OR_STR and finalElementValueType not in (BODY_VALUE_TYPE_BOOLEAN, BODY_VALUE_TYPE_NUMBER):
                 raise XPathRuntimeError('Final value resolved from level """%s""" was not an integer or a boolean, cannot proceed.\nVALUE_TYPE is %s.\nClass: %s\nRepr: %s' % ( \
                         repr(self),
                         _bodyValueTypeToDebugStr(finalElementValueType),
@@ -282,6 +284,7 @@ class BodyLevel_Top(BodyLevel):
         BodyLevel_Top - The topmost level of a body. This is the final evaluation before passing onto the next tag filter
     '''
 
+    VALIDATE_ONLY_BOOLEAN_OR_STR = True
 
     def filterTagsByBody(self, currentTags):
         '''
@@ -1649,6 +1652,96 @@ ALL_BODY_ELEMENT_RES = VALUE_GENERATOR_RES + STATIC_VALUES_RES + COMPARISON_RES 
 
 # NOTE: Static values should come before operations, so negative values match as a static value and not a substract operation
 
+
+
+class BodyLevel_Group(BodyLevel):
+
+    def __init__(self, groupMembers=None):
+        '''
+            __init__ - Create this element
+
+
+                @param groupMembers list<BodyElement> - Members of this group
+        '''
+        BodyLevel.__init__(self)
+
+        if not groupMembers:
+            groupMembers = []
+
+        self.appendBodyElements(groupMembers)
+
+
+BODY_ELEMENT_GROUP_OPEN_RE = re.compile(r'^([ \t]*[\(](?P<restOfBody>.+)[ \t]*)$')
+BODY_ELEMENT_GROUP_CLOSE_RE = re.compile(r'^(?P<endOfGroup>[ \t]*[\)]+[ \t]*)$')
+
+
+def _parseBodyLevelGroup(restOfBody):
+    allBodyElementREs = ALL_BODY_ELEMENT_RES
+    bodyElementGroupOpenRE = BODY_ELEMENT_GROUP_OPEN_RE
+    bodyElementGroupCloseRE = BODY_ELEMENT_GROUP_CLOSE_RE
+
+    curString = restOfBody[:].strip()
+    ret = []
+
+    while curString:
+
+        gotMatch = False
+
+        groupCloseMatch = bodyElementGroupCloseRE.match(curString)
+        if groupCloseMatch:
+            # We are at the end of this group, return the rest of the string back upward
+
+            gotMatch = True
+
+            newCurString = curString[ groupCloseMatch.span()[1] : ]
+            curString = newCurString
+
+            break
+
+        groupOpenMatch = bodyElementGroupOpenRE.match(curString)
+        if groupOpenMatch:
+
+            gotMatch = True
+
+            (subLevel, newCurString) = _parseBodyLevelGroup( groupOpenMatch.groupdict()['restOfBody'] )
+
+            ret.append(subLevel)
+            curString = newCurString
+
+            continue
+
+        else:
+            for ( bodyPartRE, bodyPartClass ) in allBodyElementREs:
+
+                matchObj = bodyPartRE.match(curString)
+                if matchObj is None:
+                    continue
+
+                gotMatch = True
+                break
+
+        if gotMatch is False:
+
+            raise XPathParseError('Failed to parse body string into usable part, at: "%s"' %(curString, ))
+
+        groupDict = matchObj.groupdict()
+
+        thisPart = bodyPartClass( **groupDict )
+        ret.append(thisPart)
+
+        curString = curString[ matchObj.span()[1] : ].lstrip()
+
+
+    # Optimization: Before returning, run through and perform any operations against static values possible
+    #newRet = _optimizeStaticValueCalculations(ret)
+    ret = _optimizeStaticValueCalculations(ret)
+
+    #print ( "\nPrevious BodyElements(%2d): %s\n\n  New    BodyElements(%2d): %s\n" %( len(ret), repr(ret), len(newRet), repr(newRet)) )
+
+    #return newRet
+
+    return ( BodyLevel_Group(ret), curString )
+
 def parseBodyStringIntoBodyElements(bodyString):
     '''
         parseBodyStringIntoBodyElements - Parses the body string of a tag filter expression (between square brackets)
@@ -1666,6 +1759,7 @@ def parseBodyStringIntoBodyElements(bodyString):
     '''
 
     allBodyElementREs = ALL_BODY_ELEMENT_RES
+    bodyElementGroupOpenRE = BODY_ELEMENT_GROUP_OPEN_RE
 
     curString = bodyString[:].strip()
     ret = []
@@ -1674,14 +1768,27 @@ def parseBodyStringIntoBodyElements(bodyString):
 
         gotMatch = False
 
-        for ( bodyPartRE, bodyPartClass ) in allBodyElementREs:
-
-            matchObj = bodyPartRE.match(curString)
-            if matchObj is None:
-                continue
+        groupOpenMatch = bodyElementGroupOpenRE.match(curString)
+        if groupOpenMatch:
 
             gotMatch = True
-            break
+
+            (subLevel, newCurString) = _parseBodyLevelGroup( groupOpenMatch.groupdict()['restOfBody'] )
+
+            ret.append(subLevel)
+            curString = newCurString
+
+            continue
+
+        else:
+            for ( bodyPartRE, bodyPartClass ) in allBodyElementREs:
+
+                matchObj = bodyPartRE.match(curString)
+                if matchObj is None:
+                    continue
+
+                gotMatch = True
+                break
 
         if gotMatch is False:
 

@@ -309,6 +309,18 @@ class TestXPath(object):
             assert item.name == "items" , 'Expected all items returned by concatenated "items" string to have "name" attribute be "items", but element had name %s. Tag was: %s' %( item.name, item.getStartTag() )
 
 
+    def test_xpathConcatLevel(self):
+        '''
+            test_xpathConcatLevel - Test concatenation as a level
+        '''
+
+        item2Ems = self.parser.getElementsByXPathExpression('''//*[ @id = ( concat("ite", "m") || "2" ) ]''')
+        assert len(item2Ems) == 1 , 'Expected to find one element with "id" attribute as concatenated via function "ite" + "m2" , or "item2", but got: %s' %(repr(item2Ems), )
+
+        item2Em = item2Ems[0]
+        assert item2Em.id == "item2"
+
+
     def test_xpathConcatOperator(self):
         '''
             test_xpathConcatOperator - Test string concatenation via operator "||"
