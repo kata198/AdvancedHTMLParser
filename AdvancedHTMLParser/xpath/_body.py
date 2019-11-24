@@ -92,313 +92,142 @@ class BodyLevel(object):
                 @return list< BodyElementValue > - The BodyElementValue of the results, in a list 1:1 same order same size as #currentTags
 
         '''
+        # thisLevelElements - local reference to our elements
         thisLevelElements = self.bodyElements
 
+        # resultPerTag - This list contains the values to be returned for each tag, in same order as #currentTags
         resultPerTag = []
 
         if len(thisLevelElements) == 0:
             # This is an empty [], so just return the same
             return resultPerTag
 
-        # TODO: Optimize this function
 
+        # TODO: Optimize this function, further
+
+
+        ## These next two arrays provide the common and ordered interface to iterate through all various types which
+        #    need evaluation.
+        #  They are tuples,  ( Class, Lambda to Evaluate ). All lambdas within the same set follow same signature
+
+        # ORDERED_BE_TYPES_TO_PROCESS_TAGS - The ordered types to process which generate values from the tag itself
+        ORDERED_BE_TYPES_TO_PROCESS_TAGS = [
+            (BodyLevel, lambda _bl, _curTag : _bl.evaluateLevelForTag(_curTag) ),
+            (BodyElementValueGenerator, lambda _bevg, _curTag : _bevg.resolveValueFromTag(_curTag) ),
+        ]
+
+        # ORDERED_BE_TYPES_TO_PROCESS_VALUES - The ordered types to process which generate values from left side and right side
+        ORDERED_BE_TYPES_TO_PROCESS_VALUES = [
+
+            (BodyElementOperation, lambda _beo, _leftSide, _rightSide : _beo.performOperation(_leftSide, _rightSide) ),
+            (BodyElementComparison, lambda _bec, _leftSide, _rightSide : _bec.doComparison(_leftSide, _rightSide) ),
+            (BodyElementBooleanOps, lambda _bebo, _leftSide, _rightSide : _bebo.doBooleanOp(_leftSide, _rightSide) ),
+        ]
+
+
+        # Iterate over all tags
         for thisTag in currentTags:
 
-            # stillProcessingTagSubLevels - Loop while we are still processing down to only values/operations
-            stillProcessingTagSubLevels = True
-
             # curElements - The current set of elements for this tag, as we unroll, this will change.
-            #                 Initial value will be a copy of the original set of elements
-            curElements = copy.deepcopy(thisLevelElements)
+            #                 Initial value will be reference to the original set of elements
+            curElements = thisLevelElements
 
-            # Loop until we are done with sub levels
-            while stillProcessingTagSubLevels is True:
-
-                # Set to False, we will trigger to True if there is a reason to iterate again (a sub level, for example)
-                stillProcessingTagSubLevels = False
+            # Run through the tag-processing (value generators, sublevels) ones first
+            for typeToProcess, processFunction in ORDERED_BE_TYPES_TO_PROCESS_TAGS:
 
                 # nextElements - We will assemble into this list the next iteration of #curElements
                 nextElements = []
 
-                for thisBodyElement in curElements:
+                for curElement in curElements:
 
-                    thisBodyElementClass = thisBodyElement.__class__
+                    curElementClass = curElement.__class__
 
-                    # TODO: Optimize
-                    if issubclass(thisBodyElementClass, BodyElementValue):
-                        # A value, static or otherwise, throw it on the stack.
-                        nextElements.append( thisBodyElement )
-                        continue
-
-                    elif issubclass(thisBodyElementClass, (BodyElementOperation, BodyElementComparison, BodyElementBooleanOps, BodyElementValueGenerator)):
-                        # Another type to be ran after the level is completely evaluated
-                        nextElements.append( thisBodyElement )
-                        continue
-
-                    elif issubclass(thisBodyElementClass, BodyLevel):
-                        # A sub level, evaluate this level.
-                        generatedValue = thisBodyElement.evaluateLevelForTag( thisTag )
-
-                        nextElements.append( generatedValue )
-
-                        # NOTE: Currently, resolveValueFromTag always returns a BodyElementValue,
-                        #         but in the future it may not.
-                        #       So, conditionally loop if we got a non-value returned
-                        if not issubclass(generatedValue.__class__, BodyElementValue):
-                            stillProcessingTagSubLevels = True
-
-                        continue
+                    if not issubclass(curElementClass, typeToProcess):
+                        # Not processing this type, just put back on the list
+                        nextElements.append( curElement )
 
                     else:
-
-                        raise XPathRuntimeError('Found an unexpected type in list of level elements: %s . Repr: %s' %( thisBodyElementClass.__name__, repr(thisBodyElement)) )
+                        # Processing type, get new value
+                        generatedValue = processFunction( curElement, thisTag )
+                        nextElements.append( generatedValue )
 
                 # Update #curElements
                 curElements = nextElements
 
 
-            # stillProcessingTagValueGenerators - Loop while we are still processing down to only values/operations
-            stillProcessingTagValueGenerators = True
-
-            # Loop until we are done with value generators
-            while stillProcessingTagValueGenerators is True:
-
-                # Set to False, we will trigger to True if there is a reason to iterate again (a sub level, for example)
-                stillProcessingTagValueGenerators = False
+            # Great, now we have to start keeping track of left/right and process the rest
+            for typeToProcess, processFunction in ORDERED_BE_TYPES_TO_PROCESS_VALUES:
 
                 # nextElements - We will assemble into this list the next iteration of #curElements
                 nextElements = []
 
-                for thisBodyElement in curElements:
+                # leftSide - this will be the left side value
+                leftSide = None
 
-                    thisBodyElementClass = thisBodyElement.__class__
 
-                    # TODO: Optimize
-                    if issubclass(thisBodyElementClass, BodyElementValue):
-                        # A value, static or otherwise, throw it on the stack.
-                        nextElements.append( thisBodyElement )
-                        continue
+                numElements = len(curElements)
+                i = 0
 
-                    elif issubclass(thisBodyElementClass, (BodyElementOperation, BodyElementComparison, BodyElementBooleanOps)):
-                        # An operation, we will run these after value generators have processed.
-                        #  NOTE: Can be optimized further, as we may not need to unroll all value generators before passing/failing a node
-                        # Just throw it back onto list for now
-                        nextElements.append( thisBodyElement )
-                        continue
+                while i < numElements:
 
-                    elif issubclass(thisBodyElementClass, BodyElementValueGenerator):
-                        # A value generator, run this against the current tag
-                        generatedValue = thisBodyElement.resolveValueFromTag(thisTag)
+                    curElement = curElements[i]
+                    curElementClass = curElement.__class__
 
-                        nextElements.append( generatedValue )
+                    if not issubclass(curElementClass, typeToProcess ):
+                        # We aren't processing this type, just add it back
 
-                        # NOTE: Currently, resolveValueFromTag always returns a BodyElementValue,
-                        #         but in the future it may not.
-                        #       So, conditionally loop if we got a non-value returned
-                        if not issubclass(generatedValue.__class__, BodyElementValue):
-                            stillProcessingTagValueGenerators = True
+                        nextElements.append( curElement )
 
+                        # Update previous value and increment counter
+                        leftSide = curElement
+                        i += 1
+
+                        # Loop back
                         continue
 
                     else:
+                        # Validate that we are not at the end (need to gather a right)
+                        if (i + 1) >= numElements:
+                            # TODO: Better error message?
+                            raise XPathParseError('XPath expression ends in an operation, no right-side to operation.')
 
-                        raise XPathRuntimeError('Found an unexpected type in list of level elements: %s . Repr: %s' %( thisBodyElementClass.__name__, repr(thisBodyElement)) )
+                        # Validate left is right type
+                        if not issubclass(leftSide.__class__, BodyElementValue):
+                            # TODO: Better error message?
+                            raise XPathParseError('XPath expression contains two consecutive operations (left side)')
+
+                        # Grab and validate right is right type
+                        rightSide = curElements[i + 1]
+                        if not issubclass(rightSide.__class__, BodyElementValue):
+                            # TODO: Better error message?
+                            raise XPathParseError('XPath expression contains two consecutive operations (right side)')
+
+                        # Resolve a new value feeding left, right into the function
+                        resolvedValue = processFunction( curElement, leftSide, rightSide)
+
+                        # TODO: Remove this check?
+                        if not issubclass(resolvedValue.__class__, BodyElementValue):
+                            # Not a value? Error for now, may add back looping later if necessary for some ops
+                            raise XPathRuntimeError('XPath expression for op  "%s"  did not return a BodyElementValue, as expected. Got: <%s> %s' % ( \
+                                    repr(curElement),
+                                    resolvedValue.__class__.__name__,
+                                    repr(resolvedValue),
+                                )
+                            )
+
+                        # Pop the last value (left side), drop the operation, load the resolved value in place.
+                        nextElements = nextElements[ : -1 ] + [resolvedValue]
+
+                        # Update new left to this generated value
+
+                        leftSide = resolvedValue
+                        # Move past right side
+                        i += 2
 
                 # Update #curElements
                 curElements = nextElements
 
-            # At this point, we should have only values and operations. Run through until no operations remain
-
-            # TODO: This variable and associated loop are not needed?
-            stillProcessingTagOperations = True
-
-            while stillProcessingTagOperations is True:
-
-                stillProcessingTagOperations = False
-
-                nextElements = []
-
-                prevValue = None
-
-                # TODO: Check for impossible types in operations here?
-
-                numElements = len(curElements)
-                i = 0
-
-                while i < numElements:
-
-                    thisBodyElement = curElements[i]
-                    thisBodyElementClass = thisBodyElement.__class__
-
-                    if issubclass(thisBodyElementClass, (BodyElementValue, BodyElementComparison, BodyElementBooleanOps)):
-
-                        # Throw values and comparisons back on the stack as-is
-                        nextElements.append( thisBodyElement )
-                        prevValue = thisBodyElement
-
-                        i += 1
-                        continue
-
-                    else:
-                        # XXX Must be an Operation. All other types exhausted by this point.
-
-                        if (i + 1) >= numElements:
-                            # TODO: Better error message?
-                            raise XPathParseError('XPath expression ends in an operation, no right-side to operation.')
-
-                        leftSide = prevValue
-                        if not issubclass(leftSide.__class__, BodyElementValue):
-                            # TODO: Better error message?
-                            raise XPathParseError('XPath expression contains two consecutive operations (left side)')
-
-                        rightSide = curElements[i + 1]
-                        if not issubclass(rightSide.__class__, BodyElementValue):
-                            # TODO: Better error message?
-                            raise XPathParseError('XPath expression contains two consecutive operations (right side)')
-
-                        resolvedValue = thisBodyElement.performOperation(leftSide, rightSide)
-
-                        if not issubclass(resolvedValue.__class__, BodyElementValue):
-                            # Not a value? Loop again.
-                            print ( "WARNING: Got a non-value returned from performOperation" )
-                            stillProcessingTagOperations = True
-
-                        # Pop the last value (left side), drop the operation, load the resolved value in place.
-                        nextElements = nextElements[ : -1 ] + [resolvedValue]
-                        prevValue = resolvedValue
-
-                        # Move past right side
-                        i += 2
-                        continue
-
-                # Update the current set of elements
-                curElements = nextElements
-
-            stillProcessingTagComparisons = True
-
-            while stillProcessingTagComparisons is True:
-
-                stillProcessingTagComparisons = False
-
-                nextElements = []
-
-                prevValue = None
-
-                # TODO: Check for impossible types in operations here?
-
-                numElements = len(curElements)
-                i = 0
-
-                while i < numElements:
-
-                    thisBodyElement = curElements[i]
-                    thisBodyElementClass = thisBodyElement.__class__
-
-                    if issubclass(thisBodyElementClass, (BodyElementValue, BodyElementBooleanOps)):
-
-                        nextElements.append( thisBodyElement )
-                        prevValue = thisBodyElement
-
-                        i += 1
-                        continue
-
-                    else:
-                        # XXX Must be a Comparison, all other types exhausted
-
-                        if (i + 1) >= numElements:
-                            # TODO: Better error message?
-                            raise XPathParseError('XPath expression ends in an operation, no right-side to operation.')
-
-                        leftSide = prevValue
-                        if not issubclass(leftSide.__class__, BodyElementValue):
-                            # TODO: Better error message?
-                            raise XPathParseError('XPath expression contains two consecutive operations (left side)')
-
-                        rightSide = curElements[i + 1]
-                        if not issubclass(rightSide.__class__, BodyElementValue):
-                            # TODO: Better error message?
-                            raise XPathParseError('XPath expression contains two consecutive operations (right side)')
-
-                        resolvedValue = thisBodyElement.doComparison(leftSide, rightSide)
-
-                        if not issubclass(resolvedValue.__class__, BodyElementValue):
-                            # Not a value? Loop again.
-                            print ( "WARNING: Got a non-value returned from performOperation" )
-                            stillProcessingTagComparisons = True
-
-                        # Pop the last value (left side), drop the operation, load the resolved value in place.
-                        nextElements = nextElements[ : -1 ] + [resolvedValue]
-                        prevValue = resolvedValue
-
-                        # Move past right side
-                        i += 2
-                        continue
-
-                # Update the current set of elements
-                curElements = nextElements
-
-
-            # TODO: Should restructure this per the "levels" design such that we can short circuit
-            stillProcessingTagBooleanOps = True
-
-            while stillProcessingTagBooleanOps is True:
-
-                stillProcessingTagBooleanOps = False
-
-                nextElements = []
-
-                prevValue = None
-
-                numElements = len(curElements)
-                i = 0
-
-                while i < numElements:
-
-                    thisBodyElement = curElements[i]
-                    thisBodyElementClass = thisBodyElement.__class__
-
-                    if issubclass(thisBodyElementClass, BodyElementValue):
-
-                        nextElements.append( thisBodyElement )
-                        prevValue = thisBodyElement
-
-                        i += 1
-                        continue
-
-                    else:
-                        # XXX Must be a BooleanOps all other types exhausted
-
-                        if (i + 1) >= numElements:
-                            # TODO: Better error message?
-                            raise XPathParseError('XPath expression ends in an operation, no right-side to operation.')
-
-                        leftSide = prevValue
-                        if not issubclass(leftSide.__class__, BodyElementValue):
-                            # TODO: Better error message?
-                            raise XPathParseError('XPath expression contains two consecutive operations (left side)')
-
-                        rightSide = curElements[i + 1]
-                        if not issubclass(rightSide.__class__, BodyElementValue):
-                            # TODO: Better error message?
-                            raise XPathParseError('XPath expression contains two consecutive operations (right side)')
-
-                        resolvedValue = thisBodyElement.doBooleanOp(leftSide, rightSide)
-
-                        if not issubclass(resolvedValue.__class__, BodyElementValue):
-                            # Not a value? Loop again.
-                            print ( "WARNING: Got a non-value returned from performOperation" )
-                            stillProcessingTagBooleanOps = True
-
-                        # Pop the last value (left side), drop the operation, load the resolved value in place.
-                        nextElements = nextElements[ : -1 ] + [resolvedValue]
-                        prevValue = resolvedValue
-
-                        # Move past right side
-                        i += 2
-                        continue
-
-                # Update the current set of elements
-                curElements = nextElements
+            # END: for typeToProcess, processFunction in ORDERED_BE_TYPES_TO_PROCESS_VALUES:
 
 
             # At this point, should be only one value left. Zero was already handled at start
@@ -483,7 +312,7 @@ class BodyLevel_Top(BodyLevel):
 
             currentTag = currentTags[i]
             finalValue = finalResultPerTag[i]
-            finalValueClass = finalValue.__class__
+            #finalValueClass = finalValue.__class__
 
             # TODO: We should be able to optimize this loop as all results will have either
             #         a number, or a boolean
@@ -494,8 +323,8 @@ class BodyLevel_Top(BodyLevel):
                 if shouldRetainTag is True:
                     retTags.append( currentTag )
 
-            elif finalValue.VALUE_TYPE == BODY_VALUE_TYPE_NUMBER:
-            #else:
+            #elif finalValue.VALUE_TYPE == BODY_VALUE_TYPE_NUMBER:
+            else:
                 # This should have already been validated
 
                 # TODO: Make sure is an integer and not a float
@@ -506,8 +335,8 @@ class BodyLevel_Top(BodyLevel):
 
                 retTags += testFunc( currentTag )
 
-            else:
-                raise XPathRuntimeError('Error, unexpected value type %s  on value:  %s' %( _bodyValueTypeToDebugStr(finalValue.VALUE_TYPE), repr(finalValue) ) )
+            #else:
+            #    raise XPathRuntimeError('Error, unexpected value type %s  on value:  %s' %( _bodyValueTypeToDebugStr(finalValue.VALUE_TYPE), repr(finalValue) ) )
 
 
         return TagCollection(retTags)
