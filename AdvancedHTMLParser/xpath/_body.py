@@ -28,6 +28,8 @@ from .null import Null
 __all__ = ('parseBodyStringIntoBodyElements', 'BodyElement', 'BodyElementOperation', 'BodyElementValue', 'BodyElementValueGenerator', 'BodyLevel_Top')
 
 
+# TODO: This is a container for BodyElements, but itself can be treated as a BodyElement.
+#         Should give same parent class, or keep separate?
 class BodyLevel(object):
     '''
         BodyLevel - A single "level" of a body
@@ -61,52 +63,102 @@ class BodyLevel(object):
         self.bodyElements += bodyElements
 
 
-    def evaluate(self, currentTags):
+    def evaluateLevelForTag(self, currentTag):
         '''
-            evaluate - Evaluate this level, and return the tags which match the criteria
+            evaluateLevelForTag - Shorthand version of "evaluateLevelForTags" but for one tag
+
+
+
+                @param currentTag <AdvancedTag> - A single tag
+
+
+                @return <BodyElementValue> - Resulting value for running this level against given tag
+
+
+                @see evaluateLevelForTags
+        '''
+        # TODO: Clean up this function
+        return self.evaluateLevelForTags( [currentTag] )[0]
+
+
+    def evaluateLevelForTags(self, currentTags):
+        '''
+            evaluate - Evaluate this level, and return the final value, for each tag.
 
 
                 @param currentTags list/TagCollection < AdvancedTag > - The current set of tags to process
 
 
-                @return TagCollection < AdvancedTag > - The tags which "pass" this level
-        '''
-        pass
+                @return list< BodyElementValue > - The BodyElementValue of the results, in a list 1:1 same order same size as #currentTags
 
-
-# TODO: Need to refactor this a bit maybe, to support levels as designed
-class BodyLevel_Top(BodyLevel):
-    '''
-        BodyLevel_Top - The topmost level of a body. This is the final evaluation before passing onto the next tag filter
-    '''
-
-    def evaluate(self, currentTags):
-        '''
-            evaluate - Evaluate the topmost level, and return tags to match.
-
-                For the topmost level, we run all components left-to-right, and evaluate the result.
-
-                If an integer remains, we use that 1-origin Nth child of parent.
-                If a boolean remains, we use True to retain, False to discard.
         '''
         thisLevelElements = self.bodyElements
 
-        if len(thisLevelElements) == 0:
-            # This is an empty [], just return same tags
-            return currentTags
+        resultPerTag = []
 
-        retTags = []
+        if len(thisLevelElements) == 0:
+            # This is an empty [], so just return the same
+            return resultPerTag
 
         # TODO: Optimize this function
 
         for thisTag in currentTags:
 
-            # stillProcessingTagValueGenerators - Loop while we are still processing down to only values/operations
-            stillProcessingTagValueGenerators = True
+            # stillProcessingTagSubLevels - Loop while we are still processing down to only values/operations
+            stillProcessingTagSubLevels = True
 
             # curElements - The current set of elements for this tag, as we unroll, this will change.
             #                 Initial value will be a copy of the original set of elements
             curElements = copy.deepcopy(thisLevelElements)
+
+            # Loop until we are done with sub levels
+            while stillProcessingTagSubLevels is True:
+
+                # Set to False, we will trigger to True if there is a reason to iterate again (a sub level, for example)
+                stillProcessingTagSubLevels = False
+
+                # nextElements - We will assemble into this list the next iteration of #curElements
+                nextElements = []
+
+                for thisBodyElement in curElements:
+
+                    thisBodyElementClass = thisBodyElement.__class__
+
+                    # TODO: Optimize
+                    if issubclass(thisBodyElementClass, BodyElementValue):
+                        # A value, static or otherwise, throw it on the stack.
+                        nextElements.append( thisBodyElement )
+                        continue
+
+                    elif issubclass(thisBodyElementClass, (BodyElementOperation, BodyElementComparison, BodyElementBooleanOps, BodyElementValueGenerator)):
+                        # Another type to be ran after the level is completely evaluated
+                        nextElements.append( thisBodyElement )
+                        continue
+
+                    elif issubclass(thisBodyElementClass, BodyLevel):
+                        # A sub level, evaluate this level.
+                        generatedValue = thisBodyElement.evaluateLevelForTag( thisTag )
+
+                        nextElements.append( generatedValue )
+
+                        # NOTE: Currently, resolveValueFromTag always returns a BodyElementValue,
+                        #         but in the future it may not.
+                        #       So, conditionally loop if we got a non-value returned
+                        if not issubclass(generatedValue.__class__, BodyElementValue):
+                            stillProcessingTagSubLevels = True
+
+                        continue
+
+                    else:
+
+                        raise XPathRuntimeError('Found an unexpected type in list of level elements: %s . Repr: %s' %( thisBodyElementClass.__name__, repr(thisBodyElement)) )
+
+                # Update #curElements
+                curElements = nextElements
+
+
+            # stillProcessingTagValueGenerators - Loop while we are still processing down to only values/operations
+            stillProcessingTagValueGenerators = True
 
             # Loop until we are done with value generators
             while stillProcessingTagValueGenerators is True:
@@ -352,37 +404,116 @@ class BodyLevel_Top(BodyLevel):
             # At this point, should be only one value left. Zero was already handled at start
             numElementsRemaining = len(curElements)
             if numElementsRemaining != 1:
-                raise XPathRuntimeError('Got unexpected current number of elements at the end. Expected 1, got %d.  Repr: %s' %( numElementsRemaining, repr(curElements) ) )
+                raise XPathRuntimeError('Got unexpected current number of elements at the end. Expected 1, got %d.  Repr: %s' % ( \
+                        numElementsRemaining,
+                        repr(curElements),
+                    )
+                )
 
 
-            finalValue = curElements[0]
+            finalElement = curElements[0]
+            finalElementClass = finalElement.__class__
+            # TODO: Remove this check?
+            try:
+                finalElementValueType = finalElement.VALUE_TYPE
+            except AttributeError:
+                # Missing this class attribute implicitly also checks the type,
+                #   as no other types provide such a name.
+
+                # TODO: Do a better repr, maybe with string of the xpath?
+                raise XPathRuntimeError('Final Value resolved from level """%s""" was not a BodyElementValue, as was expected.\nIt is a: %s \nrepr: %s' % ( \
+                        repr(self),
+                        finalElementClass.__name__,
+                        repr(finalElement),
+                    )
+                )
+
+            if finalElementValueType not in (BODY_VALUE_TYPE_BOOLEAN, BODY_VALUE_TYPE_NUMBER):
+                raise XPathRuntimeError('Final value resolved from level """%s""" was not an integer or a boolean, cannot proceed.\nVALUE_TYPE is %s.\nClass: %s\nRepr: %s' % ( \
+                        repr(self),
+                        _bodyValueTypeToDebugStr(finalElementValueType),
+                        finalElementClass.__name__,
+                        repr(finalElement),
+                    )
+                )
+
+            # Validated and processed this tag on this level, append to the result array
+            resultPerTag.append(finalElement)
+
+            # END for thisTag in currentTags
+
+        return resultPerTag
+
+
+# TODO: Need to refactor this a bit maybe, to support levels as designed
+class BodyLevel_Top(BodyLevel):
+    '''
+        BodyLevel_Top - The topmost level of a body. This is the final evaluation before passing onto the next tag filter
+    '''
+
+
+    def filterTagsByBody(self, currentTags):
+        '''
+            evaluate - Evaluate the topmost level (and all sub levels), and return tags that match.
+
+                For the topmost level, we run all components left-to-right, and evaluate the result.
+
+                If an integer remains, we use that 1-origin Nth child of parent.
+                If a boolean remains, we use True to retain, False to discard.
+
+
+                    @param currentTags TagCollection/list<AdvancedTag> - Current set of tags to validate
+
+
+                    @return TagCollection - The tags which passed validation
+        '''
+
+        retTags = []
+
+        if not currentTags:
+            return retTags
+
+        # Process this level and all subs, get the final value per tag for processing
+        #   validation to retain or discard
+        finalResultPerTag = self.evaluateLevelForTags(currentTags)
+
+        numTags = len(currentTags)
+
+        for i in range(numTags):
+
+            currentTag = currentTags[i]
+            finalValue = finalResultPerTag[i]
             finalValueClass = finalValue.__class__
 
-            if finalValue.VALUE_TYPE == BODY_VALUE_TYPE_NUMBER:
+            # TODO: We should be able to optimize this loop as all results will have either
+            #         a number, or a boolean
+            if finalValue.VALUE_TYPE == BODY_VALUE_TYPE_BOOLEAN:
+
+                shouldRetainTag = finalValue.getValue()
+
+                if shouldRetainTag is True:
+                    retTags.append( currentTag )
+
+            elif finalValue.VALUE_TYPE == BODY_VALUE_TYPE_NUMBER:
+            #else:
+                # This should have already been validated
 
                 # TODO: Make sure is an integer and not a float
                 innerNum = int( finalValue.getValue() )
 
                 # TODO: Better.
-                testFunc = _mk_xpath_op_filter_tag_is_nth_child_index(thisTag.tagName, innerNum)
+                testFunc = _mk_xpath_op_filter_tag_is_nth_child_index(currentTag.tagName, innerNum)
 
-                retTags += testFunc( thisTag )
-
-            elif finalValue.VALUE_TYPE == BODY_VALUE_TYPE_BOOLEAN:
-
-                shouldRetainTag = finalValue.getValue()
-
-                if shouldRetainTag is True:
-                    retTags.append( thisTag)
+                retTags += testFunc( currentTag )
 
             else:
+                raise XPathRuntimeError('Error, unexpected value type %s  on value:  %s' %( _bodyValueTypeToDebugStr(finalValue.VALUE_TYPE), repr(finalValue) ) )
 
-                raise XPathRuntimeError('Final value was not an integer or a boolean, cannot proceed. Was: %s . Repr: %s' %(finalValueClass.__name__, repr(finalValue)) )
 
         return TagCollection(retTags)
 
-
-    applyFunction = evaluate
+    # applyFunction - follow this interface, for now.
+    applyFunction = filterTagsByBody
 
 
 class BodyElement(object):
@@ -433,6 +564,9 @@ BODY_VALUE_TYPE_TO_STR = {
     BODY_VALUE_TYPE_LIST    : "list",
     BODY_VALUE_TYPE_NULL    : "null",
 }
+
+def _bodyValueTypeToDebugStr(bodyValue):
+    return "<%d>%s" %(bodyValue, BODY_VALUE_TYPE_TO_STR[bodyValue])
 
 
 class BodyElementValue(BodyElement):
