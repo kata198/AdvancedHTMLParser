@@ -135,24 +135,27 @@ class BodyLevel(object):
             # Run through the tag-processing (value generators, sublevels) ones first
             for typeToProcess, processFunction in ORDERED_BE_TYPES_TO_PROCESS_TAGS:
 
-                # nextElements - We will assemble into this list the next iteration of #curElements
-                nextElements = []
 
-                for curElement in curElements:
+                curElements = [ (issubclass( curElement.__class__, typeToProcess ) and processFunction( curElement, thisTag )) or curElement for curElement in curElements ]
 
-                    curElementClass = curElement.__class__
-
-                    if not issubclass(curElementClass, typeToProcess):
-                        # Not processing this type, just put back on the list
-                        nextElements.append( curElement )
-
-                    else:
-                        # Processing type, get new value
-                        generatedValue = processFunction( curElement, thisTag )
-                        nextElements.append( generatedValue )
-
-                # Update #curElements
-                curElements = nextElements
+#                # nextElements - We will assemble into this list the next iteration of #curElements
+#                nextElements = []
+#
+#                for curElement in curElements:
+#
+#                    curElementClass = curElement.__class__
+#
+#                    if not issubclass(curElementClass, typeToProcess):
+#                        # Not processing this type, just put back on the list
+#                        nextElements.append( curElement )
+#
+#                    else:
+#                        # Processing type, get new value
+#                        generatedValue = processFunction( curElement, thisTag )
+#                        nextElements.append( generatedValue )
+#
+#                # Update #curElements
+#                curElements = nextElements
 
 
             # Great, now we have to start keeping track of left/right and process the rest
@@ -163,7 +166,6 @@ class BodyLevel(object):
 
                 # leftSide - this will be the left side value
                 leftSide = None
-
 
                 numElements = len(curElements)
                 i = 0
