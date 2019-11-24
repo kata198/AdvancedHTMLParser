@@ -1672,7 +1672,7 @@ class BodyLevel_Group(BodyLevel):
 
 
 BODY_ELEMENT_GROUP_OPEN_RE = re.compile(r'^([ \t]*[\(](?P<restOfBody>.+)[ \t]*)$')
-BODY_ELEMENT_GROUP_CLOSE_RE = re.compile(r'^(?P<endOfGroup>[ \t]*[\)]+[ \t]*)$')
+BODY_ELEMENT_GROUP_CLOSE_RE = re.compile(r'^(?P<endOfGroup>[ \t]*[\)][ \t]*)')
 
 
 def _parseBodyLevelGroup(restOfBody):
