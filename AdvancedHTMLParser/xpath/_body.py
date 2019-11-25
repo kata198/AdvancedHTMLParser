@@ -992,6 +992,104 @@ class BodyElementValueGenerator_Function_Concat(BodyElementValueGenerator_Functi
     # FUNCTION_NAME_STR - Name of the function
     FUNCTION_NAME_STR = 'concat'
 
+
+    @classmethod
+    def createFromMatch(cls, curBodyStr, matchObj):
+        '''
+            createFromMatch - Create this BodyElement from a given match object, and return the element and remainder for parsing
+
+                @param curBodyStr <str> - The current body string (matchObj should have matched at the head of this)
+
+                @param matchObj <re.match> - The match object
+
+                @return tuple( createdElement<BodyElement>, remainingBodyStr<str> ) - A tuple of the created element and the remaining portion to parse
+        '''
+        # NOTE: The first part is copied for now due to inheritence
+        #
+        #  We are looking to see if we can optimize this function call to a static value, if resolveable at run time
+
+
+        # Generate the base levels for all the args
+        groupDict = matchObj.groupdict()
+
+        restOfBody = groupDict['restOfBody']
+
+        ( fnArgElements, remainingStr ) = _parseFunctionArgsToBodyElements(restOfBody)
+
+        if len(fnArgElements) < cls.FUNCTION_MIN_ARGS:
+            raise XPathParseError('"%s" function takes at least %d arguments, but found only %d.\nError at: %s' % ( \
+                    cls.FUNCTION_NAME_STR,
+                    cls.FUNCTION_MIN_ARGS,
+                    len(fnArgElements),
+                    repr(curBodyStr),
+                )
+            )
+
+        thisElement = cls( fnArgElements )
+
+        # Check if we can optimize this whole thing to a static value
+        staticValueParts = []
+
+        isStillStatic = True
+
+        for fnArgElement in thisElement.fnArgElements:
+
+            fnArgElementClass = fnArgElement.__class__
+            if issubclass(fnArgElementClass, BodyElementValue):
+                # Already a value, throw it on the heap
+
+                thisPartValue = fnArgElement.getValue()
+                # TODO: Handle Null -> '' ?
+                staticValueParts.append(thisPartValue)
+
+                continue
+
+            elif issubclass(fnArgElementClass, BodyLevel):
+
+                # A level, iterate over it.
+                # Don't bother with recursive, if more than one level deep we won't optimize
+                for sublevelBodyElement in fnArgElement:
+
+                    if issubclass(sublevelBodyElement.__class__, BodyElementValue):
+
+                        sublevelPartValue = sublevelBodyElement.getValue()
+                        staticValueParts.append(sublevelPartValue)
+
+                        continue
+
+                    # Not a value already, abort optimization attempt
+                    isStillStatic = False
+                    break
+
+            else:
+
+                # Not a value already, abort optimization attempt
+                isStillStatic = False
+                break
+
+
+            if isStillStatic is False:
+                # Leave the loop if not static
+                break
+
+
+        if isStillStatic is True:
+            # Huzzah! We have unrolled everything and retained a static value!
+
+            newElementValue = BodyElementValue_String( ''.join( staticValueParts ) )
+
+            #print ( "\nOptimized!\nFrom: %s\nTo:   %s\n" %( repr(thisElement), repr(newElementValue) ) )
+
+            return (newElementValue, remainingStr)
+
+        #else:
+
+            #print ( "\nFAILED TO OPTIMIZE!\nFrom: %s\n" %( repr(thisElement), ))
+
+        # Failed to optimize, return the concat instance with levels
+        return ( thisElement, remainingStr )
+
+
     def resolveValueFromTag(self, thisTag):
         '''
             resolveValueFromTag - Return the concatenated string
@@ -1838,8 +1936,7 @@ def _parseFunctionArgsToBodyElements(restOfBody):
     curString = restOfBody[:].strip()
 
     fnArgs = []
-    curGroup = BodyLevel_Group()
-
+    curGroupElements = []
 
     while curString:
 
@@ -1861,14 +1958,30 @@ def _parseFunctionArgsToBodyElements(restOfBody):
             # We hit a comma, should move onto the next arg
             gotMatch = True
 
-            if len(curGroup) == 0:
+            if len(curGroupElements) == 0:
                 # TODO: More information here?
                 raise XPathParseError('Function call has empty argument, at: %s' %(curString, ))
 
             # Append the current group and begin the next
-            fnArgs.append( curGroup )
+
+            # Optimize the group elements
+            curGroupElements = _optimizeStaticValueCalculations(curGroupElements)
+
+            if False and len(curGroupElements) == 1:
+                # TODO: Support this optimization -- will require a bit of interface massaging so common interface
+
+                # We have optimized down to a single element, so add that instead of the level
+                fnArgs.append( curGroupElements[0] )
+
+            else:
+                # More than one, create a group and append it
+                curGroup = BodyLevel_Group( curGroupElements )
+                fnArgs.append( curGroup )
+
             # TODO: Validate we don't just have trailing comma
-            curGroup = BodyLevel_Group()
+
+            # Create a new list for future elements
+            curGroupElements = []
 
             newCurString = curString[ nextArgMatch.span()[1] : ]
             curString = newCurString
@@ -1882,7 +1995,7 @@ def _parseFunctionArgsToBodyElements(restOfBody):
 
             (subLevel, newCurString) = _parseBodyLevelGroup( groupOpenMatch.groupdict()['restOfBody'] )
 
-            curGroup.appendBodyElement(subLevel)
+            curGroupElements.append( subLevel )
             curString = newCurString
 
             continue
@@ -1902,13 +2015,23 @@ def _parseFunctionArgsToBodyElements(restOfBody):
             raise XPathParseError('Failed to parse body string into usable part, at: "%s"' %(curString, ))
 
         (thisElement, newCurString) = bodyElementClass.createFromMatch(curString, matchObj)
-        curGroup.appendBodyElement(thisElement)
+        curGroupElements.append( thisElement )
 
         curString = newCurString
 
 
-    if len(curGroup) > 0:
-        fnArgs.append(curGroup)
+    if len(curGroupElements) > 0:
+        # Optimize the group elements
+        curGroupElements = _optimizeStaticValueCalculations(curGroupElements)
+
+        if False and len(curGroupElements) == 1:
+            # We have optimized down to a single element, so add that instead of the level
+            fnArgs.append( curGroupElements[0] )
+
+        else:
+            # More than one, create a group and append it
+            curGroup = BodyLevel_Group( curGroupElements )
+            fnArgs.append( curGroup )
 
 
     # TODO: Optimize the args, can pull out of levels if only one arg
