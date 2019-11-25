@@ -801,84 +801,6 @@ BEVG_TEXT_RE = re.compile(r'^([ \t]*[tT][eE][xX][tT][ \t]*[\(][ \t]*[\)][ \t]*)'
 VALUE_GENERATOR_RES.append( (BEVG_TEXT_RE, BodyElementValueGenerator_Text) )
 
 
-class BodyElementValueGenerator_ConcatFunction(BodyElementValueGenerator):
-    '''
-        BodyElementValueGenerator_ConcatFunction - Implement the 'concat(...)' function
-    '''
-
-    @classmethod
-    def createFromMatch(cls, curBodyStr, matchObj):
-        '''
-            createFromMatch - Create this BodyElement from a given match object, and return the element and remainder for parsing
-
-                @param curBodyStr <str> - The current body string (matchObj should have matched at the head of this)
-
-                @param matchObj <re.match> - The match object
-
-                @return tuple( createdElement<BodyElement>, remainingBodyStr<str> ) - A tuple of the created element and the remaining portion to parse
-        '''
-        groupDict = matchObj.groupdict()
-
-        restOfBody = groupDict['restOfBody']
-
-        ( fnArgElements, remainingStr ) = _parseFunctionArgsToBodyElements(restOfBody)
-
-        thisElement = cls( fnArgElements )
-
-        return ( thisElement, remainingStr )
-
-
-    def __init__(self, fnArgElements=None):
-        '''
-            __init__ - Create this object
-        '''
-        if fnArgElements is None:
-            # TODO: Error?
-            fnArgElements = []
-
-        if len(fnArgElements) < 2:
-            # TODO: More context
-            raise XPathParseError('concat function takes at least two arguments, but found only %d.' %( len(fnArgElements), ) )
-
-        self.fnArgElements = fnArgElements
-
-        # Legacy, replace this with better optimization
-        self.isConstantValue = False
-
-
-    def resolveValueFromTag(self, thisTag):
-        '''
-            resolveValueFromTag - Return the concatenated string
-
-
-                @param thisTag <AdvancedTag> - The tag of interest
-
-
-                @return <BodyElementValue_String> - The concatenated string as a body element value
-        '''
-        if self.isConstantValue is True:
-            return self.constantValue
-
-        valParts = []
-
-        # TODO: Right now we only handle static strings, but we could parse to body element value generators, etc, and calculate here.
-        for fnArgElement in self.fnArgElements:
-
-            valPartElement = fnArgElement.evaluateLevelForTag(thisTag)
-            valPartElementValue = valPartElement.getValue()
-            if valPartElementValue == Null:
-                valPartElementValue = ''
-            valParts.append(valPartElementValue)
-
-        val = ''.join(valParts)
-        return BodyElementValue_String(val)
-
-
-#BEVG_CONCAT_FUNCTION_RE = re.compile(r'''^([ \t]*[cC][oO][nN][cC][aA][tT][ \t]*[\(][ \t]*(?P<fnArgsStr>[^\)]+)[ \t]*[\)][ \t]*)''')
-BEVG_CONCAT_FUNCTION_RE = re.compile(r'''^([ \t]*[cC][oO][nN][cC][aA][tT][ \t]*[\(][ \t]*(?P<restOfBody>.+))$''')
-VALUE_GENERATOR_RES.append( (BEVG_CONCAT_FUNCTION_RE, BodyElementValueGenerator_ConcatFunction) )
-
-
 class BodyElementValueGenerator_Last(BodyElementValueGenerator):
     '''
         BodyElementValueGenerator_Text - Implement the 'text()' function
@@ -938,6 +860,128 @@ class BodyElementValueGenerator_Position(BodyElementValueGenerator):
 BEVG_POSITION_RE = re.compile(r'^([ \t]*[pP][oO][sS][iI][tT][iI][oO][nN][ \t]*[\(][ \t]*[\)][ \t]*)')
 VALUE_GENERATOR_RES.append( (BEVG_POSITION_RE, BodyElementValueGenerator_Position) )
 
+
+##############################
+#  ValueGenerator Functions  #
+##############################
+
+# TODO: Create a separate list for REs that associate with functions, rather than sharing with single-level BodyElementValueGenerators?
+class BodyElementValueGenerator_Function(BodyElementValueGenerator):
+    '''
+        BodyElementValueGenerator_Function - Base class for BodyElementValueGenerator's which are functions (and can take nested levels)
+    '''
+
+    # FUNCTION_MIN_ARGS - Class attribute for the minimum number of args lest there be a parsing error
+    FUNCTION_MIN_ARGS = 0
+
+    # FUNCTION_NAME_STR - Name of the function
+    FUNCTION_NAME_STR = 'unknown'
+
+    @classmethod
+    def createFromMatch(cls, curBodyStr, matchObj):
+        '''
+            createFromMatch - Create this BodyElement from a given match object, and return the element and remainder for parsing
+
+                @param curBodyStr <str> - The current body string (matchObj should have matched at the head of this)
+
+                @param matchObj <re.match> - The match object
+
+                @return tuple( createdElement<BodyElement>, remainingBodyStr<str> ) - A tuple of the created element and the remaining portion to parse
+        '''
+        groupDict = matchObj.groupdict()
+
+        restOfBody = groupDict['restOfBody']
+
+        ( fnArgElements, remainingStr ) = _parseFunctionArgsToBodyElements(restOfBody)
+
+        if len(fnArgElements) < cls.FUNCTION_MIN_ARGS:
+            raise XPathParseError('"%s" function takes at least %d arguments, but found only %d.\nError at: %s' % ( \
+                    cls.FUNCTION_NAME_STR,
+                    cls.FUNCTION_MIN_ARGS,
+                    len(fnArgElements),
+                    repr(curBodyStr),
+                )
+            )
+
+        thisElement = cls( fnArgElements )
+
+        return ( thisElement, remainingStr )
+
+
+    def __init__(self, fnArgElements=None):
+        '''
+            __init__ - Create this object
+        '''
+        if fnArgElements is None:
+            # TODO: Error?
+            fnArgElements = []
+
+        if len(fnArgElements) < self.FUNCTION_MIN_ARGS:
+            # TODO: More context? Should be raised in #createFromMatch but do here as well for completeness...
+            raise XPathParseError('"%s" function takes at least %d arguments, but found only %d.' %( self.FUNCTION_NAME_STR, self.FUNCTION_MIN_ARGS, len(fnArgElements) ) )
+
+        self.fnArgElements = fnArgElements
+
+
+    def resolveValueFromTag(self, thisTag):
+        '''
+            resolveValueFromTag - Return the BodyElementValue produced by executing this function in the context of a given tag
+
+
+                @param thisTag <AdvancedTag> - The tag of interest
+
+
+                @return <BodyElementValue> - The calculated value derived by executing this function
+        '''
+        raise NotImplementedError('BodyElement type "%s" (function "%s" ) must implement "BodyElementValueGenerator_Function.resolveValueFromTag" but does not!' % ( \
+                self.__class__.__name__,
+                self.FUNCTION_NAME_STR,
+            )
+        )
+
+
+class BodyElementValueGenerator_Function_Concat(BodyElementValueGenerator_Function):
+    '''
+        BodyElementValueGenerator_Function_Concat - BodyElementValueGenerator class implementing concat function
+    '''
+
+    # FUNCTION_MIN_ARGS - Class attribute for the minimum number of args lest there be a parsing error
+    FUNCTION_MIN_ARGS = 2
+
+    # FUNCTION_NAME_STR - Name of the function
+    FUNCTION_NAME_STR = 'concat'
+
+    def resolveValueFromTag(self, thisTag):
+        '''
+            resolveValueFromTag - Return the concatenated string
+
+
+                @param thisTag <AdvancedTag> - The tag of interest
+
+
+                @return <BodyElementValue_String> - The concatenated string as a body element value
+
+
+                @see BodyElementValueGenerator_Function.resolveValueFromTag
+        '''
+        valParts = []
+
+        for fnArgElement in self.fnArgElements:
+
+            valPartElement = fnArgElement.evaluateLevelForTag(thisTag)
+            valPartElementValue = valPartElement.getValue()
+            if valPartElementValue == Null:
+                # If we got a null, treat it as an empty string for concatenation purposes
+                valPartElementValue = ''
+            valParts.append(valPartElementValue)
+
+        val = ''.join(valParts)
+        return BodyElementValue_String(val)
+
+
+#BEVG_CONCAT_FUNCTION_RE = re.compile(r'''^([ \t]*[cC][oO][nN][cC][aA][tT][ \t]*[\(][ \t]*(?P<fnArgsStr>[^\)]+)[ \t]*[\)][ \t]*)''')
+BEVG_FUNCTION_CONCAT_RE = re.compile(r'''^([ \t]*[cC][oO][nN][cC][aA][tT][ \t]*[\(][ \t]*(?P<restOfBody>.+))$''')
+VALUE_GENERATOR_RES.append( (BEVG_FUNCTION_CONCAT_RE, BodyElementValueGenerator_Function_Concat) )
 
 
 #############################
