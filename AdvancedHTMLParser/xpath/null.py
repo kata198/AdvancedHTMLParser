@@ -29,6 +29,12 @@ class NullType(object):
 
         return not bool( isinstance(other, NullType) )
 
+    def __str__(self):
+        '''
+            __str__ - Return a string representation
+        '''
+        # For xpath, we treat Null like empty string in most cases
+        return ''
 
 # Null - Singleton for the NullType
 Null = NullType()
