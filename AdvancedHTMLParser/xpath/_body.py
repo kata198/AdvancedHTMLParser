@@ -664,7 +664,7 @@ class BodyElementValue_List(BodyElementValue):
                     All items must have a related BodyElementValue type, or already be one.
         '''
 
-        updatedList = [ ( issubclass(thisVal.__class__, BodyElementValue) and thisval ) or _pythonValueToBodyElementValue(thisVal) for thisVal in newValues ]
+        updatedList = [ ( issubclass(thisVal.__class__, BodyElementValue) and thisVal ) or _pythonValueToBodyElementValue(thisVal) for thisVal in newValues ]
 
         self.value = updatedList
 
