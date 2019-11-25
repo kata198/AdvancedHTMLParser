@@ -393,9 +393,9 @@ class TestXPath(object):
             assert lastSpan in results , 'Got a mismatch of results from xpath vs non-xpath. Node  (  %s  ) was found via non-xpath, but not in the xpath set!' %(repr(lastSpan), )
 
 
-    def test_parseOptimizations1(self):
+    def test_xpathParseOptimizations1(self):
         '''
-            test_parseOptimizations1 - Test that we properly optimize xpath strings with values that can be calculated at parse time
+            test_xpathParseOptimizations1 - Test that we properly optimize xpath strings with values that can be calculated at parse time
         '''
 
         bodyElements = parseBodyStringIntoBodyElements('''"hello" || " " || "world" = "hello world"''')
@@ -408,6 +408,43 @@ class TestXPath(object):
 
         value = bodyElement.getValue()
         assert value is True , 'Expected the calculated BodyElementValue to be <bool> True. Got: <%s> %s' %( type(value).__name__, repr(value))
+
+
+
+    def test_xpathContains(self):
+        '''
+            test_xpathContains - Test the "contains" function
+        '''
+
+        puddingNameSpans = self.parser.getElementsByXPathExpression('//span[ @name = "itemName" and contains( text(), "Pudding" ) ]')
+
+        assert len(puddingNameSpans) == 1 , 'Expected to get one span[name="itemName"] where inner text contains "Pudding", but got %d.  %s' %( len(puddingNameSpans), repr(puddingNameSpans) )
+
+        puddingSpan = puddingNameSpans[0]
+        assert 'Pudding Cups' in puddingSpan.innerText , 'Expected "Pudding Cups" to be in the inner text of the matched pudding item, but it was not. Inner text was: %s' %( repr(puddingSpan.innerText), )
+
+
+        itemsContainingLetterE = self.parser.getElementsByXPathExpression('''//span[(@name = "itemName") and contains( normalize-space(), "e" )]/ancestor::div[@name="items"]''')
+        assert len(itemsContainingLetterE) == 3 , 'Expected to find 3 items which contained lower case "e" , but found %d !  %s' %( len(itemsContainingLetterE), repr(itemsContainingLetterE) )
+
+
+        item1Found = False
+        item2Found = False
+        item3Found = False
+
+        for itemEm in itemsContainingLetterE:
+
+            if itemEm.id == 'item1':
+                item1Found = True
+            elif itemEm.id == 'item2':
+                item2Found = True
+            elif itemEm.id == 'item3':
+                item3Found = True
+
+        assert item1Found is True , 'Expected to find div id="item1" but did not!'
+        assert item2Found is True , 'Expected to find div id="item2" but did not!'
+        assert item3Found is True , 'Expected to find div id="item3" but did not!'
+
 
 
 if __name__ == '__main__':

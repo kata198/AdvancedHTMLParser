@@ -1201,6 +1201,71 @@ BEVG_FUNCTION_CONCAT_RE = re.compile(r'''^([ \t]*[cC][oO][nN][cC][aA][tT][ \t]*[
 VALUE_GENERATOR_RES.append( (BEVG_FUNCTION_CONCAT_RE, BodyElementValueGenerator_Function_Concat) )
 
 
+class BodyElementValueGenerator_Function_Contains(BodyElementValueGenerator_Function):
+    '''
+        BodyElementValueGenerator_Function_Contains - BodyElementValueGenerator class implementing contains function
+    '''
+
+    # FUNCTION_MIN_ARGS - Class attribute for the minimum number of args lest there be a parsing error
+    FUNCTION_MIN_ARGS = 2
+
+    # FUNCTION_NAME_STR - Name of the function
+    FUNCTION_NAME_STR = 'contains'
+
+
+    def __init__(self, fnArgElements=None):
+        '''
+            __init__ - Create this object
+        '''
+        BodyElementValueGenerator_Function.__init__(self, fnArgElements)
+
+        # Ensure we are given exactly two arguments
+        fnArgElements = self.fnArgElements
+        if len(fnArgElements) != 2:
+            raise XPathParseError('"contains" function takes exactly two arguments, but got %d.  Args were:  %s' % ( \
+                    len(fnArgElements),
+                    repr(fnArgElements),
+                )
+            )
+
+        self.string1Arg = fnArgElements[0]
+        self.string2Arg = fnArgElements[1]
+
+
+    def resolveValueFromTag(self, thisTag):
+        '''
+            resolveValueFromTag - Test if one string occurs within the other, and return the boolean result
+
+
+                @param thisTag <AdvancedTag> - The tag of interest
+
+
+                @return <BodyElementValue_Boolean> - True if string1 contains string2, otherwise False
+
+
+                @see BodyElementValueGenerator_Function.resolveValueFromTag
+        '''
+
+        string1ValueElement = self.string1Arg.evaluateLevelForTag(thisTag)
+        string2ValueElement = self.string2Arg.evaluateLevelForTag(thisTag)
+
+        try:
+            string1Value = str( string1ValueElement.getValue() )
+        except Exception as e1:
+            raise XPathRuntimeError('Error in contains() - cannot convert first argument to a string! It is %s' %( repr(string1ValueElement.getValue()), ))
+        try:
+            string2Value = str( string2ValueElement.getValue() )
+        except Exception as e2:
+            raise XPathRuntimeError('Error in contains() - cannot convert second argument to a string! It is %s' %( repr(string2ValueElement.getValue()), ))
+
+        containsResult = bool( string2Value in string1Value )
+
+        return BodyElementValue_Boolean(containsResult)
+
+
+BEVG_FUNCTION_CONTAINS_RE = re.compile(r'''^([ \t]*[cC][oO][nN][tT][aA][iI][nN][sS][ \t]*[\(][ \t]*(?P<restOfBody>.+))$''')
+VALUE_GENERATOR_RES.append( (BEVG_FUNCTION_CONTAINS_RE, BodyElementValueGenerator_Function_Contains) )
+
 #############################
 ##        Operations       ##
 #############################
