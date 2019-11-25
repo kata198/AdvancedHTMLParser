@@ -35,7 +35,25 @@ class BodyElement(object):
           Every distinct "unit" within a body, be it a static value or a function call, or otherwise,
            are subclassed from this type.
     '''
-    pass
+
+    @classmethod
+    def createFromMatch(cls, curBodyStr, matchObj):
+        '''
+            createFromMatch - Create this BodyElement from a given match object, and return the element and remainder for parsing
+
+                @param curBodyStr <str> - The current body string (matchObj should have matched at the head of this)
+
+                @param matchObj <re.match> - The match object
+
+                @return tuple( createdElement<BodyElement>, remainingBodyStr<str> ) - A tuple of the created element and the remaining portion to parse
+        '''
+        groupDict = matchObj.groupdict()
+
+        thisElement = cls( **groupDict )
+
+        curBodyStr = curBodyStr[ matchObj.span()[1] : ]
+
+        return ( thisElement, curBodyStr )
 
 
 # XXX: This is a container for BodyElements, but itself can be treated as a BodyElement.
@@ -1724,9 +1742,9 @@ def _parseBodyLevelGroup(restOfBody):
             continue
 
         else:
-            for ( bodyPartRE, bodyPartClass ) in allBodyElementREs:
+            for ( bodyElementRE, bodyElementClass ) in allBodyElementREs:
 
-                matchObj = bodyPartRE.match(curString)
+                matchObj = bodyElementRE.match(curString)
                 if matchObj is None:
                     continue
 
@@ -1737,12 +1755,11 @@ def _parseBodyLevelGroup(restOfBody):
 
             raise XPathParseError('Failed to parse body string into usable part, at: "%s"' %(curString, ))
 
-        groupDict = matchObj.groupdict()
+        (thisElement, newCurString) = bodyElementClass.createFromMatch(curString, matchObj)
+        ret.append(thisElement)
 
-        thisPart = bodyPartClass( **groupDict )
-        ret.append(thisPart)
+        curString = newCurString
 
-        curString = curString[ matchObj.span()[1] : ].lstrip()
 
 
     # Optimization: Before returning, run through and perform any operations against static values possible
@@ -1795,9 +1812,9 @@ def parseBodyStringIntoBodyElements(bodyString):
             continue
 
         else:
-            for ( bodyPartRE, bodyPartClass ) in allBodyElementREs:
+            for ( bodyElementRE, bodyElementClass ) in allBodyElementREs:
 
-                matchObj = bodyPartRE.match(curString)
+                matchObj = bodyElementRE.match(curString)
                 if matchObj is None:
                     continue
 
@@ -1808,12 +1825,11 @@ def parseBodyStringIntoBodyElements(bodyString):
 
             raise XPathParseError('Failed to parse body string into usable part, at: "%s"' %(curString, ))
 
-        groupDict = matchObj.groupdict()
 
-        thisPart = bodyPartClass( **groupDict )
-        ret.append(thisPart)
+        (thisElement, newCurString) = bodyElementClass.createFromMatch(curString, matchObj)
+        ret.append(thisElement)
 
-        curString = curString[ matchObj.span()[1] : ].lstrip()
+        curString = newCurString
 
 
     # Optimization: Before returning, run through and perform any operations against static values possible
