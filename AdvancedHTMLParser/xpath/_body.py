@@ -111,6 +111,26 @@ class BodyLevel(BodyElement):
         return len(self.bodyElements)
 
 
+    def getBodyElements(self):
+        '''
+            getBodyElements - Get the body elements associated with this level
+
+
+                @return list<BodyElement> - List of BodyElements associated with this level
+        '''
+        return self.bodyElements
+
+
+    def __iter__(self):
+        '''
+            __iter__ - Iterate over this object
+        '''
+        for bodyElement in self.bodyElements:
+            yield bodyElement
+
+        raise StopIteration()
+
+
     def evaluateLevelForTag(self, currentTag):
         '''
             evaluateLevelForTag - Shorthand version of "evaluateLevelForTags" but for one tag
@@ -767,6 +787,11 @@ class BodyElementValueGenerator_FetchAttribute(BodyElementValueGenerator):
         return BodyElementValue_String(val)
 
 
+    def __repr__(self):
+        '''
+            __repr__ - Get string representation of this object
+        '''
+        return """%s( attributeName = "%s" )""" %( self.__class__.__name__, self.attributeName)
 
 BEVG_FETCH_ATTRIBUTE_RE = re.compile(r'^[ \t]*[@](?P<attributeName>([*]|[a-zA-Z_][a-zA-Z0-9_\-]*))[ \t]*')
 VALUE_GENERATOR_RES.append( (BEVG_FETCH_ATTRIBUTE_RE, BodyElementValueGenerator_FetchAttribute) )
@@ -947,6 +972,13 @@ class BodyElementValueGenerator_Function(BodyElementValueGenerator):
                 self.FUNCTION_NAME_STR,
             )
         )
+
+
+    def __repr__(self):
+        '''
+            __repr__ - String repr of this class
+        '''
+        return """BodyElementValueGenerator_Function<functionName = "%s"> ( fnArgElements = %s )""" %(self.FUNCTION_NAME_STR, repr(self.fnArgElements) )
 
 
 class BodyElementValueGenerator_Function_Concat(BodyElementValueGenerator_Function):
