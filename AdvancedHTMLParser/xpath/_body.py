@@ -28,9 +28,19 @@ from .null import Null
 __all__ = ('parseBodyStringIntoBodyElements', 'BodyElement', 'BodyElementOperation', 'BodyElementValue', 'BodyElementValueGenerator', 'BodyLevel_Top')
 
 
-# TODO: This is a container for BodyElements, but itself can be treated as a BodyElement.
+class BodyElement(object):
+    '''
+        BodyElement - Base class of body elements.
+
+          Every distinct "unit" within a body, be it a static value or a function call, or otherwise,
+           are subclassed from this type.
+    '''
+    pass
+
+
+# XXX: This is a container for BodyElements, but itself can be treated as a BodyElement.
 #         Should give same parent class, or keep separate?
-class BodyLevel(object):
+class BodyLevel(BodyElement):
     '''
         BodyLevel - A single "level" of a body
     '''
@@ -354,16 +364,6 @@ class BodyLevel_Top(BodyLevel):
     applyFunction = filterTagsByBody
 
 
-class BodyElement(object):
-    '''
-        BodyElement - Base class of body elements.
-
-          Every distinct "unit" within a body, be it a static value or a function call, or otherwise,
-           are subclassed from this type.
-    '''
-    pass
-
-# TODO: Handle parenthesis grouping of elements to establish an alternate order than strict left-to-right and base type
 
 #############################
 ##          Values         ##
