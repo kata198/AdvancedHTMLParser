@@ -27,7 +27,7 @@ class TestXPath(object):
         <span name="price" >1.96</span>
         <span name="itemName" >Sponges</span>
       </div>
-      <div name="items" id="item2" >
+      <div name="items" id="item2" class="item" >
         <span name="price" >3.55</span>
         <span name="itemName" >Turtles</span>
       </div>
@@ -292,9 +292,22 @@ class TestXPath(object):
         item2Em = item2Ems[0]
         assert item2Em.id == "item2"
 
+        # Test
+        item2Ems = self.parser.getElementsByXPathExpression('''//*[ @id = concat( @class, "2") ]''')
+        assert len(item2Ems) == 1 , 'Expected to find one element with "id" attribute as concatenated via function @class ["item"] + "2" , or "item2", but got: %s' %(repr(item2Ems), )
+
+        item2Em = item2Ems[0]
+        assert item2Em.id == "item2"
 
         item3Ems = self.parser.getElementsByXPathExpression('''//*[ @id = concat("it", "em", "3") ]''')
         assert len(item3Ems) == 1 , 'Expected to find one element with "id" attribute as concatenated via function "it" + "em" + "3" , or "item3", but got: %s' %(repr(item3Ems), )
+
+        item3Em = item3Ems[0]
+        assert item3Em.id == "item3"
+
+        # Test a nested concat within a concat
+        item3Ems = self.parser.getElementsByXPathExpression('''//*[ @id = concat( concat("it", "em"), "3") ]''')
+        assert len(item3Ems) == 1 , 'Expected to find one element with "id" attribute with nesting as concatenated via function concat("it" + "em") + "3" , or "item3", but got: %s' %(repr(item3Ems), )
 
         item3Em = item3Ems[0]
         assert item3Em.id == "item3"

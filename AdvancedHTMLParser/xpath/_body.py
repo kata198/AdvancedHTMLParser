@@ -93,6 +93,15 @@ class BodyLevel(BodyElement):
         self.bodyElements += bodyElements
 
 
+    def __len__(self):
+        '''
+            __len__ - Get number of elements in this group
+
+                @return <int> - Number of BodyElements in this group (just this level)
+        '''
+        return len(self.bodyElements)
+
+
     def evaluateLevelForTag(self, currentTag):
         '''
             evaluateLevelForTag - Shorthand version of "evaluateLevelForTags" but for one tag
@@ -797,83 +806,44 @@ class BodyElementValueGenerator_ConcatFunction(BodyElementValueGenerator):
         BodyElementValueGenerator_ConcatFunction - Implement the 'concat(...)' function
     '''
 
-    ARG_SPLIT_RE = re.compile(r'''^[ \t]*(?P<arg_value>(["]([\\]["]|[^"])*["])|([']([\\][']|[^'])*[']))[ \t]*(?P<nextarg_comma>[,]{0,1})[ \t]*''')
+    @classmethod
+    def createFromMatch(cls, curBodyStr, matchObj):
+        '''
+            createFromMatch - Create this BodyElement from a given match object, and return the element and remainder for parsing
 
-    def __init__(self, fnArgsStr):
+                @param curBodyStr <str> - The current body string (matchObj should have matched at the head of this)
+
+                @param matchObj <re.match> - The match object
+
+                @return tuple( createdElement<BodyElement>, remainingBodyStr<str> ) - A tuple of the created element and the remaining portion to parse
+        '''
+        groupDict = matchObj.groupdict()
+
+        restOfBody = groupDict['restOfBody']
+
+        ( fnArgElements, remainingStr ) = _parseFunctionArgsToBodyElements(restOfBody)
+
+        thisElement = cls( fnArgElements )
+
+        return ( thisElement, remainingStr )
+
+
+    def __init__(self, fnArgElements=None):
         '''
             __init__ - Create this object
-
-                @param fnArgsStr <str> - Arguments to this function, strings to concatenate
         '''
-        BodyElementValueGenerator.__init__(self)
+        if fnArgElements is None:
+            # TODO: Error?
+            fnArgElements = []
 
-        # TODO: Args other than static strings?
+        if len(fnArgElements) < 2:
+            # TODO: More context
+            raise XPathParseError('concat function takes at least two arguments, but found only %d.' %( len(fnArgElements), ) )
 
-        # TODO: Parse to a static value during xpath parsing rather than every execution?
-        #        For now, always split (for when we support things besides static string), but
-        #         we could optimize in the future.
+        self.fnArgElements = fnArgElements
 
-        fnArgsStr = fnArgsStr.strip()
-        if not fnArgsStr:
-            # TODO: Better error message, containing the context?
-            raise XPathParseError('concat function present, but missing required arguments!')
-
-        # fnArgs - The arguments to concat
-        self.fnArgs = fnArgs = []
-
-        # remainingStr - Arguments yet to be parsed
-        remainingStr = fnArgsStr
-
-        argSplitRE = self.ARG_SPLIT_RE
-
-        # self.isConstantValue - True if we are concatenating static strings, and always will be same value.
-        #                        False if we are concatenating something dynamic, like an attribute value, which needs
-        #                          to be calculated for every tag.
-        self.isConstantValue = True
-        self.constantValue = None
-
-        while remainingStr:
-
-            nextArgMatchObj = argSplitRE.match(remainingStr)
-            if not nextArgMatchObj:
-                raise XPathParseError('Failed to parse arguments to concat function.\nAll arguments: """%s"""\nError at: """%s"""' %(fnArgsStr, remainingStr))
-
-            groupDict = nextArgMatchObj.groupdict()
-
-            # TODO: Replace escaped quote with actual quote? e.x. 'don\'t do that' we should drop the escape
-
-            # Strip first and last character, as these will always be the quote (" or ')
-            thisValue = groupDict['arg_value'][1:-1]
-
-            # nextStr - What remains after this arg
-            nextStr = remainingStr[ nextArgMatchObj.span()[1] : ]
-
-            hasCommaAfterValue = bool(groupDict['nextarg_comma'])
-
-            if hasCommaAfterValue is True and not nextStr:
-                # We have a trailing comma, but no next arg
-                raise XPathParseError('Trailing comma without an arg following in concat function: """%s"""' %(fnArgsStr, ))
-
-            elif hasCommaAfterValue is False and nextStr:
-                # We have a next argument string, but no comma
-                # TODO: Need to support things like nested function calls, etc, as args
-                raise XPathParseError('Junk / unsupported value in concat function.\nAll arguments: """%s"""\nError at: """%s"""' %(fnArgsStr, nextStr))
-
-                # Set this to False when we have a generator or similar present
-                self.isConstantValue = False
-
-            # Completed validation, add this as an argument and move on
-            fnArgs.append(thisValue)
-
-            remainingStr = nextStr
-
-        if len(fnArgs) < 2:
-            raise XPathParseError('concat function takes at least two arguments, but found only %d. Error is at: %s' %( len(fnArgs), fnArgsStr ) )
-
-        if self.isConstantValue is True:
-            # We are concatenating static values only, so calculate now instead of for every tag processed
-            val = ''.join(self.fnArgs)
-            self.constantValue = BodyElementValue_String(val)
+        # Legacy, replace this with better optimization
+        self.isConstantValue = False
 
 
     def resolveValueFromTag(self, thisTag):
@@ -892,31 +862,20 @@ class BodyElementValueGenerator_ConcatFunction(BodyElementValueGenerator):
         valParts = []
 
         # TODO: Right now we only handle static strings, but we could parse to body element value generators, etc, and calculate here.
-        for fnArg in self.fnArgs:
-            fnArgClass = fnArg.__class__
+        for fnArgElement in self.fnArgElements:
 
-            if issubclass(fnArgClass, BodyElementValueGenerator):
-                valPart = fnArg.resolveValueFromTag(thisTag)
-
-            elif issubclass(fnArgClass, BodyElementValue):
-                # TODO: Is this right?
-                # TODO: Handle float vs integer?
-                valPart = tostr( fnArg.getValue() )
-
-            elif issubclass(fnArgClass, STRING_TYPES):
-                valPart = fnArg
-
-            else:
-                raise XPathRuntimeError('Unhandled type for concat: %s . Repr: %s' %( fnArgClass.__name__, repr(fnArg) ) )
-
-            valParts.append(valPart)
+            valPartElement = fnArgElement.evaluateLevelForTag(thisTag)
+            valPartElementValue = valPartElement.getValue()
+            if valPartElementValue == Null:
+                valPartElementValue = ''
+            valParts.append(valPartElementValue)
 
         val = ''.join(valParts)
         return BodyElementValue_String(val)
 
 
-# TODO: Improve the fnArgsStr group to handle quoted parens
-BEVG_CONCAT_FUNCTION_RE = re.compile(r'''^([ \t]*[cC][oO][nN][cC][aA][tT][ \t]*[\(][ \t]*(?P<fnArgsStr>[^\)]+)[ \t]*[\)][ \t]*)''')
+#BEVG_CONCAT_FUNCTION_RE = re.compile(r'''^([ \t]*[cC][oO][nN][cC][aA][tT][ \t]*[\(][ \t]*(?P<fnArgsStr>[^\)]+)[ \t]*[\)][ \t]*)''')
+BEVG_CONCAT_FUNCTION_RE = re.compile(r'''^([ \t]*[cC][oO][nN][cC][aA][tT][ \t]*[\(][ \t]*(?P<restOfBody>.+))$''')
 VALUE_GENERATOR_RES.append( (BEVG_CONCAT_FUNCTION_RE, BodyElementValueGenerator_ConcatFunction) )
 
 
@@ -1771,6 +1730,105 @@ def _parseBodyLevelGroup(restOfBody):
     #return newRet
 
     return ( BodyLevel_Group(ret), curString )
+
+
+# BODY_ELEMENT_GROUP_FUNCTION_NEXT_ARG_RE - The next argument
+BODY_ELEMENT_GROUP_FUNCTION_NEXT_ARG_RE = re.compile(r'^([ \t]*[,][ \t]*)')
+
+def _parseFunctionArgsToBodyElements(restOfBody):
+    '''
+        _parseFunctionArgsToBodyElements - Parse function arguments into BodyElements
+
+
+            @param restOfBody <str> - The remainder of the body string to parse
+
+
+            @return tuple< list<BodyLevel_Group>, remainderStr<str> > - The groups parsed (one per arg), and the unused portion of the str on which to continue parsing at parent level
+    '''
+    allBodyElementREs = ALL_BODY_ELEMENT_RES
+    bodyElementGroupOpenRE = BODY_ELEMENT_GROUP_OPEN_RE
+    bodyElementGroupCloseRE = BODY_ELEMENT_GROUP_CLOSE_RE
+    bodyElementGroupFunctionNextArgRE = BODY_ELEMENT_GROUP_FUNCTION_NEXT_ARG_RE
+
+    curString = restOfBody[:].strip()
+
+    fnArgs = []
+    curGroup = BodyLevel_Group()
+
+
+    while curString:
+
+        gotMatch = False
+
+        groupCloseMatch = bodyElementGroupCloseRE.match(curString)
+        if groupCloseMatch:
+            # We are at the end of this group, return the rest of the string back upward
+
+            gotMatch = True
+
+            newCurString = curString[ groupCloseMatch.span()[1] : ]
+            curString = newCurString
+
+            break
+
+        nextArgMatch = bodyElementGroupFunctionNextArgRE.match(curString)
+        if nextArgMatch:
+            # We hit a comma, should move onto the next arg
+            gotMatch = True
+
+            if len(curGroup) == 0:
+                # TODO: More information here?
+                raise XPathParseError('Function call has empty argument, at: %s' %(curString, ))
+
+            # Append the current group and begin the next
+            fnArgs.append( curGroup )
+            # TODO: Validate we don't just have trailing comma
+            curGroup = BodyLevel_Group()
+
+            newCurString = curString[ nextArgMatch.span()[1] : ]
+            curString = newCurString
+
+            continue
+
+        groupOpenMatch = bodyElementGroupOpenRE.match(curString)
+        if groupOpenMatch:
+
+            gotMatch = True
+
+            (subLevel, newCurString) = _parseBodyLevelGroup( groupOpenMatch.groupdict()['restOfBody'] )
+
+            curGroup.appendBodyElement(subLevel)
+            curString = newCurString
+
+            continue
+
+        else:
+            for ( bodyElementRE, bodyElementClass ) in allBodyElementREs:
+
+                matchObj = bodyElementRE.match(curString)
+                if matchObj is None:
+                    continue
+
+                gotMatch = True
+                break
+
+        if gotMatch is False:
+
+            raise XPathParseError('Failed to parse body string into usable part, at: "%s"' %(curString, ))
+
+        (thisElement, newCurString) = bodyElementClass.createFromMatch(curString, matchObj)
+        curGroup.appendBodyElement(thisElement)
+
+        curString = newCurString
+
+
+    if len(curGroup) > 0:
+        fnArgs.append(curGroup)
+
+
+    # TODO: Optimize the args, can pull out of levels if only one arg
+
+    return ( fnArgs, curString )
 
 
 def parseBodyStringIntoBodyElements(bodyString):
