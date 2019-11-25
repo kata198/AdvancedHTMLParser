@@ -292,7 +292,7 @@ class TestXPath(object):
         item2Em = item2Ems[0]
         assert item2Em.id == "item2"
 
-        # Test
+        # Test a nested attribute fetch -- "class" attribute on id="item2" has value "item"
         item2Ems = self.parser.getElementsByXPathExpression('''//*[ @id = concat( @class, "2") ]''')
         assert len(item2Ems) == 1 , 'Expected to find one element with "id" attribute as concatenated via function @class ["item"] + "2" , or "item2", but got: %s' %(repr(item2Ems), )
 
@@ -308,6 +308,13 @@ class TestXPath(object):
         # Test a nested concat within a concat
         item3Ems = self.parser.getElementsByXPathExpression('''//*[ @id = concat( concat("it", "em"), "3") ]''')
         assert len(item3Ems) == 1 , 'Expected to find one element with "id" attribute with nesting as concatenated via function concat("it" + "em") + "3" , or "item3", but got: %s' %(repr(item3Ems), )
+
+        item3Em = item3Ems[0]
+        assert item3Em.id == "item3"
+
+        # Test a nested concat within a concat
+        item3Ems = self.parser.getElementsByXPathExpression('''//*[ concat(@id, "_yes") = concat( concat("it", "em"), "3", "_yes") ]''')
+        assert len(item3Ems) == 1 , 'Expected to find one element with "id" attribute concatenated with "_yes" with nesting as concatenated via function concat("it" + "em") + "3" + "_yes" , or "item3_yes", but got: %s' %(repr(item3Ems), )
 
         item3Em = item3Ems[0]
         assert item3Em.id == "item3"
