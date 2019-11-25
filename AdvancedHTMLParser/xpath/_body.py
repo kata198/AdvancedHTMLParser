@@ -631,6 +631,84 @@ class BodyElementValue_Number(BodyElementValue):
             )
 
 
+class BodyElementValue_List(BodyElementValue):
+    '''
+        BodyElementValue_List - A BodyElementValue which is a list of other values.
+
+            All elements within this list will be other BodyElementValues, rather than raw values.
+    '''
+
+    VALUE_TYPE = BODY_VALUE_TYPE_LIST
+
+
+    def __init__(self, initialValues=None):
+        '''
+            __init__ - Create this object
+
+
+                @param initialValues <None/list> Initial values to load into the internal list.
+        '''
+        if not initialValues:
+            initialValues = []
+
+        BodyElementValue.__init__(self, initialValues)
+
+
+    def setValue(self, newValues):
+        '''
+            setValue - Replace the previous lists with new list
+
+
+                @param newValues list<...> - A new list from which to create the internal list.
+
+                    All items must have a related BodyElementValue type, or already be one.
+        '''
+
+        updatedList = [ ( issubclass(thisVal.__class__, BodyElementValue) and thisval ) or _pythonValueToBodyElementValue(thisVal) for thisVal in newValues ]
+
+        self.value = updatedList
+
+
+# PYTHON_TYPE_NAME_TO_BODY_VALUE_CLASS - The __name__ of the type(val), to the associated BEV container
+PYTHON_TYPE_NAME_TO_BODY_VALUE_CLASS = {
+    'int'           : BodyElementValue_Number,
+    'float'         : BodyElementValue_Number,
+    'str'           : BodyElementValue_String,
+    'unicode'       : BodyElementValue_String,
+    'bool'          : BodyElementValue_Boolean,
+    'NoneType'      : BodyElementValue_Null,
+    'list'          : BodyElementValue_List,
+    'tuple'         : BodyElementValue_List,
+    'set'           : BodyElementValue_List,
+}
+
+
+def _pythonValueToBodyElementValue(pythonValue):
+    '''
+        _pythonValueToBodyElementValue - Convert a native/raw python value to
+
+            its respective BodyElementValue subclassed container.
+
+
+                @param pythonValue <???> - The python "raw" value (such as an int or a string)
+
+
+                @return <BodyElementValue subclass> - A created container body element value wrapping provided value
+    '''
+    pythonValueTypeName = type(pythonValue).__name__
+
+    try:
+        bodyElementValueClass = PYTHON_TYPE_NAME_TO_BODY_VALUE_CLASS[ pythonValueTypeName ]
+
+    except KeyError:
+        # XXX: Exception or just use an "unknown" base BodyElementValue?
+        #       Maybe better to just shut it down early rather than introduce questionable things on down the line
+        raise XPathRuntimeError('Failed to find a matching BodyElementValue type from python type "%s" ! Repr: %s' %( pythonValueTypeName, repr(pythonValue) ) )
+
+    return bodyElementValueClass( pythonValue )
+
+
+
 #############################
 ##      Static Values      ##
 #############################
