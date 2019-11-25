@@ -72,6 +72,15 @@ class BodyLevel(BodyElement):
         self.bodyElements = []
 
 
+    def __repr__(self):
+        '''
+            __repr__ - Get a string representation of this object as codeish
+
+                @return <str> - String repr
+        '''
+        return "%s( bodyElements = %s )" %( self.__class__.__name__, repr(self.bodyElements))
+
+
     # TODO: Give these a better name, as they could contain BodyElement or BodyLevels
     def appendBodyElement(self, bodyElement):
         '''
