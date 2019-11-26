@@ -37,7 +37,7 @@ def setXPathDebug(newValue):
 def getXPathDebug():
     '''
         getXPathDebug - Get whether we should print debug messages.
-            
+
             Each function call with DEBUG output should fetch a fresh copy of this.
     '''
     global _XPATH_DEBUG

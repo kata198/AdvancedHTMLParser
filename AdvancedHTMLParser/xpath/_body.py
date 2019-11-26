@@ -875,25 +875,6 @@ BEVG_FETCH_ATTRIBUTE_RE = re.compile(r'^[ \t]*[@](?P<attributeName>([*]|[a-zA-Z_
 VALUE_GENERATOR_RES.append( (BEVG_FETCH_ATTRIBUTE_RE, BodyElementValueGenerator_FetchAttribute) )
 
 
-class BodyElementValueGenerator_NormalizeSpace(BodyElementValueGenerator):
-    '''
-        BodyElementValueGenerator_NormalizeSpace - Implement the 'normalize-space()' function
-    '''
-
-    def __init__(self, functionInner=None):
-
-        BodyElementValueGenerator.__init__(self)
-
-
-    def resolveValueFromTag(self, thisTag):
-
-        return BodyElementValue_String( thisTag.innerText.strip() )
-
-
-BEVG_NORMALIZE_SPACE_RE = re.compile(r'^([ \t]*[nN][oO][rR][mM][aA][lL][iI][zZ][eE][\-][sS][pP][aA][cC][eE][ \t]*[\(][ \t]*[\)][ \t]*)')
-VALUE_GENERATOR_RES.append( (BEVG_NORMALIZE_SPACE_RE, BodyElementValueGenerator_NormalizeSpace) )
-
-
 class BodyElementValueGenerator_Text(BodyElementValueGenerator):
     '''
         BodyElementValueGenerator_Text - Implement the 'text()' function
@@ -1265,6 +1246,81 @@ class BodyElementValueGenerator_Function_Contains(BodyElementValueGenerator_Func
 
 BEVG_FUNCTION_CONTAINS_RE = re.compile(r'''^([ \t]*[cC][oO][nN][tT][aA][iI][nN][sS][ \t]*[\(][ \t]*(?P<restOfBody>.+))$''')
 VALUE_GENERATOR_RES.append( (BEVG_FUNCTION_CONTAINS_RE, BodyElementValueGenerator_Function_Contains) )
+
+
+class BodyElementValueGenerator_Function_NormalizeSpace(BodyElementValueGenerator_Function):
+    '''
+        BodyElementValueGenerator_NormalizeSpace - Implement the 'normalize-space()' function
+    '''
+
+    # FUNCTION_MIN_ARGS - Class attribute for the minimum number of args lest there be a parsing error
+    FUNCTION_MIN_ARGS = 0
+
+    # FUNCTION_NAME_STR - Name of the function
+    FUNCTION_NAME_STR = 'normalize-space'
+
+
+    def __init__(self, fnArgElements=None):
+        '''
+            __init__ - Create this object
+        '''
+        BodyElementValueGenerator_Function.__init__(self, fnArgElements)
+
+        # Ensure we are given exactly two arguments
+        fnArgElements = self.fnArgElements
+        numArguments = len(fnArgElements)
+
+        if numArguments > 1:
+            raise XPathParseError('normalize-space function called with too many arguments (0 or 1 supported)')
+
+        if numArguments == 1:
+            self.getString = lambda _thisTag : self._getStringFromArgumentAndTag(0, _thisTag)
+        else:
+            self.getString = lambda _thisTag : _thisTag.innerText
+
+
+
+    def _getStringFromArgumentAndTag(self, argumentNum, thisTag):
+        '''
+            _getStringFromArgument - Get the string for the given argument and tag
+
+                @param argumentNum <int> - The argument index
+
+                @param thisTag <AdvancedTag> - The tag of reference
+
+
+                @return <str> - The string held by that value
+        '''
+        valueEm = self.fnArgElements[0].evaluateLevelForTag(thisTag)
+
+        if not issubclass(valueEm.__class__, (BodyElementValue_String, BodyElementValue_Null) ):
+            raise XPathRuntimeError('Got a value returned from within argument to normalize-text which was not string! It was: %s' %( valueEm.VALUE_TYPE, ))
+
+        value = str(valueEm.getValue())
+        return value
+
+    def resolveValueFromTag(self, thisTag):
+        '''
+            resolveValueFromTag - Test if one string occurs within the other, and return the boolean result
+
+
+                @param thisTag <AdvancedTag> - The tag of interest
+
+
+                @return <BodyElementValue_Boolean> - True if string1 contains string2, otherwise False
+
+
+                @see BodyElementValueGenerator_Function.resolveValueFromTag
+        '''
+
+        stringValue = self.getString(thisTag)
+        return BodyElementValue_String(stringValue.strip())
+
+
+BEVG_FUNCTION_NORMALIZE_SPACE_RE = re.compile(r'''^([ \t]*[nN][oO][rR][mM][aA][lL][iI][zZ][eE][\-][sS][pP][aA][cC][eE][ \t]*[\(][ \t]*(?P<restOfBody>.+))$''')
+VALUE_GENERATOR_RES.append( (BEVG_FUNCTION_NORMALIZE_SPACE_RE, BodyElementValueGenerator_Function_NormalizeSpace) )
+
+
 
 #############################
 ##        Operations       ##

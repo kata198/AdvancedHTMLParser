@@ -246,7 +246,7 @@ class TestXPath(object):
         '''
             test_xpathBooleanAnd - Test the "and" boolean operator
         '''
-        itemsThatAreTurtles = self.parser.getElementsByXPathExpression('''//*[ @name = "itemName" and normalize-space() = "Turtles"]/parent::div''')
+        itemsThatAreTurtles = self.parser.getElementsByXPathExpression('''//*[ normalize-space(@name) = "itemName" and normalize-space() = "Turtles"]/parent::div''')
 
         assert len(itemsThatAreTurtles) == 1 , 'Expected to find one turtle item, but got: %s' %(repr(itemsThatAreTurtles), )
 

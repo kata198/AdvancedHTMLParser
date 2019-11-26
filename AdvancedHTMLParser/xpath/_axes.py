@@ -46,7 +46,7 @@ TAG_OPERATION_AXES_TO_FIND_TAG_FUNC_GEN['self'] = lambda tagName : lambda prevTa
 def _mkRegexStrAllAxesPossibilities():
     '''
         _mkRegexStrAllAxesPossibilities - Make a regular expression string to match entire entities in our supported list
-            
+
           of axes, case insensitively.
 
 
