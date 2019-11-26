@@ -10,13 +10,15 @@
 '''
 # vim: set ts=4 sw=4 st=4 expandtab :
 
+import copy
+
 from ..Tags import TagCollection, AdvancedTag
 
 from ._debug import getXPathDebug
 from .exceptions import XPathParseError
 from .operation import XPathOperation
 from .parsing import parseXPathStrIntoOperations
-
+from ._cache import XPathExpressionCache
 
 __all__ = ('XPathExpression', )
 
@@ -35,7 +37,28 @@ class XPathExpression(object):
         '''
 
         self.xpathStr = xpathStr
-        self.orderedOperations = parseXPathStrIntoOperations(self.xpathStr)
+
+        # Check if we've recently compiled this string, and copy the compiled operations, if so.
+        wasCached = XPathExpressionCache.applyCachedExpressionIfAvailable( xpathStr, self )
+
+        if wasCached is False:
+            # No cached entity found, compile this string
+            self.orderedOperations = parseXPathStrIntoOperations(self.xpathStr)
+
+            # Save compiled expression in the expression cache
+            XPathExpressionCache.setCachedExpression( xpathStr, self )
+
+
+    def _copyOperationsFromXPathExpressionObj(self, otherXPathExpressionObj):
+        '''
+            _copyOperationsFromXPathExpressionObj - Copies the operations from another XPathExpression object onto this one.
+
+                This will clear the current set of operations on this object, replacing it with a copy from the provided object.
+
+
+                @param otherXPathExpressionObj <XPathExpression> - Another XPathExpression object
+        '''
+        self.orderedOperations = copy.copy( otherXPathExpressionObj.orderedOperations )
 
 
     def evaluate(self, pathRoot):

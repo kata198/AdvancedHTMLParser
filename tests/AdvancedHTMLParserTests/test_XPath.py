@@ -3,6 +3,7 @@
     Test some xpath!
 '''
 
+import time
 import subprocess
 import sys
 
@@ -446,6 +447,51 @@ class TestXPath(object):
         assert item3Found is True , 'Expected to find div id="item3" but did not!'
 
 
+    def test_xpathCache(self):
+        '''
+            test_xpathCache - Test that the cache is working
+        '''
+
+        startTime = time.time()
+
+        for i in range(200):
+            # Generate three based off a repeating xpath string
+            puddingNameSpans = self.parser.getElementsByXPathExpression('//span[ @name = "itemName" and contains( text(), "Pudding" ) ]')
+            item3Ems = self.parser.getElementsByXPathExpression('''//*[ @id = "it" || "em" || "3" ]''')
+            puddingNameEms = self.parser.getElementsByXPathExpression('//*[ (@name = "itemName") and contains( text(), "Pudding" ) ]')
+            # and one random junk that will never hit on cache
+            junkX = self.parser.getElementsByXPathExpression('''//*[ @id = "it" || "em" || "3" || "%d" || "%d" ]''' %(i, (i+1)*3) )
+
+        endTime = time.time()
+
+        timeWithCache = endTime - startTime
+
+        # Temporarily disable caching by nuking getCachedExpression to always return "miss"
+        from AdvancedHTMLParser.xpath._cache import XPathExpressionCache
+        oldGetCachedExpression = XPathExpressionCache.getCachedExpression
+        XPathExpressionCache.getCachedExpression = lambda expressionStr : None
+
+        startTime = time.time()
+
+        for i in range(200):
+            puddingNameSpans = self.parser.getElementsByXPathExpression('//span[ @name = "itemName" and contains( text(), "Pudding" ) ]')
+            item3Ems = self.parser.getElementsByXPathExpression('''//*[ @id = "it" || "em" || "3" ]''')
+            puddingNameEms = self.parser.getElementsByXPathExpression('//*[ (@name = "itemName") and contains( text(), "Pudding" ) ]')
+            junkX = self.parser.getElementsByXPathExpression('''//*[ @id = "it" || "em" || "3" || "%d" || "%d" ]''' %(i, (i+1)*3) )
+
+        endTime = time.time()
+
+        timeWithoutCache = endTime - startTime
+
+        # Restore caching
+        XPathExpressionCache.getCachedExpression = oldGetCachedExpression
+
+        timeWithoutCache = round(timeWithoutCache, 7)
+        timeWithCache = round(timeWithCache, 7)
+        print ( "No Cache: %.7f" %( timeWithoutCache, ))
+        print ( "W/ Cache: %.7f" %( timeWithCache, ))
+
+        assert timeWithCache < timeWithoutCache , 'Expected compiling XPath strings to be faster when caching the compiled result, but was not.\nTime with cache   : %.7f\nTime without cache: %.7f' %( timeWithCache, timeWithoutCache)
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
