@@ -2055,6 +2055,8 @@ def _parseBodyLevelGroup(restOfBody):
     curString = restOfBody[:].strip()
     ret = []
 
+    foundCloseParen = False
+
     while curString:
 
         gotMatch = False
@@ -2067,6 +2069,8 @@ def _parseBodyLevelGroup(restOfBody):
 
             newCurString = curString[ groupCloseMatch.span()[1] : ]
             curString = newCurString
+
+            foundCloseParen = True
 
             break
 
@@ -2101,6 +2105,9 @@ def _parseBodyLevelGroup(restOfBody):
 
         curString = newCurString
 
+    if foundCloseParen is False:
+
+        raise XPathParseError('Missing close parenthesis for section: "%s"' %(restOfBody, ))
 
 
     # Optimization: Before returning, run through and perform any operations against static values possible
@@ -2137,6 +2144,8 @@ def _parseFunctionArgsToBodyElements(restOfBody):
     fnArgs = []
     curGroupElements = []
 
+    foundCloseParen = False
+
     while curString:
 
         gotMatch = False
@@ -2149,6 +2158,8 @@ def _parseFunctionArgsToBodyElements(restOfBody):
 
             newCurString = curString[ groupCloseMatch.span()[1] : ]
             curString = newCurString
+
+            foundCloseParen = True
 
             break
 
@@ -2218,6 +2229,9 @@ def _parseFunctionArgsToBodyElements(restOfBody):
 
         curString = newCurString
 
+    if foundCloseParen is False:
+
+        raise XPathParseError('Missing close parenthesis for section: "%s"' %(restOfBody, ))
 
     if len(curGroupElements) > 0:
         # Optimize the group elements

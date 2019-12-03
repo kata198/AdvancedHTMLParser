@@ -10,6 +10,7 @@ import sys
 import AdvancedHTMLParser
 
 from AdvancedHTMLParser.xpath._body import parseBodyStringIntoBodyElements, BodyElementValue, BodyElementValue_Boolean
+from AdvancedHTMLParser.xpath.exceptions import XPathParseError
 
 class TestXPath(object):
     '''
@@ -492,6 +493,30 @@ class TestXPath(object):
         print ( "W/ Cache: %.7f" %( timeWithCache, ))
 
         assert timeWithCache < timeWithoutCache , 'Expected compiling XPath strings to be faster when caching the compiled result, but was not.\nTime with cache   : %.7f\nTime without cache: %.7f' %( timeWithCache, timeWithoutCache)
+
+
+    def test_xpathCatchMissingCloseParen(self):
+        '''
+            test_xpathCatchMissingCloseParen - Test that we properly catch missing close parenthesis
+        '''
+        try:
+            shouldWork = self.parser.getElementsByXPathExpression('//span[ (@name = ("itemName") ) ]')
+        except Exception as exc:
+            raise AssertionError('Expected normal parenthesis to parse correctly, but got exception: %s  %s' %( exc.__class__.__name__, str(exc) ))
+
+
+        didWork = True
+        theException = None
+        try:
+            shouldNotWork = self.parser.getElementsByXPathExpression('//span[ (@name = ("itemName"  ) ]')
+        except XPathParseError as exc2:
+            didWork = False
+            theException = exc2
+
+        assert didWork is False , 'Expected missing parenthesis to properly raise an XPathParseError exception, but it did not!'
+
+        assert 'Missing close' in str(theException) , 'Expected "Missing close" to be in the XPathParseError message for missing parenthesis, but it was not! Exception message was: %s' %(str(theException), )
+
 
 if __name__ == '__main__':
     sys.exit(subprocess.Popen('GoodTests.py -n1 "%s" %s' %(sys.argv[0], ' '.join(['"%s"' %(arg.replace('"', '\\"'), ) for arg in sys.argv[1:]]) ), shell=True).wait())
