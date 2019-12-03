@@ -1,4 +1,5 @@
 * 9.0.0 - ??? ?? ????
+* (8.9.9 - beta release 1)
 
 - XPath engine. See new function "getElementsByXPathExpression" on parser,
 tags, and tag collections.
