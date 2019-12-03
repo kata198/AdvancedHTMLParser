@@ -472,7 +472,7 @@ InvalidAttributeNameException - An attribute name was found that contained an in
 XPath
 -----
 
-**XPath support is still in Alpha phase.**
+**XPath support is in Beta phase.**
 
 
 Basic XPath support has been added, which supports searching, attribute matching, positions, indexes, some functions, most axes (such as parent::).
@@ -493,7 +493,12 @@ Find any div with attribute name="Cheese" , and return the second direct child w
 Find and return any tag which contains the inner text, normalized for whitespace, of "Banana"
 
 
-More will be added, soon.
+Find and return any tag under a div containing a class "purple-cheese"
+
+	//div/\*[ contains( concat( ' ', @class, ' ' ), 'purple\-cheese' ) ]
+
+
+More will be added. If you have a needed xpath feature not currently supported (you'll know by parse exception raised), please open an issue and I will make it a priority!
 
 
 IndexedAdvancedHTMLParser
