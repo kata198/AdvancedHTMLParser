@@ -334,6 +334,25 @@ Data and other attributes defined here:<br />
 
 </td></tr></table></p></td></tr></table><p >
 <table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
+<tr bgcolor="#eeaa77" >
+<td colspan="3" valign="bottom" >&nbsp;<br />
+<font color="#ffffff" face="helvetica, arial" ><big ><strong >Functions</strong></big></font></td></tr>
+    
+<tr ><td bgcolor="#eeaa77" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
+<td width="100%" ><dl ><dt ><a name="-ensureStringEncoded" ><strong >ensureStringEncoded</strong></a>(theString, encoding<font color="#909090" >='utf-8'</font>)</dt><dd ><tt >ensureStringEncoded&nbsp;-&nbsp;Ensure&nbsp;we&nbsp;have&nbsp;the&nbsp;encoded&nbsp;type&nbsp;for&nbsp;a&nbsp;given&nbsp;string<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;theString&nbsp;&lt;str/unicode/bytes&gt;&nbsp;-&nbsp;A&nbsp;string-like&nbsp;object<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;encoding&nbsp;&lt;str&gt;&nbsp;Default&nbsp;'utf-8'&nbsp;-&nbsp;The&nbsp;encoding&nbsp;to&nbsp;use<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOTE:&nbsp;If&nbsp;this&nbsp;string&nbsp;is&nbsp;already&nbsp;encoded,&nbsp;we&nbsp;do&nbsp;NOT&nbsp;ensure&nbsp;it&nbsp;is&nbsp;encoded&nbsp;in&nbsp;this&nbsp;type,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;type&nbsp;is&nbsp;only&nbsp;used&nbsp;when&nbsp;we&nbsp;have&nbsp;a&nbsp;decoded&nbsp;string,&nbsp;in&nbsp;order&nbsp;to&nbsp;encode&nbsp;it.<br />
+&nbsp;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;(python3)&lt;bytes&gt;&nbsp;/&nbsp;(python2)&lt;str&gt;&nbsp;-&nbsp;A&nbsp;string&nbsp;encoded&nbsp;in&nbsp;utf-8</tt></dd></dl>
+</td></tr></table><p >
+<table cellpadding="2" width="100%" border="0" cellspacing="0" summary="section" >
 <tr bgcolor="#55aa55" >
 <td colspan="3" valign="bottom" >&nbsp;<br />
 <font color="#ffffff" face="helvetica, arial" ><big ><strong >Data</strong></big></font></td></tr>
@@ -341,5 +360,5 @@ Data and other attributes defined here:<br />
 <tr ><td bgcolor="#55aa55" ><tt >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td >&nbsp;</td>
 <td width="100%" ><strong >ALL_STRING_TYPES</strong> = (&lt;type 'str'&gt;, &lt;type 'unicode'&gt;)<br />
 <strong >STRING_TYPES</strong> = (&lt;type 'str'&gt;, &lt;type 'unicode'&gt;)<br />
-<strong >__all__</strong> = ('STRING_TYPES', 'RAW_STRING_TYPE', 'ALL_STRING_TYPES')</td></tr></table>
-</p></p></p></body></html>
+<strong >__all__</strong> = ('STRING_TYPES', 'RAW_STRING_TYPE', 'ALL_STRING_TYPES', 'ensureStringEncoded')</td></tr></table>
+</p></p></p></p></body></html>
