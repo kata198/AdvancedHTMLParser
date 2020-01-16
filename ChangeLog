@@ -1,8 +1,11 @@
-* 9.0.0 - ??? ?? ????
+* 9.0.0 - Jan 16 2020
 * (8.9.9 - beta release 1)
 
 - XPath engine. See new function "getElementsByXPathExpression" on parser,
 tags, and tag collections.
+
+- Implement many XPath features, some less-used items are not yet implemented
+(will raise an exception if you try to use them)
 
 
 * 8.1.9 - ??? ?? ????
