@@ -1269,7 +1269,7 @@ class IndexedAdvancedHTMLParser(AdvancedHTMLParser):
         '''
         (root, isFromRoot) = self._handleRootArg(root)
 
-        if self.useIndex is True and self.indexIDs is True:
+        if useIndex is True and self.indexIDs is True:
 
             element = self._idMap.get(_id, None)
 
