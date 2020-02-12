@@ -42,7 +42,7 @@ if __name__ == '__main__':
         long_description = summary
 
     setup(name='AdvancedHTMLParser',
-            version='9.0.0',
+            version='9.0.1',
             packages=['AdvancedHTMLParser', 'AdvancedHTMLParser.xpath'],
             scripts=['formatHTML'],
             author='Tim Savannah',
