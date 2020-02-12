@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     setup(name='AdvancedHTMLParser',
             version='9.0.0',
-            packages=['AdvancedHTMLParser'],
+            packages=['AdvancedHTMLParser', 'AdvancedHTMLParser.xpath'],
             scripts=['formatHTML'],
             author='Tim Savannah',
             author_email='kata198@gmail.com',
