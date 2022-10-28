@@ -1,3 +1,7 @@
+* 9.0.2 - Oct 28 2022
+
+- Fix comparisons with a literal using `is`.
+
 * 9.0.1 - Feb 12 2020
 
 - Fix installation issue under some conditions
