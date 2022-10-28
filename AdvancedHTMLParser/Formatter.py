@@ -175,7 +175,7 @@ class AdvancedHTMLFormatter(HTMLParser):
         else:
             raise MultipleRootNodeException()
 
-        if self.inPreformatted is 0:
+        if self.inPreformatted == 0:
             newTag._indent = self._getIndent()
 
         if tagName in PREFORMATTED_TAGS:
@@ -406,7 +406,7 @@ def handle_starttag_slim(self, tagName, attributeList, isSelfClosing=False):
     else:
         raise MultipleRootNodeException()
 
-    if self.inPreformatted is 0:
+    if self.inPreformatted == 0:
         newTag._indent = self._getIndent()
 
     if tagName in PREFORMATTED_TAGS:
