@@ -1,5 +1,5 @@
 '''
-    Copyright (c) 2019 Timothy Savannah under terms of LGPLv3. All Rights Reserved.
+    Copyright (c) 2019, 2023 Timothy Savannah under terms of LGPLv3. All Rights Reserved.
 
     See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
 
@@ -127,8 +127,6 @@ class BodyLevel(BodyElement):
         '''
         for bodyElement in self.bodyElements:
             yield bodyElement
-
-        raise StopIteration()
 
 
     def evaluateLevelForTag(self, currentTag):
