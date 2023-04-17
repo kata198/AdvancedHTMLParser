@@ -253,9 +253,15 @@ class TestGeneral(object):
         assert issubclass(formEms.__class__, AdvancedHTMLParser.TagCollection) , 'Expected result of document.forms to be a TagCollection'
 
         try:
-            assert formEms.filter(id='form1').all() == [formEms[0]] , 'Expected filtering to work on TagCollection returned from document.forms'
+            import QueryableList
+            hasQueryableList = True
         except ImportError:
-            sys.stderr.write('WARNING: .filter is disabled via ImportError. QueryableList not installed?\n\n')
+            hasQueryableList = False
+            sys.stderr.write('WARNING: .filter is disabled via ImportError. Skipping related test. QueryableList not installed?\n\n')
+
+        if hasQueryableList:
+            assert formEms.filter(id='form1').all() == [formEms[0]] , 'Expected filtering to work on TagCollection returned from document.forms'
+
 
     def test_doctype(self):
         '''
