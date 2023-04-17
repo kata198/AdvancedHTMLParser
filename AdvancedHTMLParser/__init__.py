@@ -1,5 +1,5 @@
 '''
-    Copyright (c) 2015, 2016, 2017, 2018, 2019 Tim Savannah All Rights Rserved under LGPLv3. All Rights Reserved.
+    Copyright (c) 2015, 2016, 2017, 2018, 2019, 2023 Tim Savannah All Rights Rserved under LGPLv3. All Rights Reserved.
 
 
     See LICENSE (https://gnu.org/licenses/lgpl-3.0.txt) for more information.
@@ -18,9 +18,9 @@ from .Validator import ValidatingAdvancedHTMLParser
 from .exceptions import InvalidCloseException, MissedCloseException, HTMLValidationException, MultipleRootNodeException
 from .SpecialAttributes import StyleAttribute
 
-__version__ = '9.0.1'
-__version_tuple__ = ('9', '0', '1')
-__int_version_tuple__ = (9, 0, 1)
+__version__ = '9.0.2'
+__version_tuple__ = ('9', '0', '2')
+__int_version_tuple__ = (9, 0, 2)
 
 __all__ = ( 'AdvancedHTMLParser', 'IndexedAdvancedHTMLParser', 'AdvancedHTMLFormatter', 'AdvancedTag', 'TagCollection',
     'ValidatingAdvancedHTMLParser', 'MissedCloseException', 'InvalidCloseException', 'HTMLValidationException', 'MultipleRootNodeException',
