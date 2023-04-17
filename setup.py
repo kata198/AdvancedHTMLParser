@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-    Copyright (c) 2015, 2016, 2017, 2018, 2019 Timothy Savannah under terms of LGPLv3. All Rights Reserved.
+    Copyright (c) 2015, 2016, 2017, 2018, 2019, 2023 Timothy Savannah under terms of LGPLv3. All Rights Reserved.
 
 
     You should have received a copy of this with this distribution as "LICENSE"
@@ -67,6 +67,9 @@ if __name__ == '__main__':
                           'Programming Language :: Python :: 3.4',
                           'Programming Language :: Python :: 3.5',
                           'Programming Language :: Python :: 3.6',
+                          'Programming Language :: Python :: 3.7',
+                          'Programming Language :: Python :: 3.8',
+                          'Programming Language :: Python :: 3.9',
                           'Topic :: Internet :: WWW/HTTP',
                           'Topic :: Text Processing :: Markup :: HTML',
                           'Topic :: Software Development :: Libraries :: Python Modules',
