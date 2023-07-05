@@ -18,6 +18,12 @@ try:
     # imp.find_module has been deprecated as of python 3.7, so
     #   prefer some alternate/newer interfaces first.
     import importlib
+    try:
+        # Newer version of python (>3.6) no longer pulls .util with the base lib,
+        #  so try to fetch it explicitly if we can.
+        import importlib.util
+    except:
+        pass
 
     try:
         # If we have the newest and therefore least-deprecated
@@ -87,8 +93,8 @@ ALLOW_SITE_INSTALL = False
 # This is the test directory that should contain all your tests. This should be a directory in your "tests" folder
 MY_TEST_DIRECTORY = 'AdvancedHTMLParserTests'
 
-__version__ = '3.0.4'
-__version_tuple__ = (3, 0, 4)
+__version__ = '3.0.6'
+__version_tuple__ = (3, 0, 6)
 
 def findGoodTests():
     '''
